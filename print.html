@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Telegram Bots - .NET Client</title>
+        <title>Telegram Bots in .NET</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="1_overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -102,7 +102,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">Telegram Bots - .NET Client</h1> 
+                        <h1 class="menu-title">Telegram Bots in .NET</h1> 
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -136,8 +136,51 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#overview" id="overview"><h1>Overview</h1></a>
-<p>Hello World!</p>
+                        <a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
+<p><strong>Telegram.Bot</strong> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.</p>
+<p><a href="https://www.telegram.org"><img src="./docs/tg-logo.png" alt="Telegram Logo" /></a></p>
+<p>All the Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this guide covers all you need to create a chat bot in .NET and there are many concrete examples written in C#.</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://core.telegram.org/bots/api">Telegram Bot API</a></p>
+</div>
+<a class="header" href="#quickstart" id="quickstart"><h1>Quickstart</h1></a>
+<a class="header" href="#bot-father" id="bot-father"><h2>Bot Father</h2></a>
+<p>Before you start developing a bot, you need to talk to <a href="https://t.me/botfather">Bot Father <code>@botfather</code></a> on Telegram. Register a bot with him and get an access token. Access token is a secret key used to identify and authorize your bot in API requests. It looks like this:</p>
+<pre><code class="language-text">123456789:AAE5cvFhxQ9C7vFGElcpMTNrYrkl3OBFo45
+</code></pre>
+<p><img src="./docs/bot-father.jpg" alt="Bot Father" /></p>
+<a class="header" href="#hello-world" id="hello-world"><h2>Hello World</h2></a>
+<p>Now you have a bot, it's time to bring it to life! Create a new console project for your bot. It could be a .NET Core project or a .NET project targeting versions 4.5+.</p>
+<blockquote>
+<p>This guide uses .NET Core examples but full .NET framework projects work as well.</p>
+</blockquote>
+<pre><code class="language-bash">dotnet new console
+</code></pre>
+<p>Add a reference to <code>Telegram.Bot</code> package.</p>
+<pre><code class="language-bash">dotnet add package Telegram.Bot
+</code></pre>
+<p>Open <code>Program.cs</code> file and use the following content. Replace <code>YOUR_ACCESS_TOKEN_HERE</code> with the access token from Bot Father.</p>
+<pre><code class="language-c#">using System;
+using Telegram.Bot;
+
+namespace Awesome {
+  class Program {
+    static void Main() {
+      var botClient = new TelegramBotClient(&quot;YOUR_ACCESS_TOKEN_HERE&quot;);
+      var me = botClient.GetMeAsync().Result;
+      Console.WriteLine(
+        $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
+      );
+    }
+  }
+}
+</code></pre>
+<p>Running the program gives you the following output:</p>
+<pre><code class="language-bash">dotnet run
+</code></pre>
+<pre><code class="language-text">Hello, World! I am user 123456789 and my name is Awesome Bot.
+</code></pre>
 
                     </main>
 
