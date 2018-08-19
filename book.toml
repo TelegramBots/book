@@ -1,0 +1,5 @@
+[book]
+authors = ["Poulad Ashrafpour"]
+multilingual = false
+src = "src"
+title = "Telegram Bots - .NET Client"
