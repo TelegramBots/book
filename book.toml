@@ -1,5 +1,5 @@
 [book]
-authors = ["Poulad Ashrafpour"]
+authors = ["Poulad Ashrafpour", "Aleksey Usatov", "karb0f0s", "Miha Zupan"]
 multilingual = false
 src = "src"
 title = "Telegram Bots in .NET"
