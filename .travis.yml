@@ -1,0 +1,25 @@
+language: rust
+rust:
+  - nightly
+cache: cargo
+
+install:
+  - mdbook -V || cargo install mdbook --vers "^0.2.0"
+script:
+  - mdbook build && mdbook test
+
+deploy:
+  provider: pages
+  local-dir: book
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
+
+notifications:
+  email: false
+
+## Notes:
+### Limit concurrent jobs to only 1
+### Disable building PRs (might expose env vars)
