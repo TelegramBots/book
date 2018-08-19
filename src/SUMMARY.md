@@ -1,6 +1,8 @@
 # Summary
 - [Introduction](Introduction.md)
 - [FAQ](FAQ.md)
+- [Overview](./intro.md)
+- [Quickstart](./quickstart.md)
 - [Working behind a proxy](Working-Behind-a-Proxy.md)
 - [Authorization token](Authorization-Token.md)
 - [Sending messages](Sending-Messages.md)
