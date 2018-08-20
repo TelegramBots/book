@@ -1,9 +1,11 @@
 # Summary
-- [Introduction](Introduction.md)
-- [FAQ](FAQ.md)
-- [Overview](./intro.md)
+
+- [Introduction](./intro.md)
 - [Quickstart](./quickstart.md)
-- [Working behind a proxy](Working-Behind-a-Proxy.md)
+- [Working Behind a Proxy](proxy.md)
+
+<!-- - [Introduction](Introduction.md)
+- [FAQ](FAQ.md)
 - [Authorization token](Authorization-Token.md)
 - [Sending messages](Sending-Messages.md)
 - [Sending files](Sending-Files.md)
@@ -13,4 +15,4 @@
 - [Deploying your bot](Deploying-Your-Bot.md)
 - [Examples from test cases](Examples-from-Test-Cases.md)
 - [Integration tests](Integration-Tests.md)
-- [Login widget](Login-Widget.md)
+- [Login widget](Login-Widget.md) -->
