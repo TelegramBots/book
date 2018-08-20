@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Overview - Telegram Bots in .NET</title>
+        <title>Working behind a proxy - Telegram Bots in .NET</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="FAQ.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li><a href="intro.html" class="active"><strong aria-hidden="true">3.</strong> Overview</a></li><li><a href="quickstart.html"><strong aria-hidden="true">4.</strong> Quickstart</a></li><li><a href="Working-Behind-a-Proxy.html"><strong aria-hidden="true">5.</strong> Working behind a proxy</a></li><li><a href="Authorization-Token.html"><strong aria-hidden="true">6.</strong> Authorization token</a></li><li><a href="Sending-Messages.html"><strong aria-hidden="true">7.</strong> Sending messages</a></li><li><a href="Sending-Files.html"><strong aria-hidden="true">8.</strong> Sending files</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">9.</strong> Migration guide =&gt; v14</a></li><li><a href="Getting-Updates.html"><strong aria-hidden="true">10.</strong> Getting updates</a></li><li><a href="Example-Hello-Bot.html"><strong aria-hidden="true">11.</strong> Example 'hello' bot</a></li><li><a href="Deploying-Your-Bot.html"><strong aria-hidden="true">12.</strong> Deploying your bot</a></li><li><a href="Examples-from-Test-Cases.html"><strong aria-hidden="true">13.</strong> Examples from test cases</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">14.</strong> Integration tests</a></li><li><a href="Login-Widget.html"><strong aria-hidden="true">15.</strong> Login widget</a></li></ol>
+            <ol class="chapter"><li><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="FAQ.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li><a href="intro.html"><strong aria-hidden="true">3.</strong> Overview</a></li><li><a href="quickstart.html"><strong aria-hidden="true">4.</strong> Quickstart</a></li><li><a href="Working-Behind-a-Proxy.html" class="active"><strong aria-hidden="true">5.</strong> Working behind a proxy</a></li><li><a href="Authorization-Token.html"><strong aria-hidden="true">6.</strong> Authorization token</a></li><li><a href="Sending-Messages.html"><strong aria-hidden="true">7.</strong> Sending messages</a></li><li><a href="Sending-Files.html"><strong aria-hidden="true">8.</strong> Sending files</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">9.</strong> Migration guide =&gt; v14</a></li><li><a href="Getting-Updates.html"><strong aria-hidden="true">10.</strong> Getting updates</a></li><li><a href="Example-Hello-Bot.html"><strong aria-hidden="true">11.</strong> Example 'hello' bot</a></li><li><a href="Deploying-Your-Bot.html"><strong aria-hidden="true">12.</strong> Deploying your bot</a></li><li><a href="Examples-from-Test-Cases.html"><strong aria-hidden="true">13.</strong> Examples from test cases</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">14.</strong> Integration tests</a></li><li><a href="Login-Widget.html"><strong aria-hidden="true">15.</strong> Login widget</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,27 +136,85 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
-<p><strong>Telegram.Bot</strong> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.</p>
-<p><a href="https://www.telegram.org"><img src="./docs/tg-logo.png" alt="Telegram Logo" /></a></p>
-<p>All the Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this guide covers all you need to create a chat bot in .NET and there are many concrete examples written in C#.</p>
-<hr />
-<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://core.telegram.org/bots/api">Telegram Bot API</a></p>
-</div>
+                        <p>Note that some countries (namely Iran) are blocking http and socks proxies from connecting to Telegram.
+If you live in such a country, consider using a VPN, Tor or moving the hosting to another country/cloud.</p>
+<a class="header" href="#http-proxy" id="http-proxy"><h2>HTTP Proxy</h2></a>
+<p>The <code>TelegramBotClient</code> accepts an <code>IWebProxy</code> as a parameter in the constructor.</p>
+<p>To use an HTTP proxy, the <code>WebProxy</code> class if what you will want to use.</p>
+<pre><code class="language-csharp">using System.Net;
+
+WebProxy httpProxy = new WebProxy(address, port)
+{
+    // Credentials if needed
+    Credentials = new NetworkCredential(&quot;username&quot;, &quot;password&quot;)
+};
+
+TelegramBotClient Bot = new TelegramBotClient(&quot;API Token&quot;, httpProxy);
+</code></pre>
+<a class="header" href="#socks5-proxy" id="socks5-proxy"><h2>Socks5 Proxy</h2></a>
+<p>There is no direct support for socks proxies in the .NET Standard.</p>
+<p>You can use an external NuGet package: <a href="https://www.nuget.org/packages/HttpToSocks5Proxy/"><code>HttpToSocks5Proxy</code></a>.</p>
+<pre><code class="language-csharp">using MihaZupan;
+
+var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort);
+
+// Or if you need credentials for your proxy server:
+var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort, &quot;username&quot;, &quot;password&quot;);
+
+// Allows you to use proxies that are only allowing connections to Telegram
+// Needed for some proxies
+proxy.ResolveHostnamesLocally = true;
+
+TelegramBotClient Bot = new TelegramBotClient(&quot;API Token&quot;, proxy);
+</code></pre>
+<p>Example taken from <a href="https://github.com/MihaZupan/HttpToSocks5Proxy/blob/master/README.md#usage-with-telegrambot-library"><code>HttpToSocks5Proxy</code>'s readme</a>.</p>
+<a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor"><h2>Socks5 proxy over Tor</h2></a>
+<p><strong>Note: Do not use this in production as it has increased latency and abysmal bandwidth.</strong></p>
+<p><em>Using this method, you can avoid restrictions in some countries.
+It might be useful to developers for testing, before pushing new versions to hosting providers.</em></p>
+<ol>
+<li>Install <a href="https://www.torproject.org/">Tor Browser</a></li>
+<li>Open the <code>torcc</code> file with a text editor (Found in <code>Tor Browser\Browser\TorBrowser\Data\Tor</code>)</li>
+<li>Add the following lines:</li>
+</ol>
+<pre><code class="language-bash">EntryNodes {NL}
+ExitNodes {NL}
+StrictNodes 1
+SocksPort 127.0.0.1:9050
+</code></pre>
+<ol start="4">
+<li>Look at the <a href="#socks5-proxy">Socks5 proxy</a> example above.</li>
+<li>Start the Tor Browser</li>
+</ol>
+<p>Usage:</p>
+<pre><code class="language-csharp">using MihaZupan;
+Bot = new TelegramBotClient(&quot;API Token&quot;, new HttpToSocks5Proxy(&quot;127.0.0.1&quot;, 9050));
+</code></pre>
+<p><em>Note that Tor has to be active at all times for the bot to work</em></p>
+<blockquote>
+<p>What do those lines in <code>torcc</code> do?</p>
+</blockquote>
+<pre><code class="language-bash">EntryNodes {NL}
+ExitNodes {NL}
+StrictNodes 1
+</code></pre>
+<p>These three lines make sure you use nodes from the Netherlands as much as possible to reduce latency.</p>
+<p><code>SocksPort 127.0.0.1:9050</code></p>
+<p>This line tells tor to listen on port 9050 for any socks connections.
+You can change the port to anything you want (9050 is just the default), just make sure to use the same port in your code.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="FAQ.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="quickstart.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="quickstart.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="Authorization-Token.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -168,13 +226,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="FAQ.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="quickstart.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="quickstart.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="Authorization-Token.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

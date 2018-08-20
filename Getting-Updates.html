@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Overview - Telegram Bots in .NET</title>
+        <title>Getting updates - Telegram Bots in .NET</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="FAQ.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li><a href="intro.html" class="active"><strong aria-hidden="true">3.</strong> Overview</a></li><li><a href="quickstart.html"><strong aria-hidden="true">4.</strong> Quickstart</a></li><li><a href="Working-Behind-a-Proxy.html"><strong aria-hidden="true">5.</strong> Working behind a proxy</a></li><li><a href="Authorization-Token.html"><strong aria-hidden="true">6.</strong> Authorization token</a></li><li><a href="Sending-Messages.html"><strong aria-hidden="true">7.</strong> Sending messages</a></li><li><a href="Sending-Files.html"><strong aria-hidden="true">8.</strong> Sending files</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">9.</strong> Migration guide =&gt; v14</a></li><li><a href="Getting-Updates.html"><strong aria-hidden="true">10.</strong> Getting updates</a></li><li><a href="Example-Hello-Bot.html"><strong aria-hidden="true">11.</strong> Example 'hello' bot</a></li><li><a href="Deploying-Your-Bot.html"><strong aria-hidden="true">12.</strong> Deploying your bot</a></li><li><a href="Examples-from-Test-Cases.html"><strong aria-hidden="true">13.</strong> Examples from test cases</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">14.</strong> Integration tests</a></li><li><a href="Login-Widget.html"><strong aria-hidden="true">15.</strong> Login widget</a></li></ol>
+            <ol class="chapter"><li><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="FAQ.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li><a href="intro.html"><strong aria-hidden="true">3.</strong> Overview</a></li><li><a href="quickstart.html"><strong aria-hidden="true">4.</strong> Quickstart</a></li><li><a href="Working-Behind-a-Proxy.html"><strong aria-hidden="true">5.</strong> Working behind a proxy</a></li><li><a href="Authorization-Token.html"><strong aria-hidden="true">6.</strong> Authorization token</a></li><li><a href="Sending-Messages.html"><strong aria-hidden="true">7.</strong> Sending messages</a></li><li><a href="Sending-Files.html"><strong aria-hidden="true">8.</strong> Sending files</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">9.</strong> Migration guide =&gt; v14</a></li><li><a href="Getting-Updates.html" class="active"><strong aria-hidden="true">10.</strong> Getting updates</a></li><li><a href="Example-Hello-Bot.html"><strong aria-hidden="true">11.</strong> Example 'hello' bot</a></li><li><a href="Deploying-Your-Bot.html"><strong aria-hidden="true">12.</strong> Deploying your bot</a></li><li><a href="Examples-from-Test-Cases.html"><strong aria-hidden="true">13.</strong> Examples from test cases</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">14.</strong> Integration tests</a></li><li><a href="Login-Widget.html"><strong aria-hidden="true">15.</strong> Login widget</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,27 +136,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
-<p><strong>Telegram.Bot</strong> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.</p>
-<p><a href="https://www.telegram.org"><img src="./docs/tg-logo.png" alt="Telegram Logo" /></a></p>
-<p>All the Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this guide covers all you need to create a chat bot in .NET and there are many concrete examples written in C#.</p>
-<hr />
-<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://core.telegram.org/bots/api">Telegram Bot API</a></p>
-</div>
+                        <a class="header" href="#polling" id="polling"><h2>Polling</h2></a>
+<a class="header" href="#webhook" id="webhook"><h2>WebHook</h2></a>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="FAQ.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Migration-Guide-to-Version-14.x.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="quickstart.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="Example-Hello-Bot.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -168,13 +162,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="FAQ.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="Migration-Guide-to-Version-14.x.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="quickstart.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="Example-Hello-Bot.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
