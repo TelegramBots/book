@@ -25,6 +25,6 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 ## Uploading by URL
 
 ```csharp
-InputOnlineFile inputOnlineFile = new InputOnlineFile("https://telegram.org/img/t_logo.png");
+InputOnlineFile inputOnlineFile = new InputOnlineFile("telegram.org/img/t_logo.png");
 await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 ```
