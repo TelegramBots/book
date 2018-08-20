@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Migration guide =&gt; v14 - Telegram Bots in .NET</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Message</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Message</a></li></ol></li><li><a href="getting-updates.html"><strong aria-hidden="true">5.</strong> Getting updates</a></li><li><a href="inline/index.html"><strong aria-hidden="true">6.</strong> Inline Mode</a></li><li><a href="files/index.html"><strong aria-hidden="true">7.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">7.1.</strong> Upload</a></li><li><a href="files/download.html"><strong aria-hidden="true">7.2.</strong> Download</a></li></ol></li><li><a href="deployment/index.html"><strong aria-hidden="true">8.</strong> Deployment</a></li><li><ol class="section"><li><a href="deployment/long-polling.html"><strong aria-hidden="true">8.1.</strong> Long Polling</a></li><li><a href="deployment/webhook.html"><strong aria-hidden="true">8.2.</strong> Webhook</a></li></ol></li><li><a href="payments/index.html"><strong aria-hidden="true">9.</strong> Payments</a></li><li><a href="Login-Widget.html"><strong aria-hidden="true">10.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">11.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">12.</strong> Working Behind a Proxy</a></li><li><a href="Examples-from-Test-Cases.html"><strong aria-hidden="true">13.</strong> Examples from test cases</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">14.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html" class="active"><strong aria-hidden="true">15.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">16.</strong> FAQ</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Telegram Bots in .NET</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#date-and-time" id="date-and-time"><h2>Date and Time</h2></a>
+<p>All <code>DateTime</code> values are now in UTC format. Here are some examples of usage:</p>
+<pre><code class="language-csharp">// Use UTC time when making a request
+await BotClient.KickChatMemberAsync(
+  chatId: -9876,
+  userId: 1234,
+  untilDate: DateTime.UtcNow.AddDays(2)
+);
+</code></pre>
+<pre><code class="language-csharp">// Convert to local time (not recommended though)
+DateTime localTime = update.Message.Date.ToLocalTime();
+</code></pre>
+<a class="header" href="#keyboard-buttons" id="keyboard-buttons"><h2>Keyboard Buttons</h2></a>
+<p>Many keyboard button types are removed from project. It is more convenient to use factory methods on <code>KeyboardButton</code> and <code>InlineKeyboardButton</code> classes.</p>
+<p>Here are some examples:</p>
+<pre><code class="language-csharp">// Message having an inline keyboard button with URL that redirects to a page
+await BotClient.SendTextMessageAsync(
+  chatId: -9876,
+  text: &quot;Check out the source code&quot;,
+  replyMarkup: new InlineKeyboardMarkup(
+    InlineKeyboardButton.WithUrl(&quot;Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+  )
+);
+</code></pre>
+<pre><code class="language-csharp">// Message to a private chat having a 2-row reply keyboard
+await BotClient.SendTextMessageAsync(
+  chatId: 1234,
+  text: &quot;Share your contact &amp; location&quot;,
+  replyMarkup: new ReplyKeyboardMarkup(
+    new [] { KeyboardButton.WithRequestContact(&quot;Share Contact&quot;) },
+    new [] { KeyboardButton.WithRequestLocation(&quot;Share Location&quot;) },
+  )
+);
+</code></pre>
+<a class="header" href="#getfileasync" id="getfileasync"><h2><code>GetFileAsync()</code></h2></a>
+<p>Downloading a file from Telegram Bot API has 2 steps (<a href="https://core.telegram.org/bots/api#getfile">see docs here</a>):</p>
+<ol>
+<li>Get file info by calling <code>getFile</code></li>
+<li>Download file from <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;</code></li>
+</ol>
+<p><code>GetFileAsync()</code> is replaced by 3 methods. Method <code>GetInfoAndDownloadFileAsync()</code> looks very similar to old <code>GetFileAsync()</code>:</p>
+<pre><code class="language-csharp">// Gets file info and saves it to &quot;path/to/file.pdf&quot;
+using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
+{
+  File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+    fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
+    destination: fileStream
+  );
+}
+</code></pre>
+<blockquote>
+<p>Note that calling the method <code>GetInfoAndDownloadFileAsync()</code> results in 2 HTTP requests (steps 1 and 2 above) being sent to the Bot API.</p>
+</blockquote>
+<p>There are two more methods that assist you with downloading files:</p>
+<pre><code class="language-csharp">// New version of GetFileAsync() only gets the file info (step 1)
+File fileInfo = await BotClient.GetFileAsync(&quot;BsdfgLg4Khdlsn-bldBD&quot;);
+
+// Download file from server (step 2)
+using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) {
+  await BotClient.DownloadFileAsync(
+    filePath: fileInfo.FilePath,
+    destination: fileStream
+  );
+}
+</code></pre>
+<a class="header" href="#getupdatesasync-setwebhookasync" id="getupdatesasync-setwebhookasync"><h2><code>GetUpdatesAsync()</code>, <code>SetWebhookAsync()</code></h2></a>
+<p>Value <code>All</code> is removed from enum <code>Telegram.Bot.Types.Enums.UpdateType</code>. In order to get all kind of updates, pass an empty list such as <code>new UpdateType[0]</code> for <code>allowedUpdates</code> argument.</p>
+<a class="header" href="#setwebhookasync" id="setwebhookasync"><h2><code>SetWebhookAsync()</code></h2></a>
+<p>Parameter <code>url</code> is required. If you intend to remove the webhook, it is recommended to use <code>DeleteWebhookAsync()</code> instead. However, you could achieve the same result by passing <code>string.Empty</code> value to <code>url</code> argument.</p>
+<a class="header" href="#answerinlinequeryasync-and-inlinequeryresult" id="answerinlinequeryasync-and-inlinequeryresult"><h2><code>AnswerInlineQueryAsync()</code> and <code>InlineQueryResult</code></h2></a>
+<p>Classes <code>InlineQueryResultNew</code> and <code>InlineQueryResultCache</code> are removed. <code>InlineQueryResult</code> has become the only shared base type for all inline query result classes.</p>
+<p>Many shared and redundant properties are removed. This might require significant changes to your <code>.cs</code> files if your bot is in <em>inline mode</em>. Fortunately, all input query results now have constructors with only the required properties as their parameters. This is the preferred way to instantiate input query result instances e.g.:</p>
+<p>Instead of:</p>
+<pre><code class="language-csharp">// bad way. easy to get exceptions
+documentResult = new InlineQueryResultDocument
+{
+  Id = &quot;some-id&quot;,
+  Url = &quot;https://example.com/document.pdf&quot;,
+  Title = &quot;Some title&quot;,
+  MimeType = &quot;application/pdf&quot;
+};
+</code></pre>
+<p>You should use:</p>
+<pre><code class="language-csharp">// good way
+documentResult = new InlineQueryResultDocument(
+  id: &quot;some-id&quot;,
+  documentUrl: &quot;https://example.com/document.pdf&quot;,
+  title: &quot;Some title&quot;,
+  mimeType: &quot;application/pdf&quot;
+);
+</code></pre>
+<a class="header" href="#sendmediagroupasync" id="sendmediagroupasync"><h2><code>SendMediaGroupAsync()</code></h2></a>
+<p><code>InputMediaType</code> is renamed to <code>InputMedia</code>.</p>
+<blockquote>
+<p><em>ToDo</em></p>
+</blockquote>
+<a class="header" href="#inline-message-overloads" id="inline-message-overloads"><h2>Inline Message Overloads</h2></a>
+<p>Many inline message methods have been replaced with their overloads.</p>
+<ul>
+<li><code>EditInlineMessageTextAsync</code>--&gt; <code>EditMessageTextAsync</code></li>
+</ul>
+<blockquote>
+<p><em>ToDo</em></p>
+</blockquote>
+<a class="header" href="#filetosend" id="filetosend"><h2><code>FileToSend</code></h2></a>
+<p>New classes have replaced <code>FileToSend</code> struct.</p>
+<ul>
+<li><code>InputFileStream</code>:</li>
+<li><code>InputTelegramFile</code>:</li>
+<li><code>InputOnlineFile</code>:</li>
+</ul>
+<p>In many cases, you can use implicit casting to pass parameters.</p>
+<pre><code class="language-csharp">Stream stream = System.IO.File.OpenRead(&quot;photo.png&quot;);
+message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, stream);
+
+string fileId = &quot;file_id on Telegram servers&quot;;
+message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, fileId);
+</code></pre>
+<blockquote>
+<p><em>ToDo</em>. implicit casts</p>
+</blockquote>
+<a class="header" href="#updatetype-and-messagetype" id="updatetype-and-messagetype"><h2><code>UpdateType</code> and <code>MessageType</code></h2></a>
+<p>Values in these two enums are renamed e.g. <code>UpdateType.MessageUpdate</code> is now <code>UpdateType.Message</code>.</p>
+<p><code>MessageType.Service</code> is removed. Now each type of message has its own <code>MessageType</code> value e.g. when a chat member leaves a group, corresponding update contains a message type of <code>MessageType.ChatMemberLeft</code> value.</p>
+<a class="header" href="#videonote" id="videonote"><h2><code>VideoNote</code></h2></a>
+<p>Properties <code>Width</code> and <code>Height</code> are removed. Vide notes are squared and <code>Length</code> property represents both width and height.</p>
+<a class="header" href="#constructor-parameters-instead-of-public-setters" id="constructor-parameters-instead-of-public-setters"><h2>Constructor Parameters Instead of Public Setters</h2></a>
+<p>Many types now have the required parameters in their constructors. To avoid running into problems or getting exceptions, we recommend providing all required values in the constructor e.g.:</p>
+<pre><code class="language-c#">//bad way:
+markup = new InlineKeyboardMarkup {
+  Keyboard = buttonsArray,
+  ResizeKeyboard = true
+};
+
+// better:
+markup = new InlineKeyboardMarkup(buttonsArray) {
+  ResizeKeyboard = true
+};
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Integration-Tests.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="FAQ.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="Integration-Tests.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="FAQ.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
