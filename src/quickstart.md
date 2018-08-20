@@ -26,7 +26,9 @@ Add a reference to `Telegram.Bot` package.
 dotnet add package Telegram.Bot
 ```
 
-Open `Program.cs` file and use the following content. Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
+Open `Program.cs` file and use the following content. This code fetches Bot information based on its access token by calling [`getMe`] method on the Bot API.
+
+> Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
 
 ```c#
 using System;
@@ -54,3 +56,7 @@ dotnet run
 ```text
 Hello, World! I am user 123456789 and my name is Awesome Bot.
 ```
+
+Great! This bot is self-aware. To make the bot interact with user, head to the next page.
+
+[`getMe`]: https://core.telegram.org/bots/api#getme

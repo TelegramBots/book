@@ -1,81 +1,56 @@
 # Example
 
-**This guide assumes prior knowledge of the C# programming language.**
+In the quickstart guide, we got an access token and used [`getMe`] method to check our setup.
+It is time to make an _interactive_ bot that gets user's message and replies to that.
 
-Let's create a simple bot, that responds with "Hello" to any message it receives.
+![Example Image](docs/example-01.jpg)
 
-Operating such a bot is a two-step process:
-1. Wait for a message from a user
-2. Send a response
+Copy the following code to `Program.cs` file.
 
-Step one is what we call `Getting updates`, and is more thoroughly described [here](Getting-Updates.md).
+> Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
 
-### Let's get coding
+```c#
+using System;
+using Telegram.Bot;
+using Telegram.Bot.Args;
 
-We will be working with a Console project.
+namespace Awesome {
+  class Program {
+    static ITelegramBotClient botClient;
 
-First things first, reference the `Telegram.Bot` [NuGet package].
-
-And add some using statements:
-```csharp
-using Telegram.Bot;             // TelegramBotClient
-using Telegram.Bot.Args;        // MessageEventArgs
-using Telegram.Bot.Types;       // Message
-using Telegram.Bot.Types.Enums; // MessageType
-```
-
-Now let's create an instance of the `TelegramBotClient`, that we will be using.
-
-
-```csharp
-static readonly TelegramBotClient Bot = new TelegramBotClient("API Token");
-```
-
-The library provides a simple system for getting new updates as events.
-
-To use it, subscribe to the `OnMessage` event and create the callback method.
-We must also call `StartReceiving` to actually start the process.
-```csharp
-Bot.OnMessage += Bot_OnMessage;
-Bot.StartReceiving();
-```
-
-This method will be called any time a user sends the bot a message (be it text, images, video ...).
-
-The `MessageEventArgs` contain the `Message` object, that is important to us.
-We only want to respond when the user sends us text, so we'll check that the message is of type `Text`.
-```csharp
-private static async void Bot_OnMessage(object sender, MessageEventArgs e)
-{
-    Message message = e.Message;
-
-    if (message.Type == MessageType.Text)
-    {
-
+    static void Main() {
+      botClient = new TelegramBotClient("YOUR_ACCESS_TOKEN_HERE");
+      botClient.OnMessage += Bot_OnMessage;
+      botClient.StartReceiving();
+      while (true) Console.ReadKey(true);
     }
+
+    static async void Bot_OnMessage(object sender, MessageEventArgs e) {
+      if (e.Message.Text != null)
+      {
+        await botClient.SendTextMessageAsync(
+          chatId: e.Message.Chat,
+          text:   "You said:\n" + e.Message.Text
+        );
+      }
+    }
+  }
 }
 ```
-Note the `async` modifier. All methods in `TelegramBotClient` are async.
-To send a message we will use the `SendTextMessageAsync` method.
 
-The method accepts two main parameters: chat and text.
+When you run this program via `dotnet run`, it runs forever(until forcefully stopped) waiting for
+text messages. Open the chat with your bot in Telegram and send a text message to it. Bot should
+reply in no time.
 
-`Chat` is the id of the chat, that you want to send the message to.
-We will send it to the same chat we got the message from (`message.Chat`).
+We subscribe to `OnMessage` event on bot client to take action on messages that users send to the bot.
 
-The text will, of course, be "Hello".
-```csharp
-await Bot.SendTextMessageAsync(message.Chat, "Hello");
-```
+By invoking `StartReceiving()`, bot client starts fetching updates([`getUpdates`] method) for the bot
+from Telegram Servers. This is an asynchronous operation so an infinite loop is used right after that
+to keep the app running in this demo.
 
-### That is it!
+When user sends a message, `Bot_OnMessage()` is invoked with the message object in the event argument.
+We are expecting a text message so we check for `Message.Text` value. Finally, we send a text message
+back to the same chat that we received the message in.
 
-The entire code should now look something like [this][Code gist].
-
-Now all that is left is to start the bot up.
-
-You can do it on your computer if you want, but you should also take a look at [other deployment options](Deploying-Your-Bot.md).
-
-
-[NuGet package]: https://www.nuget.org/packages/Telegram.Bot/
-[Code gist]: https://gist.github.com/MihaZupan/c5076b06c5b73cbc3b0f71cc6e6b4709
+[`getMe`]: https://core.telegram.org/bots/api#getme
+[`getUpdates`]: https://core.telegram.org/bots/api#getupdates
