@@ -8,11 +8,11 @@ All the test output goes into the supergroup/private chats specified in configur
 
 Admin bots can change chat photo.
 
-![Test Case: Set Chat Photo](https://raw.githubusercontent.com/TelegramBots/telegram.bot/develop/docs/wikis/tests/images/testcase-chatphoto.jpg)
+![Test Case: Set Chat Photo](docs/testcase-chatphoto.jpg)
 
 Invoices could be paid in private chats.
 
-![Test Case: Set Chat Photo](https://raw.githubusercontent.com/TelegramBots/telegram.bot/develop/docs/wikis/tests/images/testcase-payment.jpg)
+![Test Case: Set Chat Photo](docs/testcase-payment.jpg)
 
 ## How Tests Works
 
