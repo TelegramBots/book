@@ -51,12 +51,13 @@ It might be useful to developers for testing, before pushing new versions to hos
 1. Install [Tor Browser]
 2. Open the `torcc` file with a text editor (Found in `Tor Browser\Browser\TorBrowser\Data\Tor`)
 3. Add the following lines:
-```
+```bash
 EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
 SocksPort 127.0.0.1:9050
 ```
+
 4. Look at the [Socks5 proxy](#socks5-proxy) example above.
 5. Start the Tor Browser
 
@@ -69,8 +70,8 @@ Bot = new TelegramBotClient("API Token", new HttpToSocks5Proxy("127.0.0.1", 9050
 *Note that Tor has to be active at all times for the bot to work*
 
 
-##### What do those lines in `torcc` do?
-```
+> What do those lines in `torcc` do?
+```bash
 EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1

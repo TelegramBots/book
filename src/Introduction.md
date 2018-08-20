@@ -36,7 +36,7 @@ There are two main things this class will help you with:
 
 ### Example
 
-Take a look at the [[Example Hello Bot|Example-Hello-Bot]], that goes over the basics of making a bot.
+Take a look at the [Example Hello Bot](Example-Hello-Bot.md), that goes over the basics of making a bot.
 
 You might also find an example [echo bot] helpful.
 
