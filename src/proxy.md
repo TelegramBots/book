@@ -58,7 +58,7 @@ before a production release.
 1. Install [Tor Browser]
 2. Open the `torcc` file with a text editor (Found in `Tor Browser\Browser\TorBrowser\Data\Tor`)
 3. Add the following lines: (configurations are described below)
-    ```text
+    ```bash
     EntryNodes {NL}
     ExitNodes {NL}
     StrictNodes 1
@@ -82,7 +82,7 @@ var botClient = new TelegramBotClient(
 
 ### Configurations in `torcc`
 
-```text
+```bash
 EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
