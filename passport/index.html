@@ -144,6 +144,92 @@
 <li><a href="https://core.telegram.org/passport">Passport manual</a></li>
 <li><a href="https://core.telegram.org/bots/api#telegram-passport">Passport API docs</a></li>
 </ul>
+<a class="header" href="#overview" id="overview"><h3>Overview</h3></a>
+<p>A description of the entire Passport process, after the initial setup, is as follows:</p>
+<blockquote>
+<p><strong><code>Service</code></strong> referes to the organization, servers, websites, applications, connected to the bot</p>
+<p><strong><code>User</code></strong> referes to a human (or AI), that wants to login/get verified on a website/application belonging to a <code>service</code></p>
+<p><strong><code>Client</code></strong> refers to the software running on a user's device (e.g. Telegram Android app)</p>
+</blockquote>
+<ol>
+<li>The service (website or application) creates a <a href="https://core.telegram.org/passport#sdk">passport request</a>
+<ul>
+<li>This request contains bot's ID, public key, <a href="https://core.telegram.org/passport#request-parameters">unique payload</a> and selected <a href="https://core.telegram.org/passport#fields">scopes</a></li>
+<li>A request also contains a callback (url, Android intent) - see <a href="https://core.telegram.org/passport#sdk">SDK</a></li>
+</ul>
+</li>
+<li>A user clicks on the <code>Log in With Telegram</code> button, which opens their Telegram client
+<ul>
+<li>At this point, the client verifies that the public key in the request is connected to the bot</li>
+</ul>
+</li>
+<li>The client will prompt the user to enter their cloud password
+<ul>
+<li>The client fetches encrypted passport data from the server and decrypts it with this password.
+This lets the client pre-fill the required fields, if the user has already used Telegram Passport in the past</li>
+<li>You should use a good password here, since it is the only thing protecting your documents in case of a data-breach on Telegram's side</li>
+</ul>
+</li>
+<li>The user modifies/adds data fields on the passport authorization screen
+<ul>
+<li>At this point, the user can visit the service's privacy policy site</li>
+<li>Data added/modified at this point is synced with Telegram's servers for later use</li>
+<li>If a field is a phone number, Telegram sends the user an SMS to verify the number
+(the service can therefore trust that the received phone number is valid and belongs to the user)</li>
+</ul>
+</li>
+<li>The user either submits the passport response, or terminates the request
+<ul>
+<li>If a user <strong>terminates</strong> the request, the callback is invoked, notifying the service of a failed request.
+<em>The process is done here</em></li>
+<li>If a user <strong>submits</strong> the response, the process continues in step 6</li>
+</ul>
+</li>
+<li>The client encrypts the response and sends it to Telegram
+<ul>
+<li>The data is encrypted using AES, using different keys for every field
+<ul>
+<li>The encrypted data fields are <a href="https://core.telegram.org/bots/api#encryptedpassportelement"><code>EncryptedPassportElement</code></a> objects</li>
+</ul>
+</li>
+<li>The keys from the previous step are encrypted in an extra layer of AES
+<ul>
+<li>These are the <a href="https://core.telegram.org/passport#datacredentials"><code>DataCredentials</code></a> and <a href="https://core.telegram.org/passport#filecredentials"><code>FileCredentials</code></a> objects</li>
+</ul>
+</li>
+<li>The encrypted keys are then encrypted using the public RSA key in the request
+<ul>
+<li>This is the <a href="https://core.telegram.org/bots/api#encryptedcredentials"><code>EncryptedCredentials</code></a> object</li>
+</ul>
+</li>
+<li>The client now sends the encrypted data fields and the RSA-encrypted keys to Telegram
+<ul>
+<li>This is the final <a href="https://core.telegram.org/bots/api#passportdata"><code>PassportData</code></a> object</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The client invokes the callback, notifying the service of a successful request</li>
+<li>The bot receives a Message Update, with the <a href="https://core.telegram.org/bots/api#passportdata"><code>Message.Passport</code></a> field set
+<ul>
+<li>The serivce decrypts the passport data</li>
+<li>Checks that the payload field matches the payload used in the request</li>
+<li>Performs whatever verification of the received data it needs</li>
+</ul>
+</li>
+<li>If the service decides that fields are invalid (e.g. invalid document number)
+or that the images are not good enough (e.g. the selfie is blurry, or the driver's licence photo is a troll face),
+it notifies Telegram of <a href="https://core.telegram.org/passport#fixing-errors">Errors</a> via the <a href="https://core.telegram.org/bots/api#setpassportdataerrors"><code>SetPassportDataErrors</code></a> method, specifying which fields should be fixed
+<ul>
+<li>The user will not be able to submit the response again, until the specified fields are modified</li>
+<li>The user will be prompted to fix the response only after he/she/it presses the 'login' button again</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Only the user and the service ever see the actual data.</p>
+<p>Telegram servers only store and relay encrypted data, but can not decrypt it.</p>
+</blockquote>
 <a class="header" href="#generating-an-rsa-key-pair" id="generating-an-rsa-key-pair"><h3>Generating an RSA key pair</h3></a>
 <p>Before you can start, you have to generate your own RSA key pair.
 Using openssl this can be done like so:</p>
