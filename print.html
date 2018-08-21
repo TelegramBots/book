@@ -373,7 +373,7 @@ This lets the client pre-fill the required fields, if the user has already used 
 <li>This is the <a href="https://core.telegram.org/bots/api#encryptedcredentials"><code>EncryptedCredentials</code></a> object</li>
 </ul>
 </li>
-<li>The client now sends the encrypted data fields and the RSA-encrypted keys to Telegram
+<li>The client now sends the encrypted data fields and the RSA-encrypted credentials to Telegram
 <ul>
 <li>This is the final <a href="https://core.telegram.org/bots/api#passportdata"><code>PassportData</code></a> object</li>
 </ul>
@@ -383,7 +383,7 @@ This lets the client pre-fill the required fields, if the user has already used 
 <li>The client invokes the callback, notifying the service of a successful request</li>
 <li>The bot receives a Message Update, with the <a href="https://core.telegram.org/bots/api#passportdata"><code>Message.Passport</code></a> field set
 <ul>
-<li>The serivce decrypts the passport data</li>
+<li>The service decrypts the passport data</li>
 <li>Checks that the payload field matches the payload used in the request</li>
 <li>Performs whatever verification of the received data it needs</li>
 </ul>
