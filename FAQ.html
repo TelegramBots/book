@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Example - Telegram Bots in .NET</title>
+        <title>FAQ - Telegram Bots in .NET</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html" class="active"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Messages</a></li></ol></li><li><a href="files/index.html"><strong aria-hidden="true">5.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">5.1.</strong> Upload</a></li></ol></li><li><a href="Login-Widget.html"><strong aria-hidden="true">6.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">7.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">8.</strong> HTTP/SOCKS5 Proxy</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">9.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">10.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Messages</a></li></ol></li><li><a href="files/index.html"><strong aria-hidden="true">5.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">5.1.</strong> Upload</a></li></ol></li><li><a href="Login-Widget.html"><strong aria-hidden="true">6.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">7.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">8.</strong> HTTP/SOCKS5 Proxy</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">9.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">10.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html" class="active"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,72 +136,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#example" id="example"><h1>Example</h1></a>
-<p>On the previous page, we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
-Now, it is time to make an <em>interactive</em> bot that gets users' messages and replies to them like in this screenshot:</p>
-<p><img src="docs/shot-example_bot.jpg" alt="Example Image" /></p>
-<p>Copy the following code to <code>Program.cs</code>.</p>
-<blockquote>
-<p>Replace <code>YOUR_ACCESS_TOKEN_HERE</code> with the access token from Bot Father.</p>
-</blockquote>
-<pre><code class="language-c#">using System;
-using System.Threading;
-using Telegram.Bot;
-using Telegram.Bot.Args;
-
-namespace Awesome {
-  class Program {
-    static ITelegramBotClient botClient;
-
-    static void Main() {
-      botClient = new TelegramBotClient(&quot;YOUR_ACCESS_TOKEN_HERE&quot;);
-
-      var me = botClient.GetMeAsync().Result;
-      Console.WriteLine(
-        $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
-      );
-
-      botClient.OnMessage += Bot_OnMessage;
-      botClient.StartReceiving();
-      Thread.Sleep(999000);
-    }
-
-    static async void Bot_OnMessage(object sender, MessageEventArgs e) {
-      if (e.Message.Text != null)
-      {
-        await botClient.SendTextMessageAsync(
-          chatId: e.Message.Chat,
-          text:   &quot;You said:\n&quot; + e.Message.Text
-        );
-      }
-    }
-  }
-}
-</code></pre>
-<p>When you run this program via <code>dotnet run</code>, it runs forever (until forcefully stopped) waiting for
-text messages. Open the chat with your bot in Telegram and send him a text message -
-you should get a reply in no time.</p>
-<p>We subscribe to the <code>OnMessage</code> event on bot client to take action on messages that users send to the bot.</p>
-<p>By invoking <code>StartReceiving()</code>, bot client starts fetching updates(<a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method) for the bot
-from Telegram Servers. This is an asynchronous operation, so we use <code>Thread.Sleep()</code> to keep the app running for a while.</p>
-<p>When a user sends a message, <code>Bot_OnMessage()</code> gets invoked with the message object in the event argument.
-We are expecting a text message so we check for <code>Message.Text</code> value.
-Finally, we send a text message back to the same chat we got the message from.</p>
+                        <a class="header" href="#how-do-i-use-an-httpsocks-proxy" id="how-do-i-use-an-httpsocks-proxy"><h3>How do I use an HTTP/Socks proxy?</h3></a>
+<p>Look at the wiki page: <a href="proxy.html">Working Behind a Proxy</a>.</p>
+<a class="header" href="#i-got-a-409-error-what-do-i-do" id="i-got-a-409-error-what-do-i-do"><h3>I got a '409' error. What do I do?</h3></a>
+<p>You are trying to receive updates multiple times at the same time. Either you are calling GetUpdates from two instances of the bot, or you are calling GetUpdates while a web hook is already set. That is not supported by the API, only receive on one instance.</p>
+<a class="header" href="#how-do-i-get-the-user-id-from-a-username" id="how-do-i-get-the-user-id-from-a-username"><h3>How do I get the user id from a username?</h3></a>
+<p>There is no way to do that with the API directly.
+You could store a list of known usernames, mapped to ids.
+This is <em>not</em> recommended, because usernames can be changed.</p>
+<a class="header" href="#how-to-i-get-updates-in-channels" id="how-to-i-get-updates-in-channels"><h3>How to I get updates in channels?</h3></a>
+<p>If you are using polling, you will have to subscribe to the <code>OnUpdate</code> event.
+Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>UpdateType.ChannelPost</code> then the <code>Update.ChannelPost</code> property will be set.</p>
+<a class="header" href="#this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork" id="this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork"><h3>This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?</h3></a>
+<p>Check the <a href="https://core.telegram.org/bots/faq"><code>Bots FAQ by Telegram</code></a> and if that doesn't pan out, feel free to let us know in the <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">public group chat</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="quickstart.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Migration-Guide-to-Version-14.x.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="send-msg/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -211,15 +169,11 @@ Finally, we send a text message back to the same chat we got the message from.</
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="quickstart.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="Migration-Guide-to-Version-14.x.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a href="send-msg/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 

@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Message</a></li></ol></li><li><a href="proxy.html" class="active"><strong aria-hidden="true">5.</strong> HTTP/SOCKS5 Proxy</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Messages</a></li></ol></li><li><a href="files/index.html"><strong aria-hidden="true">5.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">5.1.</strong> Upload</a></li></ol></li><li><a href="Login-Widget.html"><strong aria-hidden="true">6.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">7.</strong> Passport</a></li><li><a href="proxy.html" class="active"><strong aria-hidden="true">8.</strong> HTTP/SOCKS5 Proxy</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">9.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">10.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -137,7 +137,7 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy"><h1>Working Behind a Proxy</h1></a>
-<p>Telegram bot client allows you to use a proxy for Bot API connections. There are 3 solutions offered in this guide:</p>
+<p><code>TelegramBotClient</code> allows you to use a proxy for Bot API connections. This guide covers using three different proxy solutions.</p>
 <ul>
 <li><a href="#http-proxy">HTTP Proxy</a></li>
 <li><a href="#socks5-proxy">SOCKS5 Proxy</a></li>
@@ -148,7 +148,7 @@
 <p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
 <a class="header" href="#http-proxy" id="http-proxy"><h2>HTTP Proxy</h2></a>
-<p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxy.</p>
+<p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxies.</p>
 <pre><code class="language-csharp">// using System.Net;
 
 var httpProxy = new WebProxy(address: &quot;https://example.org&quot;, port: 8080) {
@@ -175,19 +175,18 @@ proxy.ResolveHostnamesLocally = true;
 
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, proxy);
 </code></pre>
-<p>You can see other usages of this package at <a href="https://github.com/MihaZupan/HttpToSocks5Proxy/blob/master/README.md#usage-with-telegrambot-library"><code>HttpToSocks5Proxy</code>'s readme</a>.</p>
 <a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor"><h2>SOCKS5 Proxy over Tor</h2></a>
 <p><strong>Warning: Use for Testing only!</strong></p>
 <blockquote>
-<p>Do not use this method in a production deployment as it has high network latency and poor bandwidth.</p>
+<p>Do not use this method in a production environment as it has high network latency and poor bandwidth.</p>
 </blockquote>
-<p>Using proxy with Tor, a developer can avoid network restrictions while debugging and testing the code
+<p>Using Tor, a developer can avoid network restrictions while debugging and testing the code
 before a production release.</p>
 <ol>
 <li>Install <a href="https://www.torproject.org/">Tor Browser</a></li>
 <li>Open the <code>torcc</code> file with a text editor (Found in <code>Tor Browser\Browser\TorBrowser\Data\Tor</code>)</li>
 <li>Add the following lines: (configurations are described below)
-<pre><code class="language-bash">EntryNodes {NL}
+<pre><code class="language-text">EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
 SocksPort 127.0.0.1:9050
@@ -208,25 +207,29 @@ var botClient = new TelegramBotClient(
 <p>Note that Tor has to be active at all times for the bot to work.</p>
 </blockquote>
 <a class="header" href="#configurations-in-torcc" id="configurations-in-torcc"><h3>Configurations in <code>torcc</code></h3></a>
-<pre><code class="language-bash">EntryNodes {NL}
+<pre><code class="language-text">EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
 </code></pre>
 <p>These three lines make sure you use nodes from the Netherlands as much as possible to reduce latency.</p>
 <p><code>SocksPort 127.0.0.1:9050</code></p>
 <p>This line tells tor to listen on port 9050 for any socks connections.
-You can change the port to anything you want (9050 is just the default), just make sure to use the same port in your code.</p>
+You can change the port to anything you want (9050 is just the default), only make sure to use the same port in your code.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="send-msg/multimedia-msg.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="passport/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
+                        
+                            <a rel="next" href="Integration-Tests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -236,11 +239,15 @@ You can change the port to anything you want (9050 is just the default), just ma
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="send-msg/multimedia-msg.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="passport/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
+                
+                    <a href="Integration-Tests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
