@@ -43,11 +43,11 @@ A description of the entire Passport process, after the initial setup, is as fol
       * These are the [`DataCredentials`] and [`FileCredentials`] objects
     * The encrypted keys are then encrypted using the public RSA key in the request
       * This is the [`EncryptedCredentials`] object
-    * The client now sends the encrypted data fields and the RSA-encrypted keys to Telegram
+    * The client now sends the encrypted data fields and the RSA-encrypted credentials to Telegram
       * This is the final [`PassportData`][`Message.Passport`] object
 7. The client invokes the callback, notifying the service of a successful request
 8. The bot receives a Message Update, with the [`Message.Passport`] field set
-   * The serivce decrypts the passport data
+   * The service decrypts the passport data
    * Checks that the payload field matches the payload used in the request
    * Performs whatever verification of the received data it needs
 9. If the service decides that fields are invalid (e.g. invalid document number)
