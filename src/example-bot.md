@@ -1,7 +1,7 @@
 # Example
 
-In the quickstart guide, we got an access token and used the [`getMe`] method to check our setup.
-It is time to make an _interactive_ bot that gets users' messages and replies to them.
+On the previous page, we got an access token and used the [`getMe`] method to check our setup.
+Now, it is time to make an _interactive_ bot that gets users' messages and replies to them like in this screenshot:
 
 ![Example Image](docs/example-01.jpg)
 
