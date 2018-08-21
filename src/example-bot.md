@@ -1,4 +1,4 @@
-# Example
+# Example - First Chat Bot
 
 On previous page, we got an access token and used [`getMe`] method to check our setup.
 Now, it is time to make an _interactive_ bot that gets user's messages and replies to them like in this screenshot:
@@ -35,6 +35,8 @@ namespace Awesome {
     static async void Bot_OnMessage(object sender, MessageEventArgs e) {
       if (e.Message.Text != null)
       {
+        Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
+
         await botClient.SendTextMessageAsync(
           chatId: e.Message.Chat,
           text:   "You said:\n" + e.Message.Text
@@ -45,19 +47,32 @@ namespace Awesome {
 }
 ```
 
-When you run this program via `dotnet run`, it runs forever(until forcefully stopped) waiting for
-text messages. Open the chat with your bot in Telegram and send a text message to it. Bot should
-reply in no time.
+Run the program.
 
-We subscribe to `OnMessage` event on bot client to take action on messages that users send to the bot.
+```bash
+dotnet run
+```
 
-By invoking `StartReceiving()`, bot client starts fetching updates([`getUpdates`] method) for the bot
+It runs for a long time unless forcefully stopped, waiting for text messages. Open a private chat with your bot in
+Telegram and send a text message to it. Bot should reply in no time.
+
+In the code above, we subscribe to `OnMessage` event on bot client to take action on messages that users send to
+the bot.
+
+By invoking `StartReceiving()`, bot client starts fetching updates using [`getUpdates`] method for the bot
 from Telegram Servers. This is an asynchronous operation so `Thread.Sleep()` is used right after that
 to keep the app running for a while in this demo.
 
 When user sends a message, `Bot_OnMessage()` is invoked with the message object in the event argument.
 We are expecting a text message so we check for `Message.Text` value. Finally, we send a text message
 back to the same chat that we received the message in.
+
+If you take a look at console, program outputs the `chatId` value. **Copy chat id number** to make testing easier
+for yourself in next pages.
+
+```text
+Received a text message in chat 123456789.
+```
 
 [`getMe`]: https://core.telegram.org/bots/api#getme
 [`getUpdates`]: https://core.telegram.org/bots/api#getupdates

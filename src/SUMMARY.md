@@ -4,11 +4,12 @@
 - [Quickstart](quickstart.md)
 - [Example](example-bot.md)
 - [Sending Messages](send-msg/README.md)
-  - [Text Messages](send-msg/text-msg.md)
+  - [Text Messages and More](send-msg/text-msg.md)
   - [Multimedia Message](send-msg/multimedia-msg.md)
 - [HTTP/SOCKS5 Proxy](proxy.md)
 
 <!-- - [Getting updates](getting-updates.md) -->
+<!-- - [Reply Markup](reply-markup.md) -->
 <!-- - [Inline Mode](inline/README.md) -->
 <!-- - [Working with Files](files/README.md) -->
   <!-- - [Upload](files/upload.md) -->
