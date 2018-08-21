@@ -139,22 +139,22 @@
                         <a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
 <p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have a
 consistent look. Take a look at these examples:</p>
-<p>Text message:</p>
+<p><strong>Text message</strong>:</p>
 <pre><code class="language-c#">await botClient.SendTextMessageAsync(
-    chatId: e.Message.Chat,
-    text:   &quot;Hello, World!&quot;
+  chatId: e.Message.Chat,
+  text:   &quot;Hello, World!&quot;
 );
 </code></pre>
-<p>Sticker message:</p>
+<p><strong>Sticker message</strong>:</p>
 <pre><code class="language-c#">await botClient.SendStickerAsync(
-    chatId:  e.Message.Chat,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
+  chatId:  e.Message.Chat,
+  sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
 );
 </code></pre>
-<p>Video Note message:</p>
-<pre><code class="language-c#">await botClient.SendStickerAsync(
-    chatId:  e.Message.Chat,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
+<p><strong>Video Note message</strong>:</p>
+<pre><code class="language-c#">await botClient.SendVideoNoteAsync(
+  chatId:  e.Message.Chat,
+  videoNote: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-hawk.mp4&quot;
 );
 </code></pre>
 
