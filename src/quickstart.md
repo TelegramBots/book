@@ -2,13 +2,18 @@
 
 ## Bot Father
 
-Before you start developing a bot, you need to talk to [Bot Father `@botfather`](https://t.me/botfather) on Telegram. Register a bot with him and get an access token. Access token is a secret key used to identify and authorize your bot in API requests. It looks like this:
+Before you start developing a bot, you need to talk to [`@BotFather`](https://t.me/botfather) on Telegram. Register a
+bot with him and get an access token.
+
+[![Bot Father](./docs/bot-father.jpg)](https://t.me/botfather)
+
+Access token is a key used to identify and authorize your bot in API
+requests so keep it with yourself as a secret. It looks like this:
 
 ```text
 123456789:AAE5cvFhxQ9C7vFGElcpMTNrYrkl3OBFo45
 ```
 
-![Bot Father](./docs/bot-father.jpg)
 
 ## Hello World
 
