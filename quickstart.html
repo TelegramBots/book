@@ -152,7 +152,10 @@
 <p>Add a reference to <code>Telegram.Bot</code> package.</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot
 </code></pre>
-<p>Open <code>Program.cs</code> file and use the following content. Replace <code>YOUR_ACCESS_TOKEN_HERE</code> with the access token from Bot Father.</p>
+<p>Open <code>Program.cs</code> file and use the following content. This code fetches Bot information based on its access token by calling <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method on the Bot API.</p>
+<blockquote>
+<p>Replace <code>YOUR_ACCESS_TOKEN_HERE</code> with the access token from Bot Father.</p>
+</blockquote>
 <pre><code class="language-c#">using System;
 using Telegram.Bot;
 
@@ -173,6 +176,7 @@ namespace Awesome {
 </code></pre>
 <pre><code class="language-text">Hello, World! I am user 123456789 and my name is Awesome Bot.
 </code></pre>
+<p>Great! This bot is self-aware. To make the bot interact with user, head to the next page.</p>
 
                     </main>
 
