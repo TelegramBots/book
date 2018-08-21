@@ -9,13 +9,13 @@ There is no way to do that with the API directly.
 You could store a list of known usernames, mapped to ids.
 This is *not* recommended, because usernames can be changed.
 
-### I am not receiving updates from channels.
+### How to I get updates in channels?
 If you are using polling, you will have to subscribe to the `OnUpdate` event.
 Check the `UpdateType` of the `Update`. If it is `UpdateType.ChannelPost` then the `Update.ChannelPost` property will be set.
 
 ### This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?
-Feel free to let us know in the [public group chat].
+Check the [`Bots FAQ by Telegram`] and if that doesn't pan out, feel free to let us know in the [public group chat].
 
 
-
+[`Bots FAQ by Telegram`]: https://core.telegram.org/bots/faq
 [Public Group Chat]: https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA
