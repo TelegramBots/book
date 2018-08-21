@@ -3,27 +3,27 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Text Message - Telegram Bots in .NET</title>
+        <title>HTTP/SOCKS5 Proxy - Telegram Bots in .NET</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -32,7 +32,7 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">var path_to_root = "";</script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="../example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="../send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../send-msg/text-msg.html" class="active"><strong aria-hidden="true">4.1.</strong> Text Message</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><a href="proxy.html" class="active"><strong aria-hidden="true">5.</strong> HTTP/SOCKS5 Proxy</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +105,7 @@
                         <h1 class="menu-title">Telegram Bots in .NET</h1> 
 
                         <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
                         </div>
@@ -136,14 +136,93 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#multimedia-message" id="multimedia-message"><h1>Multimedia Message</h1></a>
+                        <a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy"><h1>Working Behind a Proxy</h1></a>
+<p>Telegram bot client allows you to use a proxy for Bot API connections. There are 3 solutions offered in this guide:</p>
+<ul>
+<li><a href="#http-proxy">HTTP Proxy</a></li>
+<li><a href="#socks5-proxy">SOCKS5 Proxy</a></li>
+<li><a href="#socks5-proxy-over-tor">SOCKS5 Proxy over Tor (Testing Only)</a></li>
+</ul>
+<p><img src="./docs/tg-network.gif" alt="Telegram Network" /></p>
+<blockquote>
+<p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
+</blockquote>
+<a class="header" href="#http-proxy" id="http-proxy"><h2>HTTP Proxy</h2></a>
+<p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxy.</p>
+<pre><code class="language-csharp">// using System.Net;
+
+var httpProxy = new WebProxy(address: &quot;https://example.org&quot;, port: 8080) {
+  // Credentials if needed:
+  Credentials = new NetworkCredential(&quot;USERNMAE&quot;, &quot;PASSWORD&quot;)
+};
+var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpProxy);
+</code></pre>
+<a class="header" href="#socks5-proxy" id="socks5-proxy"><h2>SOCKS5 Proxy</h2></a>
+<p>Unfortunately, there is no built-in support for socks proxies in the .NET Standard libraries.
+You can use an external NuGet package: <a href="https://www.nuget.org/packages/HttpToSocks5Proxy/"><code>HttpToSocks5Proxy</code></a> provided by one of our team members.</p>
+<pre><code class="language-csharp">// using MihaZupan;
+
+var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort);
+
+// Or if you need credentials for your proxy server:
+var proxy = new HttpToSocks5Proxy(
+  Socks5ServerAddress, Socks5ServerPort, &quot;USERNAME&quot;, &quot;PASSWORD&quot;
+);
+
+// Allows you to use proxies that are only allowing connections to Telegram
+// Needed for some proxies
+proxy.ResolveHostnamesLocally = true;
+
+var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, proxy);
+</code></pre>
+<p>You can see other usages of this package at <a href="https://github.com/MihaZupan/HttpToSocks5Proxy/blob/master/README.md#usage-with-telegrambot-library"><code>HttpToSocks5Proxy</code>'s readme</a>.</p>
+<a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor"><h2>SOCKS5 Proxy over Tor</h2></a>
+<p><strong>Warning: Use for Testing only!</strong></p>
+<blockquote>
+<p>Do not use this method in a production deployment as it has high network latency and poor bandwidth.</p>
+</blockquote>
+<p>Using proxy with Tor, a developer can avoid network restrictions while debugging and testing the code
+before a production release.</p>
+<ol>
+<li>Install <a href="https://www.torproject.org/">Tor Browser</a></li>
+<li>Open the <code>torcc</code> file with a text editor (Found in <code>Tor Browser\Browser\TorBrowser\Data\Tor</code>)</li>
+<li>Add the following lines: (configurations are described below)
+<pre><code class="language-bash">EntryNodes {NL}
+ExitNodes {NL}
+StrictNodes 1
+SocksPort 127.0.0.1:9050
+</code></pre>
+</li>
+<li>Look at the <a href="#socks5-proxy">Socks5 proxy</a> example above.</li>
+<li>Start the Tor Browser</li>
+</ol>
+<p>Usage:</p>
+<pre><code class="language-csharp">// using MihaZupan;
+
+var botClient = new TelegramBotClient(
+  &quot;YOUR_API_TOKEN&quot;,
+  new HttpToSocks5Proxy(&quot;127.0.0.1&quot;, 9050)
+);
+</code></pre>
+<blockquote>
+<p>Note that Tor has to be active at all times for the bot to work.</p>
+</blockquote>
+<a class="header" href="#configurations-in-torcc" id="configurations-in-torcc"><h3>Configurations in <code>torcc</code></h3></a>
+<pre><code class="language-bash">EntryNodes {NL}
+ExitNodes {NL}
+StrictNodes 1
+</code></pre>
+<p>These three lines make sure you use nodes from the Netherlands as much as possible to reduce latency.</p>
+<p><code>SocksPort 127.0.0.1:9050</code></p>
+<p>This line tells tor to listen on port 9050 for any socks connections.
+You can change the port to anything you want (9050 is just the default), just make sure to use the same port in your code.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../send-msg/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="send-msg/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
@@ -157,7 +236,7 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../send-msg/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="send-msg/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -174,14 +253,14 @@
         
 
         
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         

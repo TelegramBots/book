@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="../example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="../send-msg/index.html" class="active"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Message</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="../example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="../send-msg/index.html" class="active"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><a href="../proxy.html"><strong aria-hidden="true">5.</strong> HTTP/SOCKS5 Proxy</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -151,10 +151,10 @@ consistent look. Take a look at these examples:</p>
   sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
 );
 </code></pre>
-<p><strong>Video Note message</strong>:</p>
-<pre><code class="language-c#">await botClient.SendVideoNoteAsync(
+<p><strong>Video message</strong>:</p>
+<pre><code class="language-c#">await botClient.SendVideAsync(
   chatId:  e.Message.Chat,
-  videoNote: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-golden_ratio.mp4&quot;
+  video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
 );
 </code></pre>
 
@@ -169,7 +169,7 @@ consistent look. Take a look at these examples:</p>
                         
 
                         
-                            <a rel="next" href="../send-msg/text-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../proxy.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -187,7 +187,7 @@ consistent look. Take a look at these examples:</p>
                 
 
                 
-                    <a href="../send-msg/text-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../proxy.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
