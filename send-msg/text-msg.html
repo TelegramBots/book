@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Sending Messages - Telegram Bots in .NET</title>
+        <title>Text Message - Telegram Bots in .NET</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="../example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="../send-msg/index.html" class="active"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Message</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="../example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="../send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../send-msg/text-msg.html" class="active"><strong aria-hidden="true">4.1.</strong> Text Message</a></li></ol></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,42 +136,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
-<p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have a
-consistent look. Take a look at these examples:</p>
-<p>Text message:</p>
-<pre><code class="language-c#">await botClient.SendTextMessageAsync(
-    chatId: e.Message.Chat,
-    text:   &quot;Hello, World!&quot;
-);
-</code></pre>
-<p>Sticker message:</p>
-<pre><code class="language-c#">await botClient.SendStickerAsync(
-    chatId:  e.Message.Chat,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
-);
-</code></pre>
-<p>Video Note message:</p>
-<pre><code class="language-c#">await botClient.SendStickerAsync(
-    chatId:  e.Message.Chat,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
-);
-</code></pre>
+                        <a class="header" href="#multimedia-message" id="multimedia-message"><h1>Multimedia Message</h1></a>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../example-bot.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../send-msg/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="../send-msg/text-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -181,15 +157,11 @@ consistent look. Take a look at these examples:</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../example-bot.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../send-msg/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a href="../send-msg/text-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
