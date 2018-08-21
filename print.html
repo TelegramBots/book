@@ -222,6 +222,12 @@ namespace Awesome {
 
     static void Main() {
       botClient = new TelegramBotClient(&quot;YOUR_ACCESS_TOKEN_HERE&quot;);
+
+      var me = botClient.GetMeAsync().Result;
+      Console.WriteLine(
+        $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
+      );
+
       botClient.OnMessage += Bot_OnMessage;
       botClient.StartReceiving();
       Thread.Sleep(999000);
