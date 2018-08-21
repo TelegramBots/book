@@ -11,11 +11,11 @@ We, [Telegram Bots team], mainly focus on developing multiple [NuGet packages] f
 | [![Packages](docs/intro-nuget-logo.png)](https://www.nuget.org/profiles/TelegramBots) | [![Team](docs/intro-gh-logo.png)](https://github.com/orgs/TelegramBots/people) | [![News Channel](docs/intro-channel-logo.jpg)](https://t.me/tgbots_dotnet) | [![Group Chat](docs/intro-chat-logo.jpg)](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) |
 | Packages we release on NuGet | The team contributing to this work | Subscribe to [`@tgbots_dotnet`] channel to get our latest news | [Join our chat] to talk about bots and ask questions |
 
-All Bot API methods are already documented by Telegram[^1] but our guide covers all you need to create a chat bot in .NET and there are many concrete examples written in C#.
+All Bot API methods are already documented by Telegram[^1], but our guide covers all you need to create a chatbot in .NET. There are also many concrete examples written in C#.
 
-This project is fully tested using Unit and Systems Integration tests before each release. In fact, our test cases are
-self-documenting and serve as examples for Bot API methods. Once you learn the basics of Telegram chat bots, you will
-be able to easily copy test methods to your own program and make your bot smarter.
+This project is fully tested using Unit and [Systems Integration tests](Integration-Tests.md) before each release. In fact, our test cases are
+self-documenting and serve as usages examples for Bot API methods. Once you learn the basics of Telegram chatbots, you will
+be able to easily adapt test methods to your own program and make your bot smarter.
 
 Begin your bot development journey from [**Quickstart**](quickstart.md) guide.
 

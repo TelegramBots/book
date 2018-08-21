@@ -1,11 +1,11 @@
 # Example
 
-In the quickstart guide, we got an access token and used [`getMe`] method to check our setup.
-It is time to make an _interactive_ bot that gets user's message and replies to that.
+In the quickstart guide, we got an access token and used the [`getMe`] method to check our setup.
+It is time to make an _interactive_ bot that gets users' messages and replies to them.
 
 ![Example Image](docs/example-01.jpg)
 
-Copy the following code to `Program.cs` file.
+Copy the following code to `Program.cs`.
 
 > Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
 
@@ -38,19 +38,18 @@ namespace Awesome {
 }
 ```
 
-When you run this program via `dotnet run`, it runs forever(until forcefully stopped) waiting for
-text messages. Open the chat with your bot in Telegram and send a text message to it. Bot should
-reply in no time.
+When you run this program via `dotnet run`, it runs forever (until forcefully stopped) waiting for
+text messages. Open the chat with your bot in Telegram and send him a text message -
+you should get a reply in no time.
 
-We subscribe to `OnMessage` event on bot client to take action on messages that users send to the bot.
+We subscribe to the `OnMessage` event on bot client to take action on messages that users send to the bot.
 
 By invoking `StartReceiving()`, bot client starts fetching updates([`getUpdates`] method) for the bot
-from Telegram Servers. This is an asynchronous operation so an infinite loop is used right after that
-to keep the app running in this demo.
+from Telegram Servers. This is an asynchronous operation, so in this demo, we use an infinite loop to keep the app running.
 
-When user sends a message, `Bot_OnMessage()` is invoked with the message object in the event argument.
-We are expecting a text message so we check for `Message.Text` value. Finally, we send a text message
-back to the same chat that we received the message in.
+When a user sends a message, `Bot_OnMessage()` gets invoked with the message object in the event argument.
+We are expecting a text message so we check for `Message.Text` value.
+Finally, we send a text message back to the same chat we got the message from.
 
 [`getMe`]: https://core.telegram.org/bots/api#getme
 [`getUpdates`]: https://core.telegram.org/bots/api#getupdates
