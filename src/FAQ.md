@@ -1,5 +1,5 @@
 ### How do I use an HTTP/Socks proxy?
-Look at the wiki page: [Working Behind a Proxy](Working-Behind-a-Proxy.md).
+Look at the wiki page: [Working Behind a Proxy](proxy.md).
 
 ### I got a '409' error. What do I do?
 You are trying to receive updates multiple times at the same time. Either you are calling GetUpdates from two instances of the bot, or you are calling GetUpdates while a web hook is already set. That is not supported by the API, only receive on one instance.
