@@ -206,7 +206,7 @@ namespace Awesome {
 <a class="header" href="#example" id="example"><h1>Example</h1></a>
 <p>On previous page, we got an access token and used <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets user's messages and replies to them like in this screenshot:</p>
-<p><img src="docs/example-01.jpg" alt="Example Image" /></p>
+<p><img src="docs/shot-example_bot.jpg" alt="Example Image" /></p>
 <p>Copy the following code to <code>Program.cs</code> file.</p>
 <blockquote>
 <p>Replace <code>YOUR_ACCESS_TOKEN_HERE</code> with the access token from Bot Father.</p>
@@ -253,18 +253,21 @@ back to the same chat that we received the message in.</p>
 <p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have a
 consistent look. Take a look at these examples:</p>
 <p><strong>Text message</strong>:</p>
+<p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendTextMessageAsync(
   chatId: e.Message.Chat,
   text:   &quot;Hello, World!&quot;
 );
 </code></pre>
 <p><strong>Sticker message</strong>:</p>
+<p><img src="../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendStickerAsync(
   chatId:  e.Message.Chat,
   sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
 );
 </code></pre>
 <p><strong>Video message</strong>:</p>
+<p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendVideAsync(
   chatId:  e.Message.Chat,
   video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;

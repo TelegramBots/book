@@ -140,18 +140,21 @@
 <p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have a
 consistent look. Take a look at these examples:</p>
 <p><strong>Text message</strong>:</p>
+<p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendTextMessageAsync(
   chatId: e.Message.Chat,
   text:   &quot;Hello, World!&quot;
 );
 </code></pre>
 <p><strong>Sticker message</strong>:</p>
+<p><img src="../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendStickerAsync(
   chatId:  e.Message.Chat,
   sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
 );
 </code></pre>
 <p><strong>Video message</strong>:</p>
+<p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendVideAsync(
   chatId:  e.Message.Chat,
   video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
