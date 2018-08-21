@@ -22,7 +22,3 @@
 - [Integration tests](Integration-Tests.md)
 - [Migration guide => v14](Migration-Guide-to-Version-14.x.md)
 - [FAQ](FAQ.md)
-
-<!--
-- [Introduction](Introduction.md)
--->
