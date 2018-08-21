@@ -1,6 +1,6 @@
 # Working Behind a Proxy
 
-Telegram bot client allows you to use a proxy for Bot API connections. There are 3 solutions offered in this guide:
+`TelegramBotClient` allows you to use a proxy for Bot API connections. This guide covers using three different proxy solutions.
 
 - [HTTP Proxy](#http-proxy)
 - [SOCKS5 Proxy](#socks5-proxy)
@@ -12,7 +12,7 @@ Telegram bot client allows you to use a proxy for Bot API connections. There are
 
 ## HTTP Proxy
 
-You can pass an `IWebProxy` to bot client for HTTP Proxy.
+You can pass an `IWebProxy` to bot client for HTTP Proxies.
 
 ```csharp
 // using System.Net;
@@ -46,21 +46,19 @@ proxy.ResolveHostnamesLocally = true;
 var botClient = new TelegramBotClient("YOUR_API_TOKEN", proxy);
 ```
 
-You can see other usages of this package at [`HttpToSocks5Proxy`'s readme].
-
 ## SOCKS5 Proxy over Tor
 
 **Warning: Use for Testing only!**
 
-> Do not use this method in a production deployment as it has high network latency and poor bandwidth.
+> Do not use this method in a production environment as it has high network latency and poor bandwidth.
 
-Using proxy with Tor, a developer can avoid network restrictions while debugging and testing the code
+Using Tor, a developer can avoid network restrictions while debugging and testing the code
 before a production release.
 
 1. Install [Tor Browser]
 2. Open the `torcc` file with a text editor (Found in `Tor Browser\Browser\TorBrowser\Data\Tor`)
 3. Add the following lines: (configurations are described below)
-    ```bash
+    ```text
     EntryNodes {NL}
     ExitNodes {NL}
     StrictNodes 1
@@ -84,7 +82,7 @@ var botClient = new TelegramBotClient(
 
 ### Configurations in `torcc`
 
-```bash
+```text
 EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
@@ -95,8 +93,7 @@ These three lines make sure you use nodes from the Netherlands as much as possib
 `SocksPort 127.0.0.1:9050`
 
 This line tells tor to listen on port 9050 for any socks connections.
-You can change the port to anything you want (9050 is just the default), just make sure to use the same port in your code.
+You can change the port to anything you want (9050 is just the default), only make sure to use the same port in your code.
 
 [`HttpToSocks5Proxy`]: https://www.nuget.org/packages/HttpToSocks5Proxy/
-[`HttpToSocks5Proxy`'s readme]: https://github.com/MihaZupan/HttpToSocks5Proxy/blob/master/README.md#usage-with-telegrambot-library
 [Tor Browser]: https://www.torproject.org/

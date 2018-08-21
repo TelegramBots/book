@@ -14,9 +14,9 @@ We, [Telegram Bots team], mainly focus on developing multiple [NuGet packages] f
 
 ## What Is This Book For
 
-All Bot API methods are already documented by Telegram[^1] but this book covers all you need to create a chat bot in
-.NET and there are many concrete examples written in C#. The guides here can even be useful to bot developers in other
-languages/platforms as it shows best practices in developing Telegram chat bots with examples.
+All Bot API methods are already documented by Telegram[^1] but this book covers all you need to create a chatbot in
+.NET. There are also many concrete examples written in C#. The guides here can even be useful to bot developers, using
+other languages/platforms, as it shows best practices in developing Telegram chatbots with examples.
 
 ## Correctness
 
