@@ -1,1 +1,1 @@
-# Multimedia Message
+# Text Messages
