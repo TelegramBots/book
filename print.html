@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><a href="proxy.html"><strong aria-hidden="true">5.</strong> HTTP/SOCKS5 Proxy</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Message</a></li></ol></li><li><a href="proxy.html"><strong aria-hidden="true">5.</strong> HTTP/SOCKS5 Proxy</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -250,29 +250,35 @@ to keep the app running for a while in this demo.</p>
 We are expecting a text message so we check for <code>Message.Text</code> value. Finally, we send a text message
 back to the same chat that we received the message in.</p>
 <a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
-<p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have a
-consistent look. Take a look at these examples:</p>
-<p><strong>Text message</strong>:</p>
+<ul>
+<li><a href="text-msg.html">Send Text Messages (text and more)</a></li>
+<li><a href="multimedia-msg.html">Send Multimedia Messages (photo, sticker, etc.)</a></li>
+</ul>
+<p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have are
+similar. Take a look at these examples:</p>
+<p><strong>Sending text message</strong>:</p>
 <p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendTextMessageAsync(
   chatId: e.Message.Chat,
   text:   &quot;Hello, World!&quot;
 );
 </code></pre>
-<p><strong>Sticker message</strong>:</p>
+<p><strong>Sending sticker message</strong>:</p>
 <p><img src="../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendStickerAsync(
   chatId:  e.Message.Chat,
   sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
 );
 </code></pre>
-<p><strong>Video message</strong>:</p>
+<p><strong>Sending video message</strong>:</p>
 <p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendVideAsync(
   chatId:  e.Message.Chat,
   video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
 );
 </code></pre>
+<a class="header" href="#text-messages" id="text-messages"><h1>Text Messages</h1></a>
+<a class="header" href="#multimedia-message" id="multimedia-message"><h1>Multimedia Message</h1></a>
 <a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy"><h1>Working Behind a Proxy</h1></a>
 <p>Telegram bot client allows you to use a proxy for Bot API connections. There are 3 solutions offered in this guide:</p>
 <ul>
