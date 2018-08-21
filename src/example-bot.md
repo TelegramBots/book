@@ -3,7 +3,7 @@
 On the previous page, we got an access token and used the [`getMe`] method to check our setup.
 Now, it is time to make an _interactive_ bot that gets users' messages and replies to them like in this screenshot:
 
-![Example Image](docs/example-01.jpg)
+![Example Image](docs/shot-example_bot.jpg)
 
 Copy the following code to `Program.cs`.
 
@@ -11,6 +11,7 @@ Copy the following code to `Program.cs`.
 
 ```c#
 using System;
+using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
@@ -20,9 +21,15 @@ namespace Awesome {
 
     static void Main() {
       botClient = new TelegramBotClient("YOUR_ACCESS_TOKEN_HERE");
+
+      var me = botClient.GetMeAsync().Result;
+      Console.WriteLine(
+        $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
+      );
+
       botClient.OnMessage += Bot_OnMessage;
       botClient.StartReceiving();
-      while (true) Console.ReadKey(true);
+      Thread.Sleep(999000);
     }
 
     static async void Bot_OnMessage(object sender, MessageEventArgs e) {
@@ -45,7 +52,7 @@ you should get a reply in no time.
 We subscribe to the `OnMessage` event on bot client to take action on messages that users send to the bot.
 
 By invoking `StartReceiving()`, bot client starts fetching updates([`getUpdates`] method) for the bot
-from Telegram Servers. This is an asynchronous operation, so in this demo, we use an infinite loop to keep the app running.
+from Telegram Servers. This is an asynchronous operation, so we use `Thread.Sleep()` to keep the app running for a while.
 
 When a user sends a message, `Bot_OnMessage()` gets invoked with the message object in the event argument.
 We are expecting a text message so we check for `Message.Text` value.
