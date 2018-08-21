@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Message</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Message</a></li></ol></li><li><a href="getting-updates.html"><strong aria-hidden="true">5.</strong> Getting updates</a></li><li><a href="inline/index.html"><strong aria-hidden="true">6.</strong> Inline Mode</a></li><li><a href="files/index.html"><strong aria-hidden="true">7.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">7.1.</strong> Upload</a></li><li><a href="files/download.html"><strong aria-hidden="true">7.2.</strong> Download</a></li></ol></li><li><a href="deployment/index.html"><strong aria-hidden="true">8.</strong> Deployment</a></li><li><ol class="section"><li><a href="deployment/long-polling.html"><strong aria-hidden="true">8.1.</strong> Long Polling</a></li><li><a href="deployment/webhook.html"><strong aria-hidden="true">8.2.</strong> Webhook</a></li></ol></li><li><a href="payments/index.html"><strong aria-hidden="true">9.</strong> Payments</a></li><li><a href="Login-Widget.html"><strong aria-hidden="true">10.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">11.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">12.</strong> Working Behind a Proxy</a></li><li><a href="Examples-from-Test-Cases.html"><strong aria-hidden="true">13.</strong> Examples from test cases</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">14.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">15.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">16.</strong> FAQ</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -137,18 +137,24 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
-<p><strong>Telegram.Bot</strong> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.</p>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot"><strong>Telegram.Bot</strong></a> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. The Bot API is an HTTP-based interface created
+for developers keen on building bots for Telegram.</p>
 <p>Check <a href="https://core.telegram.org/bots"><em>Bots: An introduction for developers</em></a> to understand what a Telegram bot is and what it can do.</p>
 <p>We, <a href="https://github.com/orgs/TelegramBots/people">Telegram Bots team</a>, mainly focus on developing multiple <a href="https://www.nuget.org/profiles/TelegramBots">NuGet packages</a> for creating chat bots.</p>
 <table><thead><tr><th align="center">Packages</th><th align="center">Team</th><th align="center">News Channel</th><th align="center">Group Chat</th></tr></thead><tbody>
 <tr><td align="center"> <a href="https://www.nuget.org/profiles/TelegramBots"><img src="docs/intro-nuget-logo.png" alt="Packages" /></a> </td><td align="center"> <a href="https://github.com/orgs/TelegramBots/people"><img src="docs/intro-gh-logo.png" alt="Team" /></a> </td><td align="center"> <a href="https://t.me/tgbots_dotnet"><img src="docs/intro-channel-logo.jpg" alt="News Channel" /></a> </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA"><img src="docs/intro-chat-logo.jpg" alt="Group Chat" /></a> </td></tr>
 <tr><td align="center"> Packages we release on NuGet </td><td align="center"> The team contributing to this work </td><td align="center"> Subscribe to <a href="https://t.me/tgbots_dotnet"><code>@tgbots_dotnet</code></a> channel to get our latest news </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">Join our chat</a> to talk about bots and ask questions </td></tr>
 </tbody></table>
-<p>All Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but our guide covers all you need to create a chat bot in .NET and there are many concrete examples written in C#.</p>
-<p>This project is fully tested using Unit and Systems Integration tests before each release. In fact, our test cases are
-self-documenting and serve as examples for Bot API methods. Once you learn the basics of Telegram chat bots, you will
-be able to easily copy test methods to your own program and make your bot smarter.</p>
-<p>Begin your bot development journey from <a href="quickstart.html"><strong>Quickstart</strong></a> guide.</p>
+<a class="header" href="#what-is-this-book-for" id="what-is-this-book-for"><h2>What Is This Book For</h2></a>
+<p>All Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this book covers all you need to create a chat bot in
+.NET and there are many concrete examples written in C#. The guides here can even be useful to bot developers in other
+languages/platforms as it shows best practices in developing Telegram chat bots with examples.</p>
+<a class="header" href="#correctness" id="correctness"><h2>Correctness</h2></a>
+<p>This project is fully tested using Unit tests and Systems Integration tests before each release. In fact, our test cases
+are self-documenting and serve as examples for Bot API methods. Once you learn the basics of Telegram chat bots, you
+will be able to easily copy test methods to your own program and make your bot smarter.</p>
+<a class="header" href="#get-started" id="get-started"><h2>Get Started</h2></a>
+<p><strong>Begin your bot development journey from <a href="quickstart.html"><em>Quickstart</em></a> guide.</strong></p>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://core.telegram.org/bots/api">Telegram Bot API</a></p>
