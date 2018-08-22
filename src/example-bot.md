@@ -1,11 +1,11 @@
 # Example - First Chat Bot
 
-On previous page, we got an access token and used [`getMe`] method to check our setup.
-Now, it is time to make an _interactive_ bot that gets user's messages and replies to them like in this screenshot:
+On the previous page, we got an access token and used the [`getMe`] method to check our setup.
+Now, it is time to make an _interactive_ bot that gets users' messages and replies to them like in this screenshot:
 
 ![Example Image](docs/shot-example_bot.jpg)
 
-Copy the following code to `Program.cs` file.
+Copy the following code to `Program.cs`.
 
 > Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
 
@@ -63,9 +63,9 @@ By invoking `StartReceiving()`, bot client starts fetching updates using [`getUp
 from Telegram Servers. This is an asynchronous operation so `Thread.Sleep()` is used right after that
 to keep the app running for a while in this demo.
 
-When user sends a message, `Bot_OnMessage()` is invoked with the message object in the event argument.
-We are expecting a text message so we check for `Message.Text` value. Finally, we send a text message
-back to the same chat that we received the message in.
+When a user sends a message, `Bot_OnMessage()` gets invoked with the message object in the event argument.
+We are expecting a text message so we check for `Message.Text` value.
+Finally, we send a text message back to the same chat we got the message from.
 
 If you take a look at console, program outputs the `chatId` value. **Copy chat id number** to make testing easier
 for yourself in next pages.

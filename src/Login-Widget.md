@@ -1,3 +1,5 @@
+# Telegram Login Widget
+
 Everything related to the [Telegram Login Widget] has been moved to a separate repository:
 [`Telegram.Bot.Extensions.LoginWidget`][Login widget repo]
 

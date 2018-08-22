@@ -5,7 +5,7 @@ for developers keen on building bots for Telegram.
 
 Check [_Bots: An introduction for developers_] to understand what a Telegram bot is and what it can do.
 
-We, [Telegram Bots team], mainly focus on developing multiple [NuGet packages] for creating chat bots.
+We, [Telegram Bots team], mainly focus on developing multiple [NuGet packages] for creating chatbots.
 
 |Packages|Team|News Channel|Group Chat|
 |:------:|:--:|:----------:|:--------:|
@@ -14,19 +14,19 @@ We, [Telegram Bots team], mainly focus on developing multiple [NuGet packages] f
 
 ## What Is This Book For
 
-All Bot API methods are already documented by Telegram[^1] but this book covers all you need to create a chat bot in
-.NET and there are many concrete examples written in C#. The guides here can even be useful to bot developers in other
-languages/platforms as it shows best practices in developing Telegram chat bots with examples.
+All Bot API methods are already documented by Telegram[^1] but this book covers all you need to create a chatbot in
+.NET. There are also many concrete examples written in C#. The guides here can even be useful to bot developers, using
+other languages/platforms, as it shows best practices in developing Telegram chatbots with examples.
 
 ## Correctness
 
-This project is fully tested using Unit tests and Systems Integration tests before each release. In fact, our test cases
-are self-documenting and serve as examples for Bot API methods. Once you learn the basics of Telegram chat bots, you
-will be able to easily copy test methods to your own program and make your bot smarter.
+This project is fully tested using Unit tests and [Systems Integration tests](Integration-Tests.md) before each release. In fact, our test cases
+are self-documenting and serve as examples for Bot API methods. Once you learn the basics of Telegram chatbots, you
+will be able to easily adapt test methods to your own program and make your bot smarter.
 
 ## Get Started
 
-**Begin your bot development journey from [_Quickstart_](quickstart.md) guide.**
+**Begin your bot development journey with the [_Quickstart_](quickstart.md) guide.**
 
 ---
 
