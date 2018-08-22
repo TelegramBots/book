@@ -6,6 +6,7 @@
 - [Sending Messages](send-msg/README.md)
   - [Text Messages](send-msg/text-msg.md)
   - [Multimedia Messages](send-msg/multimedia-msg.md)
+  - [Other Messages](send-msg/other-msg.md)
 - [Working with Files](files/README.md)
   - [Upload](files/upload.md)
 - [Login widget](Login-Widget.md)
