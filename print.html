@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Messages</a></li></ol></li><li><a href="files/index.html"><strong aria-hidden="true">5.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">5.1.</strong> Upload</a></li></ol></li><li><a href="Login-Widget.html"><strong aria-hidden="true">6.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">7.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">8.</strong> HTTP/SOCKS5 Proxy</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">9.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">10.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example - First Chat Bot</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Messages</a></li></ol></li><li><a href="files/index.html"><strong aria-hidden="true">5.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">5.1.</strong> Upload</a></li></ol></li><li><a href="Login-Widget.html"><strong aria-hidden="true">6.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">7.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">8.</strong> HTTP/SOCKS5 Proxy</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">9.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">10.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -203,7 +203,7 @@ namespace Awesome {
 <pre><code class="language-text">Hello, World! I am user 123456789 and my name is Awesome Bot.
 </code></pre>
 <p>Great! This bot is self-aware. To make the bot interact with user, head to the next page.</p>
-<a class="header" href="#example" id="example"><h1>Example</h1></a>
+<a class="header" href="#example---first-chat-bot" id="example---first-chat-bot"><h1>Example - First Chat Bot</h1></a>
 <p>On the previous page, we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users' messages and replies to them like in this screenshot:</p>
 <p><img src="docs/shot-example_bot.jpg" alt="Example Image" /></p>
@@ -236,6 +236,8 @@ namespace Awesome {
     static async void Bot_OnMessage(object sender, MessageEventArgs e) {
       if (e.Message.Text != null)
       {
+        Console.WriteLine($&quot;Received a text message in chat {e.Message.Chat.Id}.&quot;);
+
         await botClient.SendTextMessageAsync(
           chatId: e.Message.Chat,
           text:   &quot;You said:\n&quot; + e.Message.Text
@@ -245,15 +247,23 @@ namespace Awesome {
   }
 }
 </code></pre>
-<p>When you run this program via <code>dotnet run</code>, it runs forever (until forcefully stopped) waiting for
-text messages. Open the chat with your bot in Telegram and send him a text message -
-you should get a reply in no time.</p>
-<p>We subscribe to the <code>OnMessage</code> event on bot client to take action on messages that users send to the bot.</p>
-<p>By invoking <code>StartReceiving()</code>, bot client starts fetching updates(<a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method) for the bot
-from Telegram Servers. This is an asynchronous operation, so we use <code>Thread.Sleep()</code> to keep the app running for a while.</p>
+<p>Run the program.</p>
+<pre><code class="language-bash">dotnet run
+</code></pre>
+<p>It runs for a long time unless forcefully stopped, waiting for text messages. Open a private chat with your bot in
+Telegram and send a text message to it. Bot should reply in no time.</p>
+<p>In the code above, we subscribe to <code>OnMessage</code> event on bot client to take action on messages that users send to
+the bot.</p>
+<p>By invoking <code>StartReceiving()</code>, bot client starts fetching updates using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method for the bot
+from Telegram Servers. This is an asynchronous operation so <code>Thread.Sleep()</code> is used right after that
+to keep the app running for a while in this demo.</p>
 <p>When a user sends a message, <code>Bot_OnMessage()</code> gets invoked with the message object in the event argument.
 We are expecting a text message so we check for <code>Message.Text</code> value.
 Finally, we send a text message back to the same chat we got the message from.</p>
+<p>If you take a look at console, program outputs the <code>chatId</code> value. <strong>Copy chat id number</strong> to make testing easier
+for yourself in next pages.</p>
+<pre><code class="language-text">Received a text message in chat 123456789.
+</code></pre>
 <a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
 <ul>
 <li><a href="text-msg.html">Send Text Messages (text and more)</a></li>
@@ -282,7 +292,68 @@ similar. Take a look at these examples:</p>
   video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
 );
 </code></pre>
-<a class="header" href="#text-messages" id="text-messages"><h1>Text Messages</h1></a>
+<a class="header" href="#text-messages-and-more" id="text-messages-and-more"><h1>Text Messages and More</h1></a>
+<p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of Bot API.
+Text messages are easy to send and fast to show on devices with slower network.
+Don't use plain text all the time. Telegram allows you to format the text using Markdown or HTML.</p>
+<a class="header" href="#send-text-message" id="send-text-message"><h2>Send Text Message</h2></a>
+<p>Code snippet below send a message with multiple parameters that looks like this:</p>
+<p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
+<blockquote>
+<p>You can use this code snippet in the event handler from Example Bot page and use <code>e.Message.Chat</code>
+or put the <code>chatId</code> value if you know it.</p>
+</blockquote>
+<pre><code class="language-c#">// using Telegram.Bot.Types;
+// using Telegram.Bot.Types.Enums;
+// using Telegram.Bot.Types.ReplyMarkups;
+
+Message message = await botClient.SendTextMessageAsync(
+  chatId: e.Message.Chat, // or a chat id: 123456789
+  text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
+  parseMode: ParseMode.Markdown,
+  disableNotification: true,
+  replyToMessageId: e.Message.MessageId,
+  replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl(
+    &quot;Check sendMessage method&quot;,
+    &quot;https://core.telegram.org/bots/api#sendmessage&quot;
+  ))
+);
+</code></pre>
+<p>Method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram Bot API. This method sends a
+text message and returns the message object sent.</p>
+<p><code>text</code> is written in <a href="https://en.wikipedia.org/wiki/Markdown">MarkDown format</a> and <code>parseMode</code> indicates that. You can also write in HTML or plain text.</p>
+<p>By passing <code>disableNotification</code> we tell Telegram client on user's device not to show/sound a notification.</p>
+<p>It's a good idea to make it clear to user the reason bot is sending this message and that's why we pass user's
+message id for <code>replyToMessageId</code>.</p>
+<p>You have the option of specifying a <code>replyMarkup</code> when sending messages.
+Reply markups are explained in details later in this book.
+Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens
+<a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in browser.</p>
+<a class="header" href="#the-message-sent" id="the-message-sent"><h2>The Message Sent</h2></a>
+<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
+message object. Add this statement after after previous code.</p>
+<pre><code class="language-c#">Console.WriteLine(
+  $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
+  $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
+  $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
+  $&quot;and has {message.Entities.Length} message entities.&quot;
+);
+</code></pre>
+<p>Output should look similar to this:</p>
+<pre><code class="language-text">Awesome bot sent message 123 to chat 123456789 at 8/21/18 11:25:09 AM. It is a reply to message 122 and has 2 message entities.
+</code></pre>
+<p>There are a few things to note.</p>
+<p>Date and time is in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC format</a> and not your local timezone.
+Convert it to local time by calling <code>message.Date.ToLocalTime()</code> method.</p>
+<p><a href="https://core.telegram.org/bots/api#messageentity">Message Entity</a> refers to those formatted parts of the text: <em>all the parameters</em> in bold and
+<em>sendMessage</em> in mono-width font.
+Property <code>message.Entities</code> holds the formatting information and <code>message.EntityValues</code> gives you the actual value.
+For example, in the message we just sent:</p>
+<pre><code class="language-c#">message.Entities.First().Type == MessageEntityType.Bold
+message.EntityValues.First()  == &quot;all the parameters&quot;
+</code></pre>
+<p>Currently, message object doesn't contain information about its reply markup.</p>
+<p>Try putting a breakpoint in code to examine all the properties on message objects you get.</p>
 <a class="header" href="#multimedia-message" id="multimedia-message"><h1>Multimedia Message</h1></a>
 <a class="header" href="#working-with-files" id="working-with-files"><h1>Working with Files</h1></a>
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
