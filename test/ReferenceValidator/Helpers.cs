@@ -26,5 +26,8 @@ namespace LinkValidator
             if (index < 0) throw new ArgumentException("Value is not a substring of source");
             return source.Substring(offset, index - offset);
         }
+
+        public static bool IsInRange(this int value, int inclusiveMin, int inclusiveMax)
+            => value >= inclusiveMin && value <= inclusiveMax;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 
 namespace LinkValidator
@@ -69,8 +70,7 @@ namespace LinkValidator
                     }
                     else if (reference.Contains(':')) // Link
                     {
-                        if (!TestLink(reference))
-                            ReportBrokenLink(reference, markdownFile.RelativePath, lineNr);
+                        TestLink(reference, markdownFile.RelativePath, lineNr);
                     }
                     else // File reference
                     {
@@ -88,45 +88,123 @@ namespace LinkValidator
             }
             else
             {
-                Console.WriteLine("All references are good!");
+                if (WarningsFound)
+                {
+                    PrintColor("Test was successful, but not warning-free\n", ConsoleColor.Red);
+                }
+                else
+                {
+                    Console.WriteLine("All references are good!");
+                }
             }
         }
 
         private static bool ErrorsFound = false;
+        private static bool WarningsFound = false;
+
+        private static void PrintColor(string message, ConsoleColor color)
+        {
+            var previousColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.Write(message);
+            Console.ForegroundColor = previousColor;
+        }
         private static void ReportError(string message)
         {
-            Console.WriteLine("Markdown error: " + message);
+            PrintColor("Markdown error: ", ConsoleColor.Red);
+            Console.WriteLine(message);
             ErrorsFound = true;
+        }
+        private static void ReportWarning(string message)
+        {
+            PrintColor("Markdown warning: ", ConsoleColor.Red);
+            Console.WriteLine(message);
+            WarningsFound = true;
         }
         private static void ReportFragmentError(string fragment, string file, int line, string message)
             => ReportError($"Fragment reference `{fragment}` in `{file}` on line {line} {message}.");
         private static void ReportUnresolvedReference(string reference, string file, int line)
             => ReportError($"Unresolved reference `{reference}` in `{file}` on line {line}.");
-        private static void ReportBrokenLink(string link, string file, int line)
-            => ReportError($"Broken link `{link}` in `{file}` on line {line}.");
 
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient _httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false });
         private static readonly HashSet<string> _visitedLinks = new HashSet<string>();
-        private static bool TestLink(string link)
+        private static void TestLink(string link, string sourceFile, int line)
         {
-            try
+            Queue<string> redirectQueue = new Queue<string>();
+
+            const int MaxDepth = 5;
+
+            bool TestLinkInternal(string requestUri)
             {
-                string baseLink = (link.Contains('#') ? link.SubstringBefore('#') : link).TrimEnd('/');
-                if (_visitedLinks.Contains(baseLink))
+                try
                 {
-                    Console.WriteLine("Skipping link: " + link);
-                    return true;
+                    redirectQueue.Enqueue(requestUri);
+                    if (redirectQueue.Count == MaxDepth)
+                        return false;
+
+                    string baseLink = (requestUri.Contains('#') ? requestUri.SubstringBefore('#') : requestUri).TrimEnd('/');
+                    if (_visitedLinks.Contains(baseLink))
+                        return true;
+
+                    using (var request = new HttpRequestMessage(HttpMethod.Get, requestUri))
+                    using (var response = _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).Result)
+                    {
+                        int statusCode = (int)response.StatusCode;
+                        if (statusCode.IsInRange(200, 299))
+                        {
+                            _visitedLinks.Add(baseLink);
+                            return true;
+                        }
+                        else if (statusCode.IsInRange(300, 399))
+                        {
+                            Uri redirectUri = response.Headers.Location;
+                            if (!redirectUri.IsAbsoluteUri)
+                            {
+                                redirectUri = new Uri(request.RequestUri.GetLeftPart(UriPartial.Authority) + redirectUri);
+                            }
+
+                            if (TestLinkInternal(redirectUri.AbsoluteUri))
+                            {
+                                _visitedLinks.Add(baseLink);
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
                 }
-                Console.WriteLine("Testing link: " + link);
-                var response = _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, link), HttpCompletionOption.ResponseHeadersRead).Result;
-                bool successful = response.IsSuccessStatusCode;
-                response.Dispose();
-                _visitedLinks.Add(baseLink);
-                return successful;
+                catch
+                {
+                    return false;
+                }
             }
-            catch
+
+            void PrintRedirectChain()
             {
-                return false;
+                Console.Write("Redirect chain: ");
+                Console.WriteLine(string.Join($" => {Environment.NewLine}\t\t", redirectQueue.Select(request => $"`{request}`")));
+            }
+            string LinkReferenceMessage(string message)
+                => $"Link `{link}` in `{sourceFile}` on line {line} {message}.";
+
+            if (TestLinkInternal(link))
+            {
+                if (redirectQueue.Count > 1) // Warning about redirect chain
+                {
+                    ReportWarning(LinkReferenceMessage("returned a redirect chain"));
+                    PrintRedirectChain();
+                }
+            }
+            else
+            {
+                if (redirectQueue.Count == MaxDepth) // Too many redirects
+                {
+                    ReportError(LinkReferenceMessage("returned a too-long redirect chain"));
+                    PrintRedirectChain();
+                }
+                else // Broken link
+                {
+                    ReportError(LinkReferenceMessage("appears to be broken"));
+                }
             }
         }
 
