@@ -1,5 +1,7 @@
 # Introduction
 
+[![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot)
+
 [**Telegram.Bot**] is the most popular .NET Client for [Telegram Bot API].
 The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.
 
