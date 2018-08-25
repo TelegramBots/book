@@ -11,26 +11,19 @@
     - [Other Messages](2/send-msg/other-msg.md)
   - [Reply Markup](2/reply-markup.md)
   - [Getting Updates](2/get-updates.md)
-
-<!-- - [Sending Messages](send-msg/README.md)
-  - [Text Messages](send-msg/text-msg.md)
-  - [Multimedia Messages](send-msg/multimedia-msg.md)
-  - [Other Messages](send-msg/other-msg.md)
-- [Working with Files](files/README.md)
-  - [Upload](files/upload.md)
-- [Login widget](Login-Widget.md)
-- [Passport](passport/README.md)
-- [HTTP/SOCKS5 Proxy](proxy.md)
-- [Integration tests](Integration-Tests.md) -->
+- [Intermediate](3/README.md)
+  - [Deployment](3/deploy/README.md)
+    - [Long Polling](3/deploy/polling.md)
+    - [Webhooks](3/deploy/webhook.md)
+  - [Systems Integration Tests](3/tests.md)
+  - [Inline Mode](3/inline.md)
+  - [Files](3/files/README.md)
+    - [Download](3/files/download.md)
+    - [Upload](3/files/upload.md)
+- [Advanced](4/README.md)
+  - [Login Widget](4/login-widget.md)
+  - [Passport](4/passport.md)
+  - [Proxy](4/proxy.md)
+  - [Logging](4/log.md)
 - [Migration guide => v14](Migration-Guide-to-Version-14.x.md)
 - [FAQ](FAQ.md)
-
-<!-- - [Getting updates](getting-updates.md) -->
-<!-- - [Reply Markup](reply-markup.md) -->
-<!-- - [Inline Mode](inline/README.md) -->
-  <!-- - [Download](files/download.md) -->
-<!-- - [Deployment](deployment/README.md) -->
-  <!-- - [Long Polling](deployment/long-polling.md) -->
-  <!-- - [Webhook](deployment/webhook.md) -->
-<!-- - [Payments](payments/README.md) -->
-<!-- - [Examples from test cases](Examples-from-Test-Cases.md) -->

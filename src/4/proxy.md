@@ -6,7 +6,7 @@
 - [SOCKS5 Proxy](#socks5-proxy)
 - [SOCKS5 Proxy over Tor (Testing Only)](#socks5-proxy-over-tor)
 
-![Telegram Network](./docs/tg-network.gif)
+![Telegram Network](docs/tg-network.gif)
 
 > If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.
 

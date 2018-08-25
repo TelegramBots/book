@@ -1,4 +1,4 @@
-# Integration Tests
+# Systems Integration Tests
 
 Integration tests are meant to test the project with real data from Telegram. They are semi-automated tests and tester(s) need to interact with bot for some cases during the test execution. Tests could be used as a playground for exploring Bot API methods.
 
