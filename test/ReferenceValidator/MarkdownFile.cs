@@ -31,9 +31,9 @@ namespace LinkValidator
             {
                 foreach (Match match in MarkdownRegex.Matches(markdownSource[lineNr]))
                 {
-                    if (match.Groups[1].Success) References.Add((lineNr, match.Groups[1].Value));
-                    if (match.Groups[2].Success) References.Add((lineNr, match.Groups[2].Value));
-                    if (match.Groups[3].Success) HeaderEntities.Add(GetHeaderEntity(match.Groups[3].Value));
+                    if (match.Groups[1].Success) References.Add((lineNr + 1, match.Groups[1].Value.Trim()));
+                    if (match.Groups[2].Success) References.Add((lineNr + 1, match.Groups[2].Value.Trim()));
+                    if (match.Groups[3].Success) HeaderEntities.Add(GetHeaderEntity(match.Groups[3].Value.Trim()));
                 }
             }
         }

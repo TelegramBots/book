@@ -1,6 +1,6 @@
 # Beginner
 
-- [Sending Messages](send-msg/README.md)
+- [Sending Messages](send-msg)
   - [Text Messages](send-msg/text-msg.md)
   - [Multimedia Messages](send-msg/multimedia-msg.md)
   - [Other Messages](send-msg/other-msg.md)

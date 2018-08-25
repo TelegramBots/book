@@ -12,7 +12,7 @@ namespace LinkValidator
             string srcDirectory = Environment.CurrentDirectory + @"\src\";
             int baseLength = srcDirectory.Length;
 
-            List<string> files = GetAllFiles(srcDirectory);
+            List<string> files = GetAllFiles(srcDirectory, out List<string> allDirectories);
 
             HashSet<string> markdownEntities = new HashSet<string>();
             Dictionary<string, MarkdownFile> markdownFiles = new Dictionary<string, MarkdownFile>();
@@ -24,6 +24,12 @@ namespace LinkValidator
 
                 if (file.EndsWith(".md"))
                     markdownFiles.Add(relativeLowercasePath, new MarkdownFile(file, relativePath, relativeLowercasePath));
+            }
+            foreach (var dir in allDirectories)
+            {
+                string dirLowercase = dir.Substring(baseLength).Replace('\\', '/').ToLower();
+                if (markdownEntities.Contains(dirLowercase + "/readme.md"))
+                    markdownEntities.Add(dirLowercase);
             }
 
             Console.WriteLine($"Indexed {files.Count} files, {markdownFiles.Count} of which are markdown files");
@@ -100,14 +106,22 @@ namespace LinkValidator
             => ReportError($"Broken link `{link}` in `{file}` on line {line}.");
 
         private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HashSet<string> _visitedLinks = new HashSet<string>();
         private static bool TestLink(string link)
         {
             try
             {
+                string baseLink = (link.Contains('#') ? link.SubstringBefore('#') : link).TrimEnd('/');
+                if (_visitedLinks.Contains(baseLink))
+                {
+                    Console.WriteLine("Skipping link: " + link);
+                    return true;
+                }
                 Console.WriteLine("Testing link: " + link);
                 var response = _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, link), HttpCompletionOption.ResponseHeadersRead).Result;
                 bool successful = response.IsSuccessStatusCode;
                 response.Dispose();
+                _visitedLinks.Add(baseLink);
                 return successful;
             }
             catch
@@ -116,8 +130,9 @@ namespace LinkValidator
             }
         }
 
-        private static List<string> GetAllFiles(string path)
+        private static List<string> GetAllFiles(string path, out List<string> allDirectories)
         {
+            allDirectories = new List<string>();
             List<string> files = new List<string>();
             Stack<string> dirsToTraverse = new Stack<string>();
             dirsToTraverse.Push(path);
@@ -125,7 +140,11 @@ namespace LinkValidator
             {
                 string directory = dirsToTraverse.Pop();
                 files.AddRange(Directory.GetFiles(directory));
-                foreach (var dir in Directory.GetDirectories(directory)) dirsToTraverse.Push(dir);
+                foreach (var dir in Directory.GetDirectories(directory))
+                {
+                    dirsToTraverse.Push(dir);
+                    allDirectories.Add(dir);
+                }
             }
             return files;
         }
