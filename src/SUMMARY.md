@@ -4,6 +4,13 @@
   - [Introduction](1/intro.md)
   - [Quickstart](1/quickstart.md)
   - [Example - First Chat Bot](1/example-bot.md)
+- [Beginner](2/README.md)
+  - [Sending Messages](2/send-msg/README.md)
+    - [Text Messages](2/send-msg/text-msg.md)
+    - [Multimedia Messages](2/send-msg/multimedia-msg.md)
+    - [Other Messages](2/send-msg/other-msg.md)
+  - [Reply Markup](2/reply-markup.md)
+  - [Getting Updates](2/get-updates.md)
 
 <!-- - [Sending Messages](send-msg/README.md)
   - [Text Messages](send-msg/text-msg.md)
