@@ -13,7 +13,7 @@ Examples on this page show all three. You will learn more about them later on wh
 [![send photo method](https://img.shields.io/badge/Bot_API_method-send_photo-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendphoto)
 [![photo tests](https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs)
 
-Sending a photo[^1] is simple. Here is an example:
+Sending a photo is simple. Here is an example:
 
 ```c#
 Message message = await botClient.SendPhotoAsync(
@@ -73,6 +73,33 @@ Here is how `message.Photo` array looks like in JSON:
 
 ## Sticker
 
+[![send sticker method](https://img.shields.io/badge/Bot_API_method-send_sticker-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendsticker)
+[![sticker tests](https://img.shields.io/badge/Examples-Sticker_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Stickers/StickersTests.cs)
+
+Telegram stickers are fun and our bot is about to send its very first sticker.
+Sticker files should be in [WebP] format.
+
+This code sends the same sticker twice. First by passing HTTP URL to a [WebP] sticker file and
+second by reusing `file_id` of the same sticker on Telegram servers.
+
+```c#
+Message msg1 = await botClient.SendStickerAsync(
+  chatId: e.Message.Chat,
+  sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp"
+);
+
+Message msg2 = await botClient.SendStickerAsync(
+  chatId: e.Message.Chat,
+  sticker: msg1.Sticker.FileId
+);
+```
+
+![sticker messages](../docs/shot-sticker_msgs.jpg)
+
+Try inspecting `msg1.Sticker` property. It is of type [`Sticker`] and its schema looks similar to a photo.
+
+> There is more to stickers and we will talk about them in greater details later.
+
 ## Audio
 
 <!-- audio, voice -->
@@ -87,8 +114,9 @@ Here is how `message.Photo` array looks like in JSON:
 
 <!-- + animation -->
 
----
+<!-- -------------- -->
 
 [`Message`]: https://core.telegram.org/bots/api#message
 [`PhotoSize`]: https://core.telegram.org/bots/api#photosize
-[^1]: [sendPhoto](https://core.telegram.org/bots/api#sendphoto)
+[WebP]: https://developers.google.com/speed/webp/
+[`Sticker`]: https://core.telegram.org/bots/api#sticker
