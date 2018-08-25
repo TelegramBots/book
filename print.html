@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="quickstart.html"><strong aria-hidden="true">2.</strong> Quickstart</a></li><li><a href="example-bot.html"><strong aria-hidden="true">3.</strong> Example - First Chat Bot</a></li><li><a href="send-msg/index.html"><strong aria-hidden="true">4.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="send-msg/text-msg.html"><strong aria-hidden="true">4.1.</strong> Text Messages</a></li><li><a href="send-msg/multimedia-msg.html"><strong aria-hidden="true">4.2.</strong> Multimedia Messages</a></li></ol></li><li><a href="files/index.html"><strong aria-hidden="true">5.</strong> Working with Files</a></li><li><ol class="section"><li><a href="files/upload.html"><strong aria-hidden="true">5.1.</strong> Upload</a></li></ol></li><li><a href="Login-Widget.html"><strong aria-hidden="true">6.</strong> Login widget</a></li><li><a href="passport/index.html"><strong aria-hidden="true">7.</strong> Passport</a></li><li><a href="proxy.html"><strong aria-hidden="true">8.</strong> HTTP/SOCKS5 Proxy</a></li><li><a href="Integration-Tests.html"><strong aria-hidden="true">9.</strong> Integration tests</a></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">10.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
+            <ol class="chapter"><li><a href="1/index.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li><ol class="section"><li><a href="1/intro.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li><a href="1/quickstart.html"><strong aria-hidden="true">1.2.</strong> Quickstart</a></li><li><a href="1/example-bot.html"><strong aria-hidden="true">1.3.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text Messages</a></li><li><a href="2/send-msg/multimedia-msg.html"><strong aria-hidden="true">2.1.2.</strong> Multimedia Messages</a></li><li><a href="2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.3.</strong> Other Messages</a></li></ol></li><li><a href="2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li></ol></li><li><a href="4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="4/passport.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><a href="4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,25 +136,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot"><strong>Telegram.Bot</strong></a> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. The Bot API is an HTTP-based interface created
-for developers keen on building bots for Telegram.</p>
+                        <a class="header" href="#telegram-bots-in-net" id="telegram-bots-in-net"><h1>Telegram Bots in .NET</h1></a>
+<a class="header" href="#welcome" id="welcome"><h2>Welcome</h2></a>
+<a class="header" href="#this-book-is-for-developers-interested-in-developing-chatbots-in-net-framework" id="this-book-is-for-developers-interested-in-developing-chatbots-in-net-framework"><h3>This book is for developers interested in developing chatbots in .NET framework</h3></a>
+<a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot"><strong>Telegram.Bot</strong></a> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>.
+The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.</p>
 <p>Check <a href="https://core.telegram.org/bots"><em>Bots: An introduction for developers</em></a> to understand what a Telegram bot is and what it can do.</p>
 <p>We, <a href="https://github.com/orgs/TelegramBots/people">Telegram Bots team</a>, mainly focus on developing multiple <a href="https://www.nuget.org/profiles/TelegramBots">NuGet packages</a> for creating chatbots.</p>
 <table><thead><tr><th align="center">Packages</th><th align="center">Team</th><th align="center">News Channel</th><th align="center">Group Chat</th></tr></thead><tbody>
-<tr><td align="center"> <a href="https://www.nuget.org/profiles/TelegramBots"><img src="docs/intro-nuget-logo.png" alt="Packages" /></a> </td><td align="center"> <a href="https://github.com/orgs/TelegramBots/people"><img src="docs/intro-gh-logo.png" alt="Team" /></a> </td><td align="center"> <a href="https://t.me/tgbots_dotnet"><img src="docs/intro-channel-logo.jpg" alt="News Channel" /></a> </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA"><img src="docs/intro-chat-logo.jpg" alt="Group Chat" /></a> </td></tr>
+<tr><td align="center"> <a href="https://www.nuget.org/profiles/TelegramBots"><img src="docs/logo-nuget.png" alt="Packages" /></a> </td><td align="center"> <a href="https://github.com/orgs/TelegramBots/people"><img src="docs/logo-gh.png" alt="Team" /></a> </td><td align="center"> <a href="https://t.me/tgbots_dotnet"><img src="docs/logo-channel.jpg" alt="News Channel" /></a> </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA"><img src="docs/logo-chat.jpg" alt="Group Chat" /></a> </td></tr>
 <tr><td align="center"> Packages we release on NuGet </td><td align="center"> The team contributing to this work </td><td align="center"> Subscribe to <a href="https://t.me/tgbots_dotnet"><code>@tgbots_dotnet</code></a> channel to get our latest news </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">Join our chat</a> to talk about bots and ask questions </td></tr>
 </tbody></table>
 <a class="header" href="#what-is-this-book-for" id="what-is-this-book-for"><h2>What Is This Book For</h2></a>
-<p>All Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this book covers all you need to create a chatbot in
-.NET. There are also many concrete examples written in C#. The guides here can even be useful to bot developers, using
-other languages/platforms, as it shows best practices in developing Telegram chatbots with examples.</p>
-<a class="header" href="#correctness" id="correctness"><h2>Correctness</h2></a>
-<p>This project is fully tested using Unit tests and <a href="Integration-Tests.html">Systems Integration tests</a> before each release. In fact, our test cases
-are self-documenting and serve as examples for Bot API methods. Once you learn the basics of Telegram chatbots, you
-will be able to easily adapt test methods to your own program and make your bot smarter.</p>
+<p>All Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this book covers all you need to know to create a
+chatbot in .NET. There are also many concrete examples written in C#.
+The guides here can even be useful to bot developers using other languages/platforms as it shows best practices
+in developing Telegram chatbots with examples.</p>
+<a class="header" href="#correctness--testing" id="correctness--testing"><h2>Correctness &amp; Testing</h2></a>
+<p>This project is fully tested using Unit tests and Systems Integration tests before each release.
+In fact, our test cases are self-documenting and serve as examples for Bot API methods.
+Once you learn the basics of Telegram chatbots, you will be able to easily understand the code in examples and
+use it in your own bot program.</p>
 <a class="header" href="#get-started" id="get-started"><h2>Get Started</h2></a>
-<p><strong>Begin your bot development journey with the <a href="quickstart.html"><em>Quickstart</em></a> guide.</strong></p>
+<p><strong>Begin your bot development journey with the <a href="./quickstart.html"><em>Quickstart</em></a> guide.</strong></p>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://core.telegram.org/bots/api">Telegram Bot API</a></p>
@@ -163,13 +168,14 @@ will be able to easily adapt test methods to your own program and make your bot 
 <a class="header" href="#bot-father" id="bot-father"><h2>Bot Father</h2></a>
 <p>Before you start developing a bot, you need to talk to <a href="https://t.me/botfather"><code>@BotFather</code></a> on Telegram. Register a
 bot with him and get an access token.</p>
-<p><a href="https://t.me/botfather"><img src="./docs/bot-father.jpg" alt="Bot Father" /></a></p>
+<p><a href="https://t.me/botfather"><img src="docs/logo-bot-father.jpg" alt="Bot Father" /></a></p>
 <p>Access token is a key used to identify and authorize your bot in API
 requests so keep it with yourself as a secret. It looks like this:</p>
 <pre><code class="language-text">123456789:AAE5cvFhxQ9C7vFGElcpMTNrYrkl3OBFo45
 </code></pre>
 <a class="header" href="#hello-world" id="hello-world"><h2>Hello World</h2></a>
-<p>Now you have a bot, it's time to bring it to life! Create a new console project for your bot. It could be a .NET Core project or a .NET project targeting versions 4.5+.</p>
+<p>Now you have a bot, it's time to bring it to life! Create a new console project for your bot.
+It could be a .NET Core project or a .NET project targeting versions 4.5+.</p>
 <blockquote>
 <p>This guide uses .NET Core examples but full .NET framework projects work as well.</p>
 </blockquote>
@@ -250,27 +256,38 @@ namespace Awesome {
 <p>Run the program.</p>
 <pre><code class="language-bash">dotnet run
 </code></pre>
-<p>It runs for a long time unless forcefully stopped, waiting for text messages. Open a private chat with your bot in
+<p>It runs for a long time waiting for text messages unless forcefully stopped. Open a private chat with your bot in
 Telegram and send a text message to it. Bot should reply in no time.</p>
-<p>In the code above, we subscribe to <code>OnMessage</code> event on bot client to take action on messages that users send to
-the bot.</p>
+<p>In the code above, we subscribe to <code>OnMessage</code> event on bot client to take action on messages that users send to bot.</p>
 <p>By invoking <code>StartReceiving()</code>, bot client starts fetching updates using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method for the bot
 from Telegram Servers. This is an asynchronous operation so <code>Thread.Sleep()</code> is used right after that
 to keep the app running for a while in this demo.</p>
-<p>When a user sends a message, <code>Bot_OnMessage()</code> gets invoked with the message object in the event argument.
+<p>When a user sends a message, <code>Bot_OnMessage()</code> gets invoked with the message object passed via event arguments.
 We are expecting a text message so we check for <code>Message.Text</code> value.
 Finally, we send a text message back to the same chat we got the message from.</p>
 <p>If you take a look at console, program outputs the <code>chatId</code> value. <strong>Copy chat id number</strong> to make testing easier
 for yourself in next pages.</p>
 <pre><code class="language-text">Received a text message in chat 123456789.
 </code></pre>
+<a class="header" href="#beginner" id="beginner"><h1>Beginner</h1></a>
+<ul>
+<li><a href="send-msg">Sending Messages</a>
+<ul>
+<li><a href="send-msg/text-msg.html">Text Messages</a></li>
+<li><a href="send-msg/multimedia-msg.html">Multimedia Messages</a></li>
+<li><a href="send-msg/other-msg.html">Other Messages</a></li>
+</ul>
+</li>
+<li><a href="reply-markup.html">Reply Markup</a></li>
+<li><a href="get-updates.html">Getting Updates</a></li>
+</ul>
 <a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
 <ul>
 <li><a href="text-msg.html">Send Text Messages (text and more)</a></li>
 <li><a href="multimedia-msg.html">Send Multimedia Messages (photo, sticker, etc.)</a></li>
 </ul>
-<p>There are many different types of message that a bot can send. Fortunately, methods for sending such messages have are
-similar. Take a look at these examples:</p>
+<p>There are many different types of message that a bot can send.
+Fortunately, methods for sending such messages are similar. Take a look at these examples:</p>
 <p><strong>Sending text message</strong>:</p>
 <p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendTextMessageAsync(
@@ -295,7 +312,7 @@ similar. Take a look at these examples:</p>
 <a class="header" href="#text-messages-and-more" id="text-messages-and-more"><h1>Text Messages and More</h1></a>
 <p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of Bot API.
 Text messages are easy to send and fast to show on devices with slower network.
-Don't use plain text all the time. Telegram allows you to format the text using Markdown or HTML.</p>
+<em>Don't send boring plain text to users all the time</em>. Telegram allows you to format the text using Markdown or HTML.</p>
 <a class="header" href="#send-text-message" id="send-text-message"><h2>Send Text Message</h2></a>
 <p>Code snippet below send a message with multiple parameters that looks like this:</p>
 <p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
@@ -355,7 +372,128 @@ message.EntityValues.First()  == &quot;all the parameters&quot;
 <p>Currently, message object doesn't contain information about its reply markup.</p>
 <p>Try putting a breakpoint in code to examine all the properties on message objects you get.</p>
 <a class="header" href="#multimedia-message" id="multimedia-message"><h1>Multimedia Message</h1></a>
+<a class="header" href="#photo" id="photo"><h2>Photo</h2></a>
+<!-- photo -->
+<a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
+<!-- audio, voice -->
+<a class="header" href="#video" id="video"><h2>Video</h2></a>
+<!-- video, videoNote -->
+<a class="header" href="#album" id="album"><h2>Album</h2></a>
+<a class="header" href="#document" id="document"><h2>Document</h2></a>
+<!-- + animation -->
+<a class="header" href="#other-messages" id="other-messages"><h1>Other Messages</h1></a>
+<a class="header" href="#contact" id="contact"><h2>Contact</h2></a>
+<a class="header" href="#venue" id="venue"><h2>Venue</h2></a>
+<a class="header" href="#location" id="location"><h2>Location</h2></a>
+<a class="header" href="#reply-markup" id="reply-markup"><h1>Reply Markup</h1></a>
+<a class="header" href="#getting-updates" id="getting-updates"><h1>Getting Updates</h1></a>
+<a class="header" href="#intermediate" id="intermediate"><h1>Intermediate</h1></a>
+<a class="header" href="#deployment" id="deployment"><h1>Deployment</h1></a>
+<a class="header" href="#long-polling" id="long-polling"><h1>Long Polling</h1></a>
+<a class="header" href="#webhooks" id="webhooks"><h1>Webhooks</h1></a>
+<a class="header" href="#systems-integration-tests" id="systems-integration-tests"><h1>Systems Integration Tests</h1></a>
+<p>Integration tests are meant to test the project with real data from Telegram. They are semi-automated tests and tester(s) need to interact with bot for some cases during the test execution. Tests could be used as a playground for exploring Bot API methods.</p>
+<a class="header" href="#sample-test-diagnostics-output" id="sample-test-diagnostics-output"><h2>Sample Test Diagnostics Output</h2></a>
+<p>All the test output goes into the supergroup/private chats specified in configurations or interactively during test execution. You can see some samples of test output below.</p>
+<p>Admin bots can change chat photo.</p>
+<p><img src="docs/testcase-chatphoto.jpg" alt="Test Case: Set Chat Photo" /></p>
+<p>Invoices could be paid in private chats.</p>
+<p><img src="docs/testcase-payment.jpg" alt="Test Case: Set Chat Photo" /></p>
+<a class="header" href="#how-tests-works" id="how-tests-works"><h2>How Tests Works</h2></a>
+<p>These integration tests are written just like regular unit tests with xUnit framework so they seem to be unit tests. When you run test(s), bot makes a request to Bot API and you should see results(message or service notification) in the chat with bot.</p>
+<p>When you build the solution, you will see them in Test Explorer window. Tests could be run through .NET Core's CLI as well and that's how this project's CI is set up.</p>
+<p>A bot, of course, is needed to test Bot API. This document refers to its user name as <em>MyTestBot</em>.</p>
+<p><em>Tester</em> refers to user name of person testing the bot. Multiple testers could interact with bot during
+test execution. If super group chat has other members that are not listed as testers, bot ignores their
+messages during test execution. Testers must have user names assigned and their user names should be set
+in test configurations before hand.</p>
+<p>All the tests happen in two chats. A Super Group chat and a Private chat with one of the testers.</p>
+<p>Test cases that need tester's interaction to continue, have a limit of usually 2 minues to wait for receving an expected update from API.</p>
+<p>Tests could be run individually, in collections, or all at once. All the test collection and test cases whithin them are ordered and tests will not run in parallel.</p>
+<a class="header" href="#test-environment-setup" id="test-environment-setup"><h2>Test Environment Setup</h2></a>
+<p>Create a Super Group and add bot to it. Promote bot to admin and make sure it has all the permissions. This group needs to have another regular(non-admin) member to be used in tests for chat administration methods(such as Kick, Restrict, Unban). A super group with 2 testers in it, one admin and the other non-admin member, is enough.</p>
+<p>Bot should have some features enabled, usually through BotFather, in order to pass tests. These features are listed below:</p>
+<ul>
+<li>Inline Queries</li>
+<li>Payment Provider</li>
+</ul>
+<p>For making testing process more convenient, set the following commands for MyTestBot as well. The purpose for these commands is explained in the sections below.</p>
+<pre><code class="language-text">test - Start test execution
+  me - Select me for testing admin methods
+</code></pre>
+<a class="header" href="#test-configurations" id="test-configurations"><h2>Test Configurations</h2></a>
+<p>You can see a list of configuration keys in <code>appsettings.json</code> file. Make a copy of this file and store your configurations there. In addition to <code>appsettings.json</code> and <code>appsettings.Development.json</code>, environment variables prefixed by <code>TelegramBot_</code> are also read into program.</p>
+<pre><code class="language-bash">cp appsettings.json appsettings.Development.json
+</code></pre>
+<a class="header" href="#required-settings" id="required-settings"><h3>Required Settings</h3></a>
+<p>Only 2 values must be provided before test execution.</p>
+<a class="header" href="#api-token" id="api-token"><h4>API Token</h4></a>
+<p>This is required for executing any test case.</p>
+<pre><code class="language-json">{
+    &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
+    /* ... */
+}
+</code></pre>
+<a class="header" href="#allowed-users" id="allowed-users"><h4>Allowed Users</h4></a>
+<p>A comma separated list indicating user name(s) of tester(s). Any update coming from users other than the ones listed here are discarded during test execution.</p>
+<pre><code class="language-json">{
+    /* ... */
+    &quot;AllowedUserNames&quot;: &quot;tester1, Tester2, TESTER3&quot;
+    /* ... */
+}
+</code></pre>
+<a class="header" href="#optional-settings" id="optional-settings"><h3>Optional Settings</h3></a>
+<p>The following settings are not required for two reasons. Either bot can ask for them during test execution or it is not a required setting for all test cases.</p>
+<p>Bot will ask testers in supergroup/private chat for the necessary information. It would be faster to set all the optional settings as well because it makes testing process faster and less manual.</p>
+<blockquote>
+<p>For obtaining values of necessary settings, you can set breakpoints in some test methods and extract values such as chat id or user id.</p>
+</blockquote>
+<a class="header" href="#supergroup-chat-id" id="supergroup-chat-id"><h4>Supergroup Chat Id</h4></a>
+<p>Bot send  messages to this chat in almost all test cases except cases like sending payments that must be to a private chat.</p>
+<p>If not set, before starting any test method, bot waits for a tester to send it a <code>/test</code> command in a super group chat (that bot is also a member of).</p>
+<pre><code class="language-json">{
+    /* ... */
+    &quot;SuperGroupChatId&quot;: -1234567890
+    /* ... */
+}
+</code></pre>
+<a class="header" href="#payment-settings" id="payment-settings"><h4>Payment Settings</h4></a>
+<a class="header" href="#required-payment-provider-token" id="required-payment-provider-token"><h5>[Required] Payment Provider Token</h5></a>
+<p>This token is <strong>required</strong> for any test case regarding payments and must be provided before starting tests.</p>
+<p>Consult Telegram API documentations and talk to BotFather to get a test token from a payment provider.</p>
+<pre><code class="language-json">{
+    /* ... */
+    &quot;PaymentProviderToken&quot;: &quot;MY-PAYMENT-PROVIDER-TOKEN&quot;
+    /* ... */
+}
+</code></pre>
+<a class="header" href="#testerprivatechatid" id="testerprivatechatid"><h5>TesterPrivateChatId</h5></a>
+<p>Invoices could only be sent to private chats. If not set, bot will wait for a tester to send it <code>/test</code> command in a private chat.</p>
+<pre><code class="language-json">{
+    /* ... */
+    &quot;TesterPrivateChatId&quot;: 1234567890
+    /* ... */
+}
+</code></pre>
+<a class="header" href="#chat-administration" id="chat-administration"><h4>Chat Administration</h4></a>
+<p>For this type of tests, bot should be a priviledged admin of that super group. Methods such as kick or unban will be performed on a regular (non-admin) tester in that chat.</p>
+<p>If the following 3 settings are not set, bot will ask a tester to send it <code>/me</code> command in a private chat with bot.</p>
+<ul>
+<li>Regular Member's User Id</li>
+<li>Regular Member's User Name</li>
+<li>Regular Member's Private Chat Id</li>
+</ul>
+<pre><code class="language-json">{
+    /* ... */
+    &quot;RegularMemberUserId&quot;: 1234567890,
+    &quot;RegularMemberUserName&quot;: &quot;tester3&quot;,
+    &quot;RegularMemberPrivateChatId&quot;: 1234567890
+    /* ... */
+}
+</code></pre>
+<a class="header" href="#inline-mode" id="inline-mode"><h1>Inline Mode</h1></a>
 <a class="header" href="#working-with-files" id="working-with-files"><h1>Working with Files</h1></a>
+<a class="header" href="#download" id="download"><h1>Download</h1></a>
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
 <a class="header" href="#uploading-the-actual-file" id="uploading-the-actual-file"><h2>Uploading the actual file</h2></a>
 <pre><code class="language-csharp">using (FileStream fs = System.IO.File.OpenRead(&quot;Local file.pdf&quot;))
@@ -375,6 +513,7 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 <pre><code class="language-csharp">InputOnlineFile inputOnlineFile = new InputOnlineFile(&quot;telegram.org/img/t_logo.png&quot;);
 await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 </code></pre>
+<a class="header" href="#advanced" id="advanced"><h1>Advanced</h1></a>
 <a class="header" href="#telegram-login-widget" id="telegram-login-widget"><h1>Telegram Login Widget</h1></a>
 <p>Everything related to the <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a> has been moved to a separate repository:
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.LoginWidget"><code>Telegram.Bot.Extensions.LoginWidget</code></a></p>
@@ -570,7 +709,7 @@ passing in the encrypted file bytes and the corresponding <a href="https://core.
 <li><a href="#socks5-proxy">SOCKS5 Proxy</a></li>
 <li><a href="#socks5-proxy-over-tor">SOCKS5 Proxy over Tor (Testing Only)</a></li>
 </ul>
-<p><img src="./docs/tg-network.gif" alt="Telegram Network" /></p>
+<p><img src="docs/tg-network.gif" alt="Telegram Network" /></p>
 <blockquote>
 <p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
@@ -642,106 +781,7 @@ StrictNodes 1
 <p><code>SocksPort 127.0.0.1:9050</code></p>
 <p>This line tells tor to listen on port 9050 for any socks connections.
 You can change the port to anything you want (9050 is just the default), only make sure to use the same port in your code.</p>
-<a class="header" href="#integration-tests" id="integration-tests"><h1>Integration Tests</h1></a>
-<p>Integration tests are meant to test the project with real data from Telegram. They are semi-automated tests and tester(s) need to interact with bot for some cases during the test execution. Tests could be used as a playground for exploring Bot API methods.</p>
-<a class="header" href="#sample-test-diagnostics-output" id="sample-test-diagnostics-output"><h2>Sample Test Diagnostics Output</h2></a>
-<p>All the test output goes into the supergroup/private chats specified in configurations or interactively during test execution. You can see some samples of test output below.</p>
-<p>Admin bots can change chat photo.</p>
-<p><img src="docs/testcase-chatphoto.jpg" alt="Test Case: Set Chat Photo" /></p>
-<p>Invoices could be paid in private chats.</p>
-<p><img src="docs/testcase-payment.jpg" alt="Test Case: Set Chat Photo" /></p>
-<a class="header" href="#how-tests-works" id="how-tests-works"><h2>How Tests Works</h2></a>
-<p>These integration tests are written just like regular unit tests with xUnit framework so they seem to be unit tests. When you run test(s), bot makes a request to Bot API and you should see results(message or service notification) in the chat with bot.</p>
-<p>When you build the solution, you will see them in Test Explorer window. Tests could be run through .NET Core's CLI as well and that's how this project's CI is set up.</p>
-<p>A bot, of course, is needed to test Bot API. This document refers to its user name as <em>MyTestBot</em>.</p>
-<p><em>Tester</em> refers to user name of person testing the bot. Multiple testers could interact with bot during
-test execution. If super group chat has other members that are not listed as testers, bot ignores their
-messages during test execution. Testers must have user names assigned and their user names should be set
-in test configurations before hand.</p>
-<p>All the tests happen in two chats. A Super Group chat and a Private chat with one of the testers.</p>
-<p>Test cases that need tester's interaction to continue, have a limit of usually 2 minues to wait for receving an expected update from API.</p>
-<p>Tests could be run individually, in collections, or all at once. All the test collection and test cases whithin them are ordered and tests will not run in parallel.</p>
-<a class="header" href="#test-environment-setup" id="test-environment-setup"><h2>Test Environment Setup</h2></a>
-<p>Create a Super Group and add bot to it. Promote bot to admin and make sure it has all the permissions. This group needs to have another regular(non-admin) member to be used in tests for chat administration methods(such as Kick, Restrict, Unban). A super group with 2 testers in it, one admin and the other non-admin member, is enough.</p>
-<p>Bot should have some features enabled, usually through BotFather, in order to pass tests. These features are listed below:</p>
-<ul>
-<li>Inline Queries</li>
-<li>Payment Provider</li>
-</ul>
-<p>For making testing process more convenient, set the following commands for MyTestBot as well. The purpose for these commands is explained in the sections below.</p>
-<pre><code class="language-text">test - Start test execution
-  me - Select me for testing admin methods
-</code></pre>
-<a class="header" href="#test-configurations" id="test-configurations"><h2>Test Configurations</h2></a>
-<p>You can see a list of configuration keys in <code>appsettings.json</code> file. Make a copy of this file and store your configurations there. In addition to <code>appsettings.json</code> and <code>appsettings.Development.json</code>, environment variables prefixed by <code>TelegramBot_</code> are also read into program.</p>
-<pre><code class="language-bash">cp appsettings.json appsettings.Development.json
-</code></pre>
-<a class="header" href="#required-settings" id="required-settings"><h3>Required Settings</h3></a>
-<p>Only 2 values must be provided before test execution.</p>
-<a class="header" href="#api-token" id="api-token"><h4>API Token</h4></a>
-<p>This is required for executing any test case.</p>
-<pre><code class="language-json">{
-    &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
-    /* ... */
-}
-</code></pre>
-<a class="header" href="#allowed-users" id="allowed-users"><h4>Allowed Users</h4></a>
-<p>A comma separated list indicating user name(s) of tester(s). Any update coming from users other than the ones listed here are discarded during test execution.</p>
-<pre><code class="language-json">{
-    /* ... */
-    &quot;AllowedUserNames&quot;: &quot;tester1, Tester2, TESTER3&quot;
-    /* ... */
-}
-</code></pre>
-<a class="header" href="#optional-settings" id="optional-settings"><h3>Optional Settings</h3></a>
-<p>The following settings are not required for two reasons. Either bot can ask for them during test execution or it is not a required setting for all test cases.</p>
-<p>Bot will ask testers in supergroup/private chat for the necessary information. It would be faster to set all the optional settings as well because it makes testing process faster and less manual.</p>
-<blockquote>
-<p>For obtaining values of necessary settings, you can set breakpoints in some test methods and extract values such as chat id or user id.</p>
-</blockquote>
-<a class="header" href="#supergroup-chat-id" id="supergroup-chat-id"><h4>Supergroup Chat Id</h4></a>
-<p>Bot send  messages to this chat in almost all test cases except cases like sending payments that must be to a private chat.</p>
-<p>If not set, before starting any test method, bot waits for a tester to send it a <code>/test</code> command in a super group chat (that bot is also a member of).</p>
-<pre><code class="language-json">{
-    /* ... */
-    &quot;SuperGroupChatId&quot;: -1234567890
-    /* ... */
-}
-</code></pre>
-<a class="header" href="#payment-settings" id="payment-settings"><h4>Payment Settings</h4></a>
-<a class="header" href="#required-payment-provider-token" id="required-payment-provider-token"><h5>[Required] Payment Provider Token</h5></a>
-<p>This token is <strong>required</strong> for any test case regarding payments and must be provided before starting tests.</p>
-<p>Consult Telegram API documentations and talk to BotFather to get a test token from a payment provider.</p>
-<pre><code class="language-json">{
-    /* ... */
-    &quot;PaymentProviderToken&quot;: &quot;MY-PAYMENT-PROVIDER-TOKEN&quot;
-    /* ... */
-}
-</code></pre>
-<a class="header" href="#testerprivatechatid" id="testerprivatechatid"><h5>TesterPrivateChatId</h5></a>
-<p>Invoices could only be sent to private chats. If not set, bot will wait for a tester to send it <code>/test</code> command in a private chat.</p>
-<pre><code class="language-json">{
-    /* ... */
-    &quot;TesterPrivateChatId&quot;: 1234567890
-    /* ... */
-}
-</code></pre>
-<a class="header" href="#chat-administration" id="chat-administration"><h4>Chat Administration</h4></a>
-<p>For this type of tests, bot should be a priviledged admin of that super group. Methods such as kick or unban will be performed on a regular (non-admin) tester in that chat.</p>
-<p>If the following 3 settings are not set, bot will ask a tester to send it <code>/me</code> command in a private chat with bot.</p>
-<ul>
-<li>Regular Member's User Id</li>
-<li>Regular Member's User Name</li>
-<li>Regular Member's Private Chat Id</li>
-</ul>
-<pre><code class="language-json">{
-    /* ... */
-    &quot;RegularMemberUserId&quot;: 1234567890,
-    &quot;RegularMemberUserName&quot;: &quot;tester3&quot;,
-    &quot;RegularMemberPrivateChatId&quot;: 1234567890
-    /* ... */
-}
-</code></pre>
+<a class="header" href="#logging" id="logging"><h1>Logging</h1></a>
 <a class="header" href="#date-and-time" id="date-and-time"><h2>Date and Time</h2></a>
 <p>All <code>DateTime</code> values are now in UTC format. Here are some examples of usage:</p>
 <pre><code class="language-csharp">// Use UTC time when making a request
