@@ -1,17 +1,20 @@
 # Summary
 
-- [Introduction](intro.md)
-- [Quickstart](quickstart.md)
-- [Example - First Chat Bot](example-bot.md)
-- [Sending Messages](send-msg/README.md)
+- [Overview](1/README.md)
+  - [Introduction](1/intro.md)
+  - [Quickstart](1/quickstart.md)
+  - [Example - First Chat Bot](1/example-bot.md)
+
+<!-- - [Sending Messages](send-msg/README.md)
   - [Text Messages](send-msg/text-msg.md)
   - [Multimedia Messages](send-msg/multimedia-msg.md)
+  - [Other Messages](send-msg/other-msg.md)
 - [Working with Files](files/README.md)
   - [Upload](files/upload.md)
 - [Login widget](Login-Widget.md)
 - [Passport](passport/README.md)
 - [HTTP/SOCKS5 Proxy](proxy.md)
-- [Integration tests](Integration-Tests.md)
+- [Integration tests](Integration-Tests.md) -->
 - [Migration guide => v14](Migration-Guide-to-Version-14.x.md)
 - [FAQ](FAQ.md)
 
