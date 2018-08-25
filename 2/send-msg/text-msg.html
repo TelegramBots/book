@@ -138,7 +138,7 @@
                     <main>
                         <a class="header" href="#text-messages-and-more" id="text-messages-and-more"><h1>Text Messages and More</h1></a>
 <p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square" alt="send message method" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Test_cases-here-green.svg?style=flat-square" alt="tests" /></a></p>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of Bot API.
 Text messages are easy to send and fast to show on devices with slower network.
 <em>Don't send boring plain text to users all the time</em>. Telegram allows you to format the text using Markdown or HTML.</p>
@@ -167,7 +167,7 @@ Message message = await botClient.SendTextMessageAsync(
 </code></pre>
 <p>Method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram Bot API. This method sends a
 text message and returns the message object sent.</p>
-<p><code>text</code> is written in <a href="https://en.wikipedia.org/wiki/Markdown">MarkDown format</a> and <code>parseMode</code> indicates that. You can also write in HTML or plain text.</p>
+<p><code>text</code> is written in <a href="https://core.telegram.org/bots/api#markdown-style">MarkDown format</a> and <code>parseMode</code> indicates that. You can also write in HTML or plain text.</p>
 <p>By passing <code>disableNotification</code> we tell Telegram client on user's device not to show/sound a notification.</p>
 <p>It's a good idea to make it clear to user the reason bot is sending this message and that's why we pass user's
 message id for <code>replyToMessageId</code>.</p>

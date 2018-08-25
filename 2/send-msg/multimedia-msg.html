@@ -137,8 +137,64 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#multimedia-message" id="multimedia-message"><h1>Multimedia Message</h1></a>
+<p>You can provide the source file for almost all multimedia messages(e.g. photo, video) in 3 ways:</p>
+<ul>
+<li>Uploading a file with the HTTP request</li>
+<li>HTTP URL for Telegram to get a file from the internet</li>
+<li><code>file_id</code> of an existing file on Telegram servers (<em>recommended</em>)</li>
+</ul>
+<p>Examples on this page show all three. You will learn more about them later on when we discuss file upload and download.</p>
 <a class="header" href="#photo" id="photo"><h2>Photo</h2></a>
-<!-- photo -->
+<p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-send_photo-blue.svg?style=flat-square" alt="send photo method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
+<p>Sending a photo<sup class="footnote-reference"><a href="#1">1</a></sup> is simple. Here is an example:</p>
+<pre><code class="language-c#">Message message = await botClient.SendPhotoAsync(
+  chatId: e.Message.Chat,
+  photo: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
+  caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
+  parseMode: ParseMode.Html
+);
+</code></pre>
+<p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
+<a class="header" href="#caption" id="caption"><h3>Caption</h3></a>
+<p>Multimedia messages can have a caption attached to them. Here we sent a caption in HTML format.
+User can click on <em>Pixabay</em> in the caption to open its URL in browser.</p>
+<p>Similar to message entities discussed before, caption entities on <a href="https://core.telegram.org/bots/api#message"><code>Message</code></a> object are the result of
+parsing formatted(Markdown or HTML) caption text.
+Try inspecting these properties in debug mode:</p>
+<ul>
+<li><code>message.Caption</code>: caption in plain text without formatting</li>
+<li><code>message.CaptionEntities</code>: info about special entities in caption</li>
+<li><code>message.CaptionEntityValues</code>: text values of mentioned entities</li>
+</ul>
+<a class="header" href="#photo-message" id="photo-message"><h3>Photo Message</h3></a>
+<p>The <code>message</code> returned from this method represents a <em>photo message</em> because <code>message.Photo</code> has a value.
+Its value is a <a href="https://core.telegram.org/bots/api#photosize"><code>PhotoSize</code></a> array with each element representing the same photo in different dimensions.
+If your bot needs to send this photo again at some point, it is recommended to store this array
+so you can reuse the <code>file_id</code> value.</p>
+<p>Here is how <code>message.Photo</code> array looks like in JSON:</p>
+<pre><code class="language-json">[
+  {
+    &quot;file_id&quot;: &quot;AgADBAADDqgxG-QDDVCm5JVvld7MN0z6kBkABCQawlb-dBXqBZUEAAEC&quot;,
+    &quot;file_size&quot;: 1254,
+    &quot;width&quot;: 90,
+    &quot;height&quot;: 60
+  },
+  {
+    &quot;file_id&quot;: &quot;AgADBAADDqgxG-QDDVCm5JVvld7MN0z6kBkABAKByRnc22RmBpUEAAEC&quot;,
+    &quot;file_size&quot;: 16419,
+    &quot;width&quot;: 320,
+    &quot;height&quot;: 213
+  },
+  {
+    &quot;file_id&quot;: &quot;AgADBAADDqgxG-QDDVCm5JVvld7MN0z6kBkABHezqGiNOz9yB5UEAAEC&quot;,
+    &quot;file_size&quot;: 57865,
+    &quot;width&quot;: 640,
+    &quot;height&quot;: 426
+  }
+]
+</code></pre>
+<a class="header" href="#sticker" id="sticker"><h2>Sticker</h2></a>
 <a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
 <!-- audio, voice -->
 <a class="header" href="#video" id="video"><h2>Video</h2></a>
@@ -146,6 +202,10 @@
 <a class="header" href="#album" id="album"><h2>Album</h2></a>
 <a class="header" href="#document" id="document"><h2>Document</h2></a>
 <!-- + animation -->
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://core.telegram.org/bots/api#sendphoto">sendPhoto</a></p>
+</div>
 
                     </main>
 
