@@ -192,7 +192,7 @@ The decrypted bytes are a valid jpg file.
 [`Credentials`]: https://core.telegram.org/passport#credentials
 [`DataCredentials`]: https://core.telegram.org/passport#datacredentials
 [`FileCredentials`]: https://core.telegram.org/passport#filecredentials
-[PEM to RSA]: https://stackoverflow.com/q/243646/6845657
+[PEM to RSA]: https://stackoverflow.com/questions/243646/how-to-read-a-pem-rsa-private-key-from-net
 [Request parameters]: https://core.telegram.org/passport#request-parameters
 [`EncryptedPassportElement`]: https://core.telegram.org/bots/api#encryptedpassportelement
 [Errors]: https://core.telegram.org/passport#fixing-errors

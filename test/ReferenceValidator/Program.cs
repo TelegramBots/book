@@ -80,22 +80,33 @@ namespace LinkValidator
                             ReportUnresolvedReference(reference, markdownFile.RelativePath, lineNr);
                     }
                 }
+
+                HashSet<string> definedReferenceNames = new HashSet<string>(
+                    markdownFile.DefinedReferenceNames
+                    .Select(reference => reference.referenceName.Trim().ToLower()));
+                foreach (var (lineNr, name) in markdownFile.AccessedReferenceNames)
+                {
+                    if (!definedReferenceNames.Contains(name.Trim().ToLower()))
+                        ReportUndefinedNamedReference(name, markdownFile.RelativePath, lineNr);
+                }
+
+                HashSet<string> accessedReferenceNames = new HashSet<string>(
+                    markdownFile.AccessedReferenceNames
+                    .Select(reference => reference.referenceName.Trim().ToLower()));
+                foreach (var (lineNr, name) in markdownFile.DefinedReferenceNames)
+                {
+                    if (!accessedReferenceNames.Contains(name.Trim().ToLower()))
+                        ReportUnusedNamedReference(name, markdownFile.RelativePath, lineNr);
+                }
             }
 
             if (ErrorsFound)
             {
                 Environment.ExitCode = 1;
             }
-            else
+            else if (!WarningsFound)
             {
-                if (WarningsFound)
-                {
-                    PrintColor("Test was successful, but not warning-free\n", ConsoleColor.Red);
-                }
-                else
-                {
-                    Console.WriteLine("All references are good!");
-                }
+                PrintColor("All references are good!\n", ConsoleColor.Green);
             }
         }
 
@@ -125,6 +136,10 @@ namespace LinkValidator
             => ReportError($"Fragment reference `{fragment}` in `{file}` on line {line} {message}.");
         private static void ReportUnresolvedReference(string reference, string file, int line)
             => ReportError($"Unresolved reference `{reference}` in `{file}` on line {line}.");
+        private static void ReportUndefinedNamedReference(string name, string file, int line)
+            => ReportError($"Unresolved reference name `{name}` in `{file}` on line {line}.");
+        private static void ReportUnusedNamedReference(string name, string file, int line)
+            => ReportWarning($"Unused named reference: `{name}` in `{file}` on line {line}.");
 
         private static readonly HttpClient _httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false });
         private static readonly HashSet<string> _visitedLinks = new HashSet<string>();
