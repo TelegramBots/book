@@ -148,7 +148,7 @@ You have to pass in the private key you generated at the start as an [RSA object
 If the decryption was successful, you are granted with decrypted [`Credentials`].
 
 Now is the time to check the `Credentials.Payload` field.
-It should **exactly match** the payload you set in the [authorization request](##integration-with-your-application-or-website).
+It should **exactly match** the payload you set in the [authorization request](#integration-with-your-application-or-website).
 
 Description of the payload field, taken from [Telegram's passport manual][Request parameters]:
 > **Important:** For security purposes it should be a cryptographically secure unique identifier of the request. In particular, it should be long enough and it should be generated using a cryptographically secure pseudorandom number generator. You should never accept credentials with the same payload twice.
@@ -173,7 +173,7 @@ These credentials can be found inside of the [`Credentials`] object. (Again, che
 For getting the document images, you need to go a step further.
 Some elements contain the `FrontSide`, `ReverseSide` and `Files` fields.
 These contain information on how to download and decrypt said files.
-Downloading these files is done like with every other file. See [downloading files](../files/download.md).
+Downloading these files is done like with every other file. See [downloading files](../3/files/download.md).
 Note that these files are encrypted!
 
 To decrypt them call the `PassportCryptography.TryDecryptFile` method,

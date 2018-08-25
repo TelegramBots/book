@@ -1,3 +1,7 @@
 book
+
+# Visual Studio
 .vs
 .vscode
+obj
+bin

@@ -1,0 +1,12 @@
+image: Visual Studio 2017
+
+configuration: Release
+
+before_build:
+  nuget restore test\ReferenceValidator.sln
+
+build:
+  project: test\ReferenceValidator.sln
+
+after_build:
+  dotnet test\ReferenceValidator\bin\Release\netcoreapp2.0\ReferenceValidator.dll

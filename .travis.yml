@@ -6,7 +6,10 @@ cache: cargo
 install:
   - mdbook -V || cargo install mdbook --vers "^0.2.0"
 script:
-  - mdbook build && mdbook test
+- |-
+  mdbook build
+  mdbook test
+
 
 deploy:
   provider: pages
