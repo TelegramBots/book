@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 
 namespace LinkValidator
 {
@@ -46,7 +47,7 @@ namespace LinkValidator
                     {
                         if (reference.OrdinalContains("##"))
                         {
-                            ReportFragmentError(reference, markdownFile.RelativePath, lineNr, "has double ##");
+                            ReportFragmentIdentifierError(reference, markdownFile.RelativePath, lineNr, "has double ##");
                             continue;
                         }
 
@@ -54,7 +55,7 @@ namespace LinkValidator
                         if (reference.StartsWith('#')) // Regular fragment (e.g. #usage)
                         {
                             if (!markdownFile.HeaderEntities.Contains(fragment))
-                                ReportFragmentError(reference, markdownFile.RelativePath, lineNr, "could not be resolved");                                
+                                ReportFragmentIdentifierError(reference, markdownFile.RelativePath, lineNr, "could not be resolved");                                
                         }
                         else // Cross-file fragment (e.g. ./proxy.md#http-proxy
                         {
@@ -65,7 +66,7 @@ namespace LinkValidator
 
                             if (!markdownFiles.TryGetValue(referencedFilePath, out MarkdownFile referencedFile) ||
                                 !referencedFile.HeaderEntities.Contains(fragment))
-                                ReportFragmentError(reference, markdownFile.RelativePath, lineNr, "could not be resolved");
+                                ReportFragmentIdentifierError(reference, markdownFile.RelativePath, lineNr, "could not be resolved");
                         }
                     }
                     else if (reference.Contains(':')) // Link
@@ -110,6 +111,7 @@ namespace LinkValidator
             }
         }
 
+        #region Logging
         private static bool ErrorsFound = false;
         private static bool WarningsFound = false;
 
@@ -132,34 +134,61 @@ namespace LinkValidator
             Console.WriteLine(message);
             WarningsFound = true;
         }
-        private static void ReportFragmentError(string fragment, string file, int line, string message)
-            => ReportError($"Fragment reference `{fragment}` in `{file}` on line {line} {message}.");
+        private static string Format(string title, string reference, string file, int line, string message = null)
+            => $"{title} `{reference}` in `{file}` on line {line}{(message == null ? "" : " " + message)}.";
+        private static void ReportFragmentIdentifierError(string fragment, string file, int line, string message)
+            => ReportError(Format("Fragment identifier", fragment, file, line, message));
         private static void ReportUnresolvedReference(string reference, string file, int line)
-            => ReportError($"Unresolved reference `{reference}` in `{file}` on line {line}.");
+            => ReportError(Format("Unresolved reference", reference, file, line));
         private static void ReportUndefinedNamedReference(string name, string file, int line)
-            => ReportError($"Unresolved reference name `{name}` in `{file}` on line {line}.");
+            => ReportError(Format("Unresolved reference name", name, file, line));
         private static void ReportUnusedNamedReference(string name, string file, int line)
-            => ReportWarning($"Unused named reference: `{name}` in `{file}` on line {line}.");
+            => ReportWarning(Format("Unused named reference", name, file, line));
+        #endregion
 
+        private static readonly Regex FragmentIdentifierRegex = new Regex(@"href=""#(.*?)""", RegexOptions.Compiled);
         private static readonly HttpClient _httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false });
-        private static readonly HashSet<string> _visitedLinks = new HashSet<string>();
+        private static readonly Dictionary<string, HashSet<string>> _visitedLinks = new Dictionary<string, HashSet<string>>();
         private static void TestLink(string link, string sourceFile, int line)
         {
             Queue<string> redirectQueue = new Queue<string>();
 
             const int MaxDepth = 5;
 
+            string LinkFormat(string message, string replaceLink = null)
+                => Format("Link", replaceLink ?? link, sourceFile, line, message);
+
             bool TestLinkInternal(string requestUri)
             {
+                void ReportMissingFragmentIdentifier(string fragmentIdentifier)
+                    => ReportWarning(LinkFormat($"contained a fragment identifier `{fragmentIdentifier}`, that is missing on the target site", requestUri));
+
                 try
                 {
                     redirectQueue.Enqueue(requestUri);
                     if (redirectQueue.Count == MaxDepth)
                         return false;
 
-                    string baseLink = (requestUri.Contains('#') ? requestUri.SubstringBefore('#') : requestUri).TrimEnd('/');
-                    if (_visitedLinks.Contains(baseLink))
+                    string baseLink = requestUri;
+                    string fragmentIdentifier = null;
+                    if (requestUri.Contains('#'))
+                    {
+                        baseLink = baseLink.SubstringBefore('#');
+                        fragmentIdentifier = requestUri.Substring(baseLink.Length + 1).Trim().ToLower();
+                    }
+                    baseLink.Trim();
+
+                    if (_visitedLinks.TryGetValue(baseLink, out HashSet<string> identifiers))
+                    {
+                        if (fragmentIdentifier != null)
+                        {
+                            if (identifiers == null || !identifiers.Contains(fragmentIdentifier))
+                            {
+                                ReportMissingFragmentIdentifier(fragmentIdentifier);
+                            }
+                        }
                         return true;
+                    }
 
                     using (var request = new HttpRequestMessage(HttpMethod.Get, requestUri))
                     using (var response = _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).Result)
@@ -167,7 +196,21 @@ namespace LinkValidator
                         int statusCode = (int)response.StatusCode;
                         if (statusCode.IsInRange(200, 299))
                         {
-                            _visitedLinks.Add(baseLink);
+                            HashSet<string> fragmentIdentifiers = new HashSet<string>();
+                            if (response.Content.Headers.ContentType.MediaType == "text/html")
+                            {
+                                string htmlContent = response.Content.ReadAsStringAsync().Result;
+                                foreach (Match match in FragmentIdentifierRegex.Matches(htmlContent))
+                                {
+                                    fragmentIdentifiers.Add(match.Groups[1].Value.Trim().ToLower());
+                                }
+                            }
+                            _visitedLinks.Add(baseLink, fragmentIdentifiers.Count == 0 ? null : fragmentIdentifiers);
+
+                            if (fragmentIdentifier != null && !fragmentIdentifiers.Contains(fragmentIdentifier))
+                            {
+                                ReportMissingFragmentIdentifier(fragmentIdentifier);
+                            }
                             return true;
                         }
                         else if (statusCode.IsInRange(300, 399))
@@ -180,7 +223,7 @@ namespace LinkValidator
 
                             if (TestLinkInternal(redirectUri.AbsoluteUri))
                             {
-                                _visitedLinks.Add(baseLink);
+                                _visitedLinks.Add(baseLink, null);
                                 return true;
                             }
                         }
@@ -198,14 +241,12 @@ namespace LinkValidator
                 Console.Write("Redirect chain: ");
                 Console.WriteLine(string.Join($" => {Environment.NewLine}\t\t", redirectQueue.Select(request => $"`{request}`")));
             }
-            string LinkReferenceMessage(string message)
-                => $"Link `{link}` in `{sourceFile}` on line {line} {message}.";
 
             if (TestLinkInternal(link))
             {
                 if (redirectQueue.Count > 1) // Warning about redirect chain
                 {
-                    ReportWarning(LinkReferenceMessage("returned a redirect chain"));
+                    ReportWarning(LinkFormat("returned a redirect chain"));
                     PrintRedirectChain();
                 }
             }
@@ -213,31 +254,27 @@ namespace LinkValidator
             {
                 if (redirectQueue.Count == MaxDepth) // Too many redirects
                 {
-                    ReportError(LinkReferenceMessage("returned a too-long redirect chain"));
+                    ReportError(LinkFormat("returned a too-long redirect chain"));
                     PrintRedirectChain();
                 }
                 else // Broken link
                 {
-                    ReportError(LinkReferenceMessage("appears to be broken"));
+                    ReportError(LinkFormat("appears to be broken"));
                 }
             }
         }
 
         private static List<string> GetAllFiles(string path, out List<string> allDirectories)
         {
-            allDirectories = new List<string>();
             List<string> files = new List<string>();
-            Stack<string> dirsToTraverse = new Stack<string>();
-            dirsToTraverse.Push(path);
-            while (dirsToTraverse.Count > 0)
+            allDirectories = new List<string>();
+            allDirectories.Add(path);
+            int i = -1;
+            while (++i < allDirectories.Count)
             {
-                string directory = dirsToTraverse.Pop();
+                string directory = allDirectories[i];
                 files.AddRange(Directory.GetFiles(directory));
-                foreach (var dir in Directory.GetDirectories(directory))
-                {
-                    dirsToTraverse.Push(dir);
-                    allDirectories.Add(dir);
-                }
+                allDirectories.AddRange(Directory.GetDirectories(directory));
             }
             return files;
         }
