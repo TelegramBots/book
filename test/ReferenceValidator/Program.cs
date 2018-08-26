@@ -47,17 +47,17 @@ namespace LinkValidator
                     {
                         if (reference.OrdinalContains("##"))
                         {
-                            ReportFragmentIdentifierError(reference, markdownFile.RelativePath, lineNr, "has double ##");
+                            ReportError("Fragment", reference, markdownFile.RelativePath, lineNr, "has double ##");
                             continue;
                         }
 
                         string fragment = reference.ToLower();
-                        if (reference.StartsWith('#')) // Regular fragment (e.g. #usage)
+                        if (fragment.StartsWith('#')) // same-file local fragment identifier (e.g. #usage)
                         {
                             if (!markdownFile.HeaderEntities.Contains(fragment))
-                                ReportFragmentIdentifierError(reference, markdownFile.RelativePath, lineNr, "could not be resolved");                                
+                                ReportError("Fragment identifier", reference, markdownFile.RelativePath, lineNr, "could not be resolved");
                         }
-                        else // Cross-file fragment (e.g. ./proxy.md#http-proxy
+                        else // cross-file local fragment identifier (e.g. ./proxy.md#http-proxy
                         {
                             string markdownReference = fragment.SubstringBefore('#');
                             fragment = fragment.Substring(markdownReference.Length);
@@ -66,7 +66,7 @@ namespace LinkValidator
 
                             if (!markdownFiles.TryGetValue(referencedFilePath, out MarkdownFile referencedFile) ||
                                 !referencedFile.HeaderEntities.Contains(fragment))
-                                ReportFragmentIdentifierError(reference, markdownFile.RelativePath, lineNr, "could not be resolved");
+                                ReportError("Fragment identifier", reference, markdownFile.RelativePath, lineNr, "could not be resolved");
                         }
                     }
                     else if (reference.Contains(':')) // Link
@@ -78,7 +78,7 @@ namespace LinkValidator
                         string referencedFilePath = CombineFilePaths(markdownFile.RelativeLowercasePath, reference.ToLower());
 
                         if (!markdownEntities.Contains(referencedFilePath))
-                            ReportUnresolvedReference(reference, markdownFile.RelativePath, lineNr);
+                            ReportError("Unresolved reference", reference, markdownFile.RelativePath, lineNr);
                     }
                 }
 
@@ -88,7 +88,7 @@ namespace LinkValidator
                 foreach (var (lineNr, name) in markdownFile.AccessedReferenceNames)
                 {
                     if (!definedReferenceNames.Contains(name.Trim().ToLower()))
-                        ReportUndefinedNamedReference(name, markdownFile.RelativePath, lineNr);
+                        ReportError("Unresolved reference name", name, markdownFile.RelativePath, lineNr);
                 }
 
                 HashSet<string> accessedReferenceNames = new HashSet<string>(
@@ -97,7 +97,7 @@ namespace LinkValidator
                 foreach (var (lineNr, name) in markdownFile.DefinedReferenceNames)
                 {
                     if (!accessedReferenceNames.Contains(name.Trim().ToLower()))
-                        ReportUnusedNamedReference(name, markdownFile.RelativePath, lineNr);
+                        ReportWarning("Unused named reference", name, markdownFile.RelativePath, lineNr);
                 }
             }
 
@@ -122,28 +122,20 @@ namespace LinkValidator
             Console.Write(message);
             Console.ForegroundColor = previousColor;
         }
-        private static void ReportError(string message)
-        {
-            PrintColor("Markdown error: ", ConsoleColor.Red);
-            Console.WriteLine(message);
-            ErrorsFound = true;
-        }
-        private static void ReportWarning(string message)
-        {
-            PrintColor("Markdown warning: ", ConsoleColor.Red);
-            Console.WriteLine(message);
-            WarningsFound = true;
-        }
         private static string Format(string title, string reference, string file, int line, string message = null)
             => $"{title} `{reference}` in `{file}` on line {line}{(message == null ? "" : " " + message)}.";
-        private static void ReportFragmentIdentifierError(string fragment, string file, int line, string message)
-            => ReportError(Format("Fragment identifier", fragment, file, line, message));
-        private static void ReportUnresolvedReference(string reference, string file, int line)
-            => ReportError(Format("Unresolved reference", reference, file, line));
-        private static void ReportUndefinedNamedReference(string name, string file, int line)
-            => ReportError(Format("Unresolved reference name", name, file, line));
-        private static void ReportUnusedNamedReference(string name, string file, int line)
-            => ReportWarning(Format("Unused named reference", name, file, line));
+        private static void ReportError(string title, string reference, string file, int line, string message = null)
+        {
+            PrintColor("Markdown error: ", ConsoleColor.Red);
+            Console.WriteLine(Format(title, reference, file, line, message));
+            ErrorsFound = true;
+        }
+        private static void ReportWarning(string title, string reference, string file, int line, string message = null)
+        {
+            PrintColor("Markdown warning: ", ConsoleColor.Red);
+            Console.WriteLine(Format(title, reference, file, line, message));
+            WarningsFound = true;
+        }
         #endregion
 
         private static readonly Regex FragmentIdentifierRegex = new Regex(@"href=""#(.*?)""", RegexOptions.Compiled);
@@ -155,13 +147,15 @@ namespace LinkValidator
 
             const int MaxDepth = 5;
 
-            string LinkFormat(string message, string replaceLink = null)
-                => Format("Link", replaceLink ?? link, sourceFile, line, message);
+            void LinkWarning(string message, string replaceLink = null)
+                => ReportWarning("Link", replaceLink ?? link, sourceFile, line, message);
+            void LinkError(string message, string replaceLink = null)
+                => ReportError("Link", replaceLink ?? link, sourceFile, line, message);
 
             bool TestLinkInternal(string requestUri)
             {
                 void ReportMissingFragmentIdentifier(string fragmentIdentifier)
-                    => ReportWarning(LinkFormat($"contained a fragment identifier `{fragmentIdentifier}`, that is missing on the target site", requestUri));
+                    => LinkError($"contained a fragment identifier `#{fragmentIdentifier}`, that is missing on the target site", requestUri);
 
                 try
                 {
@@ -246,7 +240,7 @@ namespace LinkValidator
             {
                 if (redirectQueue.Count > 1) // Warning about redirect chain
                 {
-                    ReportWarning(LinkFormat("returned a redirect chain"));
+                    LinkWarning("returned a redirect chain"));
                     PrintRedirectChain();
                 }
             }
@@ -254,12 +248,12 @@ namespace LinkValidator
             {
                 if (redirectQueue.Count == MaxDepth) // Too many redirects
                 {
-                    ReportError(LinkFormat("returned a too-long redirect chain"));
+                    LinkError("returned a too-long redirect chain"));
                     PrintRedirectChain();
                 }
                 else // Broken link
                 {
-                    ReportError(LinkFormat("appears to be broken"));
+                    LinkError("appears to be broken"));
                 }
             }
         }
