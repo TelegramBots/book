@@ -137,20 +137,53 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#audio-and-voice-messages" id="audio-and-voice-messages"><h1>Audio and Voice Messages</h1></a>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
 <p>These two types of messages are pretty similar. An audio is in MP3 format and gets displayed in music player.
 A voice file has OGG format and is not shown in music player.</p>
 <a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
-<p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square" alt="send audio method" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
+<p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
+<p>This is the code to send a MP3 sound track. You might be wondering why some parameters are commented out.
+That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
 <pre><code class="language-c#">Message msg = await botClient.SendAudioAsync(
-  chatId: e.Message.Chat,
-  audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-fun_guitar.mp3&quot;
-  // , performer: &quot;Joel Thomas Hunger&quot;
-  // , title: &quot;Fun Guitar and Ukulele&quot;
-  // , duration: 91
+  e.Message.Chat,
+  &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;
+  /* ,
+  performer: &quot;Joel Thomas Hunger&quot;,
+  title: &quot;Fun Guitar and Ukulele&quot;,
+  duration: 91 // in seconds
+  */
 );
 </code></pre>
+<p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
+<p>Method returns an audio message. Let's take a look at the value of <code>msg.Audio</code> property in JSON format:</p>
+<pre><code class="language-json">{
+  &quot;duration&quot;: 91,
+  &quot;mime_type&quot;: &quot;audio/mpeg&quot;,
+  &quot;title&quot;: &quot;Fun Guitar and Ukulele&quot;,
+  &quot;performer&quot;: &quot;Joel Thomas Hunger&quot;,
+  &quot;file_id&quot;: &quot;CQADBAADKQADA3oUUKalqDOOcqesAg&quot;,
+  &quot;file_size&quot;: 1102154
+}
+</code></pre>
 <a class="header" href="#voice" id="voice"><h2>Voice</h2></a>
+<p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-send_voice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
+<p>Voice message is just an OGG audio file.
+Let's send it differently this time by uploading the file from disk alongside with HTTP request.</p>
+<p>To run this example, download the
+<a href="https://github.com/TelegramBots/book/raw/master/src/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a>
+to your disk.</p>
+<p>A value is passed for <code>duration</code> because Telegram can't figure that out from file's metadata.</p>
+<pre><code class="language-c#">Message msg;
+using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;)) {
+  msg = await botClient.SendVoiceAsync(
+    chatId: e.Message.Chat,
+    voice: stream,
+    duration: 36
+  );
+}
+</code></pre>
+<p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
+<p>Voice message is returned from method. Inspect <code>msg.Voice</code> property to learn more.</p>
 
                     </main>
 
