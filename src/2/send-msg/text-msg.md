@@ -1,5 +1,8 @@
 # Text Messages and More
 
+[![send message method](https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendmessage)
+[![tests](https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs)
+
 Text is a powerful interface for your bot and [`sendMessage`] probably is the most used method of Bot API.
 Text messages are easy to send and fast to show on devices with slower network.
 _Don't send boring plain text to users all the time_. Telegram allows you to format the text using Markdown or HTML.
@@ -86,6 +89,6 @@ Currently, message object doesn't contain information about its reply markup.
 Try putting a breakpoint in code to examine all the properties on message objects you get.
 
 [`sendMessage`]: https://core.telegram.org/bots/api#sendmessage
-[MarkDown format]: https://en.wikipedia.org/wiki/Markdown
+[MarkDown format]: https://core.telegram.org/bots/api#markdown-style
 [UTC format]: https://en.wikipedia.org/wiki/Coordinated_Universal_Time
 [Message Entity]: https://core.telegram.org/bots/api#messageentity
