@@ -10,7 +10,7 @@ namespace LinkValidator
     {
         static void Main(string[] args)
         {
-            string srcDirectory = Environment.CurrentDirectory + @"\src\";
+            string srcDirectory = Path.Combine(Environment.CurrentDirectory, "src/");
             int baseLength = srcDirectory.Length;
 
             List<string> files = GetAllFiles(srcDirectory, out List<string> allDirectories);

@@ -1,8 +1,5 @@
 # Sending Messages
 
-- [Send Text Messages (text and more)](text-msg.md)
-- [Send Multimedia Messages (photo, sticker, etc.)](multimedia-msg.md)
-
 There are many different types of message that a bot can send.
 Fortunately, methods for sending such messages are similar. Take a look at these examples:
 
