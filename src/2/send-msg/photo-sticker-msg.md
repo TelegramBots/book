@@ -1,4 +1,4 @@
-# Multimedia Message
+# Photo and Sticker Messages
 
 You can provide the source file for almost all multimedia messages(e.g. photo, video) in 3 ways:
 
@@ -6,7 +6,8 @@ You can provide the source file for almost all multimedia messages(e.g. photo, v
 - HTTP URL for Telegram to get a file from the internet
 - `file_id` of an existing file on Telegram servers (_recommended_)
 
-Examples on this page show all three. You will learn more about them later on when we discuss file upload and download.
+Examples in this section show all three.
+You will learn more about them later on when we discuss file upload and download.
 
 ## Photo
 
@@ -28,7 +29,7 @@ Message message = await botClient.SendPhotoAsync(
 
 ### Caption
 
-Multimedia messages can have a caption attached to them. Here we sent a caption in HTML format.
+Multimedia messages can _optionally_ have a caption attached to them. Here we sent a caption in HTML format.
 User can click on _Pixabay_ in the caption to open its URL in browser.
 
 Similar to message entities discussed before, caption entities on [`Message`] object are the result of
@@ -99,20 +100,6 @@ Message msg2 = await botClient.SendStickerAsync(
 Try inspecting `msg1.Sticker` property. It is of type [`Sticker`] and its schema looks similar to a photo.
 
 > There is more to stickers and we will talk about them in greater details later.
-
-## Audio
-
-<!-- audio, voice -->
-
-## Video
-
-<!-- video, videoNote -->
-
-## Album
-
-## Document
-
-<!-- + animation -->
 
 <!-- -------------- -->
 
