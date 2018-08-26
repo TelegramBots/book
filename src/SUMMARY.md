@@ -25,6 +25,7 @@
     - [Upload](3/files/upload.md)
   - [Stickers](3/sticker.md)
 - [Advanced](4/README.md)
+  - [Games](4/games.md)
   - [Login Widget](4/login-widget.md)
   - [Passport](4/passport.md)
   - [Proxy](4/proxy.md)
