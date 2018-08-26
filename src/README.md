@@ -1,4 +1,4 @@
-# Introduction
+# Telegram Bots Book
 
 [![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot)
 
@@ -11,7 +11,7 @@ We, [Telegram Bots team], mainly focus on developing multiple [NuGet packages] f
 
 |Packages|Team|News Channel|Group Chat|
 |:------:|:--:|:----------:|:--------:|
-| [![Packages](docs/logo-nuget.png)](https://www.nuget.org/profiles/TelegramBots) | [![Team](docs/logo-gh.png)](https://github.com/orgs/TelegramBots/people) | [![News Channel](docs/logo-channel.jpg)](https://t.me/tgbots_dotnet) | [![Group Chat](docs/logo-chat.jpg)](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) |
+| [![Packages](1/docs/logo-nuget.png)](https://www.nuget.org/profiles/TelegramBots) | [![Team](1/docs/logo-gh.png)](https://github.com/orgs/TelegramBots/people) | [![News Channel](1/docs/logo-channel.jpg)](https://t.me/tgbots_dotnet) | [![Group Chat](1/docs/logo-chat.jpg)](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) |
 | Packages we release on NuGet | The team contributing to this work | Subscribe to [`@tgbots_dotnet`] channel to get our latest news | [Join our chat] to talk about bots and ask questions |
 
 ## What Is This Book For
@@ -30,7 +30,7 @@ use it in your own bot program.
 
 ## Get Started
 
-**Begin your bot development journey with the [_Quickstart_](./quickstart.md) guide.**
+**Begin your bot development journey with the [_Quickstart_](1/quickstart.md) guide.**
 
 ---
 

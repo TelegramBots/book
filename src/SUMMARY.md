@@ -1,7 +1,6 @@
 # Summary
 
-- [Overview](1/README.md)
-  - [Introduction](1/intro.md)
+- [Overview](README.md)
   - [Quickstart](1/quickstart.md)
   - [Example - First Chat Bot](1/example-bot.md)
 - [Beginner](2/README.md)
