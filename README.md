@@ -1,4 +1,4 @@
-# Telegram Bots - Documentation
+# Telegram Bots Book
 
 [![Build Status](https://travis-ci.org/TelegramBots/book.svg?branch=master)](https://travis-ci.org/TelegramBots/book)
 
