@@ -459,7 +459,13 @@ A voice file has OGG format and is not shown in music player.</p>
 <a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square" alt="send audio method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
-<pre><code class="language-c#">
+<pre><code class="language-c#">Message msg = await botClient.SendAudioAsync(
+  chatId: e.Message.Chat,
+  audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-fun_guitar.mp3&quot;
+  // , performer: &quot;Joel Thomas Hunger&quot;
+  // , title: &quot;Fun Guitar and Ukulele&quot;
+  // , duration: 91
+);
 </code></pre>
 <a class="header" href="#voice" id="voice"><h2>Voice</h2></a>
 <a class="header" href="#video-and-video-note-messages" id="video-and-video-note-messages"><h1>Video and Video Note Messages</h1></a>
