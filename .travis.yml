@@ -12,7 +12,7 @@ install:
 script: >
   mdbook build &&
   mdbook test &&
-  docker run --rm --volume "$PWD:/app/" --workdir /app/ microsoft/dotnet:2.1-sdk \
+  docker run --rm --tty --volume "$PWD:/app/" --workdir /app/ microsoft/dotnet:2.1-sdk \
     dotnet run --configuration Release --project "test\ReferenceValidator\ReferenceValidator.csproj"
 
 deploy:
@@ -26,6 +26,7 @@ deploy:
 
 notifications:
   email:
+    on_success: never
     on_failure: always
 
 ## Notes:
