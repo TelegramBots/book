@@ -240,7 +240,7 @@ namespace LinkValidator
             {
                 if (redirectQueue.Count > 1) // Warning about redirect chain
                 {
-                    LinkWarning("returned a redirect chain"));
+                    LinkWarning("returned a redirect chain");
                     PrintRedirectChain();
                 }
             }
@@ -248,12 +248,12 @@ namespace LinkValidator
             {
                 if (redirectQueue.Count == MaxDepth) // Too many redirects
                 {
-                    LinkError("returned a too-long redirect chain"));
+                    LinkError("returned a too-long redirect chain");
                     PrintRedirectChain();
                 }
                 else // Broken link
                 {
-                    LinkError("appears to be broken"));
+                    LinkError("appears to be broken");
                 }
             }
         }
