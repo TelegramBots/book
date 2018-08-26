@@ -1,1 +1,0 @@
-dotnet run -p 'test\ReferenceValidator\ReferenceValidator.csproj' -c Release

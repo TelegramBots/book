@@ -1,4 +1,4 @@
 image: Visual Studio 2017
 
-build_script:
-  sh 'test.sh'
+build_script: >
+  dotnet run --configuration Release --project "test\ReferenceValidator\ReferenceValidator.csproj"
