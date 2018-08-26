@@ -758,10 +758,10 @@ with the <a href="https://core.telegram.org/bots/api#passportdata"><code>Message
 The library provides an extension method on <a href="https://core.telegram.org/bots/api#encryptedcredentials"><code>EncryptedCredentials</code></a> that tries to decrypt them:</p>
 <pre><code class="language-csharp">bool TryDecryptCredentials(this EncryptedCredentials, RSA, out Credentials)
 </code></pre>
-<p>You have to pass in the private key you generated at the start as an <a href="https://stackoverflow.com/q/243646/6845657">RSA object</a>.</p>
+<p>You have to pass in the private key you generated at the start as an <a href="https://stackoverflow.com/questions/243646/how-to-read-a-pem-rsa-private-key-from-net">RSA object</a>.</p>
 <p>If the decryption was successful, you are granted with decrypted <a href="https://core.telegram.org/passport#credentials"><code>Credentials</code></a>.</p>
 <p>Now is the time to check the <code>Credentials.Payload</code> field.
-It should <strong>exactly match</strong> the payload you set in the <a href="##integration-with-your-application-or-website">authorization request</a>.</p>
+It should <strong>exactly match</strong> the payload you set in the <a href="#integration-with-your-application-or-website">authorization request</a>.</p>
 <p>Description of the payload field, taken from <a href="https://core.telegram.org/passport#request-parameters">Telegram's passport manual</a>:</p>
 <blockquote>
 <p><strong>Important:</strong> For security purposes it should be a cryptographically secure unique identifier of the request. In particular, it should be long enough and it should be generated using a cryptographically secure pseudorandom number generator. You should never accept credentials with the same payload twice.</p>
@@ -779,7 +779,7 @@ on an <a href="https://core.telegram.org/bots/api#encryptedpassportelement"><cod
 <p>For getting the document images, you need to go a step further.
 Some elements contain the <code>FrontSide</code>, <code>ReverseSide</code> and <code>Files</code> fields.
 These contain information on how to download and decrypt said files.
-Downloading these files is done like with every other file. See <a href="../files/download.html">downloading files</a>.
+Downloading these files is done like with every other file. See <a href="../3/files/download.html">downloading files</a>.
 Note that these files are encrypted!</p>
 <p>To decrypt them call the <code>PassportCryptography.TryDecryptFile</code> method,
 passing in the encrypted file bytes and the corresponding <a href="https://core.telegram.org/passport#filecredentials"><code>FileCredentials</code></a>.</p>
@@ -1004,7 +1004,7 @@ markup = new InlineKeyboardMarkup(buttonsArray) {
 };
 </code></pre>
 <a class="header" href="#how-do-i-use-an-httpsocks-proxy" id="how-do-i-use-an-httpsocks-proxy"><h3>How do I use an HTTP/Socks proxy?</h3></a>
-<p>Look at the wiki page: <a href="proxy.html">Working Behind a Proxy</a>.</p>
+<p>Look at the wiki page: <a href="4/proxy.html">Working Behind a Proxy</a>.</p>
 <a class="header" href="#i-got-a-409-error-what-do-i-do" id="i-got-a-409-error-what-do-i-do"><h3>I got a '409' error. What do I do?</h3></a>
 <p>You are trying to receive updates multiple times at the same time. Either you are calling GetUpdates from two instances of the bot, or you are calling GetUpdates while a web hook is already set. That is not supported by the API, only receive on one instance.</p>
 <a class="header" href="#how-do-i-get-the-user-id-from-a-username" id="how-do-i-get-the-user-id-from-a-username"><h3>How do I get the user id from a username?</h3></a>
