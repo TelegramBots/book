@@ -26,6 +26,10 @@ Message msg = await botClient.SendAudioAsync(
 
 ![audio message](../docs/shot-audio_msg.jpg)
 
+And user can see the audio in Music Player:
+
+![music player](../docs/shot-music_player.jpg)
+
 Method returns an audio message. Let's take a look at the value of `msg.Audio` property in JSON format:
 
 ```json
@@ -46,9 +50,7 @@ Method returns an audio message. Let's take a look at the value of `msg.Audio` p
 Voice message is just an OGG audio file.
 Let's send it differently this time by uploading the file from disk alongside with HTTP request.
 
-To run this example, download the
-[NFL Commentary voice file](https://github.com/TelegramBots/book/raw/master/src/docs/voice-nfl_commentary.ogg)
-to your disk.
+To run this example, download the [NFL Commentary voice file] to your disk.
 
 A value is passed for `duration` because Telegram can't figure that out from file's metadata.
 
@@ -66,3 +68,5 @@ using (var stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg")
 ![voice message](../docs/shot-voice_msg.jpg)
 
 Voice message is returned from method. Inspect `msg.Voice` property to learn more.
+
+[NFL Commentary voice file]: https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg
