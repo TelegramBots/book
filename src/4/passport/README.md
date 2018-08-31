@@ -173,7 +173,7 @@ These credentials can be found inside of the [`Credentials`] object. (Again, che
 For getting the document images, you need to go a step further.
 Some elements contain the `FrontSide`, `ReverseSide` and `Files` fields.
 These contain information on how to download and decrypt said files.
-Downloading these files is done like with every other file. See [downloading files](../3/files/download.md).
+Downloading these files is done like with every other file. See [downloading files](../../3/files/download.md).
 Note that these files are encrypted!
 
 To decrypt them call the `PassportCryptography.TryDecryptFile` method,

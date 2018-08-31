@@ -60,7 +60,7 @@ You might be wondering what is the magic in here?
 
 This web page redirects user to `tg://resolve` URI appending whatever query string was passed to it.
 
-> If user is on an Android device, URI will start with [`tg:`] instead of `tg://`.
+> If user is on an Android device, URI will start with [tg:] instead of default `tg://`.
 
 ![Passport link 1](../docs/shot-passport_link1.jpg)
 ![Passport link 2](../docs/shot-passport_link2.jpg)
@@ -170,10 +170,10 @@ At the end, bot sends some of the information received to the user for demo purp
 
 [Quickstart project]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart
 [@BotFather]: https://t.me/BotFather
-[AuthorizationRequest]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html#L19
-[SendAuthorizationRequestAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html#L19
-[`tg:`]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html#L21
-[DecryptPassportDataAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html#L19
+[AuthorizationRequest]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
+[SendAuthorizationRequestAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
+[tg:]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
+[DecryptPassportDataAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
 [RSA Key page]: key.md
 [nonce on Wikipedia]: https://en.wikipedia.org/wiki/Cryptographic_nonce
-[DecryptData]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs#L17
+[DecryptData]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs#
