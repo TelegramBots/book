@@ -27,6 +27,7 @@
 - [Advanced](4/README.md)
   - [Login Widget](4/login-widget.md)
   - [Passport](4/passport/README.md)
+    - [Quickstart](4/passport/quickstart.md)
     - [RSA Key](4/passport/key.md)
   - [Proxy](4/proxy.md)
   - [Logging](4/log.md)
