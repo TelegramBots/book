@@ -107,8 +107,9 @@ So we take bot's _private key_ this time and decrypt credentials.
 > There are more details about importing a key in PEM format on [RSA Key page].
 
 ```c#
-IDecrypter decrypter = new Decrypter(GetRsaPrivateKey());
+IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
+  GetRsaPrivateKey(), // private key as a RSA object
   message.PassportData.Credentials // EncryptedCredentials object
 );
 ```
@@ -157,8 +158,9 @@ ResidentialAddress address = decrypter.DecryptData<ResidentialAddress>(
 [![EncryptedPassportElement type](https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#encryptedpassportelement)
 
 Values for phone number and email address are not end-to-end encrypted in Telegram Passport.
+Telegram verifies and stores user phone number and email address.
 So there is no need for decryption at this point.
-Just find the element with type of _phone__number_ in `message.passport_data.data` array.
+Just find the element with type of _phone\_number_ in `message.passport_data.data` array.
 
 ### Information Demo
 
@@ -176,4 +178,4 @@ At the end, bot sends some of the information received to the user for demo purp
 [DecryptPassportDataAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
 [RSA Key page]: key.md
 [nonce on Wikipedia]: https://en.wikipedia.org/wiki/Cryptographic_nonce
-[DecryptData]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs#
+[DecryptData]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs
