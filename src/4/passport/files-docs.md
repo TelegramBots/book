@@ -1,4 +1,4 @@
-# Driver License Scope
+# Passport Files and Documents
 
 [![driver license scope tests](https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
@@ -215,6 +215,8 @@ byte[] content = decrypter.DecryptFile(
 // write file to disk
 await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 ```
+
+<!-- ----------- -->
 
 [field types in Telegram Passport]: https://core.telegram.org/passport#fields
 [IDecrypter]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs
