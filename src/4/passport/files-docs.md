@@ -167,7 +167,14 @@ We also post the selfie photo to a chat.
 File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
 
 // download encrypted file and get its bytes
-byte[] encryptedContent = await BotClient.DownloadFileBytesAsync(encryptedFileInfo);
+byte[] encryptedContent;
+using (System.IO.MemoryStream
+  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+)
+{
+  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+  encryptedContent = stream.ToArray();
+}
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] selfieContent = decrypter.DecryptFile(
@@ -176,11 +183,13 @@ byte[] selfieContent = decrypter.DecryptFile(
 );
 
 // send the photo to a chat
-await BotClient.SendPhotoAsync(
-  123456,
-  selfieContent,
-  "selfie with driver license"
-);
+using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
+  await BotClient.SendPhotoAsync(
+    123456,
+    stream,
+    "selfie with driver license"
+  );
+}
 ```
 
 ### Translation File
@@ -204,7 +213,14 @@ FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 File encryptedFileInfo = await BotClient.GetFileAsync(passportFile.FileId);
 
 // download encrypted file and get its bytes
-byte[] encryptedContent = await BotClient.DownloadFileBytesAsync(encryptedFileInfo);
+byte[] encryptedContent;
+using (System.IO.MemoryStream
+  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+)
+{
+  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+  encryptedContent = stream.ToArray();
+}
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] content = decrypter.DecryptFile(
