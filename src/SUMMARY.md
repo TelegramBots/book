@@ -31,6 +31,7 @@
     - [Files & Documents](4/passport/files-docs.md)
     - [Data Errors](4/passport/errors.md)
     - [RSA Key](4/passport/key.md)
+    - [Decryption FAQ](4/passport/faq.md)
   - [Proxy](4/proxy.md)
   - [Logging](4/log.md)
 - [Migration guide => v14](Migration-Guide-to-Version-14.x.md)

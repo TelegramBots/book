@@ -2,8 +2,9 @@
 
 [![passport quickstart example](https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart/Program.cs)
 
-This guide shows you very briefly how Telegram Passport works.
+This guide teaches the basics of working with Telegram Passport.
 See the complete version of the code at [Quickstart project].
+Code snippets on this page are in the context of that project.
 
 ## Encryption Keys
 
@@ -37,8 +38,9 @@ and sends that to the user.
 
 [![Request Parameters type](https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square)](https://core.telegram.org/passport#request-parameters)
 
-A passport authorization request means that bot should ask user to open a
-`tg://resolve` URI in the browser with specific parameters in its query string.
+A passport authorization request means that bot should ask user to open a `tg://resolve` URI in the browser
+with specific parameters in its query string.
+You can alternatively have a button in an HTML page on your website for that.
 
 This [AuthorizationRequest] type helps you in creating such an URI.
 
@@ -47,7 +49,10 @@ AuthorizationRequest authReq = new AuthorizationRequest(
   botId: 123456, // bot user ID
   publicKey: "...", // public key in PEM format. same as the key above.
   nonce: "unique nonce for this request",
-  scope: ... // a PassportScope object
+  scope: new PassportScope(new[] { // a PassportScope object
+    new PassportScopeElementOne("address"),
+    new PassportScopeElementOne("phone_number")
+  })
 );
 ```
 
@@ -60,7 +65,7 @@ You might be wondering what is the magic in here?
 
 This web page redirects user to `tg://resolve` URI appending whatever query string was passed to it.
 
-> If user is on an Android device, URI will start with [tg:] instead of default `tg://`.
+> If user is using an Android device, URI will start with `tg:` instead of default `tg://`.
 
 ![Passport link 1](../docs/shot-passport_link1.jpg)
 ![Passport link 2](../docs/shot-passport_link2.jpg)
@@ -81,13 +86,15 @@ Fill in the _address_ and _phone number_ data. Click on _Authorize_ button at th
 ![phone info](../docs/shot-passport_phone.jpg)
 ![Passport info 2](../docs/shot-passport_adress_phone2.jpg)
 
-Telegram client app encrypts the data using bot's public key and sends the encrypted data to Telegram servers.
+At this point, Telegram client app encrypts the actual Telegram Passport data (e.g. address) using AES algorithm,
+encrypts the info required for decryption using your bot's RSA public key,
+and finally sends the result of both encryptions to Telegram servers.
 
 ### Data Decryption
 
 [![Passport Data type](https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#passportdata)
 
-Bot now receives a new update with those encrypted passport data. User also is notified in the chat:
+Bot now receives a new message update with those encrypted Passport data. User also is notified in the chat:
 
 ![Passport update](../docs/shot-passport_update.jpg)
 
@@ -99,18 +106,18 @@ Let's decrypt that gibberish to get the information. That's what [DecryptPasspor
 [![Credentials type](https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square)](https://core.telegram.org/passport#credentials)
 
 You can't just access the encrypted data in `message.passport_data.data` array.
-Required parameters for their decryption is in `message.passport_data.credentials` object.
+Required parameters for their decryption are in `message.passport_data.credentials` object.
 But that credentials object is encrypted itself using bot's public key!
 
-So we take bot's _private key_ this time and decrypt credentials.
+So we first take bot's _private key_ this time and decrypt the credentials.
 
 > There are more details about importing a key in PEM format on [RSA Key page].
 
 ```c#
 IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  GetRsaPrivateKey(), // private key as a RSA object
-  message.PassportData.Credentials // EncryptedCredentials object
+  message.PassportData.Credentials, // EncryptedCredentials object
+  GetRsaPrivateKey() // private key as a RSA object
 );
 ```
 
@@ -157,10 +164,11 @@ ResidentialAddress address = decrypter.DecryptData<ResidentialAddress>(
 
 [![EncryptedPassportElement type](https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#encryptedpassportelement)
 
-Values for phone number and email address are not end-to-end encrypted in Telegram Passport.
-Telegram verifies and stores user phone number and email address.
-So there is no need for decryption at this point.
-Just find the element with type of _phone\_number_ in `message.passport_data.data` array.
+Values for phone number and email address are not end-to-end encrypted in Telegram Passport and
+Telegram stores these values after being verified.
+
+There is no need for decryption at this point.
+Just find the element with the type of _phone\_number_ in `message.passport_data.data` array.
 
 ### Information Demo
 
@@ -172,10 +180,9 @@ At the end, bot sends some of the information received to the user for demo purp
 
 [Quickstart project]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart
 [@BotFather]: https://t.me/BotFather
-[AuthorizationRequest]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
-[SendAuthorizationRequestAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
-[tg:]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
-[DecryptPassportDataAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/gh-pages/redirect.html
+[AuthorizationRequest]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequest.cs
+[SendAuthorizationRequestAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs
+[DecryptPassportDataAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs
 [RSA Key page]: key.md
 [nonce on Wikipedia]: https://en.wikipedia.org/wiki/Cryptographic_nonce
 [DecryptData]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs
