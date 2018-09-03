@@ -13,7 +13,7 @@ We can generate a [RSA .NET object] from PEM key using [BouncyCastle package].
 dotnet add package BouncyCastle
 ```
 
-![bouncy castle c# logo](../docs/photo-bouncy_castle.gif)
+[![bouncy castle c# logo](../docs/photo-bouncy_castle.gif)](http://www.bouncycastle.org/csharp/index.html)
 
 Code snippet here shows the conversion from PEM file to needed RSA object.
 
