@@ -11,7 +11,7 @@ Access token is a key used to identify and authorize your bot in API
 requests so keep it with yourself as a secret. It looks like this:
 
 ```text
-123456789:AAE5cvFhxQ9C7vFGElcpMTNrYrkl3OBFo45
+1234567:4TT8bAc8GHUspu3ERYn-KGcvsvGB9u_n4ddy
 ```
 
 ## Hello World
@@ -59,7 +59,7 @@ dotnet run
 ```
 
 ```text
-Hello, World! I am user 123456789 and my name is Awesome Bot.
+Hello, World! I am user 1234567 and my name is Awesome Bot.
 ```
 
 Great! This bot is self-aware. To make the bot interact with user, head to the next page.

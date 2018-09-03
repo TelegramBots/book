@@ -42,10 +42,10 @@ A passport authorization request means that bot should ask user to open a `tg://
 with specific parameters in its query string.
 You can alternatively have a button in an HTML page on your website for that.
 
-This [AuthorizationRequest] type helps you in creating such an URI.
+Type [AuthorizationRequestParameters]  helps you in creating such an URI.
 
 ```c#
-AuthorizationRequest authReq = new AuthorizationRequest(
+AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
   botId: 123456, // bot user ID
   publicKey: "...", // public key in PEM format. same as the key above.
   nonce: "unique nonce for this request",
@@ -180,7 +180,7 @@ At the end, bot sends some of the information received to the user for demo purp
 
 [Quickstart project]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart
 [@BotFather]: https://t.me/BotFather
-[AuthorizationRequest]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequest.cs
+[AuthorizationRequestParameters]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs
 [SendAuthorizationRequestAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs
 [DecryptPassportDataAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs
 [RSA Key page]: key.md
