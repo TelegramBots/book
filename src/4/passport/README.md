@@ -12,7 +12,7 @@
 As a bot developer, you can use it to receive confidential user data in an end-to-end encrypted fashion.
 There are several Know Your Customer(KYC) solutions that have already added support for Telegram Passport.
 
-This guide is targeted at bot developers and assumes audience is already familiar with:
+This guide is targeted at bot developers and assumes the audience is already familiar with:
 
 - [Telegram Passport]
 - [Telegram Passport Example]

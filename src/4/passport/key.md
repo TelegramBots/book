@@ -1,13 +1,13 @@
 # Import RSA Key
 
 In order to decrypt the credentials you need to provide the private RSA key to [DecryptCredentials] method.
-If you might have the RSA key in [PEM format], you cannot simply instantiate a [RSA .NET object] from it.
+If you have the RSA key in [PEM format], you cannot simply instantiate an [RSA .NET object] from it.
 Here we discuss two ways of importing your PEM private key.
 
 ## From PEM Format
 
 This is the easier option and recommended **for development time only**.
-We can generate a [RSA .NET object] from PEM key using [BouncyCastle package].
+We can generate an [RSA .NET object] from the PEM format using the [BouncyCastle package].
 
 ```bash
 dotnet add package BouncyCastle
@@ -15,7 +15,7 @@ dotnet add package BouncyCastle
 
 [![bouncy castle c# logo](../docs/photo-bouncy_castle.gif)](http://www.bouncycastle.org/csharp/index.html)
 
-Code snippet here shows the conversion from PEM file to needed RSA object.
+Code snippet here shows the conversion from a PEM file to the needed RSA object.
 
 ```c#
 // using System.IO;
@@ -36,20 +36,20 @@ static RSA GetPrivateKey() {
 }
 ```
 
-> **Warning**: You don't necessarily need to have a dependency on [BouncyCastle package] in your bot project.
-> Next section below offers a better alternative.
+> **Note**: You don't necessarily need to have a dependency on the [BouncyCastle package] in your bot project.
+> The section below offers a better alternative.
 
 ## From RSA Parameters
 
-We recommend to JSON-serialize [RSA Parameters] of your key and create RSA object using its values without any
-dependency on [BouncyCastle package] in production deployment.
+We recommend to JSON-serialize [RSA Parameters] of your key and create an RSA object using its values without any
+dependency on the [BouncyCastle package] in production deployment.
 
 ```c#
 RSAParameters rsaParameters = JsonConvert.DeserializeObject<RSAParameters>(json);
 RSA key = RSA.Create(rsaParameters);
 ```
 
-You still need to **use BouncyCastle only once** to read RSA key in PEM format and serialize its parameters:
+You still need to **use BouncyCastle only once** to read the RSA key in PEM format and serialize its parameters:
 
 ```c#
 // using System.IO;
@@ -60,7 +60,7 @@ You still need to **use BouncyCastle only once** to read RSA key in PEM format a
 // using Org.BouncyCastle.OpenSsl;
 // using Org.BouncyCastle.Security;
 
-// ONLY ONCE: read RSA private key and serialize its parameters to JSON
+// ONLY ONCE: read the RSA private key and serialize its parameters to JSON
 static void Main() {
   string privateKeyPem = File.ReadAllText("/path/to/private-key.pem");
   PemReader pemReader = new PemReader(new StringReader(privateKeyPem));

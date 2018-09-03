@@ -1,20 +1,20 @@
 # Passport Files and Documents
 
-[![driver license scope tests](https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![driver's license scope tests](https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-We use driver license scope here to show decryption of _ID document data_ and _passport files_ for front side scan,
+We use the driver's license scope here to show decryption of _ID document data_ and _passport files_ for front side scan,
 reverse side scan, selfie photo, and translation scan.
 That should cover most of the [field types in Telegram Passport].
 
-Sections below are referring to the test methods in [Driver License Scope Tests] collection.
+Sections below are referring to the test methods in [Driver's license Scope Tests] collection.
 Here are the steps:
 
 1. [Authorization Request](#authorization-request)
-1. [Driver License Info](#driver-license-info)
-1. [Passport Message](#passport-message)
-1. [Credentials](#credentials)
-1. [ID Document Data](#id-document-data)
-1. [Passport File](#passport-file)
+2. [Driver's License Info](#drivers-license-info)
+3. [Passport Message](#passport-message)
+4. [Credentials](#credentials)
+5. [ID Document Data](#id-document-data)
+6. [Passport File](#passport-file)
     - [Front Side File](#front-side-file)
     - [Reverse Side File](#reverse-side-file)
     - [Selfie File](#selfie-file)
@@ -27,20 +27,20 @@ Here are the steps:
 
 [![method Should_Generate_Auth_Link](https://img.shields.io/badge/Test_Method-Generate_Auth_Link-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-We start by generating authorization URI.
-Since driver license is considered a proof of identity, we ask for optional data _selfie with document_ and
+We start by generating an authorization URI.
+Since a driver's license is considered as proof of identity, we ask for optional data _selfie with document_ and
 _translation document scan_ as well.
 
-![driver license passport link](../docs/shot-passport_driver_license_link.jpg)
+![driver's license passport link](../docs/shot-passport_driver_license_link.jpg)
 
-## Driver License Info
+## Driver's license Info
 
-As a user, provide information for the required fields front side, reverse side, and document number.
+As a user, provide information for the required fields: front side, reverse side, and document number.
 Also, test methods here expect a selfie photo and a file for translation scan.
 
-![driver license passport 1](../docs/shot-passport_driver_license1.jpg)
-![driver license passport 2](../docs/shot-passport_driver_license2.jpg)
-![driver license passport 3](../docs/shot-passport_driver_license3.jpg)
+![driver's license passport 1](../docs/shot-passport_driver_license1.jpg)
+![driver's license passport 2](../docs/shot-passport_driver_license2.jpg)
+![driver's license passport 3](../docs/shot-passport_driver_license3.jpg)
 
 Click the _Authorize_ button at the end.
 
@@ -50,7 +50,7 @@ Click the _Authorize_ button at the end.
 
 [![method Should_validate_passport_update](https://img.shields.io/badge/Test_Method-Validate_Passport_Update-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-This test method checks assumption for a Passport message with driver license element on it.
+This test method checks for a Passport message with a driver's license element on it.
 
 ## Credentials
 
@@ -68,7 +68,7 @@ Credentials credentials = decrypter.DecryptCredentials(
   passportData.Credentials,
   key
 );
-bool isSameNonce = credentials.Nonce == "Test nonce for driver license";
+bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 ```
 
 ## ID Document Data
@@ -77,9 +77,9 @@ bool isSameNonce = credentials.Nonce == "Test nonce for driver license";
 
 [![method Should_decreypt_document_data](https://img.shields.io/badge/Test_Method-Decreypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-In our test case, there is only 1 item in `message.passport_data.data` array and that's the encrypted element for
-driver license scope.
-We can get information such as document number and expiry date of driver license from element's `data` field.
+In our test case, there is only 1 item the in `message.passport_data.data` array and that's the encrypted element for
+the driver's license scope.
+We can get information such as the document number and expiry date of the driver's license from the element's `data` field.
 
 ```c#
 IdDocumentData licenseDoc = decrypter.DecryptData<IdDocumentData>(
@@ -109,10 +109,10 @@ It really comes down to your decision on working with _streams_ vs. _byte arrays
 A pretty handy extension method is used here to stream writing the front side file to disk.
 Method [DownloadAndDecryptPassportFileAsync] does a few things:
 
-1. Makes a HTTP request to fetch encrypted file info using _passport file\_id_
-1. Makes a HTTP request to download the encrypted file using its _file\_path_
+1. Makes an HTTP request to fetch the encrypted file's info using _passport's file\_id_
+1. Makes an HTTP request to download the encrypted file using its _file\_path_
 1. Decrypts the encrypted file
-1. Writes the actual content to destination stream
+1. Writes the actual content to the destination stream
 
 ```c#
 File encryptedFileInfo;
@@ -121,7 +121,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.j
   encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
     element.FrontSide, // PassportFile object for front side
     credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
-    stream // destination stream for writing to JPEG content to
+    stream // destination stream for writing the JPEG content to
   );
 }
 ```
@@ -132,7 +132,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.j
 
 [![method Should_decreypt_reverse_side_file](https://img.shields.io/badge/Test_Method-Decreypt_Reverse_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-Previous method call in divided into two operations here for reverse side of the driver license.
+Previous method call is divided into two operations here for reverse side of the driver's license.
 Streams are used here as well.
 
 ```c#
@@ -141,7 +141,7 @@ using (System.IO.Stream
   encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
   decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
 ) {
-  // fetch encrypted file info and download it to memory
+  // fetch the encrypted file info and download it to memory
   encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
     element.ReverseSide.FileId, // file_id of passport file for reverse side
     encryptedContent // stream to copy the encrypted file into
@@ -153,7 +153,7 @@ using (System.IO.Stream
   await decrypter.DecryptFileAsync(
     encryptedContent,
     credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
-    decryptedFile // stream to write photo file into
+    decryptedFile // destination stream for writing the JPEG content to
   );
 }
 ```
@@ -167,10 +167,10 @@ This is essentially the same operation as done above via streams.
 We also post the selfie photo to a chat.
 
 ```c#
-// fetch passport file info on Telegram servers
+// fetch the passport file info from Telegram servers
 File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
 
-// download encrypted file and get its bytes
+// download the encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
   stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
@@ -191,7 +191,7 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
   await BotClient.SendPhotoAsync(
     123456,
     stream,
-    "selfie with driver license"
+    "selfie with driver's license"
   );
 }
 ```
@@ -200,10 +200,10 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
 
 [![method Should_decreypt_translation_file](https://img.shields.io/badge/Test_Method-Decreypt_Translation_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-A bot can request for certified English translations of a document.
-Translations are also encrypted passport files so their decryption is no different than others passport files.
+A bot can request certified English translations of a document.
+Translations are also encrypted passport files so their decryption is no different from others passport files.
 
-Assuming that user sends one translation scan only for driver license, we receive the translation passport file object in
+Assuming that the user sends one translation scan only for the driver's license, we receive the translation passport file object in
 `message.passport_data.data[0].translation[0]` and its accompanying file credentials object in
 `credentials.secure_data.driver_license.translation[0]`.
 
@@ -232,13 +232,13 @@ byte[] content = decrypter.DecryptFile(
   fileCreds
 );
 
-// write file to disk
+// write the file to disk
 await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 ```
 
 <!-- ----------- -->
 
 [field types in Telegram Passport]: https://core.telegram.org/passport#fields
-[Driver License Scope Tests]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs
+[Driver's license Scope Tests]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs
 [IDecrypter]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs
 [DownloadAndDecryptPassportFileAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/TelegramBotClientPassportExtensions.cs

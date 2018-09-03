@@ -2,14 +2,14 @@
 
 ## What is `PassportDataDecryptionException`
 
-Methods on [`IDecrypter`] might throw [`PassportDataDecryptionException`] exception if there is a problem in decryption.
-Exception message tells you what went wrong but there is not much you can do to resolve it.
-Maybe let user know the issue and ask for Passport data again.
+Methods on [`IDecrypter`] might throw [`PassportDataDecryptionException`] exception if there is a problem with decryption.
+The exception message tells you what went wrong but there is not much you can do to resolve it.
+Maybe let the user know of the issue and ask for Passport data again.
 
 It is important to pass each piece of encrypted data, e.g. Id Document, Passport File, etc., with the right
 accompanying credentials to decryption methods.
 
-Spot the _problem in this code_ decrypting driver license files:
+Spot the _problem in this code_ decrypting driver's license files:
 
 ```c#
 byte[] selfieContent = decrypter.DecryptFile(

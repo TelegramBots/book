@@ -9,7 +9,7 @@ There is no way to do that with the API directly.
 You could store a list of known usernames, mapped to ids.
 This is *not* recommended, because usernames can be changed.
 
-### How to I get updates in channels?
+### How do I get updates in channels?
 If you are using polling, you will have to subscribe to the `OnUpdate` event.
 Check the `UpdateType` of the `Update`. If it is `UpdateType.ChannelPost` then the `Update.ChannelPost` property will be set.
 
