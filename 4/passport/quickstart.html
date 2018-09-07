@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Quickstart - Telegram Bots</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.7.</strong> Other Messages</a></li></ol></li><li><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="../../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="../../4/passport/quickstart.html" class="active"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="../../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Telegram Bots</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#telegram-passport---quickstart" id="telegram-passport---quickstart"><h1>Telegram Passport - Quickstart</h1></a>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart/Program.cs"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="passport quickstart example" /></a></p>
+<p>This guide teaches the basics of working with Telegram Passport.
+See the complete version of the code at <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart">Quickstart project</a>.
+Code snippets on this page are in the context of that project.</p>
+<a class="header" href="#package" id="package"><h2>Package</h2></a>
+<p><a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget package" /></a></p>
+<p>You need to add <code>Telegram.Bot.Extensions.Passport</code> extension package to your project
+in addition to the core package (<code>Telegram.Bot</code>).</p>
+<p>⭐️ Star the <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport">Telegram.Bot.Extensions.Passport project</a> on GitHub 👍</p>
+<pre><code class="language-bash">dotnet add package Telegram.Bot.Extensions.Passport
+</code></pre>
+<a class="header" href="#encryption-keys" id="encryption-keys"><h2>Encryption Keys</h2></a>
+<p>You don't really need to generate any RSA key. Use our sample keys for this demo.
+Send the public key to <a href="https://t.me/BotFather">@BotFather</a> using <code>/setpublickey</code> command:</p>
+<p><img src="../docs/shot-passport_botfather.jpg" alt="Setting public key" /></p>
+<p>Copy this public key and send it to BotFather.</p>
+<pre><code class="language-text">-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0VElWoQA2SK1csG2/sY/
+wlssO1bjXRx+t+JlIgS6jLPCefyCAcZBv7ElcSPJQIPEXNwN2XdnTc2wEIjZ8bTg
+BlBqXppj471bJeX8Mi2uAxAqOUDuvGuqth+mq7DMqol3MNH5P9FO6li7nZxI1FX3
+9u2r/4H4PXRiWx13gsVQRL6Clq2jcXFHc9CvNaCQEJX95jgQFAybal216EwlnnVV
+giT/TNsfFjW41XJZsHUny9k+dAfyPzqAk54cgrvjgAHJayDWjapq90Fm/+e/DVQ6
+BHGkV0POQMkkBrvvhAIQu222j+03frm9b2yZrhX/qS01lyjW4VaQytGV0wlewV6B
+FwIDAQAB
+-----END PUBLIC KEY-----
+</code></pre>
+<p>Now Telegram client app can encrypt the data for your bot using this key.</p>
+<a class="header" href="#request-information" id="request-information"><h2>Request Information</h2></a>
+<p>Bot waits for a text message from user. Once it receives a text message, it generates an authorization request link
+and sends that to the user.</p>
+<a class="header" href="#authorization-request" id="authorization-request"><h3>Authorization Request</h3></a>
+<p><a href="https://core.telegram.org/passport#request-parameters"><img src="https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square" alt="Request Parameters type" /></a></p>
+<p>A passport authorization request means that the bot should ask the user to open a <code>tg://resolve</code> URI in the browser
+with specific parameters in its query string.
+You can alternatively have a button in an HTML page on your website for that.</p>
+<p>Type <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs">AuthorizationRequestParameters</a>  helps you in creating such an URI.</p>
+<pre><code class="language-c#">AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
+  botId: 123456, // bot user ID
+  publicKey: &quot;...&quot;, // public key in PEM format. same as the key above.
+  nonce: &quot;unique nonce for this request&quot;,
+  scope: new PassportScope(new[] { // a PassportScope object
+    new PassportScopeElementOne(&quot;address&quot;),
+    new PassportScopeElementOne(&quot;phone_number&quot;)
+  })
+);
+</code></pre>
+<p>In <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">SendAuthorizationRequestAsync</a> method, we ask for <code>address</code> and <code>phone_number</code> scopes.
+Then, we generate the query string and ask user to open the link.</p>
+<p>You might be wondering what is the magic in here?</p>
+<p><a href="https://telegrambots.github.io/Telegram.Bot.Extensions.Passport/redirect.html">https://telegrambots.github.io/Telegram.Bot.Extensions.Passport/redirect.html</a></p>
+<p>This web page redirects user to <code>tg://resolve</code> URI, appending whatever query string was passed to it.</p>
+<blockquote>
+<p>If a user is using an Android device, the URI will start with <code>tg:</code> instead of the default <code>tg://</code>.</p>
+</blockquote>
+<p><img src="../docs/shot-passport_link1.jpg" alt="Passport link 1" />
+<img src="../docs/shot-passport_link2.jpg" alt="Passport link 2" /></p>
+<a class="header" href="#passport-data" id="passport-data"><h3>Passport Data</h3></a>
+<p>You, the user, should now be redirected to the Telegram Passport screen in your Telegram client app.
+Enter your password and log in.</p>
+<blockquote>
+<p>Note that the app will ask you to register if this is the first time you are using Telegram Passport.</p>
+</blockquote>
+<p><img src="../docs/shot-passport_login.jpg" alt="Passport login" /></p>
+<p>Fill in the <em>address</em> and <em>phone number</em> data. Click on the <em>Authorize</em> button at the end.</p>
+<p><img src="../docs/shot-passport_adress_phone1.jpg" alt="Passport info 1" />
+<img src="../docs/shot-passport_adress.jpg" alt="address info" />
+<img src="../docs/shot-passport_phone.jpg" alt="phone info" />
+<img src="../docs/shot-passport_adress_phone2.jpg" alt="Passport info 2" /></p>
+<p>At this point, your Telegram client app encrypts the actual Telegram Passport data (e.g. address) using the
+AES algorithm, and then encrypts the info required for decryption using your bot's public RSA key.
+Finally, it sends the result of both encryptions to Telegram servers.</p>
+<a class="header" href="#data-decryption" id="data-decryption"><h3>Data Decryption</h3></a>
+<p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
+<p>Your bot now receives a new message update with the encrypted Passport data. The user is also notified in the chat:</p>
+<p><img src="../docs/shot-passport_update.jpg" alt="Passport update" /></p>
+<p>Let's decrypt that gibberish to get the information. That's what <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">DecryptPassportDataAsync</a> method does.</p>
+<a class="header" href="#step-1-credentials" id="step-1-credentials"><h4>Step 1: Credentials</h4></a>
+<p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type" /></a>
+<a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a></p>
+<p>You can't just access the encrypted data in the <code>message.passport_data.data</code> array.
+Required parameters for their decryption are in the <code>message.passport_data.credentials</code> object.
+But that credentials object is encrypted using bot's public key!</p>
+<p>We first take the bot's <em>private key</em> this time and decrypt the credentials.</p>
+<blockquote>
+<p>There are more details about importing a key in PEM format on the <a href="key.html">RSA Key page</a>.</p>
+</blockquote>
+<pre><code class="language-c#">IDecrypter decrypter = new Decrypter();
+Credentials credentials = decrypter.DecryptCredentials(
+  message.PassportData.Credentials, // EncryptedCredentials object
+  GetRsaPrivateKey() // private key as an RSA object
+);
+</code></pre>
+<a class="header" href="#step-2-nonce" id="step-2-nonce"><h4>Step 2: Nonce</h4></a>
+<p><a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a>
+<a href="https://core.telegram.org/passport#request-parameters"><img src="https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square" alt="Request Parameters type" /></a></p>
+<p>There is a <code>nonce</code> property on the credentials (now decrypted) object.
+In order to prevent certain attacks, ensure its value is exactly the same as the nonce you set in the authorization request.
+Read more about <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonce on Wikipedia</a>.</p>
+<a class="header" href="#step-3-residential-address" id="step-3-residential-address"><h4>Step 3: Residential Address</h4></a>
+<p><a href="https://core.telegram.org/bots/api#encryptedpassportelement"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square" alt="EncryptedPassportElement type" /></a>
+<a href="https://core.telegram.org/passport#residentialaddress"><img src="https://img.shields.io/badge/Passport_API_type-ResidentialAddress-blue.svg?style=flat-square" alt="ResidentialAddress type" /></a></p>
+<p><a href="https://core.telegram.org/passport#securedata"><img src="https://img.shields.io/badge/Passport_API_type-SecureData-blue.svg?style=flat-square" alt="SecureData type" /></a>
+<a href="https://core.telegram.org/passport#securevalue"><img src="https://img.shields.io/badge/Passport_API_type-SecureValue-blue.svg?style=flat-square" alt="SecureValue type" /></a>
+<a href="https://core.telegram.org/passport#datacredentials"><img src="https://img.shields.io/badge/Passport_API_type-DataCredentials-blue.svg?style=flat-square" alt="DataCredentials type" /></a></p>
+<p>It's finally time to see the user's address.
+We are looking for an encrypted element with type of <em>address</em> in <code>message.passport_data.data</code> array.
+Also, decryption parameters for that are in <code>credentials.secure_data.address.data</code>.
+Here is how the decryption magic happens:</p>
+<pre><code class="language-c#">EncryptedPassportElement addressElement = message.PassportData.Data.Single(
+  el =&gt; el.Type == PassportEnums.Scope.Address
+);
+ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
+  encryptedData: addressElement.Data,
+  dataCredentials: credentials.SecureData.Address.Data
+);
+</code></pre>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">DecryptData</a> method does 3 tasks here:</p>
+<ol>
+<li>Decrypts the data into a JSON-serialized string</li>
+<li>Verifies that the data hashes match</li>
+<li>Converts from JSON to a .NET object</li>
+</ol>
+<a class="header" href="#step-4-phone-number" id="step-4-phone-number"><h4>Step 4: Phone Number</h4></a>
+<p><a href="https://core.telegram.org/bots/api#encryptedpassportelement"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square" alt="EncryptedPassportElement type" /></a></p>
+<p>Values for phone number and email address are not end-to-end encrypted in Telegram Passport and
+Telegram stores these values after being verified.</p>
+<p>There is no need for decryption at this point.
+Just find the element with the type of <em>phone_number</em> in the <code>message.passport_data.data</code> array.</p>
+<a class="header" href="#information-demo" id="information-demo"><h3>Information Demo</h3></a>
+<p>At the end, bot sends some of the information received to the user for demo purposes.</p>
+<p><img src="../docs/shot-passport_quickstart.jpg" alt="info demo" /></p>
+<!-- ----------- -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../4/passport/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../4/passport/files-docs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../../4/passport/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../../4/passport/files-docs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
