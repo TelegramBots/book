@@ -6,7 +6,7 @@ We use the driver's license scope here to show decryption of _ID document data_ 
 front side scan, reverse side scan, selfie photo, and translation scan.
 That should cover most of the [field types in Telegram Passport].
 
-Sections below are referring to the test methods in [Driver's license Scope Tests] collection.
+Sections below are referring to the test methods in [Driver's License Scope Tests] collection.
 Here are the steps:
 
 1. [Authorization Request](#authorization-request)
@@ -33,7 +33,7 @@ _translation document scan_ as well.
 
 ![driver's license passport link](../docs/shot-passport_driver_license_link.jpg)
 
-## Driver's license Info
+## Driver's License Info
 
 As a user, provide information for the required fields: front side, reverse side, and document number.
 Also, test methods here expect a selfie photo and a file for translation scan.

@@ -41,53 +41,49 @@ static RSA GetPrivateKey() {
 
 ## From RSA Parameters
 
-We recommend to JSON-serialize [RSA Parameters] of your key and create an RSA object using its values without any
+We recommend to JSON-serialize [RSAParameters] of your key and create an RSA object using its values without any
 dependency on the [BouncyCastle package] in production deployment.
 
-```c#
-RSAParameters rsaParameters = JsonConvert.DeserializeObject<RSAParameters>(json);
-RSA key = RSA.Create(rsaParameters);
-```
+Copy [EncryptionKeyUtility] and [EncryptionKeyParameters] files from our Quickstart project.
+Those help with serialization.
 
 You still need to **use BouncyCastle only once** to read the RSA key in PEM format and serialize its parameters:
 
 ```c#
-// using System.IO;
-// using System.Security.Cryptography;
-// using Newtonsoft.Json;
-// using Org.BouncyCastle.Crypto;
-// using Org.BouncyCastle.Crypto.Parameters;
-// using Org.BouncyCastle.OpenSsl;
-// using Org.BouncyCastle.Security;
-
 // ONLY ONCE: read the RSA private key and serialize its parameters to JSON
-static void Main() {
-  string privateKeyPem = File.ReadAllText("/path/to/private-key.pem");
-  PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
-  AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
-  RSAParameters rsaParameters = DotNetUtilities
-    .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
-  
-  string json = JsonConvert.SerializeObject(rsaParameters);
-  File.WriteAllText("/path/to/private-key-params.json", json);
+static void WriteRsaParametersToJson() {
+  string privateKeyPem = System.IO.File.ReadAllText("/path/to/private-key.pem");
+  string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
+  System.IO.File.WriteAllText("/path/to/private-key-params.json", json);
+}
+
+// Now, read the JSON file and create an RSA instance
+static RSA GetRsaKey() {
+  string json = System.IO.File.ReadAllText("/path/to/private-key-params.json");
+  return EncryptionKeyUtility.GetRsaKeyFromJson(json);
 }
 ```
 
-and pass JSON-serialized parameters to the app.
+Content of `private-key-params.json` will look similar to this:
 
 ```json
-// private-key-params.json
 {
+  "E": "AQAB",
+  "M": "0VElW...Fw==",
+  "P": "56Mdiw...i7FSwDaM=",
+  "Q": "51UN2sd...J44NTf0=",
   "D": "nrXEeOl2Ky...JIQ==",
   "DP": "KZYZWbsy.../lk60=",
   "DQ": "Y25KgzPj...AdBd0=",
-  "Exponent": "AQAB",
-  "InverseQ": "0153...N6Y=",
-  "Modulus": "0VElW...Fw==",
-  "P": "56Mdiw...i7FSwDaM=",
-  "Q": "51UN2sd...J44NTf0="
+  "IQ": "0153...N6Y="
 }
 ```
+
+It's worth mentioning that [EncryptionKeyParameters] is just a copy of [RSAParameters] struct.
+There are inconsistencies in serialization of [RSAParameters] type on different .NET platforms
+and that's why we use our own [EncryptionKeyParameters] type for serialization.
+
+> For instance, compare `RSAParameters` implementations on [.NET Framework](https://referencesource.microsoft.com/#mscorlib/system/security/cryptography/rsa.cs,21) and [.NET Core](https://github.com/dotnet/corefx/blob/master/src/System.Security.Cryptography.Algorithms/src/System/Security/Cryptography/RSAParameters.cs).
 
 <!-- ----------- -->
 
@@ -95,4 +91,6 @@ and pass JSON-serialized parameters to the app.
 [PEM format]: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail
 [RSA .NET object]: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa?redirectedfrom=MSDN&view=netstandard-2.0
 [BouncyCastle package]: https://www.nuget.org/packages/BouncyCastle/
-[RSA Parameters]: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0
+[RSAParameters]: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0
+[EncryptionKeyUtility]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyUtility.cs
+[EncryptionKeyParameters]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyParameters.cs
