@@ -29,7 +29,7 @@ namespace Awesome {
 
       botClient.OnMessage += Bot_OnMessage;
       botClient.StartReceiving();
-      Thread.Sleep(999000);
+      Thread.Sleep(int.MaxValue);
     }
 
     static async void Bot_OnMessage(object sender, MessageEventArgs e) {
