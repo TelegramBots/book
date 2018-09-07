@@ -1,5 +1,9 @@
 # Telegram Passport
 
+[![nuget package](https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport)
+[![nuget downloads](https://img.shields.io/nuget/dt/Telegram.Bot.Extensions.Passport.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport)
+[![repository](https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.Extensions.Passport.svg?style=social&label=Stars)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport)
+
 - [Quickstart](quickstart.md)
 - [Files & Documents](files-docs.md)
 - [Data Errors](errors.md)

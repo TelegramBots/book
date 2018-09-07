@@ -6,6 +6,19 @@ This guide teaches the basics of working with Telegram Passport.
 See the complete version of the code at [Quickstart project].
 Code snippets on this page are in the context of that project.
 
+## Package
+
+[![nuget package](https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport)
+
+You need to add `Telegram.Bot.Extensions.Passport` extension package to your project
+in addition to the core package (`Telegram.Bot`).
+
+⭐️ Star the [Telegram.Bot.Extensions.Passport project] on GitHub 👍
+
+```bash
+dotnet add package Telegram.Bot.Extensions.Passport
+```
+
 ## Encryption Keys
 
 You don't really need to generate any RSA key. Use our sample keys for this demo.
@@ -179,6 +192,7 @@ At the end, bot sends some of the information received to the user for demo purp
 <!-- ----------- -->
 
 [Quickstart project]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart
+[Telegram.Bot.Extensions.Passport project]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport
 [@BotFather]: https://t.me/BotFather
 [AuthorizationRequestParameters]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs
 [SendAuthorizationRequestAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs
