@@ -87,7 +87,7 @@ Fill in the _address_ and _phone number_ data. Click on the _Authorize_ button a
 ![Passport info 2](../docs/shot-passport_adress_phone2.jpg)
 
 At this point, your Telegram client app encrypts the actual Telegram Passport data (e.g. address) using the
-AES algorithm, and encrypts the info required for decryption using your bot's public RSA key.
+AES algorithm, and then encrypts the info required for decryption using your bot's public RSA key.
 Finally, it sends the result of both encryptions to Telegram servers.
 
 ### Data Decryption
@@ -98,7 +98,7 @@ Your bot now receives a new message update with the encrypted Passport data. The
 
 ![Passport update](../docs/shot-passport_update.jpg)
 
-Let's decrypt that gibberish to get the information. That's what the [DecryptPassportDataAsync] method does.
+Let's decrypt that gibberish to get the information. That's what [DecryptPassportDataAsync] method does.
 
 #### Step 1: Credentials
 
@@ -109,7 +109,7 @@ You can't just access the encrypted data in the `message.passport_data.data` arr
 Required parameters for their decryption are in the `message.passport_data.credentials` object.
 But that credentials object is encrypted using bot's public key!
 
-To start, we take your bot's _private key_ this time and decrypt the credentials.
+We first take the bot's _private key_ this time and decrypt the credentials.
 
 > There are more details about importing a key in PEM format on the [RSA Key page].
 

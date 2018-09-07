@@ -7,7 +7,7 @@ Here we discuss two ways of importing your PEM private key.
 ## From PEM Format
 
 This is the easier option and recommended **for development time only**.
-We can generate an [RSA .NET object] from the PEM format using the [BouncyCastle package].
+We can generate an [RSA .NET object] from an RSA Key in PEM format using the [BouncyCastle package].
 
 ```bash
 dotnet add package BouncyCastle

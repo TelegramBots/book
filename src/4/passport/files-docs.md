@@ -2,19 +2,19 @@
 
 [![driver's license scope tests](https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-We use the driver's license scope here to show decryption of _ID document data_ and _passport files_ for front side scan,
-reverse side scan, selfie photo, and translation scan.
+We use the driver's license scope here to show decryption of _ID document data_ and _passport files_ for
+front side scan, reverse side scan, selfie photo, and translation scan.
 That should cover most of the [field types in Telegram Passport].
 
 Sections below are referring to the test methods in [Driver's license Scope Tests] collection.
 Here are the steps:
 
 1. [Authorization Request](#authorization-request)
-2. [Driver's License Info](#drivers-license-info)
-3. [Passport Message](#passport-message)
-4. [Credentials](#credentials)
-5. [ID Document Data](#id-document-data)
-6. [Passport File](#passport-file)
+1. [Driver's License Info](#drivers-license-info)
+1. [Passport Message](#passport-message)
+1. [Credentials](#credentials)
+1. [ID Document Data](#id-document-data)
+1. [Passport File](#passport-file)
     - [Front Side File](#front-side-file)
     - [Reverse Side File](#reverse-side-file)
     - [Selfie File](#selfie-file)
@@ -28,7 +28,7 @@ Here are the steps:
 [![method Should_Generate_Auth_Link](https://img.shields.io/badge/Test_Method-Generate_Auth_Link-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 We start by generating an authorization URI.
-Since a driver's license is considered as proof of identity, we ask for optional data _selfie with document_ and
+Since a driver's license is considered as a proof of identity, we ask for optional data _selfie with document_ and
 _translation document scan_ as well.
 
 ![driver's license passport link](../docs/shot-passport_driver_license_link.jpg)
@@ -77,9 +77,9 @@ bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 
 [![method Should_decreypt_document_data](https://img.shields.io/badge/Test_Method-Decreypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-In our test case, there is only 1 item the in `message.passport_data.data` array and that's the encrypted element for
+In our test case, there is only 1 item in the `message.passport_data.data` array and that's the encrypted element for
 the driver's license scope.
-We can get information such as the document number and expiry date of the driver's license from the element's `data` field.
+We can get information such as document number and expiry date for the license from that element:
 
 ```c#
 IdDocumentData licenseDoc = decrypter.DecryptData<IdDocumentData>(
@@ -109,7 +109,7 @@ It really comes down to your decision on working with _streams_ vs. _byte arrays
 A pretty handy extension method is used here to stream writing the front side file to disk.
 Method [DownloadAndDecryptPassportFileAsync] does a few things:
 
-1. Makes an HTTP request to fetch the encrypted file's info using _passport's file\_id_
+1. Makes an HTTP request to fetch the encrypted file's info using its _passport file\_id_
 1. Makes an HTTP request to download the encrypted file using its _file\_path_
 1. Decrypts the encrypted file
 1. Writes the actual content to the destination stream
@@ -132,7 +132,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.j
 
 [![method Should_decreypt_reverse_side_file](https://img.shields.io/badge/Test_Method-Decreypt_Reverse_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-Previous method call is divided into two operations here for reverse side of the driver's license.
+Previous method call is divided into two operations here for reverse side of the license.
 Streams are used here as well.
 
 ```c#
@@ -167,7 +167,7 @@ This is essentially the same operation as done above via streams.
 We also post the selfie photo to a chat.
 
 ```c#
-// fetch the passport file info from Telegram servers
+// fetch the info of the passport file(selfie) residing on Telegram servers
 File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
@@ -203,7 +203,7 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
 A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.
 
-Assuming that the user sends one translation scan only for the driver's license, we receive the translation passport file object in
+Assuming that the user sends one translation scan only for the license, we receive the translation passport file object in
 `message.passport_data.data[0].translation[0]` and its accompanying file credentials object in
 `credentials.secure_data.driver_license.translation[0]`.
 
