@@ -62,6 +62,6 @@ dotnet run
 Hello, World! I am user 1234567 and my name is Awesome Bot.
 ```
 
-Great! This bot is self-aware. To make the bot interact with user, head to the next page.
+Great! This bot is self-aware. To make the bot interact with a user, head to the next page.
 
 [`getMe`]: https://core.telegram.org/bots/api#getme
