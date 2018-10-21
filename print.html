@@ -207,7 +207,7 @@ namespace Awesome {
 </code></pre>
 <pre><code class="language-text">Hello, World! I am user 1234567 and my name is Awesome Bot.
 </code></pre>
-<p>Great! This bot is self-aware. To make the bot interact with user, head to the next page.</p>
+<p>Great! This bot is self-aware. To make the bot interact with a user, head to the next page.</p>
 <a class="header" href="#example---first-chat-bot" id="example---first-chat-bot"><h1>Example - First Chat Bot</h1></a>
 <p>On the previous page, we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users' messages and replies to them like in this screenshot:</p>
@@ -264,8 +264,8 @@ to keep the app running for a while in this demo.</p>
 <p>When a user sends a message, <code>Bot_OnMessage()</code> gets invoked with the message object passed via event arguments.
 We are expecting a text message so we check for <code>Message.Text</code> value.
 Finally, we send a text message back to the same chat we got the message from.</p>
-<p>If you take a look at console, program outputs the <code>chatId</code> value. <strong>Copy chat id number</strong> to make testing easier
-for yourself in next pages.</p>
+<p>If you take a look at the console, the program outputs the <code>chatId</code> value. <strong>Copy the chat id number</strong> to make testing easier
+for yourself in the next pages.</p>
 <pre><code class="language-text">Received a text message in chat 123456789.
 </code></pre>
 <a class="header" href="#beginner" id="beginner"><h1>Beginner</h1></a>
@@ -311,11 +311,11 @@ Fortunately, methods for sending such messages are similar. Take a look at these
 <a class="header" href="#text-messages-and-more" id="text-messages-and-more"><h1>Text Messages and More</h1></a>
 <p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square" alt="send message method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
-<p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of Bot API.
-Text messages are easy to send and fast to show on devices with slower network.
+<p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of the Telegram Bot API.
+Text messages are easy to send and fast to display on devices with slower networking.
 <em>Don't send boring plain text to users all the time</em>. Telegram allows you to format the text using Markdown or HTML.</p>
 <a class="header" href="#send-text-message" id="send-text-message"><h2>Send Text Message</h2></a>
-<p>Code snippet below send a message with multiple parameters that looks like this:</p>
+<p>The code snippet below sends a message with multiple parameters that looks like this:</p>
 <p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
 <blockquote>
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>e.Message.Chat</code>
@@ -337,19 +337,19 @@ Message message = await botClient.SendTextMessageAsync(
   ))
 );
 </code></pre>
-<p>Method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram Bot API. This method sends a
+<p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
 text message and returns the message object sent.</p>
 <p><code>text</code> is written in <a href="https://core.telegram.org/bots/api#markdown-style">MarkDown format</a> and <code>parseMode</code> indicates that. You can also write in HTML or plain text.</p>
 <p>By passing <code>disableNotification</code> we tell Telegram client on user's device not to show/sound a notification.</p>
-<p>It's a good idea to make it clear to user the reason bot is sending this message and that's why we pass user's
+<p>It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
 message id for <code>replyToMessageId</code>.</p>
 <p>You have the option of specifying a <code>replyMarkup</code> when sending messages.
 Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens
-<a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in browser.</p>
+<a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
 <a class="header" href="#the-message-sent" id="the-message-sent"><h2>The Message Sent</h2></a>
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
-message object. Add this statement after after previous code.</p>
+message object. Add this statement after the previous code.</p>
 <pre><code class="language-c#">Console.WriteLine(
   $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
   $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
@@ -371,9 +371,9 @@ For example, in the message we just sent:</p>
 message.EntityValues.First()  == &quot;all the parameters&quot;
 </code></pre>
 <p>Currently, message object doesn't contain information about its reply markup.</p>
-<p>Try putting a breakpoint in code to examine all the properties on message objects you get.</p>
+<p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
 <a class="header" href="#photo-and-sticker-messages" id="photo-and-sticker-messages"><h1>Photo and Sticker Messages</h1></a>
-<p>You can provide the source file for almost all multimedia messages(e.g. photo, video) in 3 ways:</p>
+<p>You can provide the source file for almost all multimedia messages (e.g. photo, video) in 3 ways:</p>
 <ul>
 <li>Uploading a file with the HTTP request</li>
 <li>HTTP URL for Telegram to get a file from the internet</li>
@@ -395,13 +395,13 @@ You will learn more about them later on when we discuss file upload and download
 <p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
 <a class="header" href="#caption" id="caption"><h3>Caption</h3></a>
 <p>Multimedia messages can <em>optionally</em> have a caption attached to them. Here we sent a caption in HTML format.
-User can click on <em>Pixabay</em> in the caption to open its URL in browser.</p>
+A user can click on <em>Pixabay</em> in the caption to open its URL in the browser.</p>
 <p>Similar to message entities discussed before, caption entities on <a href="https://core.telegram.org/bots/api#message"><code>Message</code></a> object are the result of
 parsing formatted(Markdown or HTML) caption text.
 Try inspecting these properties in debug mode:</p>
 <ul>
 <li><code>message.Caption</code>: caption in plain text without formatting</li>
-<li><code>message.CaptionEntities</code>: info about special entities in caption</li>
+<li><code>message.CaptionEntities</code>: info about special entities in the caption</li>
 <li><code>message.CaptionEntityValues</code>: text values of mentioned entities</li>
 </ul>
 <a class="header" href="#photo-message" id="photo-message"><h3>Photo Message</h3></a>
@@ -449,7 +449,7 @@ Message msg2 = await botClient.SendStickerAsync(
 );
 </code></pre>
 <p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
-<p>Try inspecting <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
+<p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
 <blockquote>
 <p>There is more to stickers and we will talk about them in greater details later.</p>
 </blockquote>
@@ -460,7 +460,7 @@ Message msg2 = await botClient.SendStickerAsync(
 A voice file has OGG format and is not shown in music player.</p>
 <a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
-<p>This is the code to send a MP3 sound track. You might be wondering why some parameters are commented out.
+<p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
 That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
 <pre><code class="language-c#">Message msg = await botClient.SendAudioAsync(
   e.Message.Chat,
@@ -473,7 +473,7 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 );
 </code></pre>
 <p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
-<p>And user can see the audio in Music Player:</p>
+<p>And a user can see the audio in Music Player:</p>
 <p><img src="../docs/shot-music_player.jpg" alt="music player" /></p>
 <p>Method returns an audio message. Let's take a look at the value of <code>msg.Audio</code> property in JSON format:</p>
 <pre><code class="language-json">{
@@ -487,10 +487,10 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 </code></pre>
 <a class="header" href="#voice" id="voice"><h2>Voice</h2></a>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-send_voice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
-<p>Voice message is just an OGG audio file.
-Let's send it differently this time by uploading the file from disk alongside with HTTP request.</p>
+<p>A voice message is just an OGG audio file.
+Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
 <p>To run this example, download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
-<p>A value is passed for <code>duration</code> because Telegram can't figure that out from file's metadata.</p>
+<p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
 <pre><code class="language-c#">Message msg;
 using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;)) {
   msg = await botClient.SendVoiceAsync(
@@ -501,7 +501,7 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.
 }
 </code></pre>
 <p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
-<p>Voice message is returned from method. Inspect <code>msg.Voice</code> property to learn more.</p>
+<p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> property to learn more.</p>
 <a class="header" href="#video-and-video-note-messages" id="video-and-video-note-messages"><h1>Video and Video Note Messages</h1></a>
 <a class="header" href="#video" id="video"><h2>Video</h2></a>
 <a class="header" href="#video-note" id="video-note"><h2>Video Note</h2></a>

@@ -137,7 +137,7 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#photo-and-sticker-messages" id="photo-and-sticker-messages"><h1>Photo and Sticker Messages</h1></a>
-<p>You can provide the source file for almost all multimedia messages(e.g. photo, video) in 3 ways:</p>
+<p>You can provide the source file for almost all multimedia messages (e.g. photo, video) in 3 ways:</p>
 <ul>
 <li>Uploading a file with the HTTP request</li>
 <li>HTTP URL for Telegram to get a file from the internet</li>
@@ -159,13 +159,13 @@ You will learn more about them later on when we discuss file upload and download
 <p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
 <a class="header" href="#caption" id="caption"><h3>Caption</h3></a>
 <p>Multimedia messages can <em>optionally</em> have a caption attached to them. Here we sent a caption in HTML format.
-User can click on <em>Pixabay</em> in the caption to open its URL in browser.</p>
+A user can click on <em>Pixabay</em> in the caption to open its URL in the browser.</p>
 <p>Similar to message entities discussed before, caption entities on <a href="https://core.telegram.org/bots/api#message"><code>Message</code></a> object are the result of
 parsing formatted(Markdown or HTML) caption text.
 Try inspecting these properties in debug mode:</p>
 <ul>
 <li><code>message.Caption</code>: caption in plain text without formatting</li>
-<li><code>message.CaptionEntities</code>: info about special entities in caption</li>
+<li><code>message.CaptionEntities</code>: info about special entities in the caption</li>
 <li><code>message.CaptionEntityValues</code>: text values of mentioned entities</li>
 </ul>
 <a class="header" href="#photo-message" id="photo-message"><h3>Photo Message</h3></a>
@@ -213,7 +213,7 @@ Message msg2 = await botClient.SendStickerAsync(
 );
 </code></pre>
 <p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
-<p>Try inspecting <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
+<p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
 <blockquote>
 <p>There is more to stickers and we will talk about them in greater details later.</p>
 </blockquote>

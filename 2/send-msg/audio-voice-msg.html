@@ -142,7 +142,7 @@
 A voice file has OGG format and is not shown in music player.</p>
 <a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
-<p>This is the code to send a MP3 sound track. You might be wondering why some parameters are commented out.
+<p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
 That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
 <pre><code class="language-c#">Message msg = await botClient.SendAudioAsync(
   e.Message.Chat,
@@ -155,7 +155,7 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 );
 </code></pre>
 <p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
-<p>And user can see the audio in Music Player:</p>
+<p>And a user can see the audio in Music Player:</p>
 <p><img src="../docs/shot-music_player.jpg" alt="music player" /></p>
 <p>Method returns an audio message. Let's take a look at the value of <code>msg.Audio</code> property in JSON format:</p>
 <pre><code class="language-json">{
@@ -169,10 +169,10 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 </code></pre>
 <a class="header" href="#voice" id="voice"><h2>Voice</h2></a>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-send_voice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
-<p>Voice message is just an OGG audio file.
-Let's send it differently this time by uploading the file from disk alongside with HTTP request.</p>
+<p>A voice message is just an OGG audio file.
+Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
 <p>To run this example, download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
-<p>A value is passed for <code>duration</code> because Telegram can't figure that out from file's metadata.</p>
+<p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
 <pre><code class="language-c#">Message msg;
 using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;)) {
   msg = await botClient.SendVoiceAsync(
@@ -183,7 +183,7 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.
 }
 </code></pre>
 <p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
-<p>Voice message is returned from method. Inspect <code>msg.Voice</code> property to learn more.</p>
+<p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> property to learn more.</p>
 
                     </main>
 

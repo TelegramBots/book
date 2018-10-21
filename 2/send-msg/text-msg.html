@@ -139,11 +139,11 @@
                         <a class="header" href="#text-messages-and-more" id="text-messages-and-more"><h1>Text Messages and More</h1></a>
 <p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square" alt="send message method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
-<p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of Bot API.
-Text messages are easy to send and fast to show on devices with slower network.
+<p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of the Telegram Bot API.
+Text messages are easy to send and fast to display on devices with slower networking.
 <em>Don't send boring plain text to users all the time</em>. Telegram allows you to format the text using Markdown or HTML.</p>
 <a class="header" href="#send-text-message" id="send-text-message"><h2>Send Text Message</h2></a>
-<p>Code snippet below send a message with multiple parameters that looks like this:</p>
+<p>The code snippet below sends a message with multiple parameters that looks like this:</p>
 <p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
 <blockquote>
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>e.Message.Chat</code>
@@ -165,19 +165,19 @@ Message message = await botClient.SendTextMessageAsync(
   ))
 );
 </code></pre>
-<p>Method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram Bot API. This method sends a
+<p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
 text message and returns the message object sent.</p>
 <p><code>text</code> is written in <a href="https://core.telegram.org/bots/api#markdown-style">MarkDown format</a> and <code>parseMode</code> indicates that. You can also write in HTML or plain text.</p>
 <p>By passing <code>disableNotification</code> we tell Telegram client on user's device not to show/sound a notification.</p>
-<p>It's a good idea to make it clear to user the reason bot is sending this message and that's why we pass user's
+<p>It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
 message id for <code>replyToMessageId</code>.</p>
 <p>You have the option of specifying a <code>replyMarkup</code> when sending messages.
 Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens
-<a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in browser.</p>
+<a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
 <a class="header" href="#the-message-sent" id="the-message-sent"><h2>The Message Sent</h2></a>
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
-message object. Add this statement after after previous code.</p>
+message object. Add this statement after the previous code.</p>
 <pre><code class="language-c#">Console.WriteLine(
   $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
   $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
@@ -199,7 +199,7 @@ For example, in the message we just sent:</p>
 message.EntityValues.First()  == &quot;all the parameters&quot;
 </code></pre>
 <p>Currently, message object doesn't contain information about its reply markup.</p>
-<p>Try putting a breakpoint in code to examine all the properties on message objects you get.</p>
+<p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
 
                     </main>
 
