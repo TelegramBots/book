@@ -137,8 +137,46 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#video-and-video-note-messages" id="video-and-video-note-messages"><h1>Video and Video Note Messages</h1></a>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
+<p>You can send MP4 files as a regular video or a <em>video note</em>.
+Other video formats may be sent as documents.</p>
 <a class="header" href="#video" id="video"><h2>Video</h2></a>
+<p><a href="https://core.telegram.org/bots/api#sendvideo"><img src="https://img.shields.io/badge/Bot_API_method-send_video-blue.svg?style=flat-square" alt="method sendVideo" /></a></p>
+<p>Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
+You can optionally specify the duration and resolution of the video.</p>
+<p>In the example below, we send a video of a 10 minute countdown
+and expect the Telegram clients to stream that long video instead of downloading it completely.
+We also set a thumbnail image for our video.</p>
+<pre><code class="language-c#">Message msg = await botClient.SendVideoAsync(
+  chatId: e.Message.Chat,
+  video: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4&quot;,
+  thumb: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg&quot;,
+  supportsStreaming: true
+);
+</code></pre>
+<blockquote>
+<p>Check the Bot API docs for <code>sendVideo</code> to learn more about video size limits and the thumbnail images.</p>
+</blockquote>
+<p><img src="../docs/shot-video_thumb1.jpg" alt="vide screenshot 1" /></p>
+<p>User should be able to seek through the video without the video being downloaded completely.</p>
+<p><img src="../docs/shot-video_thumb2.jpg" alt="vide screenshot 2" /></p>
 <a class="header" href="#video-note" id="video-note"><h2>Video Note</h2></a>
+<p><a href="https://core.telegram.org/bots/api#sendvideonote"><img src="https://img.shields.io/badge/Bot_API_method-send_video_note-blue.svg?style=flat-square" alt="method sendVideoNote" /></a></p>
+<p>Video notes, shown in circles to the user, are usually short (1 minute or less) with the same width and height.</p>
+<p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
+Sending video note by its HTTP URL is not supported currently.</p>
+<p>Download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
+<pre><code class="language-c#">Message msg;
+using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;)) {
+  msg = await botClient.SendVideoNoteAsync(
+    chatId: e.Message.Chat,
+    videoNote: stream,
+    duration: 47,
+    length: 360 // value of width/height
+  );
+}
+</code></pre>
+<p><img src="../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
 
                     </main>
 
