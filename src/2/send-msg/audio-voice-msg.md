@@ -9,7 +9,7 @@ A voice file has OGG format and is not shown in music player.
 
 [![send audio method](https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendaudio)
 
-This is the code to send a MP3 sound track. You might be wondering why some parameters are commented out.
+This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
 That's because this MP3 file has metadata on it and Telegram does a good job at reading them.
 
 ```c#
@@ -26,7 +26,7 @@ Message msg = await botClient.SendAudioAsync(
 
 ![audio message](../docs/shot-audio_msg.jpg)
 
-And user can see the audio in Music Player:
+And a user can see the audio in Music Player:
 
 ![music player](../docs/shot-music_player.jpg)
 
@@ -47,12 +47,12 @@ Method returns an audio message. Let's take a look at the value of `msg.Audio` p
 
 [![send voice method](https://img.shields.io/badge/Bot_API_method-send_voice-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendvoice)
 
-Voice message is just an OGG audio file.
-Let's send it differently this time by uploading the file from disk alongside with HTTP request.
+A voice message is just an OGG audio file.
+Let's send it differently this time by uploading the file from disk alongside with an HTTP request.
 
 To run this example, download the [NFL Commentary voice file] to your disk.
 
-A value is passed for `duration` because Telegram can't figure that out from file's metadata.
+A value is passed for `duration` because Telegram can't figure that out from a file's metadata.
 
 ```c#
 Message msg;
@@ -67,6 +67,6 @@ using (var stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg")
 
 ![voice message](../docs/shot-voice_msg.jpg)
 
-Voice message is returned from method. Inspect `msg.Voice` property to learn more.
+A voice message is returned from the method. Inspect the `msg.Voice` property to learn more.
 
 [NFL Commentary voice file]: https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg

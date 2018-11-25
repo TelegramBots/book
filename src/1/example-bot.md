@@ -29,7 +29,7 @@ namespace Awesome {
 
       botClient.OnMessage += Bot_OnMessage;
       botClient.StartReceiving();
-      Thread.Sleep(999000);
+      Thread.Sleep(int.MaxValue);
     }
 
     static async void Bot_OnMessage(object sender, MessageEventArgs e) {
@@ -66,8 +66,8 @@ When a user sends a message, `Bot_OnMessage()` gets invoked with the message obj
 We are expecting a text message so we check for `Message.Text` value.
 Finally, we send a text message back to the same chat we got the message from.
 
-If you take a look at console, program outputs the `chatId` value. **Copy chat id number** to make testing easier
-for yourself in next pages.
+If you take a look at the console, the program outputs the `chatId` value. **Copy the chat id number** to make testing easier
+for yourself in the next pages.
 
 ```text
 Received a text message in chat 123456789.

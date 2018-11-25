@@ -3,13 +3,13 @@
 [![send message method](https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendmessage)
 [![tests](https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs)
 
-Text is a powerful interface for your bot and [`sendMessage`] probably is the most used method of Bot API.
-Text messages are easy to send and fast to show on devices with slower network.
+Text is a powerful interface for your bot and [`sendMessage`] probably is the most used method of the Telegram Bot API.
+Text messages are easy to send and fast to display on devices with slower networking.
 _Don't send boring plain text to users all the time_. Telegram allows you to format the text using Markdown or HTML.
 
 ## Send Text Message
 
-Code snippet below send a message with multiple parameters that looks like this:
+The code snippet below sends a message with multiple parameters that looks like this:
 
 ![text message screenshot](../docs/shot-text_msg2.jpg)
 
@@ -34,25 +34,25 @@ Message message = await botClient.SendTextMessageAsync(
 );
 ```
 
-Method `SendTextMessageAsync` of .NET Bot Client maps to [`sendMessage`] on Telegram Bot API. This method sends a
+The method `SendTextMessageAsync` of .NET Bot Client maps to [`sendMessage`] on Telegram's Bot API. This method sends a
 text message and returns the message object sent.
 
 `text` is written in [MarkDown format] and `parseMode` indicates that. You can also write in HTML or plain text.
 
 By passing `disableNotification` we tell Telegram client on user's device not to show/sound a notification.
 
-It's a good idea to make it clear to user the reason bot is sending this message and that's why we pass user's
+It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
 message id for `replyToMessageId`.
 
 You have the option of specifying a `replyMarkup` when sending messages.
 Reply markups are explained in details later in this book.
 Here we used an _Inline Keyboard Markup_ with a button that attaches to the message itself. Clicking that opens
-[`sendMessage`] method documentation in browser.
+[`sendMessage`] method documentation in the browser.
 
 ## The Message Sent
 
 Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
-message object. Add this statement after after previous code.
+message object. Add this statement after the previous code.
 
 ```c#
 Console.WriteLine(
@@ -86,7 +86,7 @@ message.EntityValues.First()  == "all the parameters"
 
 Currently, message object doesn't contain information about its reply markup.
 
-Try putting a breakpoint in code to examine all the properties on message objects you get.
+Try putting a breakpoint in the code to examine all the properties on a message objects you get.
 
 [`sendMessage`]: https://core.telegram.org/bots/api#sendmessage
 [MarkDown format]: https://core.telegram.org/bots/api#markdown-style

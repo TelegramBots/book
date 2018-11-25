@@ -1,6 +1,7 @@
 # Telegram Bots Book
 
 [![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot)
+[![Repository](https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.svg?style=social&label=Stars)](https://github.com/TelegramBots/Telegram.Bot)
 
 [**Telegram.Bot**] is the most popular .NET Client for [Telegram Bot API].
 
