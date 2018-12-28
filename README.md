@@ -21,11 +21,6 @@ Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
     ```bash
     mdbook serve
     ```
-1. Test the project and references within markdown files
-    ```bash
-    mdbook test
-    dotnet run --configuration Release --project "test\ReferenceValidator\ReferenceValidator.csproj"
-    ```
 
 [mdBook]: https://github.com/rust-lang-nursery/mdBook
 [mdBook binary]: https://github.com/rust-lang-nursery/mdBook/releases/tag/v0.2.0

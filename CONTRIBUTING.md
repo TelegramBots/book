@@ -5,7 +5,9 @@ This book 📖 serves as a detailed guide in developing Telegram Bots.
 
 ## 🔨 Tools Needed
 
-Book is generated using [mdBook]. We also check all the HTTP URLs in markdown files to avoid broken links. That is based on a .NET Core project. Refer to [README] guide to get all the tools installed and run the tests.
+Book is generated using [mdBook].
+
+We also check all the HTTP URLs and inter-file references during CI to avoid broken links.
 
 ## 💡 How To Contribute
 
@@ -30,6 +32,4 @@ There are a few simple rules in place to keep the project easily manageable and 
 - Files in `docs` directories should be named following `{type}-{file_name}.{extension}` pattern.
   - Values for type: `photo`, `shot`, `sticker`, `anim`, `video`, `voice`, `audio`, `doc`, `thumb`
 
-[a GitHub project]: https://github.com/TelegramBots/book/projects/1
 [mdBook]: https://github.com/rust-lang-nursery/mdBook
-[README]: README.md

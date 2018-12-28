@@ -12,8 +12,7 @@ install:
 script: >
   mdbook build
   && mdbook test
-  # && docker run --rm --tty --volume "$PWD:/app/" --workdir /app/ microsoft/dotnet:2.1-sdk \
-    # dotnet run --configuration Release --project "test\ReferenceValidator\ReferenceValidator.csproj"
+  && docker run --rm -t -v "$(pwd):/app/md/" mihazupan/markdownvalidator:latest
 
 deploy:
   provider: pages
