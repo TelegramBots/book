@@ -3,3 +3,6 @@ authors = ["Poulad Ashrafpour", "Aleksey Usatov", "karb0f0s", "Miha Zupan"]
 multilingual = false
 src = "src"
 title = "Telegram Bots"
+
+[output.html]
+google-analytics = "UA-131839892-2"
