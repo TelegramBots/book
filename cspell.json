@@ -1,0 +1,23 @@
+{
+	"version": "0.1",
+	"language": "en",
+	"dictionaries": [
+		"csharp",
+		"whitelist"
+	],
+	"dictionaryDefinitions": [
+		{ "name": "whitelist", "path": "./cspell-whitelist.txt" }
+	],
+    "flagWords": [
+        "hte"
+    ],
+	"ignoreRegExpList": [
+		"\\(.+\\/.+\\..+\\)",
+		"\\]: .+\\/.+\\..+$",
+		"[a-zA-Z]{13}-[\\w-]{42}",
+		"\\d{3,}:[\\w-_]{36}",
+		"\"[\\w-_]{20,}\"",
+		"@[\\w-_]+",
+		"^```(?:json)$[\\s\\S]+?^```$"
+	]
+}
