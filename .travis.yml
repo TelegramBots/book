@@ -1,6 +1,9 @@
 sudo: required
 
 matrix:
+  allow_failures:
+  - language: node_js
+
   include:
   - language: rust
     rust: nightly
@@ -26,6 +29,7 @@ matrix:
       email:
         on_success: never
         on_failure: always
+
 
   - language: node_js
     node_js: node
