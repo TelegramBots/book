@@ -11,16 +11,14 @@ Bots just as regular users can send native polls only to groups and channels, bu
 This is the code to send a poll to a chat.
 
 ```c#
-ChatId chatId = "@group_or_channel_username";
 Message pollMessage = await botClient.SendPollAsync(
-    chatId: chatId,
+    chatId: "@group_or_channel_username",
     question: "Did you ever hear the tragedy of Darth Plagueis The Wise?",
     options: new []
     {
         "Yes for the hundredth time!",
         "No, who`s that?"
-    },
-    replyMarkup: ... // optional IReplyMarkup
+    }
 );
 ```
 
@@ -43,8 +41,7 @@ To close a poll you need to know original chat and message ids of the poll that 
 ```c#
 Poll poll = await botClient.StopPollAsync(
     chatId: pollMessage.Chat.Id,
-    messageId: pollMessage.MessageId,
-    replyMarkup: ... // optional InlineKeyboardMarkup
+    messageId: pollMessage.MessageId
 );
 ```
 
