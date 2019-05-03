@@ -26,9 +26,7 @@ Message pollMessage = await botClient.SendPollAsync(
 
 You can optionally send a keyboard with a poll, both an inline and a regular one.
 
-You'll get the message with [`Poll`](https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs) object inside it. Each poll has a unique `Id`. It doesn't change when you forward the message with a poll. With this `Id` you can track poll state changes when it's updated. To do that you need to store a poll somewhere.
-
-Whenever a user votes in a poll created by your bot the bot receives an `Update` with a new poll state inside `Update.Poll` property. This is the time to update the state of your poll if you track it.
+You'll get the message with [`Poll`](https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs) object inside it.
 
 ## Stop a poll
 
