@@ -11,6 +11,7 @@
     - [Video & Video Note](2/send-msg/video-video_note-msg.md)
     - [Album (Media Group)](2/send-msg/album-msg.md)
     - [Document & Animation](2/send-msg/document-animation-msg.md)
+    - [Native Polls](2/send-msg/native-polls-msg.md)
     - [Other Messages](2/send-msg/other-msg.md)
   - [Reply Markup](2/reply-markup.md)
   - [Getting Updates](2/get-updates.md)
