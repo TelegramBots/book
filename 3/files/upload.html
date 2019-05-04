@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -72,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.7.</strong> Other Messages</a></li></ol></li><li><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="../../3/files/upload.html" class="active"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="../../4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="../../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            <ol class="chapter"><li><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="../../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="../../3/files/upload.html" class="active"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="../../4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="../../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -195,6 +199,23 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 
         
 
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-131839892-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
         
 
         

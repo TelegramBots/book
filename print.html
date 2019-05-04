@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -72,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.7.</strong> Other Messages</a></li></ol></li><li><a href="2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li><a href="2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li><a href="2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -272,17 +276,17 @@ for yourself in the next pages.</p>
 <ul>
 <li><a href="send-msg">Sending Messages</a>
 <ul>
-<li><a href="send-msg/text-msg.html">Text</a></li>
-<li><a href="send-msg/photo-sticker-msg.html">Photo &amp; Sticker</a></li>
-<li><a href="send-msg/audio-voice-msg.html">Audio &amp; Voice</a></li>
-<li><a href="send-msg/video-video_note-msg.html">Video &amp; Video Note</a></li>
-<li><a href="send-msg/album-msg.html">Album (Media Group)</a></li>
-<li><a href="send-msg/document-animation-msg.html">Document &amp; Animation</a></li>
-<li><a href="send-msg/other-msg.html">Other Messages</a></li>
+<li><a href="2/send-msg/text-msg.html">Text</a></li>
+<li><a href="2/send-msg/photo-sticker-msg.html">Photo &amp; Sticker</a></li>
+<li><a href="2/send-msg/audio-voice-msg.html">Audio &amp; Voice</a></li>
+<li><a href="2/send-msg/video-video_note-msg.html">Video &amp; Video Note</a></li>
+<li><a href="2/send-msg/album-msg.html">Album (Media Group)</a></li>
+<li><a href="2/send-msg/document-animation-msg.html">Document &amp; Animation</a></li>
+<li><a href="2/send-msg/other-msg.html">Other Messages</a></li>
 </ul>
 </li>
-<li><a href="reply-markup.html">Reply Markup</a></li>
-<li><a href="get-updates.html">Getting Updates</a></li>
+<li><a href="2/reply-markup.html">Reply Markup</a></li>
+<li><a href="2/get-updates.html">Getting Updates</a></li>
 </ul>
 <a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
 <p>There are many different types of message that a bot can send.
@@ -547,6 +551,39 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 <a class="header" href="#document-and-animation-messages" id="document-and-animation-messages"><h1>Document and Animation Messages</h1></a>
 <a class="header" href="#document" id="document"><h2>Document</h2></a>
 <a class="header" href="#animation" id="animation"><h2>Animation</h2></a>
+<a class="header" href="#native-poll-messages" id="native-poll-messages"><h1>Native Poll Messages</h1></a>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/PollMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
+<p>Bots just as regular users can send native polls only to groups and channels, but not to private chats.</p>
+<a class="header" href="#send-a-poll" id="send-a-poll"><h2>Send a poll</h2></a>
+<p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-send_poll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
+<p>This is the code to send a poll to a chat.</p>
+<pre><code class="language-c#">Message pollMessage = await botClient.SendPollAsync(
+    chatId: &quot;@group_or_channel_username&quot;,
+    question: &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
+    options: new []
+    {
+        &quot;Yes for the hundredth time!&quot;,
+        &quot;No, who`s that?&quot;
+    }
+);
+</code></pre>
+<p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
+<p>You can optionally send a keyboard with a poll, both an inline and a regular one.</p>
+<p>You'll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
+<a class="header" href="#stop-a-poll" id="stop-a-poll"><h2>Stop a poll</h2></a>
+<p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stop_poll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
+<p>To close a poll you need to know original chat and message ids of the poll that you got from calling <code>SendPollAsync</code> method.</p>
+<p>Let's close the poll that we sent in the previous example:</p>
+<pre><code class="language-c#">Poll poll = await botClient.StopPollAsync(
+    chatId: pollMessage.Chat.Id,
+    messageId: pollMessage.MessageId
+);
+</code></pre>
+<p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
+<p>You can also send a new inline keyboard when you close a poll.</p>
+<p>As a result of the request you'll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
+<p>If you'll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you'll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
+<p>Also if you'll try to close an already closed poll you'll get <code>ApiRequestException</code> with message <code>Bad Request: poll has already been closed</code>.</p>
 <a class="header" href="#other-messages" id="other-messages"><h1>Other Messages</h1></a>
 <a class="header" href="#contact" id="contact"><h2>Contact</h2></a>
 <a class="header" href="#venue" id="venue"><h2>Venue</h2></a>
@@ -682,18 +719,18 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 <a class="header" href="#stickers" id="stickers"><h1>Stickers</h1></a>
 <a class="header" href="#advanced" id="advanced"><h1>Advanced</h1></a>
 <ul>
-<li><a href="login-widget.html">Login Widget</a></li>
+<li><a href="4/login-widget.html">Login Widget</a></li>
 <li><a href="passport">Passport</a>
 <ul>
-<li><a href="passport/quickstart.html">Quickstart</a></li>
-<li><a href="passport/files-docs.html">Files &amp; Documents</a></li>
-<li><a href="passport/errors.html">Data Errors</a></li>
-<li><a href="passport/key.html">RSA Key</a></li>
-<li><a href="passport/faq.html">Decryption FAQ</a></li>
+<li><a href="4/passport/quickstart.html">Quickstart</a></li>
+<li><a href="4/passport/files-docs.html">Files &amp; Documents</a></li>
+<li><a href="4/passport/errors.html">Data Errors</a></li>
+<li><a href="4/passport/key.html">RSA Key</a></li>
+<li><a href="4/passport/faq.html">Decryption FAQ</a></li>
 </ul>
 </li>
-<li><a href="proxy.html">Proxy</a></li>
-<li><a href="log.html">Logging</a></li>
+<li><a href="4/proxy.html">Proxy</a></li>
+<li><a href="4/log.html">Logging</a></li>
 </ul>
 <a class="header" href="#telegram-login-widget" id="telegram-login-widget"><h1>Telegram Login Widget</h1></a>
 <p>Everything related to the <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a> has been moved to a separate repository:
@@ -703,11 +740,11 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 <a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget downloads" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.Extensions.Passport.svg?style=social&amp;label=Stars" alt="repository" /></a></p>
 <ul>
-<li><a href="quickstart.html">Quickstart</a></li>
-<li><a href="files-docs.html">Files &amp; Documents</a></li>
-<li><a href="errors.html">Data Errors</a></li>
-<li><a href="key.html">RSA Key</a></li>
-<li><a href="faq.html">Decryption FAQ</a></li>
+<li><a href="4/passport/quickstart.html">Quickstart</a></li>
+<li><a href="4/passport/files-docs.html">Files &amp; Documents</a></li>
+<li><a href="4/passport/errors.html">Data Errors</a></li>
+<li><a href="4/passport/key.html">RSA Key</a></li>
+<li><a href="4/passport/faq.html">Decryption FAQ</a></li>
 </ul>
 <p><img src="../docs/photo-tg_passport.gif" alt="telegram passport" /></p>
 <p><a href="https://telegram.org/blog/passport">Telegram Passport</a> is a unified authorization method for services that require personal identification.
@@ -720,7 +757,7 @@ There are several Know Your Customer(KYC) solutions that have already added supp
 <li><a href="https://core.telegram.org/passport">Telegram Passport Manual</a></li>
 </ul>
 <a class="header" href="#telegram-passport---quickstart" id="telegram-passport---quickstart"><h1>Telegram Passport - Quickstart</h1></a>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart/Program.cs"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="passport quickstart example" /></a></p>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="passport quickstart example" /></a></p>
 <p>This guide teaches the basics of working with Telegram Passport.
 See the complete version of the code at <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart">Quickstart project</a>.
 Code snippets on this page are in the context of that project.</p>
@@ -804,7 +841,7 @@ Required parameters for their decryption are in the <code>message.passport_data.
 But that credentials object is encrypted using bot's public key!</p>
 <p>We first take the bot's <em>private key</em> this time and decrypt the credentials.</p>
 <blockquote>
-<p>There are more details about importing a key in PEM format on the <a href="key.html">RSA Key page</a>.</p>
+<p>There are more details about importing a key in PEM format on the <a href="4/passport/key.html">RSA Key page</a>.</p>
 </blockquote>
 <pre><code class="language-c#">IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
@@ -1385,6 +1422,23 @@ Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>Upd
 
         
 
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-131839892-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
         
 
         
