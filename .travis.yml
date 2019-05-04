@@ -9,11 +9,10 @@ cache: cargo
 
 install:
   - mdbook -V || cargo install mdbook --vers "^0.2.0"
-script: >
-  mdbook build
-  && mdbook test
-  # && docker run --rm --tty --volume "$PWD:/app/" --workdir /app/ microsoft/dotnet:2.1-sdk \
-    # dotnet run --configuration Release --project "test\ReferenceValidator\ReferenceValidator.csproj"
+script: |
+  mdbook build  && \
+  mdbook test   && \
+  docker run --rm --tty --volume "$(pwd):/app/md/" mihazupan/markdownvalidator
 
 deploy:
   provider: pages

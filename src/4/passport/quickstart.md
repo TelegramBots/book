@@ -1,6 +1,6 @@
 # Telegram Passport - Quickstart
 
-[![passport quickstart example](https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart/Program.cs)
+[![passport quickstart example](https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs)
 
 This guide teaches the basics of working with Telegram Passport.
 See the complete version of the code at [Quickstart project].
