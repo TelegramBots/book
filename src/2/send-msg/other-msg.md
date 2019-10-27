@@ -18,6 +18,8 @@ Message msg = await botClient.SendContactAsync(
 );
 ```
 
+![send contact](../docs/shot-contact.jpg)
+
 If you want to send a contact as vCard you can achieve  this by adding a valid vCard `string` as value for the optional parameter `vCard` as seen in the given example below. 
 
 ```c#
@@ -33,7 +35,9 @@ Message msg = await botClient.SendContactAsync(
             "EMAIL:hansolo@mfalcon.com\n" +
             "END:VCARD"
 );
+```
 
+![send vcard](../docs/shot-contact_vcard.jpg)
 
 ## Venue
 
