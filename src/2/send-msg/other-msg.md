@@ -4,17 +4,16 @@ There are other kind of message types which are supported by the client. In the 
 
 ## Contact
 
-This is the code to send a contact. Mandatory are the parameters `chatId`, `phoneNumber` and `firstName`.
+[![send contacts tests](https://img.shields.io/badge/Examples-Contact-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingContactMessageTests.cs)
 
-Beware the parameter `disableNotification` behaves diffrently according to the recivers operating system. iOS users will not receive a notification, Android users will receive a notification with no sound.
+This is the code to send a contact. Mandatory are the parameters `chatId`, `phoneNumber` and `firstName`.
 
 ```c#
 Message msg = await botClient.SendContactAsync(
     chatId: e.Message.Chat.Id,
     phoneNumber: "+1234567890",
     firstName: "Han",
-    lastName: "Solo",
-    disableNotification: true,
+    lastName: "Solo"
 );
 ```
 
@@ -41,6 +40,8 @@ Message msg = await botClient.SendContactAsync(
 
 ## Venue
 
+[![send venue tests](https://img.shields.io/badge/Examples-Venue-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs)
+
 The code snippet below sends a venue with a title and a address as given parameters:
 
 ```c#
@@ -56,6 +57,8 @@ Message msg = await botClient.SendVenueAsync(
 ![send contact](../docs/shot-venue.jpg)
 
 ## Location
+
+[![send location tests](https://img.shields.io/badge/Examples-Location-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs)
 
 The difference between sending a location and a venue is, that the venue requires a title and address. A location can be any given point as latitude and longitude.
 
