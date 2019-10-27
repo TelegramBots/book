@@ -1,6 +1,6 @@
 # Other Messages
 
-There are other kind of message types which are supported by the client.
+There are other kind of message types which are supported by the client. In the following paragraphs we will look how to send contacts, venues or locations.
 
 ## Contact
 
@@ -41,4 +41,32 @@ Message msg = await botClient.SendContactAsync(
 
 ## Venue
 
+The code snippet below sends a venue with a title and a address as given parameters:
+
+```c#
+Message msg = await botClient.SendVenueAsync(
+    chatId: e.Message.Chat.Id,
+    latitude: 50.0840172f,
+    longitude: 14.418288f,
+    title: "Man Hanging out",
+    address: "Husova, 110 00 Staré Město, Czechia"
+);
+```
+
+![send contact](../docs/shot-venue.jpg)
+
 ## Location
+
+The difference between sending a location and a venue is, that the venue requires a title and address. A location can be any given point as latitude and longitude.
+
+The following snippet shows how to send a location with the mandatory parameters:
+
+```c#
+Message message = await botClient.SendLocationAsync(
+    chatId: e.Message.Chat.Id,
+    latitude: 33.747252f,
+    longitude: -112.633853f
+);
+```
+
+![send contact](../docs/shot-location.jpg)
