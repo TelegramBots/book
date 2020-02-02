@@ -22,8 +22,8 @@ Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
     mdbook serve
     ```
 
-[mdBook]: https://github.com/rust-lang-nursery/mdBook
-[mdBook binary]: https://github.com/rust-lang-nursery/mdBook/releases/tag/v0.2.0
+[mdBook]: https://github.com/rust-lang/mdBook
+[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.2.0
 
 ## Contribute 👋
 
