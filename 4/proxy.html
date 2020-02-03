@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Proxy - Telegram Bots</title>
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,11 +32,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +58,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,7 +80,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li><a href="../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li><a href="../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="../4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="../4/proxy.html" class="active"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="expanded "><a href="../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li class="expanded "><a href="../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li class="expanded "><a href="../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li class="expanded "><a href="../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li class="expanded "><a href="../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li class="expanded "><a href="../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li class="expanded "><a href="../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li class="expanded "><a href="../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li class="expanded "><a href="../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li class="expanded "><a href="../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li class="expanded "><a href="../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li class="expanded "><a href="../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li class="expanded "><a href="../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li class="expanded "><a href="../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li class="expanded "><a href="../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li class="expanded "><a href="../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li class="expanded "><a href="../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li class="expanded "><a href="../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li class="expanded "><a href="../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li class="expanded "><a href="../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li class="expanded "><a href="../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li class="expanded "><a href="../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li class="expanded "><a href="../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li class="expanded "><a href="../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li class="expanded "><a href="../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li class="expanded "><a href="../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li class="expanded "><a href="../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li class="expanded "><a href="../4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li class="expanded "><a href="../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li class="expanded "><a href="../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li class="expanded "><a href="../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li class="expanded "><a href="../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li class="expanded "><a href="../4/proxy.html" class="active"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li class="expanded "><a href="../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li class="expanded "><a href="../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li class="expanded "><a href="../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +113,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">Telegram Bots</h1> 
+                        <h1 class="menu-title">Telegram Bots</h1>
 
                         <div class="right-buttons">
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -140,7 +148,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy"><h1>Working Behind a Proxy</h1></a>
+                        <h1><a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy">Working Behind a Proxy</a></h1>
 <p><code>TelegramBotClient</code> allows you to use a proxy for Bot API connections. This guide covers using three different proxy solutions.</p>
 <ul>
 <li><a href="#http-proxy">HTTP Proxy</a></li>
@@ -151,7 +159,7 @@
 <blockquote>
 <p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
-<a class="header" href="#http-proxy" id="http-proxy"><h2>HTTP Proxy</h2></a>
+<h2><a class="header" href="#http-proxy" id="http-proxy">HTTP Proxy</a></h2>
 <p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxies.</p>
 <pre><code class="language-csharp">// using System.Net;
 
@@ -161,7 +169,7 @@ var httpProxy = new WebProxy(address: &quot;https://example.org&quot;, port: 808
 };
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpProxy);
 </code></pre>
-<a class="header" href="#socks5-proxy" id="socks5-proxy"><h2>SOCKS5 Proxy</h2></a>
+<h2><a class="header" href="#socks5-proxy" id="socks5-proxy">SOCKS5 Proxy</a></h2>
 <p>Unfortunately, there is no built-in support for socks proxies in the .NET Standard libraries.
 You can use an external NuGet package: <a href="https://www.nuget.org/packages/HttpToSocks5Proxy/"><code>HttpToSocks5Proxy</code></a> provided by one of our team members.</p>
 <pre><code class="language-csharp">// using MihaZupan;
@@ -179,7 +187,7 @@ proxy.ResolveHostnamesLocally = true;
 
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, proxy);
 </code></pre>
-<a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor"><h2>SOCKS5 Proxy over Tor</h2></a>
+<h2><a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor">SOCKS5 Proxy over Tor</a></h2>
 <p><strong>Warning: Use for Testing only!</strong></p>
 <blockquote>
 <p>Do not use this method in a production environment as it has high network latency and poor bandwidth.</p>
@@ -210,7 +218,7 @@ var botClient = new TelegramBotClient(
 <blockquote>
 <p>Note that Tor has to be active at all times for the bot to work.</p>
 </blockquote>
-<a class="header" href="#configurations-in-torcc" id="configurations-in-torcc"><h3>Configurations in <code>torcc</code></h3></a>
+<h3><a class="header" href="#configurations-in-torcc" id="configurations-in-torcc">Configurations in <code>torcc</code></a></h3>
 <pre><code class="language-text">EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
@@ -275,6 +283,14 @@ You can change the port to anything you want (9050 is just the default), only ma
                 ga('create', 'UA-131839892-2', 'auto');
                 ga('send', 'pageview');
             }
+        </script>
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
         </script>
         
 

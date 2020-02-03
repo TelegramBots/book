@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Files &amp; Documents - Telegram Bots</title>
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,11 +32,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +58,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,7 +80,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="../../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="../../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="../../4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="../../4/passport/files-docs.html" class="active"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="expanded "><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li class="expanded "><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li class="expanded "><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li class="expanded "><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li class="expanded "><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li class="expanded "><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li class="expanded "><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li class="expanded "><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li class="expanded "><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li class="expanded "><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li class="expanded "><a href="../../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li class="expanded "><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li class="expanded "><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li class="expanded "><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li class="expanded "><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li class="expanded "><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li class="expanded "><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li class="expanded "><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li class="expanded "><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li class="expanded "><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li class="expanded "><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li class="expanded "><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li class="expanded "><a href="../../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li class="expanded "><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li class="expanded "><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li class="expanded "><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li class="expanded "><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li class="expanded "><a href="../../4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li class="expanded "><a href="../../4/passport/files-docs.html" class="active"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li class="expanded "><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li class="expanded "><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li class="expanded "><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li class="expanded "><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li class="expanded "><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li class="expanded "><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li class="expanded "><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +113,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">Telegram Bots</h1> 
+                        <h1 class="menu-title">Telegram Bots</h1>
 
                         <div class="right-buttons">
                             <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -140,7 +148,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#passport-files-and-documents" id="passport-files-and-documents"><h1>Passport Files and Documents</h1></a>
+                        <h1><a class="header" href="#passport-files-and-documents" id="passport-files-and-documents">Passport Files and Documents</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square" alt="driver's license scope tests" /></a></p>
 <p>We use the driver's license scope here to show decryption of <em>ID document data</em> and <em>passport files</em> for
 front side scan, reverse side scan, selfie photo, and translation scan.
@@ -162,7 +170,7 @@ Here are the steps:</p>
 </ul>
 </li>
 </ol>
-<a class="header" href="#authorization-request" id="authorization-request"><h2>Authorization Request</h2></a>
+<h2><a class="header" href="#authorization-request" id="authorization-request">Authorization Request</a></h2>
 <p><a href="https://core.telegram.org/passport#passportscope"><img src="https://img.shields.io/badge/Passport_API_type-PassportScope-blue.svg?style=flat-square" alt="PassportScope type" /></a>
 <a href="https://core.telegram.org/passport#passportscopeelementone"><img src="https://img.shields.io/badge/Passport_API_type-PassportScopeElementOne-blue.svg?style=flat-square" alt="PassportScopeElementOne type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Generate_Auth_Link-green.svg?style=flat-square" alt="method Should_Generate_Auth_Link" /></a></p>
@@ -170,18 +178,18 @@ Here are the steps:</p>
 Since a driver's license is considered as a proof of identity, we ask for optional data <em>selfie with document</em> and
 <em>translation document scan</em> as well.</p>
 <p><img src="../docs/shot-passport_driver_license_link.jpg" alt="driver's license passport link" /></p>
-<a class="header" href="#drivers-license-info" id="drivers-license-info"><h2>Driver's License Info</h2></a>
+<h2><a class="header" href="#drivers-license-info" id="drivers-license-info">Driver's License Info</a></h2>
 <p>As a user, provide information for the required fields: front side, reverse side, and document number.
 Also, test methods here expect a selfie photo and a file for translation scan.</p>
 <p><img src="../docs/shot-passport_driver_license1.jpg" alt="driver's license passport 1" />
 <img src="../docs/shot-passport_driver_license2.jpg" alt="driver's license passport 2" />
 <img src="../docs/shot-passport_driver_license3.jpg" alt="driver's license passport 3" /></p>
 <p>Click the <em>Authorize</em> button at the end.</p>
-<a class="header" href="#passport-message" id="passport-message"><h2>Passport Message</h2></a>
+<h2><a class="header" href="#passport-message" id="passport-message">Passport Message</a></h2>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Validate_Passport_Update-green.svg?style=flat-square" alt="method Should_validate_passport_update" /></a></p>
 <p>This test method checks for a Passport message with a driver's license element on it.</p>
-<a class="header" href="#credentials" id="credentials"><h2>Credentials</h2></a>
+<h2><a class="header" href="#credentials" id="credentials">Credentials</a></h2>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type" /></a>
 <a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decrypt_Credentials-green.svg?style=flat-square" alt="method Should_decrypt_credentials" /></a></p>
@@ -194,7 +202,7 @@ Credentials credentials = decrypter.DecryptCredentials(
 );
 bool isSameNonce = credentials.Nonce == &quot;Test nonce for driver's license&quot;;
 </code></pre>
-<a class="header" href="#id-document-data" id="id-document-data"><h2>ID Document Data</h2></a>
+<h2><a class="header" href="#id-document-data" id="id-document-data">ID Document Data</a></h2>
 <p><a href="https://core.telegram.org/passport#iddocumentdata"><img src="https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square" alt="IdDocumentData type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Document_Data-green.svg?style=flat-square" alt="method Should_decreypt_document_data" /></a></p>
 <p>In our test case, there is only 1 item in the <code>message.passport_data.data</code> array and that's the encrypted element for
@@ -205,7 +213,7 @@ We can get information such as document number and expiry date for the license f
   dataCredentials: credentials.SecureData.DriverLicense.Data
 );
 </code></pre>
-<a class="header" href="#passport-file" id="passport-file"><h2>Passport File</h2></a>
+<h2><a class="header" href="#passport-file" id="passport-file">Passport File</a></h2>
 <p><a href="https://core.telegram.org/bots/api#passportfile"><img src="https://img.shields.io/badge/Bot_API_type-PassportFile-blue.svg?style=flat-square" alt="PassportFile type" /></a>
 <a href="https://core.telegram.org/passport#filecredentials"><img src="https://img.shields.io/badge/Passport_API_type-FileCredentials-blue.svg?style=flat-square" alt="FileCredentials type" /></a></p>
 <p>Passport file is an encrypted JPEG file on Telegram servers.
@@ -215,7 +223,7 @@ In this section we try to demonstrate different use cases that you might have fo
 <p>No matter the method used, the underlying decryption logic is the same.
 It really comes down to your decision on working with <em>streams</em> vs. <em>byte arrays</em>.
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">IDecrypter</a> gives you both options.</p>
-<a class="header" href="#front-side-file" id="front-side-file"><h3>Front Side File</h3></a>
+<h3><a class="header" href="#front-side-file" id="front-side-file">Front Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Front_Side_File-green.svg?style=flat-square" alt="method Should_decreypt_front_side_file" /></a></p>
 <p>A pretty handy extension method is used here to stream writing the front side file to disk.
 Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/TelegramBotClientPassportExtensions.cs">DownloadAndDecryptPassportFileAsync</a> does a few things:</p>
@@ -238,7 +246,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-s
 <blockquote>
 <p><strong>Warning</strong>: This method is convenient to use but gives you the least amount of control over the operations.</p>
 </blockquote>
-<a class="header" href="#reverse-side-file" id="reverse-side-file"><h3>Reverse Side File</h3></a>
+<h3><a class="header" href="#reverse-side-file" id="reverse-side-file">Reverse Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Reverse_Side_File-green.svg?style=flat-square" alt="method Should_decreypt_reverse_side_file" /></a></p>
 <p>Previous method call is divided into two operations here for reverse side of the license.
 Streams are used here as well.</p>
@@ -263,7 +271,7 @@ using (System.IO.Stream
   );
 }
 </code></pre>
-<a class="header" href="#selfie-file" id="selfie-file"><h3>Selfie File</h3></a>
+<h3><a class="header" href="#selfie-file" id="selfie-file">Selfie File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Selfie_File-green.svg?style=flat-square" alt="method Should_decreypt_selfie_file" /></a></p>
 <p>We deal with selfie photo as a byte array.
 This is essentially the same operation as done above via streams.
@@ -296,7 +304,7 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
   );
 }
 </code></pre>
-<a class="header" href="#translation-file" id="translation-file"><h3>Translation File</h3></a>
+<h3><a class="header" href="#translation-file" id="translation-file">Translation File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Translation_File-green.svg?style=flat-square" alt="method Should_decreypt_translation_file" /></a></p>
 <p>A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.</p>
@@ -386,6 +394,14 @@ await System.IO.File.WriteAllBytesAsync(&quot;/path/to/translation.jpg&quot;, co
                 ga('create', 'UA-131839892-2', 'auto');
                 ga('send', 'pageview');
             }
+        </script>
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
         </script>
         
 

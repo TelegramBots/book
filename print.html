@@ -1,9 +1,13 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Telegram Bots</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,11 +34,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +60,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,7 +82,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li><a href="2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li><a href="2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="expanded "><a href="1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li class="expanded "><a href="1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li class="expanded "><a href="2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li class="expanded "><a href="2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li class="expanded "><a href="2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li class="expanded "><a href="2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li class="expanded "><a href="2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li class="expanded "><a href="2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li class="expanded "><a href="2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li class="expanded "><a href="2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li class="expanded "><a href="2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li class="expanded "><a href="2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li class="expanded "><a href="2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li class="expanded "><a href="2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li class="expanded "><a href="3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li class="expanded "><a href="3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li class="expanded "><a href="3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li class="expanded "><a href="3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li class="expanded "><a href="3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li class="expanded "><a href="3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li class="expanded "><a href="3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li class="expanded "><a href="3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li class="expanded "><a href="3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li class="expanded "><a href="3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li class="expanded "><a href="4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li class="expanded "><a href="4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li class="expanded "><a href="4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li class="expanded "><a href="4/passport/quickstart.html"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li class="expanded "><a href="4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li class="expanded "><a href="4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li class="expanded "><a href="4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li class="expanded "><a href="4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li class="expanded "><a href="4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li class="expanded "><a href="4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li class="expanded "><a href="Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li class="expanded "><a href="FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +115,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">Telegram Bots</h1> 
+                        <h1 class="menu-title">Telegram Bots</h1>
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -140,7 +150,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#telegram-bots-book" id="telegram-bots-book"><h1>Telegram Bots Book</h1></a>
+                        <h1><a class="header" href="#telegram-bots-book" id="telegram-bots-book">Telegram Bots Book</a></h1>
 <p><a href="https://www.nuget.org/packages/Telegram.Bot"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square" alt="NuGet" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot"><img src="https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.svg?style=social&amp;label=Stars" alt="Repository" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot"><strong>Telegram.Bot</strong></a> is the most popular .NET Client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>.</p>
@@ -148,35 +158,35 @@
 Check <a href="https://core.telegram.org/bots"><em>Bots: An introduction for developers</em></a> to understand what a Telegram bot is and what it can do.</p>
 <p>We, <a href="https://github.com/orgs/TelegramBots/people">Telegram Bots team</a>, mainly focus on developing multiple <a href="https://www.nuget.org/profiles/TelegramBots">NuGet packages</a> for creating chatbots.</p>
 <table><thead><tr><th align="center">Packages</th><th align="center">Team</th><th align="center">News Channel</th><th align="center">Group Chat</th></tr></thead><tbody>
-<tr><td align="center"> <a href="https://www.nuget.org/profiles/TelegramBots"><img src="1/docs/logo-nuget.png" alt="Packages" /></a> </td><td align="center"> <a href="https://github.com/orgs/TelegramBots/people"><img src="1/docs/logo-gh.png" alt="Team" /></a> </td><td align="center"> <a href="https://t.me/tgbots_dotnet"><img src="1/docs/logo-channel.jpg" alt="News Channel" /></a> </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA"><img src="1/docs/logo-chat.jpg" alt="Group Chat" /></a> </td></tr>
-<tr><td align="center"> Packages we release on NuGet </td><td align="center"> The team contributing to this work </td><td align="center"> Subscribe to <a href="https://t.me/tgbots_dotnet"><code>@tgbots_dotnet</code></a> channel to get our latest news </td><td align="center"> <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">Join our chat</a> to talk about bots and ask questions </td></tr>
+<tr><td align="center"><a href="https://www.nuget.org/profiles/TelegramBots"><img src="1/docs/logo-nuget.png" alt="Packages" /></a></td><td align="center"><a href="https://github.com/orgs/TelegramBots/people"><img src="1/docs/logo-gh.png" alt="Team" /></a></td><td align="center"><a href="https://t.me/tgbots_dotnet"><img src="1/docs/logo-channel.jpg" alt="News Channel" /></a></td><td align="center"><a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA"><img src="1/docs/logo-chat.jpg" alt="Group Chat" /></a></td></tr>
+<tr><td align="center">Packages we release on NuGet</td><td align="center">The team contributing to this work</td><td align="center">Subscribe to <a href="https://t.me/tgbots_dotnet"><code>@tgbots_dotnet</code></a> channel to get our latest news</td><td align="center"><a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">Join our chat</a> to talk about bots and ask questions</td></tr>
 </tbody></table>
-<a class="header" href="#what-is-this-book-for" id="what-is-this-book-for"><h2>What Is This Book For</h2></a>
+<h2><a class="header" href="#what-is-this-book-for" id="what-is-this-book-for">What Is This Book For</a></h2>
 <p>All Bot API methods are already documented by Telegram<sup class="footnote-reference"><a href="#1">1</a></sup> but this book covers all you need to know to create a
 chatbot in .NET. There are also many concrete examples written in C#.
 The guides here can even be useful to bot developers using other languages/platforms as it shows best practices
 in developing Telegram chatbots with examples.</p>
-<a class="header" href="#correctness--testing" id="correctness--testing"><h2>Correctness &amp; Testing</h2></a>
+<h2><a class="header" href="#correctness--testing" id="correctness--testing">Correctness &amp; Testing</a></h2>
 <p>This project is fully tested using Unit tests and Systems Integration tests before each release.
 In fact, our test cases are self-documenting and serve as examples for Bot API methods.
 Once you learn the basics of Telegram chatbots, you will be able to easily understand the code in examples and
 use it in your own bot program.</p>
-<a class="header" href="#get-started" id="get-started"><h2>Get Started</h2></a>
+<h2><a class="header" href="#get-started" id="get-started">Get Started</a></h2>
 <p><strong>Begin your bot development journey with the <a href="1/quickstart.html"><em>Quickstart</em></a> guide.</strong></p>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://core.telegram.org/bots/api">Telegram Bot API</a></p>
 </div>
-<a class="header" href="#quickstart" id="quickstart"><h1>Quickstart</h1></a>
-<a class="header" href="#bot-father" id="bot-father"><h2>Bot Father</h2></a>
+<h1><a class="header" href="#quickstart" id="quickstart">Quickstart</a></h1>
+<h2><a class="header" href="#bot-father" id="bot-father">Bot Father</a></h2>
 <p>Before you start developing a bot, you need to talk to <a href="https://t.me/botfather"><code>@BotFather</code></a> on Telegram. Register a
 bot with him and get an access token.</p>
-<p><a href="https://t.me/botfather"><img src="docs/logo-bot-father.jpg" alt="Bot Father" /></a></p>
+<p><a href="https://t.me/botfather"><img src="1/docs/logo-bot-father.jpg" alt="Bot Father" /></a></p>
 <p>Access token is a key used to identify and authorize your bot in API
 requests so keep it with yourself as a secret. It looks like this:</p>
 <pre><code class="language-text">1234567:4TT8bAc8GHUspu3ERYn-KGcvsvGB9u_n4ddy
 </code></pre>
-<a class="header" href="#hello-world" id="hello-world"><h2>Hello World</h2></a>
+<h2><a class="header" href="#hello-world" id="hello-world">Hello World</a></h2>
 <p>Now you have a bot, it's time to bring it to life! Create a new console project for your bot.
 It could be a .NET Core project or a .NET project targeting versions 4.5+.</p>
 <blockquote>
@@ -212,10 +222,10 @@ namespace Awesome {
 <pre><code class="language-text">Hello, World! I am user 1234567 and my name is Awesome Bot.
 </code></pre>
 <p>Great! This bot is self-aware. To make the bot interact with a user, head to the next page.</p>
-<a class="header" href="#example---first-chat-bot" id="example---first-chat-bot"><h1>Example - First Chat Bot</h1></a>
+<h1><a class="header" href="#example---first-chat-bot" id="example---first-chat-bot">Example - First Chat Bot</a></h1>
 <p>On the previous page, we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users' messages and replies to them like in this screenshot:</p>
-<p><img src="docs/shot-example_bot.jpg" alt="Example Image" /></p>
+<p><img src="1/docs/shot-example_bot.jpg" alt="Example Image" /></p>
 <p>Copy the following code to <code>Program.cs</code>.</p>
 <blockquote>
 <p>Replace <code>YOUR_ACCESS_TOKEN_HERE</code> with the access token from Bot Father.</p>
@@ -272,9 +282,9 @@ Finally, we send a text message back to the same chat we got the message from.</
 for yourself in the next pages.</p>
 <pre><code class="language-text">Received a text message in chat 123456789.
 </code></pre>
-<a class="header" href="#beginner" id="beginner"><h1>Beginner</h1></a>
+<h1><a class="header" href="#beginner" id="beginner">Beginner</a></h1>
 <ul>
-<li><a href="send-msg">Sending Messages</a>
+<li><a href="2/send-msg">Sending Messages</a>
 <ul>
 <li><a href="2/send-msg/text-msg.html">Text</a></li>
 <li><a href="2/send-msg/photo-sticker-msg.html">Photo &amp; Sticker</a></li>
@@ -288,39 +298,39 @@ for yourself in the next pages.</p>
 <li><a href="2/reply-markup.html">Reply Markup</a></li>
 <li><a href="2/get-updates.html">Getting Updates</a></li>
 </ul>
-<a class="header" href="#sending-messages" id="sending-messages"><h1>Sending Messages</h1></a>
+<h1><a class="header" href="#sending-messages" id="sending-messages">Sending Messages</a></h1>
 <p>There are many different types of message that a bot can send.
 Fortunately, methods for sending such messages are similar. Take a look at these examples:</p>
 <p><strong>Sending text message</strong>:</p>
-<p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
+<p><img src="2/send-msg/../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendTextMessageAsync(
   chatId: e.Message.Chat,
   text:   &quot;Hello, World!&quot;
 );
 </code></pre>
 <p><strong>Sending sticker message</strong>:</p>
-<p><img src="../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
+<p><img src="2/send-msg/../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendStickerAsync(
   chatId:  e.Message.Chat,
   sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
 );
 </code></pre>
 <p><strong>Sending video message</strong>:</p>
-<p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
+<p><img src="2/send-msg/../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <pre><code class="language-c#">await botClient.SendVideAsync(
   chatId:  e.Message.Chat,
   video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
 );
 </code></pre>
-<a class="header" href="#text-messages-and-more" id="text-messages-and-more"><h1>Text Messages and More</h1></a>
+<h1><a class="header" href="#text-messages-and-more" id="text-messages-and-more">Text Messages and More</a></h1>
 <p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square" alt="send message method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Text is a powerful interface for your bot and <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> probably is the most used method of the Telegram Bot API.
 Text messages are easy to send and fast to display on devices with slower networking.
 <em>Don't send boring plain text to users all the time</em>. Telegram allows you to format the text using Markdown or HTML.</p>
-<a class="header" href="#send-text-message" id="send-text-message"><h2>Send Text Message</h2></a>
+<h2><a class="header" href="#send-text-message" id="send-text-message">Send Text Message</a></h2>
 <p>The code snippet below sends a message with multiple parameters that looks like this:</p>
-<p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
+<p><img src="2/send-msg/../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
 <blockquote>
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>e.Message.Chat</code>
 or put the <code>chatId</code> value if you know it.</p>
@@ -351,7 +361,7 @@ message id for <code>replyToMessageId</code>.</p>
 Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens
 <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
-<a class="header" href="#the-message-sent" id="the-message-sent"><h2>The Message Sent</h2></a>
+<h2><a class="header" href="#the-message-sent" id="the-message-sent">The Message Sent</a></h2>
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
 message object. Add this statement after the previous code.</p>
 <pre><code class="language-c#">Console.WriteLine(
@@ -376,7 +386,7 @@ message.EntityValues.First()  == &quot;all the parameters&quot;
 </code></pre>
 <p>Currently, message object doesn't contain information about its reply markup.</p>
 <p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
-<a class="header" href="#photo-and-sticker-messages" id="photo-and-sticker-messages"><h1>Photo and Sticker Messages</h1></a>
+<h1><a class="header" href="#photo-and-sticker-messages" id="photo-and-sticker-messages">Photo and Sticker Messages</a></h1>
 <p>You can provide the source file for almost all multimedia messages (e.g. photo, video) in 3 ways:</p>
 <ul>
 <li>Uploading a file with the HTTP request</li>
@@ -385,7 +395,7 @@ message.EntityValues.First()  == &quot;all the parameters&quot;
 </ul>
 <p>Examples in this section show all three.
 You will learn more about them later on when we discuss file upload and download.</p>
-<a class="header" href="#photo" id="photo"><h2>Photo</h2></a>
+<h2><a class="header" href="#photo" id="photo">Photo</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-send_photo-blue.svg?style=flat-square" alt="send photo method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
 <p>Sending a photo is simple. Here is an example:</p>
@@ -396,8 +406,8 @@ You will learn more about them later on when we discuss file upload and download
   parseMode: ParseMode.Html
 );
 </code></pre>
-<p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
-<a class="header" href="#caption" id="caption"><h3>Caption</h3></a>
+<p><img src="2/send-msg/../docs/shot-photo_msg.jpg" alt="photo message" /></p>
+<h3><a class="header" href="#caption" id="caption">Caption</a></h3>
 <p>Multimedia messages can <em>optionally</em> have a caption attached to them. Here we sent a caption in HTML format.
 A user can click on <em>Pixabay</em> in the caption to open its URL in the browser.</p>
 <p>Similar to message entities discussed before, caption entities on <a href="https://core.telegram.org/bots/api#message"><code>Message</code></a> object are the result of
@@ -408,7 +418,7 @@ Try inspecting these properties in debug mode:</p>
 <li><code>message.CaptionEntities</code>: info about special entities in the caption</li>
 <li><code>message.CaptionEntityValues</code>: text values of mentioned entities</li>
 </ul>
-<a class="header" href="#photo-message" id="photo-message"><h3>Photo Message</h3></a>
+<h3><a class="header" href="#photo-message" id="photo-message">Photo Message</a></h3>
 <p>The <code>message</code> returned from this method represents a <em>photo message</em> because <code>message.Photo</code> has a value.
 Its value is a <a href="https://core.telegram.org/bots/api#photosize"><code>PhotoSize</code></a> array with each element representing the same photo in different dimensions.
 If your bot needs to send this photo again at some point, it is recommended to store this array
@@ -435,7 +445,7 @@ so you can reuse the <code>file_id</code> value.</p>
   }
 ]
 </code></pre>
-<a class="header" href="#sticker" id="sticker"><h2>Sticker</h2></a>
+<h2><a class="header" href="#sticker" id="sticker">Sticker</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendsticker"><img src="https://img.shields.io/badge/Bot_API_method-send_sticker-blue.svg?style=flat-square" alt="send sticker method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Stickers/StickersTests.cs"><img src="https://img.shields.io/badge/Examples-Sticker_Messages-green.svg?style=flat-square" alt="sticker tests" /></a></p>
 <p>Telegram stickers are fun and our bot is about to send its very first sticker.
@@ -452,17 +462,17 @@ Message msg2 = await botClient.SendStickerAsync(
   sticker: msg1.Sticker.FileId
 );
 </code></pre>
-<p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
+<p><img src="2/send-msg/../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
 <p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
 <blockquote>
 <p>There is more to stickers and we will talk about them in greater details later.</p>
 </blockquote>
 <!-- -------------- -->
-<a class="header" href="#audio-and-voice-messages" id="audio-and-voice-messages"><h1>Audio and Voice Messages</h1></a>
+<h1><a class="header" href="#audio-and-voice-messages" id="audio-and-voice-messages">Audio and Voice Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
 <p>These two types of messages are pretty similar. An audio is in MP3 format and gets displayed in music player.
 A voice file has OGG format and is not shown in music player.</p>
-<a class="header" href="#audio" id="audio"><h2>Audio</h2></a>
+<h2><a class="header" href="#audio" id="audio">Audio</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-send_audio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
 <p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
 That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
@@ -476,9 +486,9 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
   */
 );
 </code></pre>
-<p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
+<p><img src="2/send-msg/../docs/shot-audio_msg.jpg" alt="audio message" /></p>
 <p>And a user can see the audio in Music Player:</p>
-<p><img src="../docs/shot-music_player.jpg" alt="music player" /></p>
+<p><img src="2/send-msg/../docs/shot-music_player.jpg" alt="music player" /></p>
 <p>Method returns an audio message. Let's take a look at the value of <code>msg.Audio</code> property in JSON format:</p>
 <pre><code class="language-json">{
   &quot;duration&quot;: 91,
@@ -489,7 +499,7 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
   &quot;file_size&quot;: 1102154
 }
 </code></pre>
-<a class="header" href="#voice" id="voice"><h2>Voice</h2></a>
+<h2><a class="header" href="#voice" id="voice">Voice</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-send_voice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
 <p>A voice message is just an OGG audio file.
 Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
@@ -504,13 +514,13 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.
   );
 }
 </code></pre>
-<p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
+<p><img src="2/send-msg/../docs/shot-voice_msg.jpg" alt="voice message" /></p>
 <p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> property to learn more.</p>
-<a class="header" href="#video-and-video-note-messages" id="video-and-video-note-messages"><h1>Video and Video Note Messages</h1></a>
+<h1><a class="header" href="#video-and-video-note-messages" id="video-and-video-note-messages">Video and Video Note Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>You can send MP4 files as a regular video or a <em>video note</em>.
 Other video formats may be sent as documents.</p>
-<a class="header" href="#video" id="video"><h2>Video</h2></a>
+<h2><a class="header" href="#video" id="video">Video</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideo"><img src="https://img.shields.io/badge/Bot_API_method-send_video-blue.svg?style=flat-square" alt="method sendVideo" /></a></p>
 <p>Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
 You can optionally specify the duration and resolution of the video.</p>
@@ -527,10 +537,10 @@ We also set a thumbnail image for our video.</p>
 <blockquote>
 <p>Check the Bot API docs for <code>sendVideo</code> to learn more about video size limits and the thumbnail images.</p>
 </blockquote>
-<p><img src="../docs/shot-video_thumb1.jpg" alt="vide screenshot 1" /></p>
+<p><img src="2/send-msg/../docs/shot-video_thumb1.jpg" alt="vide screenshot 1" /></p>
 <p>User should be able to seek through the video without the video being downloaded completely.</p>
-<p><img src="../docs/shot-video_thumb2.jpg" alt="vide screenshot 2" /></p>
-<a class="header" href="#video-note" id="video-note"><h2>Video Note</h2></a>
+<p><img src="2/send-msg/../docs/shot-video_thumb2.jpg" alt="vide screenshot 2" /></p>
+<h2><a class="header" href="#video-note" id="video-note">Video Note</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideonote"><img src="https://img.shields.io/badge/Bot_API_method-send_video_note-blue.svg?style=flat-square" alt="method sendVideoNote" /></a></p>
 <p>Video notes, shown in circles to the user, are usually short (1 minute or less) with the same width and height.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
@@ -546,15 +556,15 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
   );
 }
 </code></pre>
-<p><img src="../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
-<a class="header" href="#album-messages" id="album-messages"><h1>Album Messages</h1></a>
-<a class="header" href="#document-and-animation-messages" id="document-and-animation-messages"><h1>Document and Animation Messages</h1></a>
-<a class="header" href="#document" id="document"><h2>Document</h2></a>
-<a class="header" href="#animation" id="animation"><h2>Animation</h2></a>
-<a class="header" href="#native-poll-messages" id="native-poll-messages"><h1>Native Poll Messages</h1></a>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/PollMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
+<p><img src="2/send-msg/../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
+<h1><a class="header" href="#album-messages" id="album-messages">Album Messages</a></h1>
+<h1><a class="header" href="#document-and-animation-messages" id="document-and-animation-messages">Document and Animation Messages</a></h1>
+<h2><a class="header" href="#document" id="document">Document</a></h2>
+<h2><a class="header" href="#animation" id="animation">Animation</a></h2>
+<h1><a class="header" href="#native-poll-messages" id="native-poll-messages">Native Poll Messages</a></h1>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/AnonymousPollTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
 <p>Bots just as regular users can send native polls only to groups and channels, but not to private chats.</p>
-<a class="header" href="#send-a-poll" id="send-a-poll"><h2>Send a poll</h2></a>
+<h2><a class="header" href="#send-a-poll" id="send-a-poll">Send a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-send_poll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
 <pre><code class="language-c#">Message pollMessage = await botClient.SendPollAsync(
@@ -567,10 +577,10 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     }
 );
 </code></pre>
-<p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
+<p><img src="2/send-msg/../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
 <p>You can optionally send a keyboard with a poll, both an inline and a regular one.</p>
 <p>You'll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
-<a class="header" href="#stop-a-poll" id="stop-a-poll"><h2>Stop a poll</h2></a>
+<h2><a class="header" href="#stop-a-poll" id="stop-a-poll">Stop a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stop_poll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
 <p>To close a poll you need to know original chat and message ids of the poll that you got from calling <code>SendPollAsync</code> method.</p>
 <p>Let's close the poll that we sent in the previous example:</p>
@@ -579,30 +589,80 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     messageId: pollMessage.MessageId
 );
 </code></pre>
-<p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
+<p><img src="2/send-msg/../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
 <p>You can also send a new inline keyboard when you close a poll.</p>
 <p>As a result of the request you'll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
 <p>If you'll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you'll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
 <p>Also if you'll try to close an already closed poll you'll get <code>ApiRequestException</code> with message <code>Bad Request: poll has already been closed</code>.</p>
-<a class="header" href="#other-messages" id="other-messages"><h1>Other Messages</h1></a>
-<a class="header" href="#contact" id="contact"><h2>Contact</h2></a>
-<a class="header" href="#venue" id="venue"><h2>Venue</h2></a>
-<a class="header" href="#location" id="location"><h2>Location</h2></a>
-<a class="header" href="#reply-markup" id="reply-markup"><h1>Reply Markup</h1></a>
-<a class="header" href="#getting-updates" id="getting-updates"><h1>Getting Updates</h1></a>
-<a class="header" href="#intermediate" id="intermediate"><h1>Intermediate</h1></a>
-<a class="header" href="#deployment" id="deployment"><h1>Deployment</h1></a>
-<a class="header" href="#long-polling" id="long-polling"><h1>Long Polling</h1></a>
-<a class="header" href="#webhooks" id="webhooks"><h1>Webhooks</h1></a>
-<a class="header" href="#systems-integration-tests" id="systems-integration-tests"><h1>Systems Integration Tests</h1></a>
+<h1><a class="header" href="#other-messages" id="other-messages">Other Messages</a></h1>
+<p>There are other kind of message types which are supported by the client. In the following paragraphs we will look how to send contacts, venues or locations.</p>
+<h2><a class="header" href="#contact" id="contact">Contact</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendcontact"><img src="https://img.shields.io/badge/Bot_API_method-send_contact-blue.svg?style=flat-square" alt="send contact method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingContactMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Contact-green.svg?style=flat-square" alt="send contacts tests" /></a></p>
+<p>This is the code to send a contact. Mandatory are the parameters <code>chatId</code>, <code>phoneNumber</code> and <code>firstName</code>.</p>
+<pre><code class="language-c#">Message msg = await botClient.SendContactAsync(
+    chatId: e.Message.Chat.Id,
+    phoneNumber: &quot;+1234567890&quot;,
+    firstName: &quot;Han&quot;,
+    lastName: &quot;Solo&quot;
+);
+</code></pre>
+<p><img src="2/send-msg/../docs/shot-contact.jpg" alt="send contact" /></p>
+<p>If you want to send a contact as vCard you can achieve  this by adding a valid vCard <code>string</code> as value for the optional parameter <code>vCard</code> as seen in the given example below.</p>
+<pre><code class="language-c#">Message msg = await botClient.SendContactAsync(
+    chatId: e.Message.Chat.Id,
+    phoneNumber: &quot;+1234567890&quot;,
+    firstName: &quot;Han&quot;,
+    vCard: &quot;BEGIN:VCARD\n&quot; +
+            &quot;VERSION:3.0\n&quot; +
+            &quot;N:Solo;Han\n&quot; +
+            &quot;ORG:Scruffy-looking nerf herder\n&quot; +
+            &quot;TEL;TYPE=voice,work,pref:+1234567890\n&quot; +
+            &quot;EMAIL:hansolo@mfalcon.com\n&quot; +
+            &quot;END:VCARD&quot;
+);
+</code></pre>
+<p><img src="2/send-msg/../docs/shot-contact_vcard.jpg" alt="send vcard" /></p>
+<h2><a class="header" href="#venue" id="venue">Venue</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendvenue"><img src="https://img.shields.io/badge/Bot_API_method-send_venue-blue.svg?style=flat-square" alt="send venue method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Venue-green.svg?style=flat-square" alt="send venue tests" /></a></p>
+<p>The code snippet below sends a venue with a title and a address as given parameters:</p>
+<pre><code class="language-c#">Message msg = await botClient.SendVenueAsync(
+    chatId: e.Message.Chat.Id,
+    latitude: 50.0840172f,
+    longitude: 14.418288f,
+    title: &quot;Man Hanging out&quot;,
+    address: &quot;Husova, 110 00 Staré Město, Czechia&quot;
+);
+</code></pre>
+<p><img src="2/send-msg/../docs/shot-venue.jpg" alt="send contact" /></p>
+<h2><a class="header" href="#location" id="location">Location</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendlocation"><img src="https://img.shields.io/badge/Bot_API_method-send_location-blue.svg?style=flat-square" alt="send location method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Location-green.svg?style=flat-square" alt="send location tests" /></a></p>
+<p>The difference between sending a location and a venue is, that the venue requires a title and address. A location can be any given point as latitude and longitude.</p>
+<p>The following snippet shows how to send a location with the mandatory parameters:</p>
+<pre><code class="language-c#">Message message = await botClient.SendLocationAsync(
+    chatId: e.Message.Chat.Id,
+    latitude: 33.747252f,
+    longitude: -112.633853f
+);
+</code></pre>
+<p><img src="2/send-msg/../docs/shot-location.jpg" alt="send contact" /></p>
+<h1><a class="header" href="#reply-markup" id="reply-markup">Reply Markup</a></h1>
+<h1><a class="header" href="#getting-updates" id="getting-updates">Getting Updates</a></h1>
+<h1><a class="header" href="#intermediate" id="intermediate">Intermediate</a></h1>
+<h1><a class="header" href="#deployment" id="deployment">Deployment</a></h1>
+<h1><a class="header" href="#long-polling" id="long-polling">Long Polling</a></h1>
+<h1><a class="header" href="#webhooks" id="webhooks">Webhooks</a></h1>
+<h1><a class="header" href="#systems-integration-tests" id="systems-integration-tests">Systems Integration Tests</a></h1>
 <p>Integration tests are meant to test the project with real data from Telegram. They are semi-automated tests and tester(s) need to interact with bot for some cases during the test execution. Tests could be used as a playground for exploring Bot API methods.</p>
-<a class="header" href="#sample-test-diagnostics-output" id="sample-test-diagnostics-output"><h2>Sample Test Diagnostics Output</h2></a>
+<h2><a class="header" href="#sample-test-diagnostics-output" id="sample-test-diagnostics-output">Sample Test Diagnostics Output</a></h2>
 <p>All the test output goes into the supergroup/private chats specified in configurations or interactively during test execution. You can see some samples of test output below.</p>
 <p>Admin bots can change chat photo.</p>
-<p><img src="docs/testcase-chatphoto.jpg" alt="Test Case: Set Chat Photo" /></p>
+<p><img src="3/docs/testcase-chatphoto.jpg" alt="Test Case: Set Chat Photo" /></p>
 <p>Invoices could be paid in private chats.</p>
-<p><img src="docs/testcase-payment.jpg" alt="Test Case: Set Chat Photo" /></p>
-<a class="header" href="#how-tests-works" id="how-tests-works"><h2>How Tests Works</h2></a>
+<p><img src="3/docs/testcase-payment.jpg" alt="Test Case: Set Chat Photo" /></p>
+<h2><a class="header" href="#how-tests-works" id="how-tests-works">How Tests Works</a></h2>
 <p>These integration tests are written just like regular unit tests with xUnit framework so they seem to be unit tests. When you run test(s), bot makes a request to Bot API and you should see results(message or service notification) in the chat with bot.</p>
 <p>When you build the solution, you will see them in Test Explorer window. Tests could be run through .NET Core's CLI as well and that's how this project's CI is set up.</p>
 <p>A bot, of course, is needed to test Bot API. This document refers to its user name as <em>MyTestBot</em>.</p>
@@ -613,7 +673,7 @@ in test configurations before hand.</p>
 <p>All the tests happen in two chats. A Super Group chat and a Private chat with one of the testers.</p>
 <p>Test cases that need tester's interaction to continue, have a limit of usually 2 minues to wait for receving an expected update from API.</p>
 <p>Tests could be run individually, in collections, or all at once. All the test collection and test cases whithin them are ordered and tests will not run in parallel.</p>
-<a class="header" href="#test-environment-setup" id="test-environment-setup"><h2>Test Environment Setup</h2></a>
+<h2><a class="header" href="#test-environment-setup" id="test-environment-setup">Test Environment Setup</a></h2>
 <p>Create a Super Group and add bot to it. Promote bot to admin and make sure it has all the permissions. This group needs to have another regular(non-admin) member to be used in tests for chat administration methods(such as Kick, Restrict, Unban). A super group with 2 testers in it, one admin and the other non-admin member, is enough.</p>
 <p>Bot should have some features enabled, usually through BotFather, in order to pass tests. These features are listed below:</p>
 <ul>
@@ -624,20 +684,20 @@ in test configurations before hand.</p>
 <pre><code class="language-text">test - Start test execution
   me - Select me for testing admin methods
 </code></pre>
-<a class="header" href="#test-configurations" id="test-configurations"><h2>Test Configurations</h2></a>
+<h2><a class="header" href="#test-configurations" id="test-configurations">Test Configurations</a></h2>
 <p>You can see a list of configuration keys in <code>appsettings.json</code> file. Make a copy of this file and store your configurations there. In addition to <code>appsettings.json</code> and <code>appsettings.Development.json</code>, environment variables prefixed by <code>TelegramBot_</code> are also read into program.</p>
 <pre><code class="language-bash">cp appsettings.json appsettings.Development.json
 </code></pre>
-<a class="header" href="#required-settings" id="required-settings"><h3>Required Settings</h3></a>
+<h3><a class="header" href="#required-settings" id="required-settings">Required Settings</a></h3>
 <p>Only 2 values must be provided before test execution.</p>
-<a class="header" href="#api-token" id="api-token"><h4>API Token</h4></a>
+<h4><a class="header" href="#api-token" id="api-token">API Token</a></h4>
 <p>This is required for executing any test case.</p>
 <pre><code class="language-json">{
     &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
     /* ... */
 }
 </code></pre>
-<a class="header" href="#allowed-users" id="allowed-users"><h4>Allowed Users</h4></a>
+<h4><a class="header" href="#allowed-users" id="allowed-users">Allowed Users</a></h4>
 <p>A comma separated list indicating user name(s) of tester(s). Any update coming from users other than the ones listed here are discarded during test execution.</p>
 <pre><code class="language-json">{
     /* ... */
@@ -645,13 +705,13 @@ in test configurations before hand.</p>
     /* ... */
 }
 </code></pre>
-<a class="header" href="#optional-settings" id="optional-settings"><h3>Optional Settings</h3></a>
+<h3><a class="header" href="#optional-settings" id="optional-settings">Optional Settings</a></h3>
 <p>The following settings are not required for two reasons. Either bot can ask for them during test execution or it is not a required setting for all test cases.</p>
 <p>Bot will ask testers in supergroup/private chat for the necessary information. It would be faster to set all the optional settings as well because it makes testing process faster and less manual.</p>
 <blockquote>
 <p>For obtaining values of necessary settings, you can set breakpoints in some test methods and extract values such as chat id or user id.</p>
 </blockquote>
-<a class="header" href="#supergroup-chat-id" id="supergroup-chat-id"><h4>Supergroup Chat Id</h4></a>
+<h4><a class="header" href="#supergroup-chat-id" id="supergroup-chat-id">Supergroup Chat Id</a></h4>
 <p>Bot send  messages to this chat in almost all test cases except cases like sending payments that must be to a private chat.</p>
 <p>If not set, before starting any test method, bot waits for a tester to send it a <code>/test</code> command in a super group chat (that bot is also a member of).</p>
 <pre><code class="language-json">{
@@ -660,8 +720,8 @@ in test configurations before hand.</p>
     /* ... */
 }
 </code></pre>
-<a class="header" href="#payment-settings" id="payment-settings"><h4>Payment Settings</h4></a>
-<a class="header" href="#required-payment-provider-token" id="required-payment-provider-token"><h5>[Required] Payment Provider Token</h5></a>
+<h4><a class="header" href="#payment-settings" id="payment-settings">Payment Settings</a></h4>
+<h5><a class="header" href="#required-payment-provider-token" id="required-payment-provider-token">[Required] Payment Provider Token</a></h5>
 <p>This token is <strong>required</strong> for any test case regarding payments and must be provided before starting tests.</p>
 <p>Consult Telegram API documentations and talk to BotFather to get a test token from a payment provider.</p>
 <pre><code class="language-json">{
@@ -670,7 +730,7 @@ in test configurations before hand.</p>
     /* ... */
 }
 </code></pre>
-<a class="header" href="#testerprivatechatid" id="testerprivatechatid"><h5>TesterPrivateChatId</h5></a>
+<h5><a class="header" href="#testerprivatechatid" id="testerprivatechatid">TesterPrivateChatId</a></h5>
 <p>Invoices could only be sent to private chats. If not set, bot will wait for a tester to send it <code>/test</code> command in a private chat.</p>
 <pre><code class="language-json">{
     /* ... */
@@ -678,7 +738,7 @@ in test configurations before hand.</p>
     /* ... */
 }
 </code></pre>
-<a class="header" href="#chat-administration" id="chat-administration"><h4>Chat Administration</h4></a>
+<h4><a class="header" href="#chat-administration" id="chat-administration">Chat Administration</a></h4>
 <p>For this type of tests, bot should be a priviledged admin of that super group. Methods such as kick or unban will be performed on a regular (non-admin) tester in that chat.</p>
 <p>If the following 3 settings are not set, bot will ask a tester to send it <code>/me</code> command in a private chat with bot.</p>
 <ul>
@@ -694,33 +754,33 @@ in test configurations before hand.</p>
     /* ... */
 }
 </code></pre>
-<a class="header" href="#inline-mode" id="inline-mode"><h1>Inline Mode</h1></a>
-<a class="header" href="#working-with-files" id="working-with-files"><h1>Working with Files</h1></a>
-<a class="header" href="#download" id="download"><h1>Download</h1></a>
+<h1><a class="header" href="#inline-mode" id="inline-mode">Inline Mode</a></h1>
+<h1><a class="header" href="#working-with-files" id="working-with-files">Working with Files</a></h1>
+<h1><a class="header" href="#download" id="download">Download</a></h1>
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
-<a class="header" href="#uploading-the-actual-file" id="uploading-the-actual-file"><h2>Uploading the actual file</h2></a>
+<h2><a class="header" href="#uploading-the-actual-file" id="uploading-the-actual-file">Uploading the actual file</a></h2>
 <pre><code class="language-csharp">using (FileStream fs = System.IO.File.OpenRead(&quot;Local file.pdf&quot;))
 {
     InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, &quot;Name for the user.pdf&quot;);
     await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 }
 </code></pre>
-<a class="header" href="#uploading-by-file-id" id="uploading-by-file-id"><h2>Uploading by file id</h2></a>
+<h2><a class="header" href="#uploading-by-file-id" id="uploading-by-file-id">Uploading by file id</a></h2>
 <p>This is the method that you will want to use the most, as it is the most efficient.
 After sending a file to the user, or receiving a file, you can send the file again using its ID.</p>
 <p>This saves you from uploading the entire file.</p>
 <pre><code class="language-csharp">InputOnlineFile inputOnlineFile = new InputOnlineFile(&quot;file id&quot;);
 await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 </code></pre>
-<a class="header" href="#uploading-by-url" id="uploading-by-url"><h2>Uploading by URL</h2></a>
+<h2><a class="header" href="#uploading-by-url" id="uploading-by-url">Uploading by URL</a></h2>
 <pre><code class="language-csharp">InputOnlineFile inputOnlineFile = new InputOnlineFile(&quot;telegram.org/img/t_logo.png&quot;);
 await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 </code></pre>
-<a class="header" href="#stickers" id="stickers"><h1>Stickers</h1></a>
-<a class="header" href="#advanced" id="advanced"><h1>Advanced</h1></a>
+<h1><a class="header" href="#stickers" id="stickers">Stickers</a></h1>
+<h1><a class="header" href="#advanced" id="advanced">Advanced</a></h1>
 <ul>
 <li><a href="4/login-widget.html">Login Widget</a></li>
-<li><a href="passport">Passport</a>
+<li><a href="4/passport">Passport</a>
 <ul>
 <li><a href="4/passport/quickstart.html">Quickstart</a></li>
 <li><a href="4/passport/files-docs.html">Files &amp; Documents</a></li>
@@ -732,10 +792,10 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 <li><a href="4/proxy.html">Proxy</a></li>
 <li><a href="4/log.html">Logging</a></li>
 </ul>
-<a class="header" href="#telegram-login-widget" id="telegram-login-widget"><h1>Telegram Login Widget</h1></a>
+<h1><a class="header" href="#telegram-login-widget" id="telegram-login-widget">Telegram Login Widget</a></h1>
 <p>Everything related to the <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a> has been moved to a separate repository:
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.LoginWidget"><code>Telegram.Bot.Extensions.LoginWidget</code></a></p>
-<a class="header" href="#telegram-passport" id="telegram-passport"><h1>Telegram Passport</h1></a>
+<h1><a class="header" href="#telegram-passport" id="telegram-passport">Telegram Passport</a></h1>
 <p><a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget package" /></a>
 <a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget downloads" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.Extensions.Passport.svg?style=social&amp;label=Stars" alt="repository" /></a></p>
@@ -746,7 +806,7 @@ await Bot.SendDocumentAsync(message.Chat, inputOnlineFile);
 <li><a href="4/passport/key.html">RSA Key</a></li>
 <li><a href="4/passport/faq.html">Decryption FAQ</a></li>
 </ul>
-<p><img src="../docs/photo-tg_passport.gif" alt="telegram passport" /></p>
+<p><img src="4/passport/../docs/photo-tg_passport.gif" alt="telegram passport" /></p>
 <p><a href="https://telegram.org/blog/passport">Telegram Passport</a> is a unified authorization method for services that require personal identification.
 As a bot developer, you can use it to receive confidential user data in an end-to-end encrypted fashion.
 There are several Know Your Customer(KYC) solutions that have already added support for Telegram Passport.</p>
@@ -756,22 +816,22 @@ There are several Know Your Customer(KYC) solutions that have already added supp
 <li><a href="https://core.telegram.org/passport/example">Telegram Passport Example</a></li>
 <li><a href="https://core.telegram.org/passport">Telegram Passport Manual</a></li>
 </ul>
-<a class="header" href="#telegram-passport---quickstart" id="telegram-passport---quickstart"><h1>Telegram Passport - Quickstart</h1></a>
+<h1><a class="header" href="#telegram-passport---quickstart" id="telegram-passport---quickstart">Telegram Passport - Quickstart</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="passport quickstart example" /></a></p>
 <p>This guide teaches the basics of working with Telegram Passport.
 See the complete version of the code at <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart">Quickstart project</a>.
 Code snippets on this page are in the context of that project.</p>
-<a class="header" href="#package" id="package"><h2>Package</h2></a>
+<h2><a class="header" href="#package" id="package">Package</a></h2>
 <p><a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget package" /></a></p>
 <p>You need to add <code>Telegram.Bot.Extensions.Passport</code> extension package to your project
 in addition to the core package (<code>Telegram.Bot</code>).</p>
 <p>⭐️ Star the <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport">Telegram.Bot.Extensions.Passport project</a> on GitHub 👍</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot.Extensions.Passport
 </code></pre>
-<a class="header" href="#encryption-keys" id="encryption-keys"><h2>Encryption Keys</h2></a>
+<h2><a class="header" href="#encryption-keys" id="encryption-keys">Encryption Keys</a></h2>
 <p>You don't really need to generate any RSA key. Use our sample keys for this demo.
 Send the public key to <a href="https://t.me/BotFather">@BotFather</a> using <code>/setpublickey</code> command:</p>
-<p><img src="../docs/shot-passport_botfather.jpg" alt="Setting public key" /></p>
+<p><img src="4/passport/../docs/shot-passport_botfather.jpg" alt="Setting public key" /></p>
 <p>Copy this public key and send it to BotFather.</p>
 <pre><code class="language-text">-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0VElWoQA2SK1csG2/sY/
@@ -784,10 +844,10 @@ FwIDAQAB
 -----END PUBLIC KEY-----
 </code></pre>
 <p>Now Telegram client app can encrypt the data for your bot using this key.</p>
-<a class="header" href="#request-information" id="request-information"><h2>Request Information</h2></a>
+<h2><a class="header" href="#request-information" id="request-information">Request Information</a></h2>
 <p>Bot waits for a text message from user. Once it receives a text message, it generates an authorization request link
 and sends that to the user.</p>
-<a class="header" href="#authorization-request" id="authorization-request"><h3>Authorization Request</h3></a>
+<h3><a class="header" href="#authorization-request" id="authorization-request">Authorization Request</a></h3>
 <p><a href="https://core.telegram.org/passport#request-parameters"><img src="https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square" alt="Request Parameters type" /></a></p>
 <p>A passport authorization request means that the bot should ask the user to open a <code>tg://resolve</code> URI in the browser
 with specific parameters in its query string.
@@ -811,29 +871,29 @@ Then, we generate the query string and ask user to open the link.</p>
 <blockquote>
 <p>If a user is using an Android device, the URI will start with <code>tg:</code> instead of the default <code>tg://</code>.</p>
 </blockquote>
-<p><img src="../docs/shot-passport_link1.jpg" alt="Passport link 1" />
-<img src="../docs/shot-passport_link2.jpg" alt="Passport link 2" /></p>
-<a class="header" href="#passport-data" id="passport-data"><h3>Passport Data</h3></a>
+<p><img src="4/passport/../docs/shot-passport_link1.jpg" alt="Passport link 1" />
+<img src="4/passport/../docs/shot-passport_link2.jpg" alt="Passport link 2" /></p>
+<h3><a class="header" href="#passport-data" id="passport-data">Passport Data</a></h3>
 <p>You, the user, should now be redirected to the Telegram Passport screen in your Telegram client app.
 Enter your password and log in.</p>
 <blockquote>
 <p>Note that the app will ask you to register if this is the first time you are using Telegram Passport.</p>
 </blockquote>
-<p><img src="../docs/shot-passport_login.jpg" alt="Passport login" /></p>
+<p><img src="4/passport/../docs/shot-passport_login.jpg" alt="Passport login" /></p>
 <p>Fill in the <em>address</em> and <em>phone number</em> data. Click on the <em>Authorize</em> button at the end.</p>
-<p><img src="../docs/shot-passport_adress_phone1.jpg" alt="Passport info 1" />
-<img src="../docs/shot-passport_adress.jpg" alt="address info" />
-<img src="../docs/shot-passport_phone.jpg" alt="phone info" />
-<img src="../docs/shot-passport_adress_phone2.jpg" alt="Passport info 2" /></p>
+<p><img src="4/passport/../docs/shot-passport_adress_phone1.jpg" alt="Passport info 1" />
+<img src="4/passport/../docs/shot-passport_adress.jpg" alt="address info" />
+<img src="4/passport/../docs/shot-passport_phone.jpg" alt="phone info" />
+<img src="4/passport/../docs/shot-passport_adress_phone2.jpg" alt="Passport info 2" /></p>
 <p>At this point, your Telegram client app encrypts the actual Telegram Passport data (e.g. address) using the
 AES algorithm, and then encrypts the info required for decryption using your bot's public RSA key.
 Finally, it sends the result of both encryptions to Telegram servers.</p>
-<a class="header" href="#data-decryption" id="data-decryption"><h3>Data Decryption</h3></a>
+<h3><a class="header" href="#data-decryption" id="data-decryption">Data Decryption</a></h3>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
 <p>Your bot now receives a new message update with the encrypted Passport data. The user is also notified in the chat:</p>
-<p><img src="../docs/shot-passport_update.jpg" alt="Passport update" /></p>
+<p><img src="4/passport/../docs/shot-passport_update.jpg" alt="Passport update" /></p>
 <p>Let's decrypt that gibberish to get the information. That's what <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">DecryptPassportDataAsync</a> method does.</p>
-<a class="header" href="#step-1-credentials" id="step-1-credentials"><h4>Step 1: Credentials</h4></a>
+<h4><a class="header" href="#step-1-credentials" id="step-1-credentials">Step 1: Credentials</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type" /></a>
 <a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a></p>
 <p>You can't just access the encrypted data in the <code>message.passport_data.data</code> array.
@@ -849,13 +909,13 @@ Credentials credentials = decrypter.DecryptCredentials(
   GetRsaPrivateKey() // private key as an RSA object
 );
 </code></pre>
-<a class="header" href="#step-2-nonce" id="step-2-nonce"><h4>Step 2: Nonce</h4></a>
+<h4><a class="header" href="#step-2-nonce" id="step-2-nonce">Step 2: Nonce</a></h4>
 <p><a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a>
 <a href="https://core.telegram.org/passport#request-parameters"><img src="https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square" alt="Request Parameters type" /></a></p>
 <p>There is a <code>nonce</code> property on the credentials (now decrypted) object.
 In order to prevent certain attacks, ensure its value is exactly the same as the nonce you set in the authorization request.
 Read more about <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonce on Wikipedia</a>.</p>
-<a class="header" href="#step-3-residential-address" id="step-3-residential-address"><h4>Step 3: Residential Address</h4></a>
+<h4><a class="header" href="#step-3-residential-address" id="step-3-residential-address">Step 3: Residential Address</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedpassportelement"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square" alt="EncryptedPassportElement type" /></a>
 <a href="https://core.telegram.org/passport#residentialaddress"><img src="https://img.shields.io/badge/Passport_API_type-ResidentialAddress-blue.svg?style=flat-square" alt="ResidentialAddress type" /></a></p>
 <p><a href="https://core.telegram.org/passport#securedata"><img src="https://img.shields.io/badge/Passport_API_type-SecureData-blue.svg?style=flat-square" alt="SecureData type" /></a>
@@ -879,17 +939,17 @@ ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
 <li>Verifies that the data hashes match</li>
 <li>Converts from JSON to a .NET object</li>
 </ol>
-<a class="header" href="#step-4-phone-number" id="step-4-phone-number"><h4>Step 4: Phone Number</h4></a>
+<h4><a class="header" href="#step-4-phone-number" id="step-4-phone-number">Step 4: Phone Number</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedpassportelement"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square" alt="EncryptedPassportElement type" /></a></p>
 <p>Values for phone number and email address are not end-to-end encrypted in Telegram Passport and
 Telegram stores these values after being verified.</p>
 <p>There is no need for decryption at this point.
 Just find the element with the type of <em>phone_number</em> in the <code>message.passport_data.data</code> array.</p>
-<a class="header" href="#information-demo" id="information-demo"><h3>Information Demo</h3></a>
+<h3><a class="header" href="#information-demo" id="information-demo">Information Demo</a></h3>
 <p>At the end, bot sends some of the information received to the user for demo purposes.</p>
-<p><img src="../docs/shot-passport_quickstart.jpg" alt="info demo" /></p>
+<p><img src="4/passport/../docs/shot-passport_quickstart.jpg" alt="info demo" /></p>
 <!-- ----------- -->
-<a class="header" href="#passport-files-and-documents" id="passport-files-and-documents"><h1>Passport Files and Documents</h1></a>
+<h1><a class="header" href="#passport-files-and-documents" id="passport-files-and-documents">Passport Files and Documents</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square" alt="driver's license scope tests" /></a></p>
 <p>We use the driver's license scope here to show decryption of <em>ID document data</em> and <em>passport files</em> for
 front side scan, reverse side scan, selfie photo, and translation scan.
@@ -897,40 +957,40 @@ That should cover most of the <a href="https://core.telegram.org/passport#fields
 <p>Sections below are referring to the test methods in <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs">Driver's License Scope Tests</a> collection.
 Here are the steps:</p>
 <ol>
-<li><a href="#authorization-request">Authorization Request</a></li>
-<li><a href="#drivers-license-info">Driver's License Info</a></li>
-<li><a href="#passport-message">Passport Message</a></li>
-<li><a href="#credentials">Credentials</a></li>
-<li><a href="#id-document-data">ID Document Data</a></li>
-<li><a href="#passport-file">Passport File</a>
+<li><a href="4/passport/files-docs.html#authorization-request">Authorization Request</a></li>
+<li><a href="4/passport/files-docs.html#drivers-license-info">Driver's License Info</a></li>
+<li><a href="4/passport/files-docs.html#passport-message">Passport Message</a></li>
+<li><a href="4/passport/files-docs.html#credentials">Credentials</a></li>
+<li><a href="4/passport/files-docs.html#id-document-data">ID Document Data</a></li>
+<li><a href="4/passport/files-docs.html#passport-file">Passport File</a>
 <ul>
-<li><a href="#front-side-file">Front Side File</a></li>
-<li><a href="#reverse-side-file">Reverse Side File</a></li>
-<li><a href="#selfie-file">Selfie File</a></li>
-<li><a href="#translation-file">Translation File</a></li>
+<li><a href="4/passport/files-docs.html#front-side-file">Front Side File</a></li>
+<li><a href="4/passport/files-docs.html#reverse-side-file">Reverse Side File</a></li>
+<li><a href="4/passport/files-docs.html#selfie-file">Selfie File</a></li>
+<li><a href="4/passport/files-docs.html#translation-file">Translation File</a></li>
 </ul>
 </li>
 </ol>
-<a class="header" href="#authorization-request-1" id="authorization-request-1"><h2>Authorization Request</h2></a>
+<h2><a class="header" href="#authorization-request-1" id="authorization-request-1">Authorization Request</a></h2>
 <p><a href="https://core.telegram.org/passport#passportscope"><img src="https://img.shields.io/badge/Passport_API_type-PassportScope-blue.svg?style=flat-square" alt="PassportScope type" /></a>
 <a href="https://core.telegram.org/passport#passportscopeelementone"><img src="https://img.shields.io/badge/Passport_API_type-PassportScopeElementOne-blue.svg?style=flat-square" alt="PassportScopeElementOne type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Generate_Auth_Link-green.svg?style=flat-square" alt="method Should_Generate_Auth_Link" /></a></p>
 <p>We start by generating an authorization URI.
 Since a driver's license is considered as a proof of identity, we ask for optional data <em>selfie with document</em> and
 <em>translation document scan</em> as well.</p>
-<p><img src="../docs/shot-passport_driver_license_link.jpg" alt="driver's license passport link" /></p>
-<a class="header" href="#drivers-license-info" id="drivers-license-info"><h2>Driver's License Info</h2></a>
+<p><img src="4/passport/../docs/shot-passport_driver_license_link.jpg" alt="driver's license passport link" /></p>
+<h2><a class="header" href="#drivers-license-info" id="drivers-license-info">Driver's License Info</a></h2>
 <p>As a user, provide information for the required fields: front side, reverse side, and document number.
 Also, test methods here expect a selfie photo and a file for translation scan.</p>
-<p><img src="../docs/shot-passport_driver_license1.jpg" alt="driver's license passport 1" />
-<img src="../docs/shot-passport_driver_license2.jpg" alt="driver's license passport 2" />
-<img src="../docs/shot-passport_driver_license3.jpg" alt="driver's license passport 3" /></p>
+<p><img src="4/passport/../docs/shot-passport_driver_license1.jpg" alt="driver's license passport 1" />
+<img src="4/passport/../docs/shot-passport_driver_license2.jpg" alt="driver's license passport 2" />
+<img src="4/passport/../docs/shot-passport_driver_license3.jpg" alt="driver's license passport 3" /></p>
 <p>Click the <em>Authorize</em> button at the end.</p>
-<a class="header" href="#passport-message" id="passport-message"><h2>Passport Message</h2></a>
+<h2><a class="header" href="#passport-message" id="passport-message">Passport Message</a></h2>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Validate_Passport_Update-green.svg?style=flat-square" alt="method Should_validate_passport_update" /></a></p>
 <p>This test method checks for a Passport message with a driver's license element on it.</p>
-<a class="header" href="#credentials" id="credentials"><h2>Credentials</h2></a>
+<h2><a class="header" href="#credentials" id="credentials">Credentials</a></h2>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type" /></a>
 <a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decrypt_Credentials-green.svg?style=flat-square" alt="method Should_decrypt_credentials" /></a></p>
@@ -943,7 +1003,7 @@ Credentials credentials = decrypter.DecryptCredentials(
 );
 bool isSameNonce = credentials.Nonce == &quot;Test nonce for driver's license&quot;;
 </code></pre>
-<a class="header" href="#id-document-data" id="id-document-data"><h2>ID Document Data</h2></a>
+<h2><a class="header" href="#id-document-data" id="id-document-data">ID Document Data</a></h2>
 <p><a href="https://core.telegram.org/passport#iddocumentdata"><img src="https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square" alt="IdDocumentData type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Document_Data-green.svg?style=flat-square" alt="method Should_decreypt_document_data" /></a></p>
 <p>In our test case, there is only 1 item in the <code>message.passport_data.data</code> array and that's the encrypted element for
@@ -954,7 +1014,7 @@ We can get information such as document number and expiry date for the license f
   dataCredentials: credentials.SecureData.DriverLicense.Data
 );
 </code></pre>
-<a class="header" href="#passport-file" id="passport-file"><h2>Passport File</h2></a>
+<h2><a class="header" href="#passport-file" id="passport-file">Passport File</a></h2>
 <p><a href="https://core.telegram.org/bots/api#passportfile"><img src="https://img.shields.io/badge/Bot_API_type-PassportFile-blue.svg?style=flat-square" alt="PassportFile type" /></a>
 <a href="https://core.telegram.org/passport#filecredentials"><img src="https://img.shields.io/badge/Passport_API_type-FileCredentials-blue.svg?style=flat-square" alt="FileCredentials type" /></a></p>
 <p>Passport file is an encrypted JPEG file on Telegram servers.
@@ -964,7 +1024,7 @@ In this section we try to demonstrate different use cases that you might have fo
 <p>No matter the method used, the underlying decryption logic is the same.
 It really comes down to your decision on working with <em>streams</em> vs. <em>byte arrays</em>.
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">IDecrypter</a> gives you both options.</p>
-<a class="header" href="#front-side-file" id="front-side-file"><h3>Front Side File</h3></a>
+<h3><a class="header" href="#front-side-file" id="front-side-file">Front Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Front_Side_File-green.svg?style=flat-square" alt="method Should_decreypt_front_side_file" /></a></p>
 <p>A pretty handy extension method is used here to stream writing the front side file to disk.
 Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/TelegramBotClientPassportExtensions.cs">DownloadAndDecryptPassportFileAsync</a> does a few things:</p>
@@ -987,7 +1047,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-s
 <blockquote>
 <p><strong>Warning</strong>: This method is convenient to use but gives you the least amount of control over the operations.</p>
 </blockquote>
-<a class="header" href="#reverse-side-file" id="reverse-side-file"><h3>Reverse Side File</h3></a>
+<h3><a class="header" href="#reverse-side-file" id="reverse-side-file">Reverse Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Reverse_Side_File-green.svg?style=flat-square" alt="method Should_decreypt_reverse_side_file" /></a></p>
 <p>Previous method call is divided into two operations here for reverse side of the license.
 Streams are used here as well.</p>
@@ -1012,7 +1072,7 @@ using (System.IO.Stream
   );
 }
 </code></pre>
-<a class="header" href="#selfie-file" id="selfie-file"><h3>Selfie File</h3></a>
+<h3><a class="header" href="#selfie-file" id="selfie-file">Selfie File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Selfie_File-green.svg?style=flat-square" alt="method Should_decreypt_selfie_file" /></a></p>
 <p>We deal with selfie photo as a byte array.
 This is essentially the same operation as done above via streams.
@@ -1045,7 +1105,7 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
   );
 }
 </code></pre>
-<a class="header" href="#translation-file" id="translation-file"><h3>Translation File</h3></a>
+<h3><a class="header" href="#translation-file" id="translation-file">Translation File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decreypt_Translation_File-green.svg?style=flat-square" alt="method Should_decreypt_translation_file" /></a></p>
 <p>A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.</p>
@@ -1079,17 +1139,17 @@ byte[] content = decrypter.DecryptFile(
 await System.IO.File.WriteAllBytesAsync(&quot;/path/to/translation.jpg&quot;, content);
 </code></pre>
 <!-- ----------- -->
-<a class="header" href="#passport-data-errors" id="passport-data-errors"><h1>Passport Data Errors</h1></a>
-<a class="header" href="#import-rsa-key" id="import-rsa-key"><h1>Import RSA Key</h1></a>
+<h1><a class="header" href="#passport-data-errors" id="passport-data-errors">Passport Data Errors</a></h1>
+<h1><a class="header" href="#import-rsa-key" id="import-rsa-key">Import RSA Key</a></h1>
 <p>In order to decrypt the credentials you need to provide the private RSA key to <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">DecryptCredentials</a> method.
 If you have the RSA key in <a href="https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail">PEM format</a>, you cannot simply instantiate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa?redirectedfrom=MSDN&amp;view=netstandard-2.0">RSA .NET object</a> from it.
 Here we discuss two ways of importing your PEM private key.</p>
-<a class="header" href="#from-pem-format" id="from-pem-format"><h2>From PEM Format</h2></a>
+<h2><a class="header" href="#from-pem-format" id="from-pem-format">From PEM Format</a></h2>
 <p>This is the easier option and recommended <strong>for development time only</strong>.
 We can generate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa?redirectedfrom=MSDN&amp;view=netstandard-2.0">RSA .NET object</a> from an RSA Key in PEM format using the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a>.</p>
 <pre><code class="language-bash">dotnet add package BouncyCastle
 </code></pre>
-<p><a href="http://www.bouncycastle.org/csharp/index.html"><img src="../docs/photo-bouncy_castle.gif" alt="bouncy castle c# logo" /></a></p>
+<p><a href="http://www.bouncycastle.org/csharp/index.html"><img src="4/passport/../docs/photo-bouncy_castle.gif" alt="bouncy castle c# logo" /></a></p>
 <p>Code snippet here shows the conversion from a PEM file to the needed RSA object.</p>
 <pre><code class="language-c#">// using System.IO;
 // using System.Security.Cryptography;
@@ -1112,7 +1172,7 @@ static RSA GetPrivateKey() {
 <p><strong>Note</strong>: You don't necessarily need to have a dependency on the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a> in your bot project.
 The section below offers a better alternative.</p>
 </blockquote>
-<a class="header" href="#from-rsa-parameters" id="from-rsa-parameters"><h2>From RSA Parameters</h2></a>
+<h2><a class="header" href="#from-rsa-parameters" id="from-rsa-parameters">From RSA Parameters</a></h2>
 <p>We recommend to JSON-serialize <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0">RSAParameters</a> of your key and create an RSA object using its values without any
 dependency on the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a> in production deployment.</p>
 <p>Copy <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyUtility.cs">EncryptionKeyUtility</a> and <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyParameters.cs">EncryptionKeyParameters</a> files from our Quickstart project.
@@ -1150,8 +1210,8 @@ and that's why we use our own <a href="https://github.com/TelegramBots/Telegram.
 <p>For instance, compare <code>RSAParameters</code> implementations on <a href="https://referencesource.microsoft.com/#mscorlib/system/security/cryptography/rsa.cs,21">.NET Framework</a> and <a href="https://github.com/dotnet/corefx/blob/master/src/System.Security.Cryptography.Algorithms/src/System/Security/Cryptography/RSAParameters.cs">.NET Core</a>.</p>
 </blockquote>
 <!-- ----------- -->
-<a class="header" href="#telegram-passport-data-decryption---faq" id="telegram-passport-data-decryption---faq"><h1>Telegram Passport Data Decryption - FAQ</h1></a>
-<a class="header" href="#what-is-passportdatadecryptionexception" id="what-is-passportdatadecryptionexception"><h2>What is <code>PassportDataDecryptionException</code></h2></a>
+<h1><a class="header" href="#telegram-passport-data-decryption---faq" id="telegram-passport-data-decryption---faq">Telegram Passport Data Decryption - FAQ</a></h1>
+<h2><a class="header" href="#what-is-passportdatadecryptionexception" id="what-is-passportdatadecryptionexception">What is <code>PassportDataDecryptionException</code></a></h2>
 <p>Methods on <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs"><code>IDecrypter</code></a> might throw <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/PassportDataDecryptionException.cs"><code>PassportDataDecryptionException</code></a> exception
 if an error happens during decryption.
 The exception message tells you what went wrong but there is not much you can do to resolve it.
@@ -1166,18 +1226,18 @@ accompanying credentials to decryption methods.</p>
 // throws PassportDataDecryptionException: &quot;Data hash mismatch at position 123.&quot;
 </code></pre>
 <!-- ----------- -->
-<a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy"><h1>Working Behind a Proxy</h1></a>
+<h1><a class="header" href="#working-behind-a-proxy" id="working-behind-a-proxy">Working Behind a Proxy</a></h1>
 <p><code>TelegramBotClient</code> allows you to use a proxy for Bot API connections. This guide covers using three different proxy solutions.</p>
 <ul>
-<li><a href="#http-proxy">HTTP Proxy</a></li>
-<li><a href="#socks5-proxy">SOCKS5 Proxy</a></li>
-<li><a href="#socks5-proxy-over-tor">SOCKS5 Proxy over Tor (Testing Only)</a></li>
+<li><a href="4/proxy.html#http-proxy">HTTP Proxy</a></li>
+<li><a href="4/proxy.html#socks5-proxy">SOCKS5 Proxy</a></li>
+<li><a href="4/proxy.html#socks5-proxy-over-tor">SOCKS5 Proxy over Tor (Testing Only)</a></li>
 </ul>
-<p><img src="docs/tg-network.gif" alt="Telegram Network" /></p>
+<p><img src="4/docs/tg-network.gif" alt="Telegram Network" /></p>
 <blockquote>
 <p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
-<a class="header" href="#http-proxy" id="http-proxy"><h2>HTTP Proxy</h2></a>
+<h2><a class="header" href="#http-proxy" id="http-proxy">HTTP Proxy</a></h2>
 <p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxies.</p>
 <pre><code class="language-csharp">// using System.Net;
 
@@ -1187,7 +1247,7 @@ var httpProxy = new WebProxy(address: &quot;https://example.org&quot;, port: 808
 };
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpProxy);
 </code></pre>
-<a class="header" href="#socks5-proxy" id="socks5-proxy"><h2>SOCKS5 Proxy</h2></a>
+<h2><a class="header" href="#socks5-proxy" id="socks5-proxy">SOCKS5 Proxy</a></h2>
 <p>Unfortunately, there is no built-in support for socks proxies in the .NET Standard libraries.
 You can use an external NuGet package: <a href="https://www.nuget.org/packages/HttpToSocks5Proxy/"><code>HttpToSocks5Proxy</code></a> provided by one of our team members.</p>
 <pre><code class="language-csharp">// using MihaZupan;
@@ -1205,7 +1265,7 @@ proxy.ResolveHostnamesLocally = true;
 
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, proxy);
 </code></pre>
-<a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor"><h2>SOCKS5 Proxy over Tor</h2></a>
+<h2><a class="header" href="#socks5-proxy-over-tor" id="socks5-proxy-over-tor">SOCKS5 Proxy over Tor</a></h2>
 <p><strong>Warning: Use for Testing only!</strong></p>
 <blockquote>
 <p>Do not use this method in a production environment as it has high network latency and poor bandwidth.</p>
@@ -1222,7 +1282,7 @@ StrictNodes 1
 SocksPort 127.0.0.1:9050
 </code></pre>
 </li>
-<li>Look at the <a href="#socks5-proxy">Socks5 proxy</a> example above.</li>
+<li>Look at the <a href="4/proxy.html#socks5-proxy">Socks5 proxy</a> example above.</li>
 <li>Start the Tor Browser</li>
 </ol>
 <p>Usage:</p>
@@ -1236,7 +1296,7 @@ var botClient = new TelegramBotClient(
 <blockquote>
 <p>Note that Tor has to be active at all times for the bot to work.</p>
 </blockquote>
-<a class="header" href="#configurations-in-torcc" id="configurations-in-torcc"><h3>Configurations in <code>torcc</code></h3></a>
+<h3><a class="header" href="#configurations-in-torcc" id="configurations-in-torcc">Configurations in <code>torcc</code></a></h3>
 <pre><code class="language-text">EntryNodes {NL}
 ExitNodes {NL}
 StrictNodes 1
@@ -1245,8 +1305,8 @@ StrictNodes 1
 <p><code>SocksPort 127.0.0.1:9050</code></p>
 <p>This line tells tor to listen on port 9050 for any socks connections.
 You can change the port to anything you want (9050 is just the default), only make sure to use the same port in your code.</p>
-<a class="header" href="#logging" id="logging"><h1>Logging</h1></a>
-<a class="header" href="#date-and-time" id="date-and-time"><h2>Date and Time</h2></a>
+<h1><a class="header" href="#logging" id="logging">Logging</a></h1>
+<h2><a class="header" href="#date-and-time" id="date-and-time">Date and Time</a></h2>
 <p>All <code>DateTime</code> values are now in UTC format. Here are some examples of usage:</p>
 <pre><code class="language-csharp">// Use UTC time when making a request
 await BotClient.KickChatMemberAsync(
@@ -1258,7 +1318,7 @@ await BotClient.KickChatMemberAsync(
 <pre><code class="language-csharp">// Convert to local time (not recommended though)
 DateTime localTime = update.Message.Date.ToLocalTime();
 </code></pre>
-<a class="header" href="#keyboard-buttons" id="keyboard-buttons"><h2>Keyboard Buttons</h2></a>
+<h2><a class="header" href="#keyboard-buttons" id="keyboard-buttons">Keyboard Buttons</a></h2>
 <p>Many keyboard button types are removed from project. It is more convenient to use factory methods on <code>KeyboardButton</code> and <code>InlineKeyboardButton</code> classes.</p>
 <p>Here are some examples:</p>
 <pre><code class="language-csharp">// Message having an inline keyboard button with URL that redirects to a page
@@ -1280,7 +1340,7 @@ await BotClient.SendTextMessageAsync(
   )
 );
 </code></pre>
-<a class="header" href="#getfileasync" id="getfileasync"><h2><code>GetFileAsync()</code></h2></a>
+<h2><a class="header" href="#getfileasync" id="getfileasync"><code>GetFileAsync()</code></a></h2>
 <p>Downloading a file from Telegram Bot API has 2 steps (<a href="https://core.telegram.org/bots/api#getfile">see docs here</a>):</p>
 <ol>
 <li>Get file info by calling <code>getFile</code></li>
@@ -1311,11 +1371,11 @@ using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) 
   );
 }
 </code></pre>
-<a class="header" href="#getupdatesasync-setwebhookasync" id="getupdatesasync-setwebhookasync"><h2><code>GetUpdatesAsync()</code>, <code>SetWebhookAsync()</code></h2></a>
+<h2><a class="header" href="#getupdatesasync-setwebhookasync" id="getupdatesasync-setwebhookasync"><code>GetUpdatesAsync()</code>, <code>SetWebhookAsync()</code></a></h2>
 <p>Value <code>All</code> is removed from enum <code>Telegram.Bot.Types.Enums.UpdateType</code>. In order to get all kind of updates, pass an empty list such as <code>new UpdateType[0]</code> for <code>allowedUpdates</code> argument.</p>
-<a class="header" href="#setwebhookasync" id="setwebhookasync"><h2><code>SetWebhookAsync()</code></h2></a>
+<h2><a class="header" href="#setwebhookasync" id="setwebhookasync"><code>SetWebhookAsync()</code></a></h2>
 <p>Parameter <code>url</code> is required. If you intend to remove the webhook, it is recommended to use <code>DeleteWebhookAsync()</code> instead. However, you could achieve the same result by passing <code>string.Empty</code> value to <code>url</code> argument.</p>
-<a class="header" href="#answerinlinequeryasync-and-inlinequeryresult" id="answerinlinequeryasync-and-inlinequeryresult"><h2><code>AnswerInlineQueryAsync()</code> and <code>InlineQueryResult</code></h2></a>
+<h2><a class="header" href="#answerinlinequeryasync-and-inlinequeryresult" id="answerinlinequeryasync-and-inlinequeryresult"><code>AnswerInlineQueryAsync()</code> and <code>InlineQueryResult</code></a></h2>
 <p>Classes <code>InlineQueryResultNew</code> and <code>InlineQueryResultCache</code> are removed. <code>InlineQueryResult</code> has become the only shared base type for all inline query result classes.</p>
 <p>Many shared and redundant properties are removed. This might require significant changes to your <code>.cs</code> files if your bot is in <em>inline mode</em>. Fortunately, all input query results now have constructors with only the required properties as their parameters. This is the preferred way to instantiate input query result instances e.g.:</p>
 <p>Instead of:</p>
@@ -1337,12 +1397,12 @@ documentResult = new InlineQueryResultDocument(
   mimeType: &quot;application/pdf&quot;
 );
 </code></pre>
-<a class="header" href="#sendmediagroupasync" id="sendmediagroupasync"><h2><code>SendMediaGroupAsync()</code></h2></a>
+<h2><a class="header" href="#sendmediagroupasync" id="sendmediagroupasync"><code>SendMediaGroupAsync()</code></a></h2>
 <p><code>InputMediaType</code> is renamed to <code>InputMedia</code>.</p>
 <blockquote>
 <p><em>ToDo</em></p>
 </blockquote>
-<a class="header" href="#inline-message-overloads" id="inline-message-overloads"><h2>Inline Message Overloads</h2></a>
+<h2><a class="header" href="#inline-message-overloads" id="inline-message-overloads">Inline Message Overloads</a></h2>
 <p>Many inline message methods have been replaced with their overloads.</p>
 <ul>
 <li><code>EditInlineMessageTextAsync</code>--&gt; <code>EditMessageTextAsync</code></li>
@@ -1350,7 +1410,7 @@ documentResult = new InlineQueryResultDocument(
 <blockquote>
 <p><em>ToDo</em></p>
 </blockquote>
-<a class="header" href="#filetosend" id="filetosend"><h2><code>FileToSend</code></h2></a>
+<h2><a class="header" href="#filetosend" id="filetosend"><code>FileToSend</code></a></h2>
 <p>New classes have replaced <code>FileToSend</code> struct.</p>
 <ul>
 <li><code>InputFileStream</code>:</li>
@@ -1367,12 +1427,12 @@ message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, fileId);
 <blockquote>
 <p><em>ToDo</em>. implicit casts</p>
 </blockquote>
-<a class="header" href="#updatetype-and-messagetype" id="updatetype-and-messagetype"><h2><code>UpdateType</code> and <code>MessageType</code></h2></a>
+<h2><a class="header" href="#updatetype-and-messagetype" id="updatetype-and-messagetype"><code>UpdateType</code> and <code>MessageType</code></a></h2>
 <p>Values in these two enums are renamed e.g. <code>UpdateType.MessageUpdate</code> is now <code>UpdateType.Message</code>.</p>
 <p><code>MessageType.Service</code> is removed. Now each type of message has its own <code>MessageType</code> value e.g. when a chat member leaves a group, corresponding update contains a message type of <code>MessageType.ChatMemberLeft</code> value.</p>
-<a class="header" href="#videonote" id="videonote"><h2><code>VideoNote</code></h2></a>
+<h2><a class="header" href="#videonote" id="videonote"><code>VideoNote</code></a></h2>
 <p>Properties <code>Width</code> and <code>Height</code> are removed. Vide notes are squared and <code>Length</code> property represents both width and height.</p>
-<a class="header" href="#constructor-parameters-instead-of-public-setters" id="constructor-parameters-instead-of-public-setters"><h2>Constructor Parameters Instead of Public Setters</h2></a>
+<h2><a class="header" href="#constructor-parameters-instead-of-public-setters" id="constructor-parameters-instead-of-public-setters">Constructor Parameters Instead of Public Setters</a></h2>
 <p>Many types now have the required parameters in their constructors. To avoid running into problems or getting exceptions, we recommend providing all required values in the constructor e.g.:</p>
 <pre><code class="language-c#">//bad way:
 markup = new InlineKeyboardMarkup {
@@ -1385,18 +1445,20 @@ markup = new InlineKeyboardMarkup(buttonsArray) {
   ResizeKeyboard = true
 };
 </code></pre>
-<a class="header" href="#how-do-i-use-an-httpsocks-proxy" id="how-do-i-use-an-httpsocks-proxy"><h3>How do I use an HTTP/Socks proxy?</h3></a>
+<h3><a class="header" href="#how-do-i-use-an-httpsocks-proxy" id="how-do-i-use-an-httpsocks-proxy">How do I use an HTTP/Socks proxy?</a></h3>
 <p>Look at the wiki page: <a href="4/proxy.html">Working Behind a Proxy</a>.</p>
-<a class="header" href="#i-got-a-409-error-what-do-i-do" id="i-got-a-409-error-what-do-i-do"><h3>I got a '409' error. What do I do?</h3></a>
+<h3><a class="header" href="#i-got-a-409-error-what-do-i-do" id="i-got-a-409-error-what-do-i-do">I got a '409' error. What do I do?</a></h3>
 <p>You are trying to receive updates multiple times at the same time. Either you are calling GetUpdates from two instances of the bot, or you are calling GetUpdates while a web hook is already set. That is not supported by the API, only receive on one instance.</p>
-<a class="header" href="#how-do-i-get-the-user-id-from-a-username" id="how-do-i-get-the-user-id-from-a-username"><h3>How do I get the user id from a username?</h3></a>
+<h3><a class="header" href="#how-do-i-get-the-user-id-from-a-username" id="how-do-i-get-the-user-id-from-a-username">How do I get the user id from a username?</a></h3>
 <p>There is no way to do that with the API directly.
 You could store a list of known usernames, mapped to ids.
 This is <em>not</em> recommended, because usernames can be changed.</p>
-<a class="header" href="#how-do-i-get-updates-in-channels" id="how-do-i-get-updates-in-channels"><h3>How do I get updates in channels?</h3></a>
+<h3><a class="header" href="#how-do-i-get-updates-in-channels" id="how-do-i-get-updates-in-channels">How do I get updates in channels?</a></h3>
 <p>If you are using polling, you will have to subscribe to the <code>OnUpdate</code> event.
 Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>UpdateType.ChannelPost</code> then the <code>Update.ChannelPost</code> property will be set.</p>
-<a class="header" href="#this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork" id="this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork"><h3>This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?</h3></a>
+<h3><a class="header" href="#i-have-serialization-issues-or-null-values-in-update-object-in-my-webhook-what-do-i-do" id="i-have-serialization-issues-or-null-values-in-update-object-in-my-webhook-what-do-i-do">I have serialization issues or null values in <code>Update</code> object in my webhook. What do I do?</a></h3>
+<p>If you're using ASP.NET Core 3.0+ you need to install additional Nuget package: <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/">Microsoft.AspNetCore.Mvc.NewtonsoftJson</a>. For more information read <a href="https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.1&amp;tabs=visual-studio#use-newtonsoftjson-in-an-aspnet-core-30-mvc-project">this page</a> about migrating from previous versions of ASP.NET Core.</p>
+<h3><a class="header" href="#this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork" id="this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork">This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?</a></h3>
 <p>Check the <a href="https://core.telegram.org/bots/faq"><code>Bots FAQ by Telegram</code></a> and if that doesn't pan out, feel free to let us know in the <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">public group chat</a>.</p>
 
                     </main>
@@ -1438,6 +1500,14 @@ Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>Upd
                 ga('create', 'UA-131839892-2', 'auto');
                 ga('send', 'pageview');
             }
+        </script>
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
         </script>
         
 

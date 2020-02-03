@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Quickstart - Telegram Bots</title>
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,11 +32,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +58,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,7 +80,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li><a href="../../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li><a href="../../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li><a href="../../4/passport/quickstart.html" class="active"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li><a href="../../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="expanded "><a href="../../1/quickstart.html"><strong aria-hidden="true">1.1.</strong> Quickstart</a></li><li class="expanded "><a href="../../1/example-bot.html"><strong aria-hidden="true">1.2.</strong> Example - First Chat Bot</a></li></ol></li><li class="expanded "><a href="../../2/index.html"><strong aria-hidden="true">2.</strong> Beginner</a></li><li><ol class="section"><li class="expanded "><a href="../../2/send-msg/index.html"><strong aria-hidden="true">2.1.</strong> Sending Messages</a></li><li><ol class="section"><li class="expanded "><a href="../../2/send-msg/text-msg.html"><strong aria-hidden="true">2.1.1.</strong> Text</a></li><li class="expanded "><a href="../../2/send-msg/photo-sticker-msg.html"><strong aria-hidden="true">2.1.2.</strong> Photo &amp; Sticker</a></li><li class="expanded "><a href="../../2/send-msg/audio-voice-msg.html"><strong aria-hidden="true">2.1.3.</strong> Audio &amp; Voice</a></li><li class="expanded "><a href="../../2/send-msg/video-video_note-msg.html"><strong aria-hidden="true">2.1.4.</strong> Video &amp; Video Note</a></li><li class="expanded "><a href="../../2/send-msg/album-msg.html"><strong aria-hidden="true">2.1.5.</strong> Album (Media Group)</a></li><li class="expanded "><a href="../../2/send-msg/document-animation-msg.html"><strong aria-hidden="true">2.1.6.</strong> Document &amp; Animation</a></li><li class="expanded "><a href="../../2/send-msg/native-polls-msg.html"><strong aria-hidden="true">2.1.7.</strong> Native Polls</a></li><li class="expanded "><a href="../../2/send-msg/other-msg.html"><strong aria-hidden="true">2.1.8.</strong> Other Messages</a></li></ol></li><li class="expanded "><a href="../../2/reply-markup.html"><strong aria-hidden="true">2.2.</strong> Reply Markup</a></li><li class="expanded "><a href="../../2/get-updates.html"><strong aria-hidden="true">2.3.</strong> Getting Updates</a></li></ol></li><li class="expanded "><a href="../../3/index.html"><strong aria-hidden="true">3.</strong> Intermediate</a></li><li><ol class="section"><li class="expanded "><a href="../../3/deploy/index.html"><strong aria-hidden="true">3.1.</strong> Deployment</a></li><li><ol class="section"><li class="expanded "><a href="../../3/deploy/polling.html"><strong aria-hidden="true">3.1.1.</strong> Long Polling</a></li><li class="expanded "><a href="../../3/deploy/webhook.html"><strong aria-hidden="true">3.1.2.</strong> Webhooks</a></li></ol></li><li class="expanded "><a href="../../3/tests.html"><strong aria-hidden="true">3.2.</strong> Systems Integration Tests</a></li><li class="expanded "><a href="../../3/inline.html"><strong aria-hidden="true">3.3.</strong> Inline Mode</a></li><li class="expanded "><a href="../../3/files/index.html"><strong aria-hidden="true">3.4.</strong> Files</a></li><li><ol class="section"><li class="expanded "><a href="../../3/files/download.html"><strong aria-hidden="true">3.4.1.</strong> Download</a></li><li class="expanded "><a href="../../3/files/upload.html"><strong aria-hidden="true">3.4.2.</strong> Upload</a></li></ol></li><li class="expanded "><a href="../../3/sticker.html"><strong aria-hidden="true">3.5.</strong> Stickers</a></li></ol></li><li class="expanded "><a href="../../4/index.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li><ol class="section"><li class="expanded "><a href="../../4/login-widget.html"><strong aria-hidden="true">4.1.</strong> Login Widget</a></li><li class="expanded "><a href="../../4/passport/index.html"><strong aria-hidden="true">4.2.</strong> Passport</a></li><li><ol class="section"><li class="expanded "><a href="../../4/passport/quickstart.html" class="active"><strong aria-hidden="true">4.2.1.</strong> Quickstart</a></li><li class="expanded "><a href="../../4/passport/files-docs.html"><strong aria-hidden="true">4.2.2.</strong> Files &amp; Documents</a></li><li class="expanded "><a href="../../4/passport/errors.html"><strong aria-hidden="true">4.2.3.</strong> Data Errors</a></li><li class="expanded "><a href="../../4/passport/key.html"><strong aria-hidden="true">4.2.4.</strong> RSA Key</a></li><li class="expanded "><a href="../../4/passport/faq.html"><strong aria-hidden="true">4.2.5.</strong> Decryption FAQ</a></li></ol></li><li class="expanded "><a href="../../4/proxy.html"><strong aria-hidden="true">4.3.</strong> Proxy</a></li><li class="expanded "><a href="../../4/log.html"><strong aria-hidden="true">4.4.</strong> Logging</a></li></ol></li><li class="expanded "><a href="../../Migration-Guide-to-Version-14.x.html"><strong aria-hidden="true">5.</strong> Migration guide =&gt; v14</a></li><li class="expanded "><a href="../../FAQ.html"><strong aria-hidden="true">6.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +113,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">Telegram Bots</h1> 
+                        <h1 class="menu-title">Telegram Bots</h1>
 
                         <div class="right-buttons">
                             <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -140,19 +148,19 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#telegram-passport---quickstart" id="telegram-passport---quickstart"><h1>Telegram Passport - Quickstart</h1></a>
+                        <h1><a class="header" href="#telegram-passport---quickstart" id="telegram-passport---quickstart">Telegram Passport - Quickstart</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="passport quickstart example" /></a></p>
 <p>This guide teaches the basics of working with Telegram Passport.
 See the complete version of the code at <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart">Quickstart project</a>.
 Code snippets on this page are in the context of that project.</p>
-<a class="header" href="#package" id="package"><h2>Package</h2></a>
+<h2><a class="header" href="#package" id="package">Package</a></h2>
 <p><a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget package" /></a></p>
 <p>You need to add <code>Telegram.Bot.Extensions.Passport</code> extension package to your project
 in addition to the core package (<code>Telegram.Bot</code>).</p>
 <p>⭐️ Star the <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport">Telegram.Bot.Extensions.Passport project</a> on GitHub 👍</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot.Extensions.Passport
 </code></pre>
-<a class="header" href="#encryption-keys" id="encryption-keys"><h2>Encryption Keys</h2></a>
+<h2><a class="header" href="#encryption-keys" id="encryption-keys">Encryption Keys</a></h2>
 <p>You don't really need to generate any RSA key. Use our sample keys for this demo.
 Send the public key to <a href="https://t.me/BotFather">@BotFather</a> using <code>/setpublickey</code> command:</p>
 <p><img src="../docs/shot-passport_botfather.jpg" alt="Setting public key" /></p>
@@ -168,10 +176,10 @@ FwIDAQAB
 -----END PUBLIC KEY-----
 </code></pre>
 <p>Now Telegram client app can encrypt the data for your bot using this key.</p>
-<a class="header" href="#request-information" id="request-information"><h2>Request Information</h2></a>
+<h2><a class="header" href="#request-information" id="request-information">Request Information</a></h2>
 <p>Bot waits for a text message from user. Once it receives a text message, it generates an authorization request link
 and sends that to the user.</p>
-<a class="header" href="#authorization-request" id="authorization-request"><h3>Authorization Request</h3></a>
+<h3><a class="header" href="#authorization-request" id="authorization-request">Authorization Request</a></h3>
 <p><a href="https://core.telegram.org/passport#request-parameters"><img src="https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square" alt="Request Parameters type" /></a></p>
 <p>A passport authorization request means that the bot should ask the user to open a <code>tg://resolve</code> URI in the browser
 with specific parameters in its query string.
@@ -197,7 +205,7 @@ Then, we generate the query string and ask user to open the link.</p>
 </blockquote>
 <p><img src="../docs/shot-passport_link1.jpg" alt="Passport link 1" />
 <img src="../docs/shot-passport_link2.jpg" alt="Passport link 2" /></p>
-<a class="header" href="#passport-data" id="passport-data"><h3>Passport Data</h3></a>
+<h3><a class="header" href="#passport-data" id="passport-data">Passport Data</a></h3>
 <p>You, the user, should now be redirected to the Telegram Passport screen in your Telegram client app.
 Enter your password and log in.</p>
 <blockquote>
@@ -212,12 +220,12 @@ Enter your password and log in.</p>
 <p>At this point, your Telegram client app encrypts the actual Telegram Passport data (e.g. address) using the
 AES algorithm, and then encrypts the info required for decryption using your bot's public RSA key.
 Finally, it sends the result of both encryptions to Telegram servers.</p>
-<a class="header" href="#data-decryption" id="data-decryption"><h3>Data Decryption</h3></a>
+<h3><a class="header" href="#data-decryption" id="data-decryption">Data Decryption</a></h3>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
 <p>Your bot now receives a new message update with the encrypted Passport data. The user is also notified in the chat:</p>
 <p><img src="../docs/shot-passport_update.jpg" alt="Passport update" /></p>
 <p>Let's decrypt that gibberish to get the information. That's what <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">DecryptPassportDataAsync</a> method does.</p>
-<a class="header" href="#step-1-credentials" id="step-1-credentials"><h4>Step 1: Credentials</h4></a>
+<h4><a class="header" href="#step-1-credentials" id="step-1-credentials">Step 1: Credentials</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type" /></a>
 <a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a></p>
 <p>You can't just access the encrypted data in the <code>message.passport_data.data</code> array.
@@ -233,13 +241,13 @@ Credentials credentials = decrypter.DecryptCredentials(
   GetRsaPrivateKey() // private key as an RSA object
 );
 </code></pre>
-<a class="header" href="#step-2-nonce" id="step-2-nonce"><h4>Step 2: Nonce</h4></a>
+<h4><a class="header" href="#step-2-nonce" id="step-2-nonce">Step 2: Nonce</a></h4>
 <p><a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a>
 <a href="https://core.telegram.org/passport#request-parameters"><img src="https://img.shields.io/badge/Passport_API_type-Request_Parameters-blue.svg?style=flat-square" alt="Request Parameters type" /></a></p>
 <p>There is a <code>nonce</code> property on the credentials (now decrypted) object.
 In order to prevent certain attacks, ensure its value is exactly the same as the nonce you set in the authorization request.
 Read more about <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonce on Wikipedia</a>.</p>
-<a class="header" href="#step-3-residential-address" id="step-3-residential-address"><h4>Step 3: Residential Address</h4></a>
+<h4><a class="header" href="#step-3-residential-address" id="step-3-residential-address">Step 3: Residential Address</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedpassportelement"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square" alt="EncryptedPassportElement type" /></a>
 <a href="https://core.telegram.org/passport#residentialaddress"><img src="https://img.shields.io/badge/Passport_API_type-ResidentialAddress-blue.svg?style=flat-square" alt="ResidentialAddress type" /></a></p>
 <p><a href="https://core.telegram.org/passport#securedata"><img src="https://img.shields.io/badge/Passport_API_type-SecureData-blue.svg?style=flat-square" alt="SecureData type" /></a>
@@ -263,13 +271,13 @@ ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
 <li>Verifies that the data hashes match</li>
 <li>Converts from JSON to a .NET object</li>
 </ol>
-<a class="header" href="#step-4-phone-number" id="step-4-phone-number"><h4>Step 4: Phone Number</h4></a>
+<h4><a class="header" href="#step-4-phone-number" id="step-4-phone-number">Step 4: Phone Number</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedpassportelement"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedPassportElement-blue.svg?style=flat-square" alt="EncryptedPassportElement type" /></a></p>
 <p>Values for phone number and email address are not end-to-end encrypted in Telegram Passport and
 Telegram stores these values after being verified.</p>
 <p>There is no need for decryption at this point.
 Just find the element with the type of <em>phone_number</em> in the <code>message.passport_data.data</code> array.</p>
-<a class="header" href="#information-demo" id="information-demo"><h3>Information Demo</h3></a>
+<h3><a class="header" href="#information-demo" id="information-demo">Information Demo</a></h3>
 <p>At the end, bot sends some of the information received to the user for demo purposes.</p>
 <p><img src="../docs/shot-passport_quickstart.jpg" alt="info demo" /></p>
 <!-- ----------- -->
@@ -329,6 +337,14 @@ Just find the element with the type of <em>phone_number</em> in the <code>messag
                 ga('create', 'UA-131839892-2', 'auto');
                 ga('send', 'pageview');
             }
+        </script>
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
         </script>
         
 
