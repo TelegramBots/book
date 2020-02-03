@@ -13,6 +13,9 @@ This is *not* recommended, because usernames can be changed.
 If you are using polling, you will have to subscribe to the `OnUpdate` event.
 Check the `UpdateType` of the `Update`. If it is `UpdateType.ChannelPost` then the `Update.ChannelPost` property will be set.
 
+### I have serialization issues or null values in `Update` object in my webhook. What do I do?
+If you're using ASP.NET Core 3.0+ you need to install additional Nuget package: [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/). For more information read [this page](https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.1&tabs=visual-studio#use-newtonsoftjson-in-an-aspnet-core-30-mvc-project) about migrating from previous versions of ASP.NET Core.
+
 ### This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?
 Check the [`Bots FAQ by Telegram`] and if that doesn't pan out, feel free to let us know in the [public group chat].
 
