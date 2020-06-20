@@ -11,7 +11,6 @@ Copy the following code to `Program.cs`.
 
 ```c#
 using System;
-using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
@@ -29,7 +28,11 @@ namespace Awesome {
 
       botClient.OnMessage += Bot_OnMessage;
       botClient.StartReceiving();
-      Thread.Sleep(int.MaxValue);
+
+      Console.WriteLine("Press any key to exit");
+      Console.ReadKey();
+
+      botClient.StopReceiving();
     }
 
     static async void Bot_OnMessage(object sender, MessageEventArgs e) {
@@ -53,14 +56,14 @@ Run the program.
 dotnet run
 ```
 
-It runs for a long time waiting for text messages unless forcefully stopped. Open a private chat with your bot in
+It runs waiting for text messages unless forcefully stopped by pressing any key. Open a private chat with your bot in
 Telegram and send a text message to it. Bot should reply in no time.
 
 In the code above, we subscribe to `OnMessage` event on bot client to take action on messages that users send to bot.
 
 By invoking `StartReceiving()`, bot client starts fetching updates using [`getUpdates`] method for the bot
-from Telegram Servers. This is an asynchronous operation so `Thread.Sleep()` is used right after that
-to keep the app running for a while in this demo.
+from Telegram Servers. This is an asynchronous operation so `Console.Readkey()` is used right after that
+to keep the app running.
 
 When a user sends a message, `Bot_OnMessage()` gets invoked with the message object passed via event arguments.
 We are expecting a text message so we check for `Message.Text` value.
