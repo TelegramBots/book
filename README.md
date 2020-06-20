@@ -1,6 +1,6 @@
 # Telegram Bots Book
 
-[![Build Status](https://img.shields.io/travis/TelegramBots/book/master.svg?style=flat-square)](https://travis-ci.org/TelegramBots/book)
+[![Build Status](https://img.shields.io/travis/com/TelegramBots/book/master?style=flat-square)](https://travis-ci.com/TelegramBots/book)
 [![Demo](https://img.shields.io/badge/live-demo-blue.svg?style=flat-square)](https://telegrambots.github.io/book/)
 
 This repository contains documentation for TelegramBots projects.
