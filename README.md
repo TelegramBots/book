@@ -23,7 +23,7 @@ Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
     ```
 
 [mdBook]: https://github.com/rust-lang/mdBook
-[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.3.5
+[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.3.7
 
 ## Contribute 👋
 
