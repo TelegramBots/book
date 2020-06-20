@@ -1,5 +1,3 @@
 # Document and Animation Messages
 
-## Document
-
-## Animation
+> This chapter is not yet written.
