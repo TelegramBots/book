@@ -3,6 +3,9 @@ authors = ["Poulad Ashrafpour", "Aleksey Usatov", "karb0f0s", "Miha Zupan"]
 multilingual = false
 src = "src"
 title = "Telegram Bots"
+site-url = "https://telegrambots.github.io/book/"
+language = "en"
 
 [output.html]
 google-analytics = "UA-131839892-2"
+git-repository-url = "https://github.com/TelegramBots/book"
