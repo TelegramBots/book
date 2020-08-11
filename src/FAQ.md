@@ -16,6 +16,12 @@ Check the `UpdateType` of the `Update`. If it is `UpdateType.ChannelPost` then t
 ### I have serialization issues or null values in `Update` object in my webhook. What do I do?
 If you're using ASP.NET Core 3.0+ you need to install additional Nuget package: [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/). For more information read [this page](https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.1&tabs=visual-studio#use-newtonsoftjson-in-an-aspnet-core-30-mvc-project) about migrating from previous versions of ASP.NET Core.
 
+### Is there a way to get a list of users in a group or a channel?
+There's no API to get all users in a chat, there's only [`getChatMember`](https://core.telegram.org/bots/api#getchatmember) request to obtain a
+[`ChatMember`](https://core.telegram.org/bots/api#chatmember) object knowing it's `user_id`.
+
+You can keep track of users observing new messages in a chat and saving user info into a database.
+
 ### This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?
 Check the [`Bots FAQ by Telegram`] and if that doesn't pan out, feel free to let us know in the [public group chat].
 
