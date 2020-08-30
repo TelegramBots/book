@@ -1,6 +1,7 @@
 # Reply Markup
 
-TODO: write documentation.
+This chapter is not yet written.
+Use reply markup like this:
 
 ```c#
                 await botClient.SendTextMessageAsync(
