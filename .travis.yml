@@ -9,7 +9,7 @@ rust:
 cache: cargo
 
 install:
-  - mdbook -V || cargo install mdbook --vers "^0.4.1"
+  - mdbook -V || cargo install mdbook --vers "^0.4.10"
 script: |
   mdbook build  && \
   mdbook test   && \
