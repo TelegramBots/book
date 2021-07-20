@@ -16,12 +16,17 @@ You can pass an `IWebProxy` to bot client for HTTP Proxies.
 
 ```csharp
 // using System.Net;
+// using System.Net.Http;
 
-var httpProxy = new WebProxy(address: "https://example.org", port: 8080) {
+var webProxy = new WebProxy(Host: "https://example.org", Port: 8080) {
   // Credentials if needed:
   Credentials = new NetworkCredential("USERNMAE", "PASSWORD")
 };
-var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpProxy);
+var httpClient = new HttpClient(
+    new HttpClientHandler { Proxy = webProxy, UseProxy = true }
+);
+
+var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 ```
 
 ## SOCKS5 Proxy
@@ -43,7 +48,11 @@ var proxy = new HttpToSocks5Proxy(
 // Needed for some proxies
 proxy.ResolveHostnamesLocally = true;
 
-var botClient = new TelegramBotClient("YOUR_API_TOKEN", proxy);
+var httpClient = new HttpClient(
+    new HttpClientHandler { Proxy = proxy, UseProxy = true }
+);
+
+botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 ```
 
 ## SOCKS5 Proxy over Tor
@@ -58,12 +67,14 @@ before a production release.
 1. Install [Tor Browser]
 2. Open the `torcc` file with a text editor (Found in `Tor Browser\Browser\TorBrowser\Data\Tor`)
 3. Add the following lines: (configurations are described below)
+
     ```text
     EntryNodes {NL}
     ExitNodes {NL}
     StrictNodes 1
     SocksPort 127.0.0.1:9050
     ```
+
 4. Look at the [Socks5 proxy](#socks5-proxy) example above.
 5. Start the Tor Browser
 
@@ -72,10 +83,13 @@ Usage:
 ```csharp
 // using MihaZupan;
 
-var botClient = new TelegramBotClient(
-  "YOUR_API_TOKEN",
-  new HttpToSocks5Proxy("127.0.0.1", 9050)
+var proxy = new HttpToSocks5Proxy("127.0.0.1", 9050);
+
+var httpClient = new HttpClient(
+    new HttpClientHandler { Proxy = proxy, UseProxy = true }
 );
+
+botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 ```
 
 > Note that Tor has to be active at all times for the bot to work.
