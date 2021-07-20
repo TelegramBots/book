@@ -1,6 +1,6 @@
 # Text Messages and More
 
-[![send message method](https://img.shields.io/badge/Bot_API_method-send_message-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendmessage)
+[![send message method](https://img.shields.io/badge/Bot_API_method-sendMessage-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendmessage)
 [![tests](https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs)
 
 Text is a powerful interface for your bot and [`sendMessage`] probably is the most used method of the Telegram Bot API.
@@ -13,7 +13,7 @@ The code snippet below sends a message with multiple parameters that looks like 
 
 ![text message screenshot](../docs/shot-text_msg2.jpg)
 
-> You can use this code snippet in the event handler from Example Bot page and use `e.Message.Chat`
+> You can use this code snippet in the event handler from Example Bot page and use `chatId`
 > or put the `chatId` value if you know it.
 
 ```c#
@@ -22,11 +22,11 @@ The code snippet below sends a message with multiple parameters that looks like 
 // using Telegram.Bot.Types.ReplyMarkups;
 
 Message message = await botClient.SendTextMessageAsync(
-  chatId: e.Message.Chat, // or a chat id: 123456789
+  chatId: chatId, // or a chat id: 123456789
   text: "Trying *all the parameters* of `sendMessage` method",
   parseMode: ParseMode.Markdown,
   disableNotification: true,
-  replyToMessageId: e.Message.MessageId,
+  replyToMessageId: update.Message.MessageId,
   replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl(
     "Check sendMessage method",
     "https://core.telegram.org/bots/api#sendmessage"

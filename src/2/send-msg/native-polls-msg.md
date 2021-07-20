@@ -6,7 +6,7 @@ Bots just as regular users can send native polls only to groups and channels, bu
 
 ## Send a poll
 
-[![sendPoll method](https://img.shields.io/badge/Bot_API_method-send_poll-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendpoll)
+[![sendPoll method](https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendpoll)
 
 This is the code to send a poll to a chat.
 
@@ -30,7 +30,7 @@ You'll get the message with [`Poll`](https://github.com/TelegramBots/Telegram.Bo
 
 ## Stop a poll
 
-[![stopPoll method](https://img.shields.io/badge/Bot_API_method-stop_poll-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#stoppoll)
+[![stopPoll method](https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#stoppoll)
 
 To close a poll you need to know original chat and message ids of the poll that you got from calling `SendPollAsync` method.
 

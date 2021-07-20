@@ -1,3 +1,5 @@
+# Migration guide for version 14.x
+
 ## Date and Time
 
 All `DateTime` values are now in UTC format. Here are some examples of usage:
@@ -84,7 +86,7 @@ using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf")) {
 
 ## `GetUpdatesAsync()`, `SetWebhookAsync()`
 
-Value `All` is removed from enum `Telegram.Bot.Types.Enums.UpdateType`. In order to get all kind of updates, pass an empty list such as `new UpdateType[0]` for `allowedUpdates` argument.
+Value `All` is removed from enum `Telegram.Bot.Types.Enums.UpdateType`. In order to get all kind of updates, pass an empty list such as `new Array.Empty<UpdateType>()` for `allowedUpdates` argument.
 
 ## `SetWebhookAsync()`
 
@@ -100,7 +102,7 @@ Instead of:
 
 ```csharp
 // bad way. easy to get exceptions
-documentResult = new InlineQueryResultDocument
+var documentResult = new InlineQueryResultDocument
 {
   Id = "some-id",
   Url = "https://example.com/document.pdf",
@@ -113,7 +115,7 @@ You should use:
 
 ```csharp
 // good way
-documentResult = new InlineQueryResultDocument(
+var documentResult = new InlineQueryResultDocument(
   id: "some-id",
   documentUrl: "https://example.com/document.pdf",
   title: "Some title",
@@ -147,10 +149,10 @@ In many cases, you can use implicit casting to pass parameters.
 
 ```csharp
 Stream stream = System.IO.File.OpenRead("photo.png");
-message = await BotClient.SendPhotoAsync("chat id", stream);
+var message = await BotClient.SendPhotoAsync("chat id", stream);
 
 string fileId = "file_id on Telegram servers";
-message = await BotClient.SendPhotoAsync("chat id", fileId);
+var message = await BotClient.SendPhotoAsync("chat id", fileId);
 ```
 
 > *ToDo*. implicit casts
@@ -171,13 +173,15 @@ Many types now have the required parameters in their constructors. To avoid runn
 
 ```c#
 //bad way:
-markup = new InlineKeyboardMarkup {
-  Keyboard = buttonsArray,
-  ResizeKeyboard = true
-};
+var markup = new InlineKeyboardMarkup
+  {
+    Keyboard = buttonsArray,
+    ResizeKeyboard = true
+  };
 
 // better:
-markup = new InlineKeyboardMarkup(buttonsArray) {
-  ResizeKeyboard = true
-};
+var markup = new InlineKeyboardMarkup(buttonsArray)
+  {
+    ResizeKeyboard = true
+  };
 ```
