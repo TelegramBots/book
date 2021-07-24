@@ -33,23 +33,18 @@ dotnet add package Telegram.Bot
 
 Open `Program.cs` file and use the following content. This code fetches Bot information based on its access token by calling [`getMe`] method on the Bot API.
 
-> Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
+> Replace `{YOUR_ACCESS_TOKEN_HERE}` with the access token from Bot Father.
 
 ```c#
 using System;
 using Telegram.Bot;
 
-namespace Awesome {
-  class Program {
-    static void Main() {
-      var botClient = new TelegramBotClient("YOUR_ACCESS_TOKEN_HERE");
-      var me = botClient.GetMeAsync().Result;
-      Console.WriteLine(
-        $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
-      );
-    }
-  }
-}
+var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+var me = await botClient.GetMeAsync();
+Console.WriteLine(
+  $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
+);
+
 ```
 
 Running the program gives you the following output:
