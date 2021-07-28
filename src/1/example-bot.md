@@ -29,7 +29,7 @@ var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
 
 var me = await botClient.GetMeAsync();
 Console.WriteLine(
-  $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
+    $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
 );
 
 using var cts = new CancellationTokenSource();
@@ -64,13 +64,13 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     if (update.Message.Type != MessageType.Text)
         return;
 
-    var chatId = updatchatId.Id;
+    var chatId = update.Message.Chat.Id;
     
     Console.WriteLine($"Received a '{update.Message.Text}' message in chat {chatId}.");
 
     await botClient.SendTextMessageAsync(
-      chatId: chatId,
-      text:   "You said:\n" + update.Message.Text
+        chatId: chatId,
+        text:   "You said:\n" + update.Message.Text
     );
 }
 ```
