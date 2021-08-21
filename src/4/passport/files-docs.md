@@ -75,7 +75,7 @@ bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 
 [![IdDocumentData type](https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square)](https://core.telegram.org/passport#iddocumentdata)
 
-[![method Should_decreypt_document_data](https://img.shields.io/badge/Test_Method-Decreypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_document_data](https://img.shields.io/badge/Test_Method-decrypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 In our test case, there is only 1 item in the `message.passport_data.data` array and that's the encrypted element for
 the driver's license scope.
@@ -104,7 +104,7 @@ It really comes down to your decision on working with _streams_ vs. _byte arrays
 
 ### Front Side File
 
-[![method Should_decreypt_front_side_file](https://img.shields.io/badge/Test_Method-Decreypt_Front_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_front_side_file](https://img.shields.io/badge/Test_Method-decrypt_Front_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 A pretty handy extension method is used here to stream writing the front side file to disk.
 Method [DownloadAndDecryptPassportFileAsync] does a few things:
@@ -130,7 +130,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.j
 
 ### Reverse Side File
 
-[![method Should_decreypt_reverse_side_file](https://img.shields.io/badge/Test_Method-Decreypt_Reverse_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_reverse_side_file](https://img.shields.io/badge/Test_Method-decrypt_Reverse_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 Previous method call is divided into two operations here for reverse side of the license.
 Streams are used here as well.
@@ -160,7 +160,7 @@ using (System.IO.Stream
 
 ### Selfie File
 
-[![method Should_decreypt_selfie_file](https://img.shields.io/badge/Test_Method-Decreypt_Selfie_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_selfie_file](https://img.shields.io/badge/Test_Method-decrypt_Selfie_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 We deal with selfie photo as a byte array.
 This is essentially the same operation as done above via streams.
@@ -198,7 +198,7 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
 
 ### Translation File
 
-[![method Should_decreypt_translation_file](https://img.shields.io/badge/Test_Method-Decreypt_Translation_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_translation_file](https://img.shields.io/badge/Test_Method-decrypt_Translation_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.

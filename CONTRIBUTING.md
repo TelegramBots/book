@@ -32,4 +32,4 @@ There are a few simple rules in place to keep the project easily manageable and 
 - Files in `docs` directories should be named following `{type}-{file_name}.{extension}` pattern.
   - Values for type: `photo`, `shot`, `sticker`, `anim`, `video`, `voice`, `audio`, `doc`, `thumb`
 
-[mdBook]: https://github.com/rust-lang/mdBoo
+[mdBook]: https://github.com/rust-lang/mdBook
