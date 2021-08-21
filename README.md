@@ -11,12 +11,12 @@ Book is a great example-based tutorial for developing Telegram chat bots 🤖.
 This book is a web app generated from markdown files using [mdBook] tool.
 Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
 
-1. Install [mdBook] v0.4.11
+1. Install [mdBook] v0.4.12
     - You can use a [mdBook binary]
     - Or install it using Rust package manager
 
         ```bash
-        cargo install mdbook --vers "^0.4.11"
+        cargo install mdbook --vers "^0.4.12"
         ```
 
 1. Run locally on [http://localhost:3000](http://localhost:3000)
@@ -26,7 +26,7 @@ Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
     ```
 
 [mdBook]: https://github.com/rust-lang/mdBook
-[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.4.1
+[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.4.12
 
 ## Contribute 👋
 
