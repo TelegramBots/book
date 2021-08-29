@@ -14,8 +14,6 @@
     - [Native Polls](2/send-msg/native-polls-msg.md)
     - [Other Messages](2/send-msg/other-msg.md)
   - [Reply Markup](2/reply-markup.md)
-    - [Custom keyboards](2/reply-markup.md#custom-keyboards)
-    - [Inline keyboards](2/reply-markup.md#inline-keyboards)
   - [Getting Updates](2/get-updates.md)
 - [Intermediate](3/README.md)
   - [Deployment](3/deploy/README.md)
