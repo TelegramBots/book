@@ -86,7 +86,7 @@ using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf")) {
 
 ## `GetUpdatesAsync()`, `SetWebhookAsync()`
 
-Value `All` is removed from enum `Telegram.Bot.Types.Enums.UpdateType`. In order to get all kind of updates, pass an empty list such as `new Array.Empty<UpdateType>()` for `allowedUpdates` argument.
+Value `All` is removed from enum `Telegram.Bot.Types.Enums.UpdateType`. In order to get all kind of updates, pass an empty list such as `Array.Empty<UpdateType>()` for `allowedUpdates` argument.
 
 ## `SetWebhookAsync()`
 
