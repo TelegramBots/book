@@ -106,4 +106,4 @@ Try inspecting the `msg1.Sticker` property. It is of type [`Sticker`] and its sc
 [`Message`]: https://core.telegram.org/bots/api#message
 [`PhotoSize`]: https://core.telegram.org/bots/api#photosize
 [WebP]: https://developers.google.com/speed/webp/
-[`Sticker`]: https://core.telegram.org/bots/api#sticke
+[`Sticker`]: https://core.telegram.org/bots/api#sticker
