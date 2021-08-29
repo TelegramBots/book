@@ -36,5 +36,5 @@
   - [Proxy](4/proxy.md)
   - [Logging](4/log.md)
 - [Migration guide => v14](Migration-Guide-to-Version-14.x.md)
-- [Migration guide => v14](Migration-Guide-to-Version-17.x.md)
+- [Migration guide => v17](Migration-Guide-to-Version-17.x.md)
 - [FAQ](FAQ.md)
