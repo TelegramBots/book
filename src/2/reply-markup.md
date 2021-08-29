@@ -18,18 +18,19 @@ A [`ReplyKeyboardMarkup`] with two buttons in a single row:
 
 ```c#
 var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-    new KeyboardButton[][]
+    new [][]
     {
         new KeyboardButton[] { "Help me", "Call me ☎️" },
     })
-    {
-        ResizeKeyboard = true
-    };
+{
+    ResizeKeyboard = true
+};
 
 await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text: "Choose a response",
-        replyMarkup: replyKeyboardMarkup);
+    chatId: chatId,
+    text: "Choose a response",
+    replyMarkup: replyKeyboardMarkup
+);
 ```
 
 > We specify `ResizeKeyboard = true` here to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).
@@ -40,19 +41,21 @@ A [`ReplyKeyboardMarkup`] with two rows of buttons:
 
 ```c#
 var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-    new KeyboardButton[][]
+    new [][]
     {
         new KeyboardButton[] { "One", "Two" },
         new KeyboardButton[] { "Three", "Four" },
     })
-    {
-        ResizeKeyboard = true
-    };
+{
+    ResizeKeyboard = true
+};
+    
 
 await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text: "Choose a response",
-        replyMarkup: replyKeyboardMarkup);
+    chatId: chatId,
+    text: "Choose a response",
+    replyMarkup: replyKeyboardMarkup
+);
 ```
 
 ### Request information
@@ -60,7 +63,7 @@ await botClient.SendTextMessageAsync(
 [`ReplyKeyboardMarkup`] containing buttons for contact and location requests using helper methods `KeyboardButton.WithRequestLocation` and `KeyboardButton.WithRequestContact`:
 
 ```c#
-var replyKeyboardMarkup = new ReplyKeyboardMarkup(new[]
+var replyKeyboardMarkup = new ReplyKeyboardMarkup(new []
 {
     KeyboardButton.WithRequestLocation("Share Location"),
     KeyboardButton.WithRequestContact("Share Contact"),
@@ -69,7 +72,8 @@ var replyKeyboardMarkup = new ReplyKeyboardMarkup(new[]
 await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "Who or Where are you?",
-    replyMarkup: replyKeyboardMarkup);
+    replyMarkup: replyKeyboardMarkup
+);
 ```
 
 ### Remove keyboard
@@ -80,7 +84,8 @@ To remove keyboard you have to send an instance of [`ReplyKeyboardRemove`] objec
 await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "Removing keyboard",
-    replyMarkup: new ReplyKeyboardRemove());
+    replyMarkup: new ReplyKeyboardRemove()
+);
 ```
 
 ## Inline keyboards
@@ -94,7 +99,7 @@ Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't resu
 When a user presses a [callback button], no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use `InlineKeyboardButton.WithCallbackData` helper method to create a button with a text and callback data.
 
 ```c#
-var inlineKeyboard = new InlineKeyboardMarkup(new[]
+var inlineKeyboard = new InlineKeyboardMarkup(new []
     {
         // first row
         new []
@@ -108,7 +113,8 @@ var inlineKeyboard = new InlineKeyboardMarkup(new[]
             InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
             InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
         },
-    });
+    }
+);
 
 await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -127,7 +133,8 @@ var inlineKeyboard = new InlineKeyboardMarkup(new []
             text: "Link to the Repository",
             url: "https://github.com/TelegramBots/Telegram.Bot"
         )
-    });
+    }
+);
 
 await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -144,12 +151,14 @@ var inlineKeyboard = new InlineKeyboardMarkup(new []
     {
         InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
         InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"),
-    });
+    }
+);
 
 await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard);
+    replyMarkup: inlineKeyboard
+);
 ```
 
 [special keyboard]: https://core.telegram.org/bots#keyboards
