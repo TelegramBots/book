@@ -17,10 +17,12 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - name: Setup markdownlint cli
-      run: npm install -g markdownlint-cli
+    - name: Setup linter and spellchecker cli
+      run: npm install -g markdownlint-cli cspell
     - name: Lint markdown files
-      run: markdownlint **/*.md
+      run: markdownlint src/**/*.md
+    - name: Run spellcheck
+      run: cspell src/**/*.md
     - name: Build the book
       run: mdbook build
     - name: Deploy to Github Pages
