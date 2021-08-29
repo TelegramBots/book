@@ -20,7 +20,7 @@ You can pass an `IWebProxy` to bot client for HTTP Proxies.
 
 var webProxy = new WebProxy(Host: "https://example.org", Port: 8080) {
   // Credentials if needed:
-  Credentials = new NetworkCredential("USERNMAE", "PASSWORD")
+  Credentials = new NetworkCredential("USERNAME", "PASSWORD")
 };
 var httpClient = new HttpClient(
     new HttpClientHandler { Proxy = webProxy, UseProxy = true }
