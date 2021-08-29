@@ -7,14 +7,23 @@ jobs:
     name: Build and upload
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout sources
+      uses: actions/checkout@v2
     - name: Setup mdBook
       uses: peaceiris/actions-mdbook@v1
       with:
         mdbook-version: '0.4.12'
-    - run: mdbook build
-    - run: mdbook test
-    - name: Deploy
+    - name: Setup nodejs
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Setup markdownlint cli
+      run: npm install -g markdownlint-cli
+    - name: Lint markdown files
+      run: markdownlint **/*.md
+    - name: Build the book
+      run: mdbook build
+    - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       if: ${{ github.ref == 'refs/heads/master' }}
       with:
