@@ -8,8 +8,8 @@ Fortunately, methods for sending such messages are similar. Take a look at these
 ![text message screenshot](../docs/shot-text_msg.jpg)
 
 ```c#
-await botClient.SendTextMessageAsync(
-  chatId: e.Message.Chat,
+var message = await botClient.SendTextMessageAsync(
+  chatId: chatId,
   text:   "Hello, World!"
 );
 ```
@@ -20,7 +20,7 @@ await botClient.SendTextMessageAsync(
 
 ```c#
 await botClient.SendStickerAsync(
-  chatId:  e.Message.Chat,
+  chatId:  chatId,
   sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp"
 );
 ```
@@ -30,8 +30,8 @@ await botClient.SendStickerAsync(
 ![video message screenshot](../docs/shot-video.jpg)
 
 ```c#
-await botClient.SendVideAsync(
-  chatId:  e.Message.Chat,
+await botClient.SendVideoAsync(
+  chatId:  chatId,
   video: "https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4"
 );
 ```

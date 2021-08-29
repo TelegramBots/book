@@ -11,14 +11,14 @@ You will learn more about them later on when we discuss file upload and download
 
 ## Photo
 
-[![send photo method](https://img.shields.io/badge/Bot_API_method-send_photo-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendphoto)
+[![send photo method](https://img.shields.io/badge/Bot_API_method-sendPhoto-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendphoto)
 [![photo tests](https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs)
 
 Sending a photo is simple. Here is an example:
 
 ```c#
 Message message = await botClient.SendPhotoAsync(
-  chatId: e.Message.Chat,
+  chatId: chatId,
   photo: "https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg",
   caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
   parseMode: ParseMode.Html
@@ -74,7 +74,7 @@ Here is how `message.Photo` array looks like in JSON:
 
 ## Sticker
 
-[![send sticker method](https://img.shields.io/badge/Bot_API_method-send_sticker-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendsticker)
+[![send sticker method](https://img.shields.io/badge/Bot_API_method-sendSticker-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendsticker)
 [![sticker tests](https://img.shields.io/badge/Examples-Sticker_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Stickers/StickersTests.cs)
 
 Telegram stickers are fun and our bot is about to send its very first sticker.
@@ -84,14 +84,14 @@ This code sends the same sticker twice. First by passing HTTP URL to a [WebP] st
 second by reusing `file_id` of the same sticker on Telegram servers.
 
 ```c#
-Message msg1 = await botClient.SendStickerAsync(
-  chatId: e.Message.Chat,
+Message message1 = await botClient.SendStickerAsync(
+  chatId: chatId,
   sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp"
 );
 
-Message msg2 = await botClient.SendStickerAsync(
-  chatId: e.Message.Chat,
-  sticker: msg1.Sticker.FileId
+Message message2 = await botClient.SendStickerAsync(
+  chatId: chatId,
+  sticker: message1.Sticker.FileId
 );
 ```
 

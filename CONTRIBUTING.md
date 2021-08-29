@@ -14,7 +14,7 @@ We also check all the HTTP URLs and inter-file references during CI to avoid bro
 1. Fork this repository
 1. Commit your changes
 1. Make sure all tests are passing
-1. Make a pull request to `master` branch here
+1. Make a pull request to `develop` branch here
 
 ## 📜 Contribution Rules
 
