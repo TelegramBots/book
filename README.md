@@ -1,7 +1,7 @@
 # Telegram Bots Book
 
-[![Build Status](https://img.shields.io/travis/com/TelegramBots/book/master?style=flat-square)](https://travis-ci.com/TelegramBots/book)
-[![Demo](https://img.shields.io/badge/live-demo-blue.svg?style=flat-square)](https://telegrambots.github.io/book/)
+[![master](https://github.com/TelegramBots/book/actions/workflows/ci.yml/badge.svg)](https://github.com/TelegramBots/book/actions/workflows/ci.yml)
+[![Demo](https://img.shields.io/badge/live-demo-blue.svg?style=flat)](https://telegrambots.github.io/book/)
 
 This repository contains documentation for TelegramBots projects.
 Book is a great example-based tutorial for developing Telegram chat bots 🤖.
