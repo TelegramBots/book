@@ -27,3 +27,4 @@ Město
 Staré
 Husova
 marvellous
+discoverability

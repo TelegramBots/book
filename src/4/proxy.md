@@ -12,7 +12,7 @@
 
 ## HTTP Proxy
 
-You can pass an `IWebProxy` to bot client for HTTP Proxies.
+You can configure `HttpClient` with `WebProxy` and pass it to the Bot client.
 
 ```csharp
 // using System.Net;
