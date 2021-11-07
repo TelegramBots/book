@@ -3,35 +3,35 @@
 There are many different types of message that a bot can send.
 Fortunately, methods for sending such messages are similar. Take a look at these examples:
 
-**Sending text message**:
+## Sending text message
 
 ![text message screenshot](../docs/shot-text_msg.jpg)
 
 ```c#
-var message = await botClient.SendTextMessageAsync(
-  chatId: chatId,
-  text:   "Hello, World!"
-);
+Message message = await botClient.SendTextMessageAsync(
+    chatId: chatId,
+    text:   "Hello, World!",
+    cancellationToken: cancellationToken);
 ```
 
-**Sending sticker message**:
+## Sending sticker message
 
 ![sticker message screenshot](../docs/shot-sticker.jpg)
 
 ```c#
-await botClient.SendStickerAsync(
-  chatId:  chatId,
-  sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp"
-);
+Message message = await botClient.SendStickerAsync(
+    chatId:  chatId,
+    sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp",
+    cancellationToken: cancellationToken);
 ```
 
-**Sending video message**:
+## Sending video message
 
 ![video message screenshot](../docs/shot-video.jpg)
 
 ```c#
-await botClient.SendVideoAsync(
-  chatId:  chatId,
-  video: "https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4"
-);
+Message message = await botClient.SendVideoAsync(
+    chatId:  chatId,
+    video: "https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4",
+    cancellationToken: cancellationToken);
 ```

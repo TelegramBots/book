@@ -12,8 +12,8 @@ Message[] messages = await botClient.SendMediaGroupAsync(
     {
         new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"),
         new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"),
-    }
-);
+    },
+    cancellationToken: cancellationToken);
 ```
 
 [`sendMediaGroup`]: https://core.telegram.org/bots/api#sendmediagroup

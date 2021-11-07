@@ -22,16 +22,16 @@ The code snippet below sends a message with multiple parameters that looks like 
 // using Telegram.Bot.Types.ReplyMarkups;
 
 Message message = await botClient.SendTextMessageAsync(
-  chatId: chatId, // or a chat id: 123456789
-  text: "Trying *all the parameters* of `sendMessage` method",
-  parseMode: ParseMode.Markdown,
-  disableNotification: true,
-  replyToMessageId: update.Message.MessageId,
-  replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl(
-    "Check sendMessage method",
-    "https://core.telegram.org/bots/api#sendmessage"
-  ))
-);
+    chatId: chatId,
+    text: "Trying *all the parameters* of `sendMessage` method",
+    parseMode: ParseMode.MarkdownV2,
+    disableNotification: true,
+    replyToMessageId: update.Message.MessageId,
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl(
+            "Check sendMessage method",
+            "https://core.telegram.org/bots/api#sendmessage")),
+    cancellationToken: cancellationToken);
 ```
 
 The method `SendTextMessageAsync` of .NET Bot Client maps to [`sendMessage`] on Telegram's Bot API. This method sends a
@@ -56,10 +56,10 @@ message object. Add this statement after the previous code.
 
 ```c#
 Console.WriteLine(
-  $"{message.From.FirstName} sent message {message.MessageId} " +
-  $"to chat {message.Chat.Id} at {message.Date}. " +
-  $"It is a reply to message {message.ReplyToMessage.MessageId} " +
-  $"and has {message.Entities.Length} message entities."
+    $"{message.From.FirstName} sent message {message.MessageId} " +
+    $"to chat {message.Chat.Id} at {message.Date}. " +
+    $"It is a reply to message {message.ReplyToMessage.MessageId} " +
+    $"and has {message.Entities.Length} message entities."
 );
 ```
 

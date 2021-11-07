@@ -14,8 +14,8 @@ Message message = await botClient.SendContactAsync(
     chatId: chatId,
     phoneNumber: "+1234567890",
     firstName: "Han",
-    lastName: "Solo"
-);
+    lastName: "Solo",
+    cancellationToken: cancellationToken);
 ```
 
 ![send contact](../docs/shot-contact.jpg)
@@ -28,13 +28,13 @@ Message message = await botClient.SendContactAsync(
     phoneNumber: "+1234567890",
     firstName: "Han",
     vCard: "BEGIN:VCARD\n" +
-            "VERSION:3.0\n" +
-            "N:Solo;Han\n" +
-            "ORG:Scruffy-looking nerf herder\n" +
-            "TEL;TYPE=voice,work,pref:+1234567890\n" +
-            "EMAIL:hansolo@mfalcon.com\n" +
-            "END:VCARD"
-);
+           "VERSION:3.0\n" +
+           "N:Solo;Han\n" +
+           "ORG:Scruffy-looking nerf herder\n" +
+           "TEL;TYPE=voice,work,pref:+1234567890\n" +
+           "EMAIL:hansolo@mfalcon.com\n" +
+           "END:VCARD",
+    cancellationToken: cancellationToken);
 ```
 
 ![send vcard](../docs/shot-contact_vcard.jpg)
@@ -52,8 +52,8 @@ Message message = await botClient.SendVenueAsync(
     latitude: 50.0840172f,
     longitude: 14.418288f,
     title: "Man Hanging out",
-    address: "Husova, 110 00 Staré Město, Czechia"
-);
+    address: "Husova, 110 00 Staré Město, Czechia",
+    cancellationToken: cancellationToken);
 ```
 
 ![send contact](../docs/shot-venue.jpg)
@@ -71,8 +71,8 @@ The following snippet shows how to send a location with the mandatory parameters
 Message message = await botClient.SendLocationAsync(
     chatId: chatId,
     latitude: 33.747252f,
-    longitude: -112.633853f
-);
+    longitude: -112.633853f,
+    cancellationToken: cancellationToken);
 ```
 
 ![send contact](../docs/shot-location.jpg)
