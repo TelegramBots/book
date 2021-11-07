@@ -65,8 +65,8 @@ We decrypt credentials using the RSA private key and verify that the same nonce 
 RSA key = EncryptionKey.ReadAsRsa();
 IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  passportData.Credentials,
-  key
+    passportData.Credentials,
+    key
 );
 bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 ```
@@ -83,8 +83,8 @@ We can get information such as document number and expiry date for the license f
 
 ```c#
 IdDocumentData licenseDoc = decrypter.DecryptData<IdDocumentData>(
-  encryptedData: element.Data,
-  dataCredentials: credentials.SecureData.DriverLicense.Data
+    encryptedData: element.Data,
+    dataCredentials: credentials.SecureData.DriverLicense.Data
 );
 ```
 
@@ -118,11 +118,11 @@ Method [DownloadAndDecryptPassportFileAsync] does a few things:
 File encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
-  encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
-    element.FrontSide, // PassportFile object for front side
-    credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
-    stream // destination stream for writing the JPEG content to
-  );
+    encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
+        element.FrontSide, // PassportFile object for front side
+        credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
+        stream // destination stream for writing the JPEG content to
+    );
 }
 ```
 
@@ -138,23 +138,23 @@ Streams are used here as well.
 ```c#
 File encryptedFileInfo;
 using (System.IO.Stream
-  encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
-  decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
+    encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
+    decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
 ) {
-  // fetch the encrypted file info and download it to memory
-  encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    element.ReverseSide.FileId, // file_id of passport file for reverse side
-    encryptedContent // stream to copy the encrypted file into
-  );
-  // ensure memory stream is at the beginning before reading from it
-  encryptedContent.Position = 0;
+    // fetch the encrypted file info and download it to memory
+    encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        element.ReverseSide.FileId, // file_id of passport file for reverse side
+        encryptedContent // stream to copy the encrypted file into
+    );
+    // ensure memory stream is at the beginning before reading from it
+    encryptedContent.Position = 0;
 
-  // decrypt the file and write it to disk
-  await decrypter.DecryptFileAsync(
-    encryptedContent,
-    credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
-    decryptedFile // destination stream for writing the JPEG content to
-  );
+    // decrypt the file and write it to disk
+    await decrypter.DecryptFileAsync(
+        encryptedContent,
+        credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
+        decryptedFile // destination stream for writing the JPEG content to
+    );
 }
 ```
 
@@ -173,26 +173,26 @@ File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
-  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+    stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
-  encryptedContent = stream.ToArray();
+    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    encryptedContent = stream.ToArray();
 }
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] selfieContent = decrypter.DecryptFile(
-  encryptedContent,
-  credentials.SecureData.DriverLicense.Selfie
+    encryptedContent,
+    credentials.SecureData.DriverLicense.Selfie
 );
 
 // send the photo to a chat
 using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
-  await BotClient.SendPhotoAsync(
-    123456,
-    stream,
-    "selfie with driver's license"
-  );
+    await BotClient.SendPhotoAsync(
+        123456,
+        stream,
+        "selfie with driver's license"
+    );
 }
 ```
 
@@ -219,17 +219,17 @@ File encryptedFileInfo = await BotClient.GetFileAsync(passportFile.FileId);
 // download encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
-  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+    stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
-  encryptedContent = stream.ToArray();
+    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    encryptedContent = stream.ToArray();
 }
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] content = decrypter.DecryptFile(
-  encryptedContent,
-  fileCreds
+    encryptedContent,
+    fileCreds
 );
 
 // write the file to disk
