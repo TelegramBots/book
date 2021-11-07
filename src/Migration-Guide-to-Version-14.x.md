@@ -7,9 +7,9 @@ All `DateTime` values are now in UTC format. Here are some examples of usage:
 ```csharp
 // Use UTC time when making a request
 await BotClient.KickChatMemberAsync(
-  chatId: -9876,
-  userId: 1234,
-  untilDate: DateTime.UtcNow.AddDays(2)
+    chatId: -9876,
+    userId: 1234,
+    untilDate: DateTime.UtcNow.AddDays(2)
 );
 ```
 
@@ -27,23 +27,23 @@ Here are some examples:
 ```csharp
 // Message having an inline keyboard button with URL that redirects to a page
 await BotClient.SendTextMessageAsync(
-  chatId: -9876,
-  text: "Check out the source code",
-  replyMarkup: new InlineKeyboardMarkup(
-    InlineKeyboardButton.WithUrl("Repository", "https://github.com/TelegramBots/Telegram.Bot")
-  )
+    chatId: -9876,
+    text: "Check out the source code",
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl("Repository", "https://github.com/TelegramBots/Telegram.Bot")
+    )
 );
 ```
 
 ```csharp
 // Message to a private chat having a 2-row reply keyboard
 await BotClient.SendTextMessageAsync(
-  chatId: 1234,
-  text: "Share your contact & location",
-  replyMarkup: new ReplyKeyboardMarkup(
-    new [] { KeyboardButton.WithRequestContact("Share Contact") },
-    new [] { KeyboardButton.WithRequestLocation("Share Location") },
-  )
+    chatId: 1234,
+    text: "Share your contact & location",
+    replyMarkup: new ReplyKeyboardMarkup(
+        new [] { KeyboardButton.WithRequestContact("Share Contact") },
+        new [] { KeyboardButton.WithRequestLocation("Share Location") },
+    )
 );
 ```
 
@@ -60,10 +60,10 @@ Downloading a file from Telegram Bot API has 2 steps ([see docs here](https://co
 // Gets file info and saves it to "path/to/file.pdf"
 using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf"))
 {
-  File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    fileId: "BsdfgLg4Khdlsn-bldBD",
-    destination: fileStream
-  );
+    File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        fileId: "BsdfgLg4Khdlsn-bldBD",
+        destination: fileStream
+    );
 }
 ```
 
@@ -77,10 +77,10 @@ File fileInfo = await BotClient.GetFileAsync("BsdfgLg4Khdlsn-bldBD");
 
 // Download file from server (step 2)
 using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf")) {
-  await BotClient.DownloadFileAsync(
-    filePath: fileInfo.FilePath,
-    destination: fileStream
-  );
+    await BotClient.DownloadFileAsync(
+        filePath: fileInfo.FilePath,
+        destination: fileStream
+    );
 }
 ```
 
@@ -104,10 +104,10 @@ Instead of:
 // bad way. easy to get exceptions
 var documentResult = new InlineQueryResultDocument
 {
-  Id = "some-id",
-  Url = "https://example.com/document.pdf",
-  Title = "Some title",
-  MimeType = "application/pdf"
+    Id = "some-id",
+    Url = "https://example.com/document.pdf",
+    Title = "Some title",
+    MimeType = "application/pdf"
 };
 ```
 
@@ -116,10 +116,10 @@ You should use:
 ```csharp
 // good way
 var documentResult = new InlineQueryResultDocument(
-  id: "some-id",
-  documentUrl: "https://example.com/document.pdf",
-  title: "Some title",
-  mimeType: "application/pdf"
+    id: "some-id",
+    documentUrl: "https://example.com/document.pdf",
+    title: "Some title",
+    mimeType: "application/pdf"
 );
 ```
 
@@ -174,14 +174,14 @@ Many types now have the required parameters in their constructors. To avoid runn
 ```c#
 //bad way:
 var markup = new InlineKeyboardMarkup
-  {
-    Keyboard = buttonsArray,
-    ResizeKeyboard = true
-  };
+    {
+        Keyboard = buttonsArray,
+        ResizeKeyboard = true
+    };
 
 // better:
 var markup = new InlineKeyboardMarkup(buttonsArray)
-  {
-    ResizeKeyboard = true
-  };
+    {
+        ResizeKeyboard = true
+    };
 ```
