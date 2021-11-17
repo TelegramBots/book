@@ -26,13 +26,13 @@ Code snippet here shows the conversion from a PEM file to the needed RSA object.
 // using Org.BouncyCastle.Security;
 
 static RSA GetPrivateKey() {
-  string privateKeyPem = File.ReadAllText("/path/to/private-key.pem");
-  PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
-  AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
-  RSAParameters rsaParameters = DotNetUtilities
-    .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
-  RSA rsa = RSA.Create(rsaParameters);
-  return rsa;
+    string privateKeyPem = File.ReadAllText("/path/to/private-key.pem");
+    PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
+    AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
+    RSAParameters rsaParameters = DotNetUtilities
+        .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
+    RSA rsa = RSA.Create(rsaParameters);
+    return rsa;
 }
 ```
 
@@ -52,15 +52,15 @@ You still need to **use BouncyCastle only once** to read the RSA key in PEM form
 ```c#
 // ONLY ONCE: read the RSA private key and serialize its parameters to JSON
 static void WriteRsaParametersToJson() {
-  string privateKeyPem = System.IO.File.ReadAllText("/path/to/private-key.pem");
-  string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
-  System.IO.File.WriteAllText("/path/to/private-key-params.json", json);
+    string privateKeyPem = System.IO.File.ReadAllText("/path/to/private-key.pem");
+    string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
+    System.IO.File.WriteAllText("/path/to/private-key-params.json", json);
 }
 
 // Now, read the JSON file and create an RSA instance
 static RSA GetRsaKey() {
-  string json = System.IO.File.ReadAllText("/path/to/private-key-params.json");
-  return EncryptionKeyUtility.GetRsaKeyFromJson(json);
+    string json = System.IO.File.ReadAllText("/path/to/private-key-params.json");
+    return EncryptionKeyUtility.GetRsaKeyFromJson(json);
 }
 ```
 

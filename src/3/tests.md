@@ -67,8 +67,8 @@ This is required for executing any test case.
 
 ```json
 {
-    "ApiToken": "MyTestBot-API-TOKEN"
-    /* ... */
+  "ApiToken": "MyTestBot-API-TOKEN"
+  /* ... */
 }
 ```
 
@@ -78,9 +78,9 @@ A comma separated list indicating user name(s) of tester(s). Any update coming f
 
 ```json
 {
-    /* ... */
-    "AllowedUserNames": "tester1, Tester2, TESTER3"
-    /* ... */
+  /* ... */
+  "AllowedUserNames": "tester1, Tester2, TESTER3"
+  /* ... */
 }
 ```
 
@@ -100,9 +100,9 @@ If not set, before starting any test method, bot waits for a tester to send it a
 
 ```json
 {
-    /* ... */
-    "SuperGroupChatId": -1234567890
-    /* ... */
+  /* ... */
+  "SuperGroupChatId": -1234567890
+  /* ... */
 }
 ```
 
@@ -116,9 +116,9 @@ Consult Telegram API documentations and talk to BotFather to get a test token fr
 
 ```json
 {
-    /* ... */
-    "PaymentProviderToken": "MY-PAYMENT-PROVIDER-TOKEN"
-    /* ... */
+  /* ... */
+  "PaymentProviderToken": "MY-PAYMENT-PROVIDER-TOKEN"
+  /* ... */
 }
 ```
 
@@ -128,9 +128,9 @@ Invoices could only be sent to private chats. If not set, bot will wait for a te
 
 ```json
 {
-    /* ... */
-    "TesterPrivateChatId": 1234567890
-    /* ... */
+  /* ... */
+  "TesterPrivateChatId": 1234567890
+  /* ... */
 }
 ```
 
@@ -146,10 +146,10 @@ If the following 3 settings are not set, bot will ask a tester to send it `/me` 
 
 ```json
 {
-    /* ... */
-    "RegularMemberUserId": 1234567890,
-    "RegularMemberUserName": "tester3",
-    "RegularMemberPrivateChatId": 1234567890
-    /* ... */
+  /* ... */
+  "RegularMemberUserId": 1234567890,
+  "RegularMemberUserName": "tester3",
+  "RegularMemberPrivateChatId": 1234567890
+  /* ... */
 }
 ```

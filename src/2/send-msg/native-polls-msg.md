@@ -18,8 +18,8 @@ Message pollMessage = await botClient.SendPollAsync(
     {
         "Yes for the hundredth time!",
         "No, who`s that?"
-    }
-);
+    },
+    cancellationToken: cancellationToken);
 ```
 
 ![native poll](../docs/shot-native_poll_msg.jpeg)
@@ -34,13 +34,13 @@ You'll get the message with [`Poll`](https://github.com/TelegramBots/Telegram.Bo
 
 To close a poll you need to know original chat and message ids of the poll that you got from calling `SendPollAsync` method.
 
- Let's close the poll that we sent in the previous example:
+Let's close the poll that we sent in the previous example:
 
 ```c#
 Poll poll = await botClient.StopPollAsync(
     chatId: pollMessage.Chat.Id,
-    messageId: pollMessage.MessageId
-);
+    messageId: pollMessage.MessageId,
+    cancellationToken: cancellationToken);
 ```
 
 ![closed native poll](../docs/shot-native_poll_closed.jpeg)

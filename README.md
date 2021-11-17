@@ -1,7 +1,7 @@
 # Telegram Bots Book
 
+[![book](https://img.shields.io/badge/TelegramBots-Book-blue.svg?style=flat)](https://telegrambots.github.io/book/)
 [![master](https://github.com/TelegramBots/book/actions/workflows/ci.yml/badge.svg)](https://github.com/TelegramBots/book/actions/workflows/ci.yml)
-[![Demo](https://img.shields.io/badge/live-demo-blue.svg?style=flat)](https://telegrambots.github.io/book/)
 
 This repository contains documentation for TelegramBots projects.
 Book is a great example-based tutorial for developing Telegram chat bots 🤖.
@@ -25,10 +25,13 @@ Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
     mdbook serve
     ```
 
-[mdBook]: https://github.com/rust-lang/mdBook
-[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.4.12
-
 ## Contribute 👋
 
 **Your contribution is welcome!** 🙂
-See [Contribution Guidelines](CONTRIBUTING.md).
+See [Contribution Guidelines].
+
+<!-- -->
+
+[mdBook]: https://github.com/rust-lang/mdBook
+[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.4.12
+[Contribution Guidelines]: CONTRIBUTING.md

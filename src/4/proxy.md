@@ -19,8 +19,8 @@ You can configure `HttpClient` with `WebProxy` and pass it to the Bot client.
 // using System.Net.Http;
 
 var webProxy = new WebProxy(Host: "https://example.org", Port: 8080) {
-  // Credentials if needed:
-  Credentials = new NetworkCredential("USERNAME", "PASSWORD")
+    // Credentials if needed:
+    Credentials = new NetworkCredential("USERNAME", "PASSWORD")
 };
 var httpClient = new HttpClient(
     new HttpClientHandler { Proxy = webProxy, UseProxy = true }
@@ -41,7 +41,7 @@ var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort);
 
 // Or if you need credentials for your proxy server:
 var proxy = new HttpToSocks5Proxy(
-  Socks5ServerAddress, Socks5ServerPort, "USERNAME", "PASSWORD"
+    Socks5ServerAddress, Socks5ServerPort, "USERNAME", "PASSWORD"
 );
 
 // Allows you to use proxies that are only allowing connections to Telegram
