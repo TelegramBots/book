@@ -18,11 +18,11 @@ We also set a thumbnail image for our video.
 
 ```c#
 Message message = await botClient.SendVideoAsync(
-  chatId: chatId,
-  video: "https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4",
-  thumb: "https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg",
-  supportsStreaming: true
-);
+    chatId: chatId,
+    video: "https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4",
+    thumb: "https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg",
+    supportsStreaming: true,
+    cancellationToken: cancellationToken);
 ```
 
 > Check the Bot API docs for `sendVideo` to learn more about video size limits and the thumbnail images.
@@ -47,12 +47,12 @@ Download the [Sea Waves video] to your disk for this example.
 ```c#
 Message message;
 using (var stream = System.IO.File.OpenRead("/path/to/video-waves.mp4")) {
-  message = await botClient.SendVideoNoteAsync(
-    chatId: chatId,
-    videoNote: stream,
-    duration: 47,
-    length: 360 // value of width/height
-  );
+    message = await botClient.SendVideoNoteAsync(
+        chatId: chatId,
+        videoNote: stream,
+        duration: 47,
+        length: 360, // value of width/height
+        cancellationToken: cancellationToken);
 }
 ```
 

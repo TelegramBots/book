@@ -17,20 +17,21 @@ By default, custom keyboards are displayed until a new keyboard is sent by a bot
 A [`ReplyKeyboardMarkup`] with two buttons in a single row:
 
 ```c#
-var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-    new [][]
+// using Telegram.Bot.Types.ReplyMarkups;
+
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
     {
         new KeyboardButton[] { "Help me", "Call me ☎️" },
     })
-{
-    ResizeKeyboard = true
-};
+    {
+        ResizeKeyboard = true
+    };
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "Choose a response",
-    replyMarkup: replyKeyboardMarkup
-);
+    replyMarkup: replyKeyboardMarkup,
+    cancellationToken: cancellationToken);
 ```
 
 > We specify `ResizeKeyboard = true` here to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).
@@ -40,22 +41,22 @@ await botClient.SendTextMessageAsync(
 A [`ReplyKeyboardMarkup`] with two rows of buttons:
 
 ```c#
-var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-    new [][]
+// using Telegram.Bot.Types.ReplyMarkups;
+
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
     {
         new KeyboardButton[] { "One", "Two" },
         new KeyboardButton[] { "Three", "Four" },
     })
-{
-    ResizeKeyboard = true
-};
-    
+    {
+        ResizeKeyboard = true
+    };
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "Choose a response",
-    replyMarkup: replyKeyboardMarkup
-);
+    replyMarkup: replyKeyboardMarkup,
+    cancellationToken: cancellationToken);
 ```
 
 ### Request information
@@ -63,17 +64,19 @@ await botClient.SendTextMessageAsync(
 [`ReplyKeyboardMarkup`] containing buttons for contact and location requests using helper methods `KeyboardButton.WithRequestLocation` and `KeyboardButton.WithRequestContact`:
 
 ```c#
-var replyKeyboardMarkup = new ReplyKeyboardMarkup(new []
-{
-    KeyboardButton.WithRequestLocation("Share Location"),
-    KeyboardButton.WithRequestContact("Share Contact"),
-});
+// using Telegram.Bot.Types.ReplyMarkups;
 
-await botClient.SendTextMessageAsync(
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
+    {
+        KeyboardButton.WithRequestLocation("Share Location"),
+        KeyboardButton.WithRequestContact("Share Contact"),
+    });
+
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "Who or Where are you?",
-    replyMarkup: replyKeyboardMarkup
-);
+    replyMarkup: replyKeyboardMarkup,
+    cancellationToken: cancellationToken);
 ```
 
 ### Remove keyboard
@@ -81,11 +84,13 @@ await botClient.SendTextMessageAsync(
 To remove keyboard you have to send an instance of [`ReplyKeyboardRemove`] object:
 
 ```c#
-await botClient.SendTextMessageAsync(
+// using Telegram.Bot.Types.ReplyMarkups;
+
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "Removing keyboard",
-    replyMarkup: new ReplyKeyboardRemove()
-);
+    replyMarkup: new ReplyKeyboardRemove(),
+    cancellationToken: cancellationToken);
 ```
 
 ## Inline keyboards
@@ -99,7 +104,9 @@ Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't resu
 When a user presses a [callback button], no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use `InlineKeyboardButton.WithCallbackData` helper method to create a button with a text and callback data.
 
 ```c#
-var inlineKeyboard = new InlineKeyboardMarkup(new []
+// using Telegram.Bot.Types.ReplyMarkups;
+
+InlineKeyboardMarkup inlineKeyboard = new(new []
     {
         // first row
         new []
@@ -113,13 +120,13 @@ var inlineKeyboard = new InlineKeyboardMarkup(new []
             InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
             InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
         },
-    }
-);
+    });
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard);
+    replyMarkup: inlineKeyboard,
+    cancellationToken: cancellationToken);
 ```
 
 ### URL buttons
@@ -127,7 +134,9 @@ await botClient.SendTextMessageAsync(
 Buttons of this type have a small arrow icon to help the user understand that tapping on a [URL button] will open an external link. In this example we use `InlineKeyboardButton.WithUrl` helper method to create a button with a text and url.
 
 ```c#
-var inlineKeyboard = new InlineKeyboardMarkup(new []
+// using Telegram.Bot.Types.ReplyMarkups;
+
+InlineKeyboardMarkup inlineKeyboard = new(new []
     {
         InlineKeyboardButton.WithUrl(
             text: "Link to the Repository",
@@ -136,10 +145,11 @@ var inlineKeyboard = new InlineKeyboardMarkup(new []
     }
 );
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard);
+    replyMarkup: inlineKeyboard,
+    cancellationToken: cancellationToken);
 ```
 
 ### Switch to Inline buttons
@@ -147,18 +157,20 @@ await botClient.SendTextMessageAsync(
 Pressing a [switch to inline button] prompts the user to select a chat, opens it and inserts the bot's username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use `InlineKeyboardButton.WithSwitchInlineQuery` and `InlineKeyboardButton.WithSwitchInlineQueryCurrentChat` helper methods to create buttons which will insert the bot's username in the chat's input field.
 
 ```c#
-var inlineKeyboard = new InlineKeyboardMarkup(new []
+// using Telegram.Bot.Types.ReplyMarkups;
+
+InlineKeyboardMarkup inlineKeyboard = new(new[]
     {
         InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
         InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"),
     }
 );
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard
-);
+    replyMarkup: inlineKeyboard,
+    cancellationToken: cancellationToken);
 ```
 
 [special keyboard]: https://core.telegram.org/bots#keyboards

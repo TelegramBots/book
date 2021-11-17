@@ -27,3 +27,5 @@ Město
 Staré
 Husova
 marvellous
+discoverability
+dotnet

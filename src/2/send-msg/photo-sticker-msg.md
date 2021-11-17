@@ -18,11 +18,11 @@ Sending a photo is simple. Here is an example:
 
 ```c#
 Message message = await botClient.SendPhotoAsync(
-  chatId: chatId,
-  photo: "https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg",
-  caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
-  parseMode: ParseMode.Html
-);
+    chatId: chatId,
+    photo: "https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg",
+    caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
+    parseMode: ParseMode.Html,
+    cancellationToken: cancellationToken);
 ```
 
 ![photo message](../docs/shot-photo_msg.jpg)
@@ -85,14 +85,14 @@ second by reusing `file_id` of the same sticker on Telegram servers.
 
 ```c#
 Message message1 = await botClient.SendStickerAsync(
-  chatId: chatId,
-  sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp"
-);
+    chatId: chatId,
+    sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp",
+    cancellationToken: cancellationToken);
 
 Message message2 = await botClient.SendStickerAsync(
-  chatId: chatId,
-  sticker: message1.Sticker.FileId
-);
+    chatId: chatId,
+    sticker: message1.Sticker.FileId,
+    cancellationToken: cancellationToken);
 ```
 
 ![sticker messages](../docs/shot-sticker_msgs.jpg)

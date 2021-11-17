@@ -59,13 +59,13 @@ Type [AuthorizationRequestParameters]  helps you in creating such an URI.
 
 ```c#
 AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
-  botId: 123456, // bot user ID
-  publicKey: "...", // public key in PEM format. same as the key above.
-  nonce: "unique nonce for this request",
-  scope: new PassportScope(new[] { // a PassportScope object
-    new PassportScopeElementOne("address"),
-    new PassportScopeElementOne("phone_number")
-  })
+    botId: 123456, // bot user ID
+    publicKey: "...", // public key in PEM format. same as the key above.
+    nonce: "unique nonce for this request",
+    scope: new PassportScope(new[] { // a PassportScope object
+        new PassportScopeElementOne("address"),
+        new PassportScopeElementOne("phone_number")
+    })
 );
 ```
 
@@ -129,8 +129,8 @@ We first take the bot's _private key_ this time and decrypt the credentials.
 ```c#
 IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  message.PassportData.Credentials, // EncryptedCredentials object
-  GetRsaPrivateKey() // private key as an RSA object
+    message.PassportData.Credentials, // EncryptedCredentials object
+    GetRsaPrivateKey() // private key as an RSA object
 );
 ```
 
@@ -159,11 +159,11 @@ Here is how the decryption magic happens:
 
 ```c#
 EncryptedPassportElement addressElement = message.PassportData.Data.Single(
-  el => el.Type == PassportEnums.Scope.Address
+    el => el.Type == PassportEnums.Scope.Address
 );
 ResidentialAddress address = decrypter.DecryptData<ResidentialAddress>(
-  encryptedData: addressElement.Data,
-  dataCredentials: credentials.SecureData.Address.Data
+    encryptedData: addressElement.Data,
+    dataCredentials: credentials.SecureData.Address.Data
 );
 ```
 

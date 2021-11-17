@@ -14,14 +14,14 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 
 ```c#
 Message message = await botClient.SendAudioAsync(
-  chatId: chatId,
-  audio: "https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3"
-  /* ,
-  performer: "Joel Thomas Hunger",
-  title: "Fun Guitar and Ukulele",
-  duration: 91 // in seconds
-  */
-);
+    chatId: chatId,
+    audio: "https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3",
+    /*
+    performer: "Joel Thomas Hunger",
+    title: "Fun Guitar and Ukulele",
+    duration: 91, // in seconds
+    */
+    cancellationToken: cancellationToken);
 ```
 
 ![audio message](../docs/shot-audio_msg.jpg)
@@ -54,14 +54,16 @@ To run this example, download the [NFL Commentary voice file] to your disk.
 
 A value is passed for `duration` because Telegram can't figure that out from a file's metadata.
 
+> ⚠️ Replace ```/path/to/voice-nfl_commentary.ogg``` with an actual file
+
 ```c#
 Message message;
 using (var stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg")) {
-  message = await botClient.SendVoiceAsync(
-    chatId: chatId,
-    voice: stream,
-    duration: 36
-  );
+    message = await botClient.SendVoiceAsync(
+        chatId: chatId,
+        voice: stream,
+        duration: 36,
+        cancellationToken: cancellationToken);
 }
 ```
 
