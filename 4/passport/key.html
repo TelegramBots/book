@@ -165,13 +165,13 @@ We can generate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.s
 // using Org.BouncyCastle.Security;
 
 static RSA GetPrivateKey() {
-  string privateKeyPem = File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
-  PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
-  AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
-  RSAParameters rsaParameters = DotNetUtilities
-    .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
-  RSA rsa = RSA.Create(rsaParameters);
-  return rsa;
+    string privateKeyPem = File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
+    PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
+    AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
+    RSAParameters rsaParameters = DotNetUtilities
+        .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
+    RSA rsa = RSA.Create(rsaParameters);
+    return rsa;
 }
 </code></pre>
 <blockquote>
@@ -186,15 +186,15 @@ Those help with serialization.</p>
 <p>You still need to <strong>use BouncyCastle only once</strong> to read the RSA key in PEM format and serialize its parameters:</p>
 <pre><code class="language-c#">// ONLY ONCE: read the RSA private key and serialize its parameters to JSON
 static void WriteRsaParametersToJson() {
-  string privateKeyPem = System.IO.File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
-  string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
-  System.IO.File.WriteAllText(&quot;/path/to/private-key-params.json&quot;, json);
+    string privateKeyPem = System.IO.File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
+    string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
+    System.IO.File.WriteAllText(&quot;/path/to/private-key-params.json&quot;, json);
 }
 
 // Now, read the JSON file and create an RSA instance
 static RSA GetRsaKey() {
-  string json = System.IO.File.ReadAllText(&quot;/path/to/private-key-params.json&quot;);
-  return EncryptionKeyUtility.GetRsaKeyFromJson(json);
+    string json = System.IO.File.ReadAllText(&quot;/path/to/private-key-params.json&quot;);
+    return EncryptionKeyUtility.GetRsaKeyFromJson(json);
 }
 </code></pre>
 <p>Content of <code>private-key-params.json</code> will look similar to this:</p>

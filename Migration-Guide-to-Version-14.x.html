@@ -151,9 +151,9 @@
 <p>All <code>DateTime</code> values are now in UTC format. Here are some examples of usage:</p>
 <pre><code class="language-csharp">// Use UTC time when making a request
 await BotClient.KickChatMemberAsync(
-  chatId: -9876,
-  userId: 1234,
-  untilDate: DateTime.UtcNow.AddDays(2)
+    chatId: -9876,
+    userId: 1234,
+    untilDate: DateTime.UtcNow.AddDays(2)
 );
 </code></pre>
 <pre><code class="language-csharp">// Convert to local time (not recommended though)
@@ -164,21 +164,21 @@ DateTime localTime = update.Message.Date.ToLocalTime();
 <p>Here are some examples:</p>
 <pre><code class="language-csharp">// Message having an inline keyboard button with URL that redirects to a page
 await BotClient.SendTextMessageAsync(
-  chatId: -9876,
-  text: &quot;Check out the source code&quot;,
-  replyMarkup: new InlineKeyboardMarkup(
-    InlineKeyboardButton.WithUrl(&quot;Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
-  )
+    chatId: -9876,
+    text: &quot;Check out the source code&quot;,
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl(&quot;Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+    )
 );
 </code></pre>
 <pre><code class="language-csharp">// Message to a private chat having a 2-row reply keyboard
 await BotClient.SendTextMessageAsync(
-  chatId: 1234,
-  text: &quot;Share your contact &amp; location&quot;,
-  replyMarkup: new ReplyKeyboardMarkup(
-    new [] { KeyboardButton.WithRequestContact(&quot;Share Contact&quot;) },
-    new [] { KeyboardButton.WithRequestLocation(&quot;Share Location&quot;) },
-  )
+    chatId: 1234,
+    text: &quot;Share your contact &amp; location&quot;,
+    replyMarkup: new ReplyKeyboardMarkup(
+        new [] { KeyboardButton.WithRequestContact(&quot;Share Contact&quot;) },
+        new [] { KeyboardButton.WithRequestLocation(&quot;Share Location&quot;) },
+    )
 );
 </code></pre>
 <h2 id="getfileasync"><a class="header" href="#getfileasync"><code>GetFileAsync()</code></a></h2>
@@ -191,10 +191,10 @@ await BotClient.SendTextMessageAsync(
 <pre><code class="language-csharp">// Gets file info and saves it to &quot;path/to/file.pdf&quot;
 using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
 {
-  File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
-    destination: fileStream
-  );
+    File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
+        destination: fileStream
+    );
 }
 </code></pre>
 <blockquote>
@@ -206,10 +206,10 @@ File fileInfo = await BotClient.GetFileAsync(&quot;BsdfgLg4Khdlsn-bldBD&quot;);
 
 // Download file from server (step 2)
 using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) {
-  await BotClient.DownloadFileAsync(
-    filePath: fileInfo.FilePath,
-    destination: fileStream
-  );
+    await BotClient.DownloadFileAsync(
+        filePath: fileInfo.FilePath,
+        destination: fileStream
+    );
 }
 </code></pre>
 <h2 id="getupdatesasync-setwebhookasync"><a class="header" href="#getupdatesasync-setwebhookasync"><code>GetUpdatesAsync()</code>, <code>SetWebhookAsync()</code></a></h2>
@@ -223,19 +223,19 @@ using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) 
 <pre><code class="language-csharp">// bad way. easy to get exceptions
 var documentResult = new InlineQueryResultDocument
 {
-  Id = &quot;some-id&quot;,
-  Url = &quot;https://example.com/document.pdf&quot;,
-  Title = &quot;Some title&quot;,
-  MimeType = &quot;application/pdf&quot;
+    Id = &quot;some-id&quot;,
+    Url = &quot;https://example.com/document.pdf&quot;,
+    Title = &quot;Some title&quot;,
+    MimeType = &quot;application/pdf&quot;
 };
 </code></pre>
 <p>You should use:</p>
 <pre><code class="language-csharp">// good way
 var documentResult = new InlineQueryResultDocument(
-  id: &quot;some-id&quot;,
-  documentUrl: &quot;https://example.com/document.pdf&quot;,
-  title: &quot;Some title&quot;,
-  mimeType: &quot;application/pdf&quot;
+    id: &quot;some-id&quot;,
+    documentUrl: &quot;https://example.com/document.pdf&quot;,
+    title: &quot;Some title&quot;,
+    mimeType: &quot;application/pdf&quot;
 );
 </code></pre>
 <h2 id="sendmediagroupasync"><a class="header" href="#sendmediagroupasync"><code>SendMediaGroupAsync()</code></a></h2>
@@ -277,16 +277,16 @@ var message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, fileId);
 <p>Many types now have the required parameters in their constructors. To avoid running into problems or getting exceptions, we recommend providing all required values in the constructor e.g.:</p>
 <pre><code class="language-c#">//bad way:
 var markup = new InlineKeyboardMarkup
-  {
-    Keyboard = buttonsArray,
-    ResizeKeyboard = true
-  };
+    {
+        Keyboard = buttonsArray,
+        ResizeKeyboard = true
+    };
 
 // better:
 var markup = new InlineKeyboardMarkup(buttonsArray)
-  {
-    ResizeKeyboard = true
-  };
+    {
+        ResizeKeyboard = true
+    };
 </code></pre>
 
                     </main>

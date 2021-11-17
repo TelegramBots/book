@@ -148,44 +148,41 @@
                     <main>
                         <h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>
 <h2 id="bot-father"><a class="header" href="#bot-father">Bot Father</a></h2>
-<p>Before you start developing a bot, you need to talk to <a href="https://t.me/botfather"><code>@BotFather</code></a> on Telegram. Register a
-bot with him and get an access token.</p>
+<p>Before you start, you need to talk to <a href="https://t.me/botfather"><code>@BotFather</code></a> on Telegram. <a href="https://core.telegram.org/bots#6-botfather">Create a new
+bot</a>, acquire the bot token and get back here.</p>
 <p><a href="https://t.me/botfather"><img src="docs/logo-bot-father.jpg" alt="Bot Father" /></a></p>
-<p>Access token is a key used to identify and authorize your bot in API
-requests so keep it with yourself as a secret. It looks like this:</p>
+<p>Bot token is a key that required to authorize the bot and send requests to the Bot API. Keep your token secure and store it safely, it can be used to control your bot. It should look like this:</p>
 <pre><code class="language-text">1234567:4TT8bAc8GHUspu3ERYn-KGcvsvGB9u_n4ddy
 </code></pre>
 <h2 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h2>
-<p>Now you have a bot, it's time to bring it to life! Create a new console project for your bot.
-It could be a .NET Core project or a .NET project targeting versions 4.5+.</p>
+<p>Now that you have a bot, it's time to bring it to life! Create a new console project for your bot.
+It could be a legacy project targeting .NET Framework 4.6.1-4.8 or a modern .NET Core 3.1-.NET 5+.</p>
 <blockquote>
-<p>This guide uses .NET Core examples but full .NET framework projects work as well.</p>
+<p>Examples in this guide target .NET 6, but earlier targets should work as well (including .NET Framework).</p>
 </blockquote>
 <pre><code class="language-bash">dotnet new console
 </code></pre>
-<p>Add a reference to <code>Telegram.Bot</code> package.</p>
+<p>Add a reference to <a href="https://www.nuget.org/packages/Telegram.Bot"><code>Telegram.Bot</code></a> package:</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot
 </code></pre>
-<p>Open <code>Program.cs</code> file and use the following content. This code fetches Bot information based on its access token by calling <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method on the Bot API.</p>
+<p>This code fetches Bot information based on its access token by calling the Bot API <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method. Open <code>Program.cs</code> and use the following content:</p>
 <blockquote>
-<p>Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from Bot Father.</p>
+<p>⚠️ Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with your access token from the <a href="https://t.me/botfather"><code>@BotFather</code></a>.</p>
 </blockquote>
-<pre><code class="language-c#">using System;
-using Telegram.Bot;
+<pre><code class="language-c#">using Telegram.Bot;
 
 var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
-var me = await botClient.GetMeAsync();
-Console.WriteLine(
-  $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
-);
 
+var me = await botClient.GetMeAsync();
+Console.WriteLine($&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;);
 </code></pre>
 <p>Running the program gives you the following output:</p>
 <pre><code class="language-bash">dotnet run
 </code></pre>
 <pre><code class="language-text">Hello, World! I am user 1234567 and my name is Awesome Bot.
 </code></pre>
-<p>Great! This bot is self-aware. To make the bot interact with a user, head to the next page.</p>
+<p>Great! This bot is self-aware. To make the bot interact with a user, head to the <a href="example-bot.html">next page</a>.</p>
+<!-- -->
 
                     </main>
 

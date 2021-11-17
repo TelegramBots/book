@@ -184,13 +184,13 @@ with specific parameters in its query string.
 You can alternatively have a button in an HTML page on your website for that.</p>
 <p>Type <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs">AuthorizationRequestParameters</a>  helps you in creating such an URI.</p>
 <pre><code class="language-c#">AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
-  botId: 123456, // bot user ID
-  publicKey: &quot;...&quot;, // public key in PEM format. same as the key above.
-  nonce: &quot;unique nonce for this request&quot;,
-  scope: new PassportScope(new[] { // a PassportScope object
-    new PassportScopeElementOne(&quot;address&quot;),
-    new PassportScopeElementOne(&quot;phone_number&quot;)
-  })
+    botId: 123456, // bot user ID
+    publicKey: &quot;...&quot;, // public key in PEM format. same as the key above.
+    nonce: &quot;unique nonce for this request&quot;,
+    scope: new PassportScope(new[] { // a PassportScope object
+        new PassportScopeElementOne(&quot;address&quot;),
+        new PassportScopeElementOne(&quot;phone_number&quot;)
+    })
 );
 </code></pre>
 <p>In <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">SendAuthorizationRequestAsync</a> method, we ask for <code>address</code> and <code>phone_number</code> scopes.
@@ -235,8 +235,8 @@ But that credentials object is encrypted using bot's public key!</p>
 </blockquote>
 <pre><code class="language-c#">IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  message.PassportData.Credentials, // EncryptedCredentials object
-  GetRsaPrivateKey() // private key as an RSA object
+    message.PassportData.Credentials, // EncryptedCredentials object
+    GetRsaPrivateKey() // private key as an RSA object
 );
 </code></pre>
 <h4 id="step-2-nonce"><a class="header" href="#step-2-nonce">Step 2: Nonce</a></h4>
@@ -256,11 +256,11 @@ We are looking for an encrypted element with type of <em>address</em> in <code>m
 Also, decryption parameters for that are in <code>credentials.secure_data.address.data</code>.
 Here is how the decryption magic happens:</p>
 <pre><code class="language-c#">EncryptedPassportElement addressElement = message.PassportData.Data.Single(
-  el =&gt; el.Type == PassportEnums.Scope.Address
+    el =&gt; el.Type == PassportEnums.Scope.Address
 );
 ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
-  encryptedData: addressElement.Data,
-  dataCredentials: credentials.SecureData.Address.Data
+    encryptedData: addressElement.Data,
+    dataCredentials: credentials.SecureData.Address.Data
 );
 </code></pre>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">DecryptData</a> method does 3 tasks here:</p>

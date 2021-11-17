@@ -160,11 +160,11 @@ You will learn more about them later on when we discuss file upload and download
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
 <p>Sending a photo is simple. Here is an example:</p>
 <pre><code class="language-c#">Message message = await botClient.SendPhotoAsync(
-  chatId: chatId,
-  photo: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
-  caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
-  parseMode: ParseMode.Html
-);
+    chatId: chatId,
+    photo: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
+    caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
+    parseMode: ParseMode.Html,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
 <h3 id="caption"><a class="header" href="#caption">Caption</a></h3>
@@ -213,14 +213,14 @@ Sticker files should be in <a href="https://developers.google.com/speed/webp/">W
 <p>This code sends the same sticker twice. First by passing HTTP URL to a <a href="https://developers.google.com/speed/webp/">WebP</a> sticker file and
 second by reusing <code>file_id</code> of the same sticker on Telegram servers.</p>
 <pre><code class="language-c#">Message message1 = await botClient.SendStickerAsync(
-  chatId: chatId,
-  sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;
-);
+    chatId: chatId,
+    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;,
+    cancellationToken: cancellationToken);
 
 Message message2 = await botClient.SendStickerAsync(
-  chatId: chatId,
-  sticker: message1.Sticker.FileId
-);
+    chatId: chatId,
+    sticker: message1.Sticker.FileId,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
 <p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>

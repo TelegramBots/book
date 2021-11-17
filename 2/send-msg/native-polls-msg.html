@@ -159,8 +159,8 @@
     {
         &quot;Yes for the hundredth time!&quot;,
         &quot;No, who`s that?&quot;
-    }
-);
+    },
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
 <p>You can optionally send a keyboard with a poll, both an inline and a regular one.</p>
@@ -171,8 +171,8 @@
 <p>Let's close the poll that we sent in the previous example:</p>
 <pre><code class="language-c#">Poll poll = await botClient.StopPollAsync(
     chatId: pollMessage.Chat.Id,
-    messageId: pollMessage.MessageId
-);
+    messageId: pollMessage.MessageId,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
 <p>You can also send a new inline keyboard when you close a poll.</p>

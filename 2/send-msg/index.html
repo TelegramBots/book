@@ -149,26 +149,26 @@
                         <h1 id="sending-messages"><a class="header" href="#sending-messages">Sending Messages</a></h1>
 <p>There are many different types of message that a bot can send.
 Fortunately, methods for sending such messages are similar. Take a look at these examples:</p>
-<p><strong>Sending text message</strong>:</p>
+<h2 id="sending-text-message"><a class="header" href="#sending-text-message">Sending text message</a></h2>
 <p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
-<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(
-  chatId: chatId,
-  text:   &quot;Hello, World!&quot;
-);
+<pre><code class="language-c#">Message message = await botClient.SendTextMessageAsync(
+    chatId: chatId,
+    text:   &quot;Hello, World!&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
-<p><strong>Sending sticker message</strong>:</p>
+<h2 id="sending-sticker-message"><a class="header" href="#sending-sticker-message">Sending sticker message</a></h2>
 <p><img src="../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
-<pre><code class="language-c#">await botClient.SendStickerAsync(
-  chatId:  chatId,
-  sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
-);
+<pre><code class="language-c#">Message message = await botClient.SendStickerAsync(
+    chatId:  chatId,
+    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
-<p><strong>Sending video message</strong>:</p>
+<h2 id="sending-video-message"><a class="header" href="#sending-video-message">Sending video message</a></h2>
 <p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
-<pre><code class="language-c#">await botClient.SendVideoAsync(
-  chatId:  chatId,
-  video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
-);
+<pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
+    chatId:  chatId,
+    video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
 
                     </main>

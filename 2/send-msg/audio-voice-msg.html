@@ -155,14 +155,14 @@ A voice file has OGG format and is not shown in music player.</p>
 <p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
 That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
 <pre><code class="language-c#">Message message = await botClient.SendAudioAsync(
-  chatId: chatId,
-  audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;
-  /* ,
-  performer: &quot;Joel Thomas Hunger&quot;,
-  title: &quot;Fun Guitar and Ukulele&quot;,
-  duration: 91 // in seconds
-  */
-);
+    chatId: chatId,
+    audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;,
+    /*
+    performer: &quot;Joel Thomas Hunger&quot;,
+    title: &quot;Fun Guitar and Ukulele&quot;,
+    duration: 91, // in seconds
+    */
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
 <p>And a user can see the audio in Music Player:</p>
@@ -183,13 +183,16 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
 <p>To run this example, download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
 <p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
+<blockquote>
+<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file</p>
+</blockquote>
 <pre><code class="language-c#">Message message;
 using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;)) {
-  message = await botClient.SendVoiceAsync(
-    chatId: chatId,
-    voice: stream,
-    duration: 36
-  );
+    message = await botClient.SendVoiceAsync(
+        chatId: chatId,
+        voice: stream,
+        duration: 36,
+        cancellationToken: cancellationToken);
 }
 </code></pre>
 <p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>

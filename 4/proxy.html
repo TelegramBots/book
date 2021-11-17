@@ -158,13 +158,13 @@
 <p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
 <h2 id="http-proxy"><a class="header" href="#http-proxy">HTTP Proxy</a></h2>
-<p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxies.</p>
+<p>You can configure <code>HttpClient</code> with <code>WebProxy</code> and pass it to the Bot client.</p>
 <pre><code class="language-csharp">// using System.Net;
 // using System.Net.Http;
 
 var webProxy = new WebProxy(Host: &quot;https://example.org&quot;, Port: 8080) {
-  // Credentials if needed:
-  Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
+    // Credentials if needed:
+    Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
 };
 var httpClient = new HttpClient(
     new HttpClientHandler { Proxy = webProxy, UseProxy = true }
@@ -181,7 +181,7 @@ var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort);
 
 // Or if you need credentials for your proxy server:
 var proxy = new HttpToSocks5Proxy(
-  Socks5ServerAddress, Socks5ServerPort, &quot;USERNAME&quot;, &quot;PASSWORD&quot;
+    Socks5ServerAddress, Socks5ServerPort, &quot;USERNAME&quot;, &quot;PASSWORD&quot;
 );
 
 // Allows you to use proxies that are only allowing connections to Telegram

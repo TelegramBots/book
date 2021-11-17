@@ -185,16 +185,16 @@ in test configurations before hand.</p>
 <h4 id="api-token"><a class="header" href="#api-token">API Token</a></h4>
 <p>This is required for executing any test case.</p>
 <pre><code class="language-json">{
-    &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
-    /* ... */
+  &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
+  /* ... */
 }
 </code></pre>
 <h4 id="allowed-users"><a class="header" href="#allowed-users">Allowed Users</a></h4>
 <p>A comma separated list indicating user name(s) of tester(s). Any update coming from users other than the ones listed here are discarded during test execution.</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;AllowedUserNames&quot;: &quot;tester1, Tester2, TESTER3&quot;
-    /* ... */
+  /* ... */
+  &quot;AllowedUserNames&quot;: &quot;tester1, Tester2, TESTER3&quot;
+  /* ... */
 }
 </code></pre>
 <h3 id="optional-settings"><a class="header" href="#optional-settings">Optional Settings</a></h3>
@@ -207,9 +207,9 @@ in test configurations before hand.</p>
 <p>Bot send  messages to this chat in almost all test cases except cases like sending payments that must be to a private chat.</p>
 <p>If not set, before starting any test method, bot waits for a tester to send it a <code>/test</code> command in a super group chat (that bot is also a member of).</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;SuperGroupChatId&quot;: -1234567890
-    /* ... */
+  /* ... */
+  &quot;SuperGroupChatId&quot;: -1234567890
+  /* ... */
 }
 </code></pre>
 <h4 id="payment-settings"><a class="header" href="#payment-settings">Payment Settings</a></h4>
@@ -217,17 +217,17 @@ in test configurations before hand.</p>
 <p>This token is <strong>required</strong> for any test case regarding payments and must be provided before starting tests.</p>
 <p>Consult Telegram API documentations and talk to BotFather to get a test token from a payment provider.</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;PaymentProviderToken&quot;: &quot;MY-PAYMENT-PROVIDER-TOKEN&quot;
-    /* ... */
+  /* ... */
+  &quot;PaymentProviderToken&quot;: &quot;MY-PAYMENT-PROVIDER-TOKEN&quot;
+  /* ... */
 }
 </code></pre>
 <h5 id="testerprivatechatid"><a class="header" href="#testerprivatechatid">TesterPrivateChatId</a></h5>
 <p>Invoices could only be sent to private chats. If not set, bot will wait for a tester to send it <code>/test</code> command in a private chat.</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;TesterPrivateChatId&quot;: 1234567890
-    /* ... */
+  /* ... */
+  &quot;TesterPrivateChatId&quot;: 1234567890
+  /* ... */
 }
 </code></pre>
 <h4 id="chat-administration"><a class="header" href="#chat-administration">Chat Administration</a></h4>
@@ -239,11 +239,11 @@ in test configurations before hand.</p>
 <li>Regular Member's Private Chat Id</li>
 </ul>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;RegularMemberUserId&quot;: 1234567890,
-    &quot;RegularMemberUserName&quot;: &quot;tester3&quot;,
-    &quot;RegularMemberPrivateChatId&quot;: 1234567890
-    /* ... */
+  /* ... */
+  &quot;RegularMemberUserId&quot;: 1234567890,
+  &quot;RegularMemberUserName&quot;: &quot;tester3&quot;,
+  &quot;RegularMemberPrivateChatId&quot;: 1234567890
+  /* ... */
 }
 </code></pre>
 

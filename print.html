@@ -176,59 +176,53 @@ use it in your own bot program.</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>
 <h2 id="bot-father"><a class="header" href="#bot-father">Bot Father</a></h2>
-<p>Before you start developing a bot, you need to talk to <a href="https://t.me/botfather"><code>@BotFather</code></a> on Telegram. Register a
-bot with him and get an access token.</p>
+<p>Before you start, you need to talk to <a href="https://t.me/botfather"><code>@BotFather</code></a> on Telegram. <a href="https://core.telegram.org/bots#6-botfather">Create a new
+bot</a>, acquire the bot token and get back here.</p>
 <p><a href="https://t.me/botfather"><img src="1/docs/logo-bot-father.jpg" alt="Bot Father" /></a></p>
-<p>Access token is a key used to identify and authorize your bot in API
-requests so keep it with yourself as a secret. It looks like this:</p>
+<p>Bot token is a key that required to authorize the bot and send requests to the Bot API. Keep your token secure and store it safely, it can be used to control your bot. It should look like this:</p>
 <pre><code class="language-text">1234567:4TT8bAc8GHUspu3ERYn-KGcvsvGB9u_n4ddy
 </code></pre>
 <h2 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h2>
-<p>Now you have a bot, it's time to bring it to life! Create a new console project for your bot.
-It could be a .NET Core project or a .NET project targeting versions 4.5+.</p>
+<p>Now that you have a bot, it's time to bring it to life! Create a new console project for your bot.
+It could be a legacy project targeting .NET Framework 4.6.1-4.8 or a modern .NET Core 3.1-.NET 5+.</p>
 <blockquote>
-<p>This guide uses .NET Core examples but full .NET framework projects work as well.</p>
+<p>Examples in this guide target .NET 6, but earlier targets should work as well (including .NET Framework).</p>
 </blockquote>
 <pre><code class="language-bash">dotnet new console
 </code></pre>
-<p>Add a reference to <code>Telegram.Bot</code> package.</p>
+<p>Add a reference to <a href="https://www.nuget.org/packages/Telegram.Bot"><code>Telegram.Bot</code></a> package:</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot
 </code></pre>
-<p>Open <code>Program.cs</code> file and use the following content. This code fetches Bot information based on its access token by calling <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method on the Bot API.</p>
+<p>This code fetches Bot information based on its access token by calling the Bot API <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method. Open <code>Program.cs</code> and use the following content:</p>
 <blockquote>
-<p>Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from Bot Father.</p>
+<p>⚠️ Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with your access token from the <a href="https://t.me/botfather"><code>@BotFather</code></a>.</p>
 </blockquote>
-<pre><code class="language-c#">using System;
-using Telegram.Bot;
+<pre><code class="language-c#">using Telegram.Bot;
 
 var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
-var me = await botClient.GetMeAsync();
-Console.WriteLine(
-  $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
-);
 
+var me = await botClient.GetMeAsync();
+Console.WriteLine($&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;);
 </code></pre>
 <p>Running the program gives you the following output:</p>
 <pre><code class="language-bash">dotnet run
 </code></pre>
 <pre><code class="language-text">Hello, World! I am user 1234567 and my name is Awesome Bot.
 </code></pre>
-<p>Great! This bot is self-aware. To make the bot interact with a user, head to the next page.</p>
+<p>Great! This bot is self-aware. To make the bot interact with a user, head to the <a href="1/example-bot.html">next page</a>.</p>
+<!-- -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="example---first-chat-bot"><a class="header" href="#example---first-chat-bot">Example - First Chat Bot</a></h1>
-<p>On the previous page, we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
+<p>On the <a href="1/quickstart.html">previous page</a> we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users' messages and replies to them like in this screenshot:</p>
 <p><img src="1/docs/shot-example_bot.jpg" alt="Example Image" /></p>
-<p>Add a reference to <code>Telegram.Bot.Extensions.Polling</code> package.</p>
+<p>Add a reference to <a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Polling/">Telegram.Bot.Extensions.Polling</a> package:</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot.Extensions.Polling
 </code></pre>
 <p>Copy the following code to <code>Program.cs</code>.</p>
 <blockquote>
-<p>Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from Bot Father.</p>
+<p>⚠️ Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from the [<code>@BotFather</code>].</p>
 </blockquote>
-<pre><code class="language-c#">using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Telegram.Bot;
+<pre><code class="language-c#">using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
@@ -236,17 +230,18 @@ using Telegram.Bot.Types.Enums;
 
 var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
 
-var me = await botClient.GetMeAsync();
-Console.WriteLine(
-    $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
-);
-
 using var cts = new CancellationTokenSource();
 
 // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+var receiverOptions = new ReceiverOptions
+{
+    AllowedUpdates = { } // receive all update types
+};
 botClient.StartReceiving(
-    new DefaultUpdateHandler(HandleUpdateAsync, HandleErrorAsync),
-    cts.Token);
+    HandleUpdateAsync,
+    HandleErrorAsync,
+    receiverOptions,
+    cancellationToken: cts.Token);
 
 Console.WriteLine($&quot;Start listening for @{me.Username}&quot;);
 Console.ReadLine();
@@ -254,51 +249,56 @@ Console.ReadLine();
 // Send cancellation request to stop bot
 cts.Cancel();
 
+async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+{
+    // Only process Message updates: https://core.telegram.org/bots/api#message
+    if (update.Type != UpdateType.Message)
+        return;
+    // Only process text messages
+    if (update.Message!.Type != MessageType.Text)
+        return;
+
+    var chatId = update.Message.Chat.Id;
+    var messageText = update.Message.Text;
+
+    Console.WriteLine($&quot;Received a '{messageText}' message in chat {chatId}.&quot;);
+
+    // Echo received message text
+    Message sentMessage = await botClient.SendTextMessageAsync(
+        chatId: chatId,
+        text: &quot;You said:\n&quot; + messageText,
+        cancellationToken: cancellationToken);
+}
+
 Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
 {
     var ErrorMessage = exception switch
     {
-        ApiRequestException apiRequestException =&gt; $&quot;Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}&quot;,
-        _                                       =&gt; exception.ToString()
+        ApiRequestException apiRequestException
+            =&gt; $&quot;Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}&quot;,
+        _ =&gt; exception.ToString()
     };
 
     Console.WriteLine(ErrorMessage);
     return Task.CompletedTask;
 }
-
-async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-{
-    if (update.Type != UpdateType.Message)
-        return;
-    if (update.Message.Type != MessageType.Text)
-        return;
-
-    var chatId = update.Message.Chat.Id;
-    
-    Console.WriteLine($&quot;Received a '{update.Message.Text}' message in chat {chatId}.&quot;);
-
-    await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text:   &quot;You said:\n&quot; + update.Message.Text
-    );
-}
 </code></pre>
-<p>Run the program.</p>
+<p>Run the program:</p>
 <pre><code class="language-bash">dotnet run
 </code></pre>
 <p>It runs waiting for text messages unless forcefully stopped by pressing Enter. Open a private chat with your bot in
 Telegram and send a text message to it. Bot should reply in no time.</p>
-<p>In the code above, we instantiate a <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/DefaultUpdateHandler.cs"><code>DefaultUpdateHandler</code></a> and pass to it our update handlers so we can take action on updates sent to the bot.</p>
 <p>By invoking <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/Extensions/TelegramBotClientPollingExtensions.cs"><code>StartReceiving(...)</code></a> bot client starts fetching updates using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method for the bot
-from Telegram Servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use <code>Console.ReadLine()</code> to keep the app running.</p>
-<p>When a user sends a message the <code>HandleUpdateAsync(...)</code> method gets invoked with the <code>Update</code> object passed as an argument.
+from Telegram servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use <code>Console.ReadLine()</code> to keep the app running.</p>
+<p>When user sends a message, the <code>HandleUpdateAsync(...)</code> method gets invoked with the <code>Update</code> object passed as an argument.
 We check <code>Message.Type</code> and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.</p>
 <p>The <code>HandleErrorAsync(...)</code> method is invoked in case of an error.</p>
 <p>If you take a look at the console, the program outputs the <code>chatId</code> value. <strong>Copy the chat id number</strong> to make testing easier
-for yourself in the next pages.</p>
+for yourself on the next pages.</p>
 <pre><code class="language-text">Received a 'text' message in chat 123456789.
 </code></pre>
+<!-- -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="beginner"><a class="header" href="#beginner">Beginner</a></h1>
 <ul>
 <li><a href="2/send-msg">Sending Messages</a>
@@ -318,26 +318,26 @@ for yourself in the next pages.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sending-messages"><a class="header" href="#sending-messages">Sending Messages</a></h1>
 <p>There are many different types of message that a bot can send.
 Fortunately, methods for sending such messages are similar. Take a look at these examples:</p>
-<p><strong>Sending text message</strong>:</p>
+<h2 id="sending-text-message"><a class="header" href="#sending-text-message">Sending text message</a></h2>
 <p><img src="2/send-msg/../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
-<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(
-  chatId: chatId,
-  text:   &quot;Hello, World!&quot;
-);
+<pre><code class="language-c#">Message message = await botClient.SendTextMessageAsync(
+    chatId: chatId,
+    text:   &quot;Hello, World!&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
-<p><strong>Sending sticker message</strong>:</p>
+<h2 id="sending-sticker-message"><a class="header" href="#sending-sticker-message">Sending sticker message</a></h2>
 <p><img src="2/send-msg/../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
-<pre><code class="language-c#">await botClient.SendStickerAsync(
-  chatId:  chatId,
-  sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;
-);
+<pre><code class="language-c#">Message message = await botClient.SendStickerAsync(
+    chatId:  chatId,
+    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
-<p><strong>Sending video message</strong>:</p>
+<h2 id="sending-video-message"><a class="header" href="#sending-video-message">Sending video message</a></h2>
 <p><img src="2/send-msg/../docs/shot-video.jpg" alt="video message screenshot" /></p>
-<pre><code class="language-c#">await botClient.SendVideoAsync(
-  chatId:  chatId,
-  video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;
-);
+<pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
+    chatId:  chatId,
+    video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="text-messages-and-more"><a class="header" href="#text-messages-and-more">Text Messages and More</a></h1>
 <p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-sendMessage-blue.svg?style=flat-square" alt="send message method" /></a>
@@ -357,16 +357,16 @@ or put the <code>chatId</code> value if you know it.</p>
 // using Telegram.Bot.Types.ReplyMarkups;
 
 Message message = await botClient.SendTextMessageAsync(
-  chatId: chatId, // or a chat id: 123456789
-  text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
-  parseMode: ParseMode.Markdown,
-  disableNotification: true,
-  replyToMessageId: update.Message.MessageId,
-  replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl(
-    &quot;Check sendMessage method&quot;,
-    &quot;https://core.telegram.org/bots/api#sendmessage&quot;
-  ))
-);
+    chatId: chatId,
+    text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
+    parseMode: ParseMode.MarkdownV2,
+    disableNotification: true,
+    replyToMessageId: update.Message.MessageId,
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl(
+            &quot;Check sendMessage method&quot;,
+            &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
+    cancellationToken: cancellationToken);
 </code></pre>
 <p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
 text message and returns the message object sent.</p>
@@ -382,10 +382,10 @@ Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to t
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
 message object. Add this statement after the previous code.</p>
 <pre><code class="language-c#">Console.WriteLine(
-  $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
-  $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
-  $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
-  $&quot;and has {message.Entities.Length} message entities.&quot;
+    $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
+    $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
+    $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
+    $&quot;and has {message.Entities.Length} message entities.&quot;
 );
 </code></pre>
 <p>Output should look similar to this:</p>
@@ -417,11 +417,11 @@ You will learn more about them later on when we discuss file upload and download
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
 <p>Sending a photo is simple. Here is an example:</p>
 <pre><code class="language-c#">Message message = await botClient.SendPhotoAsync(
-  chatId: chatId,
-  photo: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
-  caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
-  parseMode: ParseMode.Html
-);
+    chatId: chatId,
+    photo: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
+    caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
+    parseMode: ParseMode.Html,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-photo_msg.jpg" alt="photo message" /></p>
 <h3 id="caption"><a class="header" href="#caption">Caption</a></h3>
@@ -470,14 +470,14 @@ Sticker files should be in <a href="https://developers.google.com/speed/webp/">W
 <p>This code sends the same sticker twice. First by passing HTTP URL to a <a href="https://developers.google.com/speed/webp/">WebP</a> sticker file and
 second by reusing <code>file_id</code> of the same sticker on Telegram servers.</p>
 <pre><code class="language-c#">Message message1 = await botClient.SendStickerAsync(
-  chatId: chatId,
-  sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;
-);
+    chatId: chatId,
+    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;,
+    cancellationToken: cancellationToken);
 
 Message message2 = await botClient.SendStickerAsync(
-  chatId: chatId,
-  sticker: message1.Sticker.FileId
-);
+    chatId: chatId,
+    sticker: message1.Sticker.FileId,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
 <p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
@@ -494,14 +494,14 @@ A voice file has OGG format and is not shown in music player.</p>
 <p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
 That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
 <pre><code class="language-c#">Message message = await botClient.SendAudioAsync(
-  chatId: chatId,
-  audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;
-  /* ,
-  performer: &quot;Joel Thomas Hunger&quot;,
-  title: &quot;Fun Guitar and Ukulele&quot;,
-  duration: 91 // in seconds
-  */
-);
+    chatId: chatId,
+    audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;,
+    /*
+    performer: &quot;Joel Thomas Hunger&quot;,
+    title: &quot;Fun Guitar and Ukulele&quot;,
+    duration: 91, // in seconds
+    */
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-audio_msg.jpg" alt="audio message" /></p>
 <p>And a user can see the audio in Music Player:</p>
@@ -522,13 +522,16 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
 <p>To run this example, download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
 <p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
+<blockquote>
+<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file</p>
+</blockquote>
 <pre><code class="language-c#">Message message;
 using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;)) {
-  message = await botClient.SendVoiceAsync(
-    chatId: chatId,
-    voice: stream,
-    duration: 36
-  );
+    message = await botClient.SendVoiceAsync(
+        chatId: chatId,
+        voice: stream,
+        duration: 36,
+        cancellationToken: cancellationToken);
 }
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-voice_msg.jpg" alt="voice message" /></p>
@@ -545,11 +548,11 @@ You can optionally specify the duration and resolution of the video.</p>
 and expect the Telegram clients to stream that long video instead of downloading it completely.
 We also set a thumbnail image for our video.</p>
 <pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
-  chatId: chatId,
-  video: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4&quot;,
-  thumb: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg&quot;,
-  supportsStreaming: true
-);
+    chatId: chatId,
+    video: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4&quot;,
+    thumb: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg&quot;,
+    supportsStreaming: true,
+    cancellationToken: cancellationToken);
 </code></pre>
 <blockquote>
 <p>Check the Bot API docs for <code>sendVideo</code> to learn more about video size limits and the thumbnail images.</p>
@@ -565,12 +568,12 @@ Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
 <pre><code class="language-c#">Message message;
 using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;)) {
-  message = await botClient.SendVideoNoteAsync(
-    chatId: chatId,
-    videoNote: stream,
-    duration: 47,
-    length: 360 // value of width/height
-  );
+    message = await botClient.SendVideoNoteAsync(
+        chatId: chatId,
+        videoNote: stream,
+        duration: 47,
+        length: 360, // value of width/height
+        cancellationToken: cancellationToken);
 }
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
@@ -584,8 +587,8 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     {
         new InputMediaPhoto(&quot;https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg&quot;),
         new InputMediaPhoto(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;),
-    }
-);
+    },
+    cancellationToken: cancellationToken);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="document-and-animation-messages"><a class="header" href="#document-and-animation-messages">Document and Animation Messages</a></h1>
 <h2 id="send-documents"><a class="header" href="#send-documents">Send documents</a></h2>
@@ -593,21 +596,21 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#senddocument"><code>sendDocument</code></a> method to send general files.</p>
 <pre><code class="language-c#">Message message = await botClient.SendDocumentAsync(
-  chatId: chatId,
-  document: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
-  caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
-  parseMode: ParseMode.Html
-);
+    chatId: chatId,
+    document: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
+    caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
+    parseMode: ParseMode.Html,
+    cancellationToken: cancellationToken);
 </code></pre>
 <h2 id="send-animations"><a class="header" href="#send-animations">Send animations</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendanimation"><img src="https://img.shields.io/badge/Bot_API_method-sendAnimation-blue.svg?style=flat-square" alt="sendAnimation method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AnimationMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Animation_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#sendanimation"><code>sendAnimation</code></a> method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).</p>
 <pre><code class="language-c#">Message message = await botClient.SendAnimationAsync(
-  chatId: chatId,
-  animation: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4&quot;,
-  caption: &quot;Waves&quot;
-);
+    chatId: chatId,
+    animation: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4&quot;,
+    caption: &quot;Waves&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="native-poll-messages"><a class="header" href="#native-poll-messages">Native Poll Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/AnonymousPollTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
@@ -622,8 +625,8 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     {
         &quot;Yes for the hundredth time!&quot;,
         &quot;No, who`s that?&quot;
-    }
-);
+    },
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
 <p>You can optionally send a keyboard with a poll, both an inline and a regular one.</p>
@@ -634,8 +637,8 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 <p>Let's close the poll that we sent in the previous example:</p>
 <pre><code class="language-c#">Poll poll = await botClient.StopPollAsync(
     chatId: pollMessage.Chat.Id,
-    messageId: pollMessage.MessageId
-);
+    messageId: pollMessage.MessageId,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
 <p>You can also send a new inline keyboard when you close a poll.</p>
@@ -652,8 +655,8 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     chatId: chatId,
     phoneNumber: &quot;+1234567890&quot;,
     firstName: &quot;Han&quot;,
-    lastName: &quot;Solo&quot;
-);
+    lastName: &quot;Solo&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-contact.jpg" alt="send contact" /></p>
 <p>If you want to send a contact as vCard you can achieve  this by adding a valid vCard <code>string</code> as value for the optional parameter <code>vCard</code> as seen in the given example below.</p>
@@ -662,13 +665,13 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     phoneNumber: &quot;+1234567890&quot;,
     firstName: &quot;Han&quot;,
     vCard: &quot;BEGIN:VCARD\n&quot; +
-            &quot;VERSION:3.0\n&quot; +
-            &quot;N:Solo;Han\n&quot; +
-            &quot;ORG:Scruffy-looking nerf herder\n&quot; +
-            &quot;TEL;TYPE=voice,work,pref:+1234567890\n&quot; +
-            &quot;EMAIL:hansolo@mfalcon.com\n&quot; +
-            &quot;END:VCARD&quot;
-);
+           &quot;VERSION:3.0\n&quot; +
+           &quot;N:Solo;Han\n&quot; +
+           &quot;ORG:Scruffy-looking nerf herder\n&quot; +
+           &quot;TEL;TYPE=voice,work,pref:+1234567890\n&quot; +
+           &quot;EMAIL:hansolo@mfalcon.com\n&quot; +
+           &quot;END:VCARD&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-contact_vcard.jpg" alt="send vcard" /></p>
 <h2 id="venue"><a class="header" href="#venue">Venue</a></h2>
@@ -680,8 +683,8 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     latitude: 50.0840172f,
     longitude: 14.418288f,
     title: &quot;Man Hanging out&quot;,
-    address: &quot;Husova, 110 00 Staré Město, Czechia&quot;
-);
+    address: &quot;Husova, 110 00 Staré Město, Czechia&quot;,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-venue.jpg" alt="send contact" /></p>
 <h2 id="location"><a class="header" href="#location">Location</a></h2>
@@ -692,8 +695,8 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 <pre><code class="language-c#">Message message = await botClient.SendLocationAsync(
     chatId: chatId,
     latitude: 33.747252f,
-    longitude: -112.633853f
-);
+    longitude: -112.633853f,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-location.jpg" alt="send contact" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reply-markup"><a class="header" href="#reply-markup">Reply Markup</a></h1>
@@ -705,71 +708,78 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 <p>By default, custom keyboards are displayed until a new keyboard is sent by a bot.</p>
 <h3 id="single-row-keyboard-markup"><a class="header" href="#single-row-keyboard-markup">Single-row keyboard markup</a></h3>
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
-<pre><code class="language-c#">var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-    new [][]
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
+
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
     {
         new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
     })
-{
-    ResizeKeyboard = true
-};
+    {
+        ResizeKeyboard = true
+    };
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;Choose a response&quot;,
-    replyMarkup: replyKeyboardMarkup
-);
+    replyMarkup: replyKeyboardMarkup,
+    cancellationToken: cancellationToken);
 </code></pre>
 <blockquote>
 <p>We specify <code>ResizeKeyboard = true</code> here to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).</p>
 </blockquote>
 <h3 id="multi-row-keyboard-markup"><a class="header" href="#multi-row-keyboard-markup">Multi-row keyboard markup</a></h3>
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two rows of buttons:</p>
-<pre><code class="language-c#">var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-    new [][]
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
+
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
     {
         new KeyboardButton[] { &quot;One&quot;, &quot;Two&quot; },
         new KeyboardButton[] { &quot;Three&quot;, &quot;Four&quot; },
     })
-{
-    ResizeKeyboard = true
-};
-    
+    {
+        ResizeKeyboard = true
+    };
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;Choose a response&quot;,
-    replyMarkup: replyKeyboardMarkup
-);
+    replyMarkup: replyKeyboardMarkup,
+    cancellationToken: cancellationToken);
 </code></pre>
 <h3 id="request-information"><a class="header" href="#request-information">Request information</a></h3>
 <p><a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> containing buttons for contact and location requests using helper methods <code>KeyboardButton.WithRequestLocation</code> and <code>KeyboardButton.WithRequestContact</code>:</p>
-<pre><code class="language-c#">var replyKeyboardMarkup = new ReplyKeyboardMarkup(new []
-{
-    KeyboardButton.WithRequestLocation(&quot;Share Location&quot;),
-    KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
-});
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-await botClient.SendTextMessageAsync(
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
+    {
+        KeyboardButton.WithRequestLocation(&quot;Share Location&quot;),
+        KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
+    });
+
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;Who or Where are you?&quot;,
-    replyMarkup: replyKeyboardMarkup
-);
+    replyMarkup: replyKeyboardMarkup,
+    cancellationToken: cancellationToken);
 </code></pre>
 <h3 id="remove-keyboard"><a class="header" href="#remove-keyboard">Remove keyboard</a></h3>
 <p>To remove keyboard you have to send an instance of <a href="https://core.telegram.org/bots/api#replykeyboardremove"><code>ReplyKeyboardRemove</code></a> object:</p>
-<pre><code class="language-c#">await botClient.SendTextMessageAsync(
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
+
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;Removing keyboard&quot;,
-    replyMarkup: new ReplyKeyboardRemove()
-);
+    replyMarkup: new ReplyKeyboardRemove(),
+    cancellationToken: cancellationToken);
 </code></pre>
 <h2 id="inline-keyboards"><a class="header" href="#inline-keyboards">Inline keyboards</a></h2>
 <p>There are times when you'd prefer to do things without sending any messages to the chat. For example, when your user is changing settings or flipping through search results. In such cases you can use <a href="https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating">Inline Keyboards</a> that are integrated directly into the messages they belong to.</p>
 <p>Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't result in messages sent to the chat. Instead, inline keyboards support buttons that work behind the scenes: <a href="2/reply-markup.html#callback-buttons">callback buttons</a>, <a href="2/reply-markup.html#url-buttons">URL buttons</a> and <a href="2/reply-markup.html#switch-to-inline-buttons">switch to inline buttons</a>.</p>
 <h3 id="callback-buttons"><a class="header" href="#callback-buttons">Callback buttons</a></h3>
 <p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use <code>InlineKeyboardButton.WithCallbackData</code> helper method to create a button with a text and callback data.</p>
-<pre><code class="language-c#">var inlineKeyboard = new InlineKeyboardMarkup(new []
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
+
+InlineKeyboardMarkup inlineKeyboard = new(new []
     {
         // first row
         new []
@@ -783,17 +793,19 @@ await botClient.SendTextMessageAsync(
             InlineKeyboardButton.WithCallbackData(text: &quot;2.1&quot;, callbackData: &quot;21&quot;),
             InlineKeyboardButton.WithCallbackData(text: &quot;2.2&quot;, callbackData: &quot;22&quot;),
         },
-    }
-);
+    });
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;A message with an inline keyboard markup&quot;,
-    replyMarkup: inlineKeyboard);
+    replyMarkup: inlineKeyboard,
+    cancellationToken: cancellationToken);
 </code></pre>
 <h3 id="url-buttons"><a class="header" href="#url-buttons">URL buttons</a></h3>
 <p>Buttons of this type have a small arrow icon to help the user understand that tapping on a <a href="https://core.telegram.org/bots/2-0-intro#url-buttons">URL button</a> will open an external link. In this example we use <code>InlineKeyboardButton.WithUrl</code> helper method to create a button with a text and url.</p>
-<pre><code class="language-c#">var inlineKeyboard = new InlineKeyboardMarkup(new []
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
+
+InlineKeyboardMarkup inlineKeyboard = new(new []
     {
         InlineKeyboardButton.WithUrl(
             text: &quot;Link to the Repository&quot;,
@@ -802,25 +814,28 @@ await botClient.SendTextMessageAsync(
     }
 );
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;A message with an inline keyboard markup&quot;,
-    replyMarkup: inlineKeyboard);
+    replyMarkup: inlineKeyboard,
+    cancellationToken: cancellationToken);
 </code></pre>
 <h3 id="switch-to-inline-buttons"><a class="header" href="#switch-to-inline-buttons">Switch to Inline buttons</a></h3>
 <p>Pressing a <a href="https://core.telegram.org/bots/2-0-intro#switch-to-inline-buttons">switch to inline button</a> prompts the user to select a chat, opens it and inserts the bot's username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use <code>InlineKeyboardButton.WithSwitchInlineQuery</code> and <code>InlineKeyboardButton.WithSwitchInlineQueryCurrentChat</code> helper methods to create buttons which will insert the bot's username in the chat's input field.</p>
-<pre><code class="language-c#">var inlineKeyboard = new InlineKeyboardMarkup(new []
+<pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
+
+InlineKeyboardMarkup inlineKeyboard = new(new[]
     {
         InlineKeyboardButton.WithSwitchInlineQuery(&quot;switch_inline_query&quot;),
         InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch_inline_query_current_chat&quot;),
     }
 );
 
-await botClient.SendTextMessageAsync(
+Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;A message with an inline keyboard markup&quot;,
-    replyMarkup: inlineKeyboard
-);
+    replyMarkup: inlineKeyboard,
+    cancellationToken: cancellationToken);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="getting-updates"><a class="header" href="#getting-updates">Getting Updates</a></h1>
 <p>There are two mutually exclusive ways of receiving updates for your bot — the long polling using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method on one hand and Webhooks on the other. Telegram is queueing updates until the bot receives them either way, but they will not be kept longer than 24 hours.</p>
@@ -910,16 +925,16 @@ in test configurations before hand.</p>
 <h4 id="api-token"><a class="header" href="#api-token">API Token</a></h4>
 <p>This is required for executing any test case.</p>
 <pre><code class="language-json">{
-    &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
-    /* ... */
+  &quot;ApiToken&quot;: &quot;MyTestBot-API-TOKEN&quot;
+  /* ... */
 }
 </code></pre>
 <h4 id="allowed-users"><a class="header" href="#allowed-users">Allowed Users</a></h4>
 <p>A comma separated list indicating user name(s) of tester(s). Any update coming from users other than the ones listed here are discarded during test execution.</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;AllowedUserNames&quot;: &quot;tester1, Tester2, TESTER3&quot;
-    /* ... */
+  /* ... */
+  &quot;AllowedUserNames&quot;: &quot;tester1, Tester2, TESTER3&quot;
+  /* ... */
 }
 </code></pre>
 <h3 id="optional-settings"><a class="header" href="#optional-settings">Optional Settings</a></h3>
@@ -932,9 +947,9 @@ in test configurations before hand.</p>
 <p>Bot send  messages to this chat in almost all test cases except cases like sending payments that must be to a private chat.</p>
 <p>If not set, before starting any test method, bot waits for a tester to send it a <code>/test</code> command in a super group chat (that bot is also a member of).</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;SuperGroupChatId&quot;: -1234567890
-    /* ... */
+  /* ... */
+  &quot;SuperGroupChatId&quot;: -1234567890
+  /* ... */
 }
 </code></pre>
 <h4 id="payment-settings"><a class="header" href="#payment-settings">Payment Settings</a></h4>
@@ -942,17 +957,17 @@ in test configurations before hand.</p>
 <p>This token is <strong>required</strong> for any test case regarding payments and must be provided before starting tests.</p>
 <p>Consult Telegram API documentations and talk to BotFather to get a test token from a payment provider.</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;PaymentProviderToken&quot;: &quot;MY-PAYMENT-PROVIDER-TOKEN&quot;
-    /* ... */
+  /* ... */
+  &quot;PaymentProviderToken&quot;: &quot;MY-PAYMENT-PROVIDER-TOKEN&quot;
+  /* ... */
 }
 </code></pre>
 <h5 id="testerprivatechatid"><a class="header" href="#testerprivatechatid">TesterPrivateChatId</a></h5>
 <p>Invoices could only be sent to private chats. If not set, bot will wait for a tester to send it <code>/test</code> command in a private chat.</p>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;TesterPrivateChatId&quot;: 1234567890
-    /* ... */
+  /* ... */
+  &quot;TesterPrivateChatId&quot;: 1234567890
+  /* ... */
 }
 </code></pre>
 <h4 id="chat-administration"><a class="header" href="#chat-administration">Chat Administration</a></h4>
@@ -964,11 +979,11 @@ in test configurations before hand.</p>
 <li>Regular Member's Private Chat Id</li>
 </ul>
 <pre><code class="language-json">{
-    /* ... */
-    &quot;RegularMemberUserId&quot;: 1234567890,
-    &quot;RegularMemberUserName&quot;: &quot;tester3&quot;,
-    &quot;RegularMemberPrivateChatId&quot;: 1234567890
-    /* ... */
+  /* ... */
+  &quot;RegularMemberUserId&quot;: 1234567890,
+  &quot;RegularMemberUserName&quot;: &quot;tester3&quot;,
+  &quot;RegularMemberPrivateChatId&quot;: 1234567890
+  /* ... */
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="inline-mode"><a class="header" href="#inline-mode">Inline Mode</a></h1>
@@ -1084,13 +1099,13 @@ with specific parameters in its query string.
 You can alternatively have a button in an HTML page on your website for that.</p>
 <p>Type <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs">AuthorizationRequestParameters</a>  helps you in creating such an URI.</p>
 <pre><code class="language-c#">AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
-  botId: 123456, // bot user ID
-  publicKey: &quot;...&quot;, // public key in PEM format. same as the key above.
-  nonce: &quot;unique nonce for this request&quot;,
-  scope: new PassportScope(new[] { // a PassportScope object
-    new PassportScopeElementOne(&quot;address&quot;),
-    new PassportScopeElementOne(&quot;phone_number&quot;)
-  })
+    botId: 123456, // bot user ID
+    publicKey: &quot;...&quot;, // public key in PEM format. same as the key above.
+    nonce: &quot;unique nonce for this request&quot;,
+    scope: new PassportScope(new[] { // a PassportScope object
+        new PassportScopeElementOne(&quot;address&quot;),
+        new PassportScopeElementOne(&quot;phone_number&quot;)
+    })
 );
 </code></pre>
 <p>In <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">SendAuthorizationRequestAsync</a> method, we ask for <code>address</code> and <code>phone_number</code> scopes.
@@ -1135,8 +1150,8 @@ But that credentials object is encrypted using bot's public key!</p>
 </blockquote>
 <pre><code class="language-c#">IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  message.PassportData.Credentials, // EncryptedCredentials object
-  GetRsaPrivateKey() // private key as an RSA object
+    message.PassportData.Credentials, // EncryptedCredentials object
+    GetRsaPrivateKey() // private key as an RSA object
 );
 </code></pre>
 <h4 id="step-2-nonce"><a class="header" href="#step-2-nonce">Step 2: Nonce</a></h4>
@@ -1156,11 +1171,11 @@ We are looking for an encrypted element with type of <em>address</em> in <code>m
 Also, decryption parameters for that are in <code>credentials.secure_data.address.data</code>.
 Here is how the decryption magic happens:</p>
 <pre><code class="language-c#">EncryptedPassportElement addressElement = message.PassportData.Data.Single(
-  el =&gt; el.Type == PassportEnums.Scope.Address
+    el =&gt; el.Type == PassportEnums.Scope.Address
 );
 ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
-  encryptedData: addressElement.Data,
-  dataCredentials: credentials.SecureData.Address.Data
+    encryptedData: addressElement.Data,
+    dataCredentials: credentials.SecureData.Address.Data
 );
 </code></pre>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">DecryptData</a> method does 3 tasks here:</p>
@@ -1228,8 +1243,8 @@ Also, test methods here expect a selfie photo and a file for translation scan.</
 <pre><code class="language-c#">RSA key = EncryptionKey.ReadAsRsa();
 IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  passportData.Credentials,
-  key
+    passportData.Credentials,
+    key
 );
 bool isSameNonce = credentials.Nonce == &quot;Test nonce for driver's license&quot;;
 </code></pre>
@@ -1240,8 +1255,8 @@ bool isSameNonce = credentials.Nonce == &quot;Test nonce for driver's license&qu
 the driver's license scope.
 We can get information such as document number and expiry date for the license from that element:</p>
 <pre><code class="language-c#">IdDocumentData licenseDoc = decrypter.DecryptData&lt;IdDocumentData&gt;(
-  encryptedData: element.Data,
-  dataCredentials: credentials.SecureData.DriverLicense.Data
+    encryptedData: element.Data,
+    dataCredentials: credentials.SecureData.DriverLicense.Data
 );
 </code></pre>
 <h2 id="passport-file"><a class="header" href="#passport-file">Passport File</a></h2>
@@ -1267,11 +1282,11 @@ Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport
 <pre><code class="language-c#">File encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-side.jpg&quot;))
 {
-  encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
-    element.FrontSide, // PassportFile object for front side
-    credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
-    stream // destination stream for writing the JPEG content to
-  );
+    encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
+        element.FrontSide, // PassportFile object for front side
+        credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
+        stream // destination stream for writing the JPEG content to
+    );
 }
 </code></pre>
 <blockquote>
@@ -1283,23 +1298,23 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-s
 Streams are used here as well.</p>
 <pre><code class="language-c#">File encryptedFileInfo;
 using (System.IO.Stream
-  encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
-  decryptedFile = System.IO.File.OpenWrite(&quot;/path/to/reverse-side.jpg&quot;)
+    encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
+    decryptedFile = System.IO.File.OpenWrite(&quot;/path/to/reverse-side.jpg&quot;)
 ) {
-  // fetch the encrypted file info and download it to memory
-  encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    element.ReverseSide.FileId, // file_id of passport file for reverse side
-    encryptedContent // stream to copy the encrypted file into
-  );
-  // ensure memory stream is at the beginning before reading from it
-  encryptedContent.Position = 0;
+    // fetch the encrypted file info and download it to memory
+    encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        element.ReverseSide.FileId, // file_id of passport file for reverse side
+        encryptedContent // stream to copy the encrypted file into
+    );
+    // ensure memory stream is at the beginning before reading from it
+    encryptedContent.Position = 0;
 
-  // decrypt the file and write it to disk
-  await decrypter.DecryptFileAsync(
-    encryptedContent,
-    credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
-    decryptedFile // destination stream for writing the JPEG content to
-  );
+    // decrypt the file and write it to disk
+    await decrypter.DecryptFileAsync(
+        encryptedContent,
+        credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
+        decryptedFile // destination stream for writing the JPEG content to
+    );
 }
 </code></pre>
 <h3 id="selfie-file"><a class="header" href="#selfie-file">Selfie File</a></h3>
@@ -1313,26 +1328,26 @@ File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
-  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+    stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
-  encryptedContent = stream.ToArray();
+    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    encryptedContent = stream.ToArray();
 }
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] selfieContent = decrypter.DecryptFile(
-  encryptedContent,
-  credentials.SecureData.DriverLicense.Selfie
+    encryptedContent,
+    credentials.SecureData.DriverLicense.Selfie
 );
 
 // send the photo to a chat
 using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
-  await BotClient.SendPhotoAsync(
-    123456,
-    stream,
-    &quot;selfie with driver's license&quot;
-  );
+    await BotClient.SendPhotoAsync(
+        123456,
+        stream,
+        &quot;selfie with driver's license&quot;
+    );
 }
 </code></pre>
 <h3 id="translation-file"><a class="header" href="#translation-file">Translation File</a></h3>
@@ -1352,17 +1367,17 @@ File encryptedFileInfo = await BotClient.GetFileAsync(passportFile.FileId);
 // download encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
-  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+    stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
-  encryptedContent = stream.ToArray();
+    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    encryptedContent = stream.ToArray();
 }
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] content = decrypter.DecryptFile(
-  encryptedContent,
-  fileCreds
+    encryptedContent,
+    fileCreds
 );
 
 // write the file to disk
@@ -1392,13 +1407,13 @@ We can generate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.s
 // using Org.BouncyCastle.Security;
 
 static RSA GetPrivateKey() {
-  string privateKeyPem = File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
-  PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
-  AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
-  RSAParameters rsaParameters = DotNetUtilities
-    .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
-  RSA rsa = RSA.Create(rsaParameters);
-  return rsa;
+    string privateKeyPem = File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
+    PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
+    AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
+    RSAParameters rsaParameters = DotNetUtilities
+        .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
+    RSA rsa = RSA.Create(rsaParameters);
+    return rsa;
 }
 </code></pre>
 <blockquote>
@@ -1413,15 +1428,15 @@ Those help with serialization.</p>
 <p>You still need to <strong>use BouncyCastle only once</strong> to read the RSA key in PEM format and serialize its parameters:</p>
 <pre><code class="language-c#">// ONLY ONCE: read the RSA private key and serialize its parameters to JSON
 static void WriteRsaParametersToJson() {
-  string privateKeyPem = System.IO.File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
-  string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
-  System.IO.File.WriteAllText(&quot;/path/to/private-key-params.json&quot;, json);
+    string privateKeyPem = System.IO.File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
+    string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
+    System.IO.File.WriteAllText(&quot;/path/to/private-key-params.json&quot;, json);
 }
 
 // Now, read the JSON file and create an RSA instance
 static RSA GetRsaKey() {
-  string json = System.IO.File.ReadAllText(&quot;/path/to/private-key-params.json&quot;);
-  return EncryptionKeyUtility.GetRsaKeyFromJson(json);
+    string json = System.IO.File.ReadAllText(&quot;/path/to/private-key-params.json&quot;);
+    return EncryptionKeyUtility.GetRsaKeyFromJson(json);
 }
 </code></pre>
 <p>Content of <code>private-key-params.json</code> will look similar to this:</p>
@@ -1453,8 +1468,8 @@ Maybe let your user know the issue and ask for Passport data again.</p>
 accompanying credentials to decryption methods.</p>
 <p>Spot the <em>problem in this code</em> decrypting driver's license files:</p>
 <pre><code class="language-c#">byte[] selfieContent = decrypter.DecryptFile(
-  encSelfieContent, // byte array of encrypted selfie file
-  credentials.SecureData.DriverLicense.FrontSide // WRONG! use selfie file credentials
+    encSelfieContent, // byte array of encrypted selfie file
+    credentials.SecureData.DriverLicense.FrontSide // WRONG! use selfie file credentials
 );
 // throws PassportDataDecryptionException: &quot;Data hash mismatch at position 123.&quot;
 </code></pre>
@@ -1471,13 +1486,13 @@ accompanying credentials to decryption methods.</p>
 <p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
 <h2 id="http-proxy"><a class="header" href="#http-proxy">HTTP Proxy</a></h2>
-<p>You can pass an <code>IWebProxy</code> to bot client for HTTP Proxies.</p>
+<p>You can configure <code>HttpClient</code> with <code>WebProxy</code> and pass it to the Bot client.</p>
 <pre><code class="language-csharp">// using System.Net;
 // using System.Net.Http;
 
 var webProxy = new WebProxy(Host: &quot;https://example.org&quot;, Port: 8080) {
-  // Credentials if needed:
-  Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
+    // Credentials if needed:
+    Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
 };
 var httpClient = new HttpClient(
     new HttpClientHandler { Proxy = webProxy, UseProxy = true }
@@ -1494,7 +1509,7 @@ var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort);
 
 // Or if you need credentials for your proxy server:
 var proxy = new HttpToSocks5Proxy(
-  Socks5ServerAddress, Socks5ServerPort, &quot;USERNAME&quot;, &quot;PASSWORD&quot;
+    Socks5ServerAddress, Socks5ServerPort, &quot;USERNAME&quot;, &quot;PASSWORD&quot;
 );
 
 // Allows you to use proxies that are only allowing connections to Telegram
@@ -1568,9 +1583,9 @@ You can change the port to anything you want (9050 is just the default), only ma
 <p>All <code>DateTime</code> values are now in UTC format. Here are some examples of usage:</p>
 <pre><code class="language-csharp">// Use UTC time when making a request
 await BotClient.KickChatMemberAsync(
-  chatId: -9876,
-  userId: 1234,
-  untilDate: DateTime.UtcNow.AddDays(2)
+    chatId: -9876,
+    userId: 1234,
+    untilDate: DateTime.UtcNow.AddDays(2)
 );
 </code></pre>
 <pre><code class="language-csharp">// Convert to local time (not recommended though)
@@ -1581,21 +1596,21 @@ DateTime localTime = update.Message.Date.ToLocalTime();
 <p>Here are some examples:</p>
 <pre><code class="language-csharp">// Message having an inline keyboard button with URL that redirects to a page
 await BotClient.SendTextMessageAsync(
-  chatId: -9876,
-  text: &quot;Check out the source code&quot;,
-  replyMarkup: new InlineKeyboardMarkup(
-    InlineKeyboardButton.WithUrl(&quot;Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
-  )
+    chatId: -9876,
+    text: &quot;Check out the source code&quot;,
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl(&quot;Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+    )
 );
 </code></pre>
 <pre><code class="language-csharp">// Message to a private chat having a 2-row reply keyboard
 await BotClient.SendTextMessageAsync(
-  chatId: 1234,
-  text: &quot;Share your contact &amp; location&quot;,
-  replyMarkup: new ReplyKeyboardMarkup(
-    new [] { KeyboardButton.WithRequestContact(&quot;Share Contact&quot;) },
-    new [] { KeyboardButton.WithRequestLocation(&quot;Share Location&quot;) },
-  )
+    chatId: 1234,
+    text: &quot;Share your contact &amp; location&quot;,
+    replyMarkup: new ReplyKeyboardMarkup(
+        new [] { KeyboardButton.WithRequestContact(&quot;Share Contact&quot;) },
+        new [] { KeyboardButton.WithRequestLocation(&quot;Share Location&quot;) },
+    )
 );
 </code></pre>
 <h2 id="getfileasync"><a class="header" href="#getfileasync"><code>GetFileAsync()</code></a></h2>
@@ -1608,10 +1623,10 @@ await BotClient.SendTextMessageAsync(
 <pre><code class="language-csharp">// Gets file info and saves it to &quot;path/to/file.pdf&quot;
 using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
 {
-  File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
-    destination: fileStream
-  );
+    File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
+        destination: fileStream
+    );
 }
 </code></pre>
 <blockquote>
@@ -1623,10 +1638,10 @@ File fileInfo = await BotClient.GetFileAsync(&quot;BsdfgLg4Khdlsn-bldBD&quot;);
 
 // Download file from server (step 2)
 using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) {
-  await BotClient.DownloadFileAsync(
-    filePath: fileInfo.FilePath,
-    destination: fileStream
-  );
+    await BotClient.DownloadFileAsync(
+        filePath: fileInfo.FilePath,
+        destination: fileStream
+    );
 }
 </code></pre>
 <h2 id="getupdatesasync-setwebhookasync"><a class="header" href="#getupdatesasync-setwebhookasync"><code>GetUpdatesAsync()</code>, <code>SetWebhookAsync()</code></a></h2>
@@ -1640,19 +1655,19 @@ using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) 
 <pre><code class="language-csharp">// bad way. easy to get exceptions
 var documentResult = new InlineQueryResultDocument
 {
-  Id = &quot;some-id&quot;,
-  Url = &quot;https://example.com/document.pdf&quot;,
-  Title = &quot;Some title&quot;,
-  MimeType = &quot;application/pdf&quot;
+    Id = &quot;some-id&quot;,
+    Url = &quot;https://example.com/document.pdf&quot;,
+    Title = &quot;Some title&quot;,
+    MimeType = &quot;application/pdf&quot;
 };
 </code></pre>
 <p>You should use:</p>
 <pre><code class="language-csharp">// good way
 var documentResult = new InlineQueryResultDocument(
-  id: &quot;some-id&quot;,
-  documentUrl: &quot;https://example.com/document.pdf&quot;,
-  title: &quot;Some title&quot;,
-  mimeType: &quot;application/pdf&quot;
+    id: &quot;some-id&quot;,
+    documentUrl: &quot;https://example.com/document.pdf&quot;,
+    title: &quot;Some title&quot;,
+    mimeType: &quot;application/pdf&quot;
 );
 </code></pre>
 <h2 id="sendmediagroupasync"><a class="header" href="#sendmediagroupasync"><code>SendMediaGroupAsync()</code></a></h2>
@@ -1694,22 +1709,138 @@ var message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, fileId);
 <p>Many types now have the required parameters in their constructors. To avoid running into problems or getting exceptions, we recommend providing all required values in the constructor e.g.:</p>
 <pre><code class="language-c#">//bad way:
 var markup = new InlineKeyboardMarkup
-  {
-    Keyboard = buttonsArray,
-    ResizeKeyboard = true
-  };
+    {
+        Keyboard = buttonsArray,
+        ResizeKeyboard = true
+    };
 
 // better:
 var markup = new InlineKeyboardMarkup(buttonsArray)
-  {
-    ResizeKeyboard = true
-  };
+    {
+        ResizeKeyboard = true
+    };
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="migration-guide-for-version-17x"><a class="header" href="#migration-guide-for-version-17x">Migration guide for version 17.x</a></h1>
-<h2 id="todo"><a class="header" href="#todo">ToDo</a></h2>
-<blockquote>
-<p>Todo</p>
-</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="migration-guide-for-version-170"><a class="header" href="#migration-guide-for-version-170">Migration guide for version 17.0</a></h1>
+<p>There are several breaking changes in v17:</p>
+<ul>
+<li>New exceptions handling logic</li>
+<li>Removal of update and message events</li>
+<li>Removal of API methods from <code>ITelegramBotClient</code> interface and moving them into extension methods in the same namespace (that shouldn't break anyone's sources as long as they don't employ reflection or make their own interface implementations)</li>
+<li>Working with default enum values</li>
+</ul>
+<p>These are the most user facing breaking changes you should be aware of during migration.</p>
+<p>Let's dive deep on the migrations.</p>
+<h2 id="new-exceptions-handling-logic"><a class="header" href="#new-exceptions-handling-logic">New exceptions handling logic</a></h2>
+<p>v17 brings a new base type for exceptions: <code>RequestException</code>. <code>ApiRequestException</code>  inherits from <code>RequestException</code> and is thrown only when an actual error response with the correct body is received from the Bot API. In other situations <code>RequestException</code> will be thrown instead containing actual exception as <code>InnerException</code> if there is one, e.g. serialization or connection-related exceptions.</p>
+<p>If you used <code>ApiRequestException</code> and <code>HttpRequestException</code> to handle most exception now you have to replace <code>HttpRequestException</code> with <code>RequestException</code> and look for the inner exception. All valid errors with JSON body from Telegram are now thrown as <code>ApiRequestException</code> including <code>429: Too Many Requests</code>.</p>
+<p>Since <code>5XX</code> responses don't usually include correct JSON body they are thrown as <code>RequestException</code> with <code>HttpRequestException</code> inside.</p>
+<p>Look at the following example on how to handle different kinds of exceptions. You might not need to implement everything as you see, it's there only for demonstration purposes.</p>
+<pre><code class="language-csharp">try
+{
+    await bot.SendTextMessageAsync(chatId, &quot;Hello&quot;);
+}
+catch (ApiRequestException exception)
+{
+    switch (exception.StatusCode)
+    {
+        case 400:
+            // Handle incorrect requests exceptions
+            break;
+        case 401:
+            // Handle incorrect bot token exception (revoked tokens)
+            break;
+        case 403:
+            // Handle authorization exceptions (blocked users, unaccessible chats, etc)
+            break;
+        case 429:
+            // Handle rate limiting exception
+            break;
+        default:
+            // Handle other errors with valid json body: it includes status code and description of the error
+            break;
+    }
+}
+catch (RequestException exception)
+{
+    if (exception.InnerException is HttpRequestException httpRequestException)
+    {
+        // Handle connection exceptions or 5XX exceptions from the Bot API
+    }
+    else if (exception.InnerException is JsonSerializationException serializationException)
+    {
+        // Handle serialization exception when a request or a response can't be serialized for some reason
+    }
+    else
+    {
+        // Handle all other exceptions
+    }
+}
+catch (OperationCancelledException exception)
+{
+    // Handle cancellation exception, e.g. when CancellationToken is cancelled
+}
+</code></pre>
+<h2 id="removal-of-events"><a class="header" href="#removal-of-events">Removal of events</a></h2>
+<p>In v17 we removed events and introduced a new way of getting updates with <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling">Telegram.Bot.Extensions.Polling</a> package. You can find an example in <a href="./1/example-bot.html">First Chat Bot</a> article.</p>
+<h2 id="removal-of-api-methods-from-itelegrambotclient-interface"><a class="header" href="#removal-of-api-methods-from-itelegrambotclient-interface">Removal of API methods from <code>ITelegramBotClient</code> interface</a></h2>
+<p>This change shouldn't affect most users, the methods are still there, but instead of being implementations of the interface they are now extension methods. It makes the interface leaner and easier to implement for custom clients and for decorators (e.g. rate limiters implemented as decorators). There isn't really a migration path for those who used these for some reason.</p>
+<h2 id="working-with-default-enum-values"><a class="header" href="#working-with-default-enum-values">Working with default enum values</a></h2>
+<p>We changed how we work with enums. The most notable change is the default value: there is none, all our enums are now start with 1 (exception <code>UpdateType</code> and <code>MessageType</code> since they are not a part of the Bot API and we fully control these). <code>0</code> value is left unassigned for a purpose: if we encounter an unknown value in the response from the Bot API we assign <code>0</code> as its value.</p>
+<p>Let's imagine that Telegram adds new <code>MessageEntity</code> value. From now on all unknown values can be handled in the <code>default</code> case of <code>switch</code> statement.</p>
+<pre><code class="language-csharp">MessageEntity entity = message.Entities.First();
+
+switch (entity.Type)
+{
+    case MessageEntityType.Username:
+        // ...
+        break;
+    case MessageEntityType.Command:
+        // ...
+        break;
+    default:
+        // All unknown values will go there
+        break;
+}
+</code></pre>
+<p>Also some default enums values were removed, e.g. <code>ParseMode.Default</code> since we started using nullable types for every optional value and <code>ParseMode.Default</code> lost it's use. If a message doesn't have any markup you'll receive <code>null</code> in places where <code>ParseMode</code> type was used or if you want to explicitly indicate an absence of markup pass <code>null</code> instead.</p>
+<h2 id="other-breaking-changes"><a class="header" href="#other-breaking-changes">Other breaking changes</a></h2>
+<h3 id="constructor-accepting-iwebproxy"><a class="header" href="#constructor-accepting-iwebproxy">Constructor accepting IWebProxy</a></h3>
+<p>We removed constructor accepting <code>IWebProxy</code>. Now you have to configure HttpClient yourself to use proxy. You can find examples in <a href="./4/proxy.html#http-proxy">Working Behind a Proxy</a> article.</p>
+<h3 id="inputmediatype"><a class="header" href="#inputmediatype">InputMediaType</a></h3>
+<p>Property <code>Type</code> in <code>IInputMedia</code> was changed to an enum <code>InputMediaType</code> for easier discoverability. So if you relied string values like <code>photo</code>, <code>video</code>, <code>animation</code> and so on now you need to switch to using enums. As a result you'll get autocomplete in IDEs and more predictability of what types of input media there are.</p>
+<h3 id="encryptedpassportelementtype"><a class="header" href="#encryptedpassportelementtype">EncryptedPassportElementType</a></h3>
+<p>Property <code>Type</code> of <code>EncryptedPassportElement</code> was replace with an enum for the same reason with <code>EncryptedPassportElementType</code> enum.</p>
+<h3 id="chatmember"><a class="header" href="#chatmember">ChatMember</a></h3>
+<p>As part of Bot API 5.3 implementation <code>ChatMember</code> type was split into a hierarchy of types with a discriminator field <code>Status</code>. If you need to access some data from the derived class you should use pattern matching or type casting like this:</p>
+<pre><code class="language-csharp">ChatMember member = ... //;
+
+if (chatMember is ChatMemberKicked kickedMember)
+{
+    // now you can access properties of a kicked chat member
+    if (kickedMember.Until is not null)
+    {
+        // do something with the value of Until
+    }
+}
+</code></pre>
+<h3 id="chatid"><a class="header" href="#chatid">ChatId</a></h3>
+<p>Fields <code>Identifier</code> and <code>Username</code> are now get-only properties. It shouldn't break most people's code as it's not a source breaking change. If you used reflection to find these fields you should to look for properties now.</p>
+<h3 id="inlinequeryresultbase"><a class="header" href="#inlinequeryresultbase">InlineQueryResultBase</a></h3>
+<p>Type <code>InlineQueryResultBase</code> is renamed to <code>InlineQueryResult</code> to match Bot API type hierarchy.</p>
+<h3 id="nullability"><a class="header" href="#nullability">Nullability</a></h3>
+<p>From now on all properties that are optional will use nullable types, e.g. <code>int?</code>, <code>string?</code>, because default values of such properties might be an actual values and isn't distinguishable from a lack of value. From now if a property is <code>null</code> you can be sure that it's value was not present in a response from the Bot API.</p>
+<h3 id="replykeyboardmarkup"><a class="header" href="#replykeyboardmarkup">ReplyKeyboardMarkup</a></h3>
+<p>Since <code>ResizeKeyboard</code> and <code>OneTimeKeyboard</code> are optional, we removed them from <code>ReplyKeyboardMarkup</code> constructor. You have to use <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer">object initialization syntax</a> to configure these properties:</p>
+<pre><code class="language-csharp">var replyKeyboardMarkup = new ReplyKeyboardMarkup(
+    new KeyboardButton[][]
+    {
+        new KeyboardButton[] { &quot;1.1&quot;, &quot;1.2&quot; },
+        new KeyboardButton[] { &quot;2.1&quot;, &quot;2.2&quot; },
+    })
+    {
+        ResizeKeyboard = true
+    };
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
 <h2 id="how-do-i-use-an-httpsocks-proxy"><a class="header" href="#how-do-i-use-an-httpsocks-proxy">How do I use an HTTP/Socks proxy?</a></h2>
 <p>Look at the wiki page: <a href="4/proxy.html">Working Behind a Proxy</a>.</p>

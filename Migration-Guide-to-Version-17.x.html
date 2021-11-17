@@ -146,11 +146,127 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="migration-guide-for-version-17x"><a class="header" href="#migration-guide-for-version-17x">Migration guide for version 17.x</a></h1>
-<h2 id="todo"><a class="header" href="#todo">ToDo</a></h2>
-<blockquote>
-<p>Todo</p>
-</blockquote>
+                        <h1 id="migration-guide-for-version-170"><a class="header" href="#migration-guide-for-version-170">Migration guide for version 17.0</a></h1>
+<p>There are several breaking changes in v17:</p>
+<ul>
+<li>New exceptions handling logic</li>
+<li>Removal of update and message events</li>
+<li>Removal of API methods from <code>ITelegramBotClient</code> interface and moving them into extension methods in the same namespace (that shouldn't break anyone's sources as long as they don't employ reflection or make their own interface implementations)</li>
+<li>Working with default enum values</li>
+</ul>
+<p>These are the most user facing breaking changes you should be aware of during migration.</p>
+<p>Let's dive deep on the migrations.</p>
+<h2 id="new-exceptions-handling-logic"><a class="header" href="#new-exceptions-handling-logic">New exceptions handling logic</a></h2>
+<p>v17 brings a new base type for exceptions: <code>RequestException</code>. <code>ApiRequestException</code>  inherits from <code>RequestException</code> and is thrown only when an actual error response with the correct body is received from the Bot API. In other situations <code>RequestException</code> will be thrown instead containing actual exception as <code>InnerException</code> if there is one, e.g. serialization or connection-related exceptions.</p>
+<p>If you used <code>ApiRequestException</code> and <code>HttpRequestException</code> to handle most exception now you have to replace <code>HttpRequestException</code> with <code>RequestException</code> and look for the inner exception. All valid errors with JSON body from Telegram are now thrown as <code>ApiRequestException</code> including <code>429: Too Many Requests</code>.</p>
+<p>Since <code>5XX</code> responses don't usually include correct JSON body they are thrown as <code>RequestException</code> with <code>HttpRequestException</code> inside.</p>
+<p>Look at the following example on how to handle different kinds of exceptions. You might not need to implement everything as you see, it's there only for demonstration purposes.</p>
+<pre><code class="language-csharp">try
+{
+    await bot.SendTextMessageAsync(chatId, &quot;Hello&quot;);
+}
+catch (ApiRequestException exception)
+{
+    switch (exception.StatusCode)
+    {
+        case 400:
+            // Handle incorrect requests exceptions
+            break;
+        case 401:
+            // Handle incorrect bot token exception (revoked tokens)
+            break;
+        case 403:
+            // Handle authorization exceptions (blocked users, unaccessible chats, etc)
+            break;
+        case 429:
+            // Handle rate limiting exception
+            break;
+        default:
+            // Handle other errors with valid json body: it includes status code and description of the error
+            break;
+    }
+}
+catch (RequestException exception)
+{
+    if (exception.InnerException is HttpRequestException httpRequestException)
+    {
+        // Handle connection exceptions or 5XX exceptions from the Bot API
+    }
+    else if (exception.InnerException is JsonSerializationException serializationException)
+    {
+        // Handle serialization exception when a request or a response can't be serialized for some reason
+    }
+    else
+    {
+        // Handle all other exceptions
+    }
+}
+catch (OperationCancelledException exception)
+{
+    // Handle cancellation exception, e.g. when CancellationToken is cancelled
+}
+</code></pre>
+<h2 id="removal-of-events"><a class="header" href="#removal-of-events">Removal of events</a></h2>
+<p>In v17 we removed events and introduced a new way of getting updates with <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling">Telegram.Bot.Extensions.Polling</a> package. You can find an example in <a href="./1/example-bot.html">First Chat Bot</a> article.</p>
+<h2 id="removal-of-api-methods-from-itelegrambotclient-interface"><a class="header" href="#removal-of-api-methods-from-itelegrambotclient-interface">Removal of API methods from <code>ITelegramBotClient</code> interface</a></h2>
+<p>This change shouldn't affect most users, the methods are still there, but instead of being implementations of the interface they are now extension methods. It makes the interface leaner and easier to implement for custom clients and for decorators (e.g. rate limiters implemented as decorators). There isn't really a migration path for those who used these for some reason.</p>
+<h2 id="working-with-default-enum-values"><a class="header" href="#working-with-default-enum-values">Working with default enum values</a></h2>
+<p>We changed how we work with enums. The most notable change is the default value: there is none, all our enums are now start with 1 (exception <code>UpdateType</code> and <code>MessageType</code> since they are not a part of the Bot API and we fully control these). <code>0</code> value is left unassigned for a purpose: if we encounter an unknown value in the response from the Bot API we assign <code>0</code> as its value.</p>
+<p>Let's imagine that Telegram adds new <code>MessageEntity</code> value. From now on all unknown values can be handled in the <code>default</code> case of <code>switch</code> statement.</p>
+<pre><code class="language-csharp">MessageEntity entity = message.Entities.First();
+
+switch (entity.Type)
+{
+    case MessageEntityType.Username:
+        // ...
+        break;
+    case MessageEntityType.Command:
+        // ...
+        break;
+    default:
+        // All unknown values will go there
+        break;
+}
+</code></pre>
+<p>Also some default enums values were removed, e.g. <code>ParseMode.Default</code> since we started using nullable types for every optional value and <code>ParseMode.Default</code> lost it's use. If a message doesn't have any markup you'll receive <code>null</code> in places where <code>ParseMode</code> type was used or if you want to explicitly indicate an absence of markup pass <code>null</code> instead.</p>
+<h2 id="other-breaking-changes"><a class="header" href="#other-breaking-changes">Other breaking changes</a></h2>
+<h3 id="constructor-accepting-iwebproxy"><a class="header" href="#constructor-accepting-iwebproxy">Constructor accepting IWebProxy</a></h3>
+<p>We removed constructor accepting <code>IWebProxy</code>. Now you have to configure HttpClient yourself to use proxy. You can find examples in <a href="./4/proxy.html#http-proxy">Working Behind a Proxy</a> article.</p>
+<h3 id="inputmediatype"><a class="header" href="#inputmediatype">InputMediaType</a></h3>
+<p>Property <code>Type</code> in <code>IInputMedia</code> was changed to an enum <code>InputMediaType</code> for easier discoverability. So if you relied string values like <code>photo</code>, <code>video</code>, <code>animation</code> and so on now you need to switch to using enums. As a result you'll get autocomplete in IDEs and more predictability of what types of input media there are.</p>
+<h3 id="encryptedpassportelementtype"><a class="header" href="#encryptedpassportelementtype">EncryptedPassportElementType</a></h3>
+<p>Property <code>Type</code> of <code>EncryptedPassportElement</code> was replace with an enum for the same reason with <code>EncryptedPassportElementType</code> enum.</p>
+<h3 id="chatmember"><a class="header" href="#chatmember">ChatMember</a></h3>
+<p>As part of Bot API 5.3 implementation <code>ChatMember</code> type was split into a hierarchy of types with a discriminator field <code>Status</code>. If you need to access some data from the derived class you should use pattern matching or type casting like this:</p>
+<pre><code class="language-csharp">ChatMember member = ... //;
+
+if (chatMember is ChatMemberKicked kickedMember)
+{
+    // now you can access properties of a kicked chat member
+    if (kickedMember.Until is not null)
+    {
+        // do something with the value of Until
+    }
+}
+</code></pre>
+<h3 id="chatid"><a class="header" href="#chatid">ChatId</a></h3>
+<p>Fields <code>Identifier</code> and <code>Username</code> are now get-only properties. It shouldn't break most people's code as it's not a source breaking change. If you used reflection to find these fields you should to look for properties now.</p>
+<h3 id="inlinequeryresultbase"><a class="header" href="#inlinequeryresultbase">InlineQueryResultBase</a></h3>
+<p>Type <code>InlineQueryResultBase</code> is renamed to <code>InlineQueryResult</code> to match Bot API type hierarchy.</p>
+<h3 id="nullability"><a class="header" href="#nullability">Nullability</a></h3>
+<p>From now on all properties that are optional will use nullable types, e.g. <code>int?</code>, <code>string?</code>, because default values of such properties might be an actual values and isn't distinguishable from a lack of value. From now if a property is <code>null</code> you can be sure that it's value was not present in a response from the Bot API.</p>
+<h3 id="replykeyboardmarkup"><a class="header" href="#replykeyboardmarkup">ReplyKeyboardMarkup</a></h3>
+<p>Since <code>ResizeKeyboard</code> and <code>OneTimeKeyboard</code> are optional, we removed them from <code>ReplyKeyboardMarkup</code> constructor. You have to use <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer">object initialization syntax</a> to configure these properties:</p>
+<pre><code class="language-csharp">var replyKeyboardMarkup = new ReplyKeyboardMarkup(
+    new KeyboardButton[][]
+    {
+        new KeyboardButton[] { &quot;1.1&quot;, &quot;1.2&quot; },
+        new KeyboardButton[] { &quot;2.1&quot;, &quot;2.2&quot; },
+    })
+    {
+        ResizeKeyboard = true
+    };
+</code></pre>
 
                     </main>
 

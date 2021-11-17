@@ -164,16 +164,16 @@ or put the <code>chatId</code> value if you know it.</p>
 // using Telegram.Bot.Types.ReplyMarkups;
 
 Message message = await botClient.SendTextMessageAsync(
-  chatId: chatId, // or a chat id: 123456789
-  text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
-  parseMode: ParseMode.Markdown,
-  disableNotification: true,
-  replyToMessageId: update.Message.MessageId,
-  replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl(
-    &quot;Check sendMessage method&quot;,
-    &quot;https://core.telegram.org/bots/api#sendmessage&quot;
-  ))
-);
+    chatId: chatId,
+    text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
+    parseMode: ParseMode.MarkdownV2,
+    disableNotification: true,
+    replyToMessageId: update.Message.MessageId,
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl(
+            &quot;Check sendMessage method&quot;,
+            &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
+    cancellationToken: cancellationToken);
 </code></pre>
 <p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
 text message and returns the message object sent.</p>
@@ -189,10 +189,10 @@ Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to t
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
 message object. Add this statement after the previous code.</p>
 <pre><code class="language-c#">Console.WriteLine(
-  $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
-  $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
-  $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
-  $&quot;and has {message.Entities.Length} message entities.&quot;
+    $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
+    $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
+    $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
+    $&quot;and has {message.Entities.Length} message entities.&quot;
 );
 </code></pre>
 <p>Output should look similar to this:</p>

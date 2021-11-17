@@ -147,20 +147,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="example---first-chat-bot"><a class="header" href="#example---first-chat-bot">Example - First Chat Bot</a></h1>
-<p>On the previous page, we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
+<p>On the <a href="quickstart.html">previous page</a> we got an access token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users' messages and replies to them like in this screenshot:</p>
 <p><img src="docs/shot-example_bot.jpg" alt="Example Image" /></p>
-<p>Add a reference to <code>Telegram.Bot.Extensions.Polling</code> package.</p>
+<p>Add a reference to <a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Polling/">Telegram.Bot.Extensions.Polling</a> package:</p>
 <pre><code class="language-bash">dotnet add package Telegram.Bot.Extensions.Polling
 </code></pre>
 <p>Copy the following code to <code>Program.cs</code>.</p>
 <blockquote>
-<p>Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from Bot Father.</p>
+<p>⚠️ Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from the [<code>@BotFather</code>].</p>
 </blockquote>
-<pre><code class="language-c#">using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Telegram.Bot;
+<pre><code class="language-c#">using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
@@ -168,17 +165,18 @@ using Telegram.Bot.Types.Enums;
 
 var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
 
-var me = await botClient.GetMeAsync();
-Console.WriteLine(
-    $&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;
-);
-
 using var cts = new CancellationTokenSource();
 
 // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+var receiverOptions = new ReceiverOptions
+{
+    AllowedUpdates = { } // receive all update types
+};
 botClient.StartReceiving(
-    new DefaultUpdateHandler(HandleUpdateAsync, HandleErrorAsync),
-    cts.Token);
+    HandleUpdateAsync,
+    HandleErrorAsync,
+    receiverOptions,
+    cancellationToken: cts.Token);
 
 Console.WriteLine($&quot;Start listening for @{me.Username}&quot;);
 Console.ReadLine();
@@ -186,51 +184,56 @@ Console.ReadLine();
 // Send cancellation request to stop bot
 cts.Cancel();
 
+async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+{
+    // Only process Message updates: https://core.telegram.org/bots/api#message
+    if (update.Type != UpdateType.Message)
+        return;
+    // Only process text messages
+    if (update.Message!.Type != MessageType.Text)
+        return;
+
+    var chatId = update.Message.Chat.Id;
+    var messageText = update.Message.Text;
+
+    Console.WriteLine($&quot;Received a '{messageText}' message in chat {chatId}.&quot;);
+
+    // Echo received message text
+    Message sentMessage = await botClient.SendTextMessageAsync(
+        chatId: chatId,
+        text: &quot;You said:\n&quot; + messageText,
+        cancellationToken: cancellationToken);
+}
+
 Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
 {
     var ErrorMessage = exception switch
     {
-        ApiRequestException apiRequestException =&gt; $&quot;Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}&quot;,
-        _                                       =&gt; exception.ToString()
+        ApiRequestException apiRequestException
+            =&gt; $&quot;Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}&quot;,
+        _ =&gt; exception.ToString()
     };
 
     Console.WriteLine(ErrorMessage);
     return Task.CompletedTask;
 }
-
-async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-{
-    if (update.Type != UpdateType.Message)
-        return;
-    if (update.Message.Type != MessageType.Text)
-        return;
-
-    var chatId = update.Message.Chat.Id;
-    
-    Console.WriteLine($&quot;Received a '{update.Message.Text}' message in chat {chatId}.&quot;);
-
-    await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text:   &quot;You said:\n&quot; + update.Message.Text
-    );
-}
 </code></pre>
-<p>Run the program.</p>
+<p>Run the program:</p>
 <pre><code class="language-bash">dotnet run
 </code></pre>
 <p>It runs waiting for text messages unless forcefully stopped by pressing Enter. Open a private chat with your bot in
 Telegram and send a text message to it. Bot should reply in no time.</p>
-<p>In the code above, we instantiate a <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/DefaultUpdateHandler.cs"><code>DefaultUpdateHandler</code></a> and pass to it our update handlers so we can take action on updates sent to the bot.</p>
 <p>By invoking <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/Extensions/TelegramBotClientPollingExtensions.cs"><code>StartReceiving(...)</code></a> bot client starts fetching updates using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method for the bot
-from Telegram Servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use <code>Console.ReadLine()</code> to keep the app running.</p>
-<p>When a user sends a message the <code>HandleUpdateAsync(...)</code> method gets invoked with the <code>Update</code> object passed as an argument.
+from Telegram servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use <code>Console.ReadLine()</code> to keep the app running.</p>
+<p>When user sends a message, the <code>HandleUpdateAsync(...)</code> method gets invoked with the <code>Update</code> object passed as an argument.
 We check <code>Message.Type</code> and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.</p>
 <p>The <code>HandleErrorAsync(...)</code> method is invoked in case of an error.</p>
 <p>If you take a look at the console, the program outputs the <code>chatId</code> value. <strong>Copy the chat id number</strong> to make testing easier
-for yourself in the next pages.</p>
+for yourself on the next pages.</p>
 <pre><code class="language-text">Received a 'text' message in chat 123456789.
 </code></pre>
+<!-- -->
 
                     </main>
 
