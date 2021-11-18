@@ -178,6 +178,8 @@ botClient.StartReceiving(
     receiverOptions,
     cancellationToken: cts.Token);
 
+var me = await botClient.GetMeAsync();
+
 Console.WriteLine($&quot;Start listening for @{me.Username}&quot;);
 Console.ReadLine();
 
