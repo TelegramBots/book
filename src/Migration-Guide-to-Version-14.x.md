@@ -1,3 +1,5 @@
+# Migration guide for version 14.x
+
 ## Date and Time
 
 All `DateTime` values are now in UTC format. Here are some examples of usage:
@@ -5,9 +7,9 @@ All `DateTime` values are now in UTC format. Here are some examples of usage:
 ```csharp
 // Use UTC time when making a request
 await BotClient.KickChatMemberAsync(
-  chatId: -9876,
-  userId: 1234,
-  untilDate: DateTime.UtcNow.AddDays(2)
+    chatId: -9876,
+    userId: 1234,
+    untilDate: DateTime.UtcNow.AddDays(2)
 );
 ```
 
@@ -25,23 +27,23 @@ Here are some examples:
 ```csharp
 // Message having an inline keyboard button with URL that redirects to a page
 await BotClient.SendTextMessageAsync(
-  chatId: -9876,
-  text: "Check out the source code",
-  replyMarkup: new InlineKeyboardMarkup(
-    InlineKeyboardButton.WithUrl("Repository", "https://github.com/TelegramBots/Telegram.Bot")
-  )
+    chatId: -9876,
+    text: "Check out the source code",
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl("Repository", "https://github.com/TelegramBots/Telegram.Bot")
+    )
 );
 ```
 
 ```csharp
 // Message to a private chat having a 2-row reply keyboard
 await BotClient.SendTextMessageAsync(
-  chatId: 1234,
-  text: "Share your contact & location",
-  replyMarkup: new ReplyKeyboardMarkup(
-    new [] { KeyboardButton.WithRequestContact("Share Contact") },
-    new [] { KeyboardButton.WithRequestLocation("Share Location") },
-  )
+    chatId: 1234,
+    text: "Share your contact & location",
+    replyMarkup: new ReplyKeyboardMarkup(
+        new [] { KeyboardButton.WithRequestContact("Share Contact") },
+        new [] { KeyboardButton.WithRequestLocation("Share Location") },
+    )
 );
 ```
 
@@ -58,10 +60,10 @@ Downloading a file from Telegram Bot API has 2 steps ([see docs here](https://co
 // Gets file info and saves it to "path/to/file.pdf"
 using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf"))
 {
-  File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    fileId: "BsdfgLg4Khdlsn-bldBD",
-    destination: fileStream
-  );
+    File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        fileId: "BsdfgLg4Khdlsn-bldBD",
+        destination: fileStream
+    );
 }
 ```
 
@@ -75,16 +77,16 @@ File fileInfo = await BotClient.GetFileAsync("BsdfgLg4Khdlsn-bldBD");
 
 // Download file from server (step 2)
 using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf")) {
-  await BotClient.DownloadFileAsync(
-    filePath: fileInfo.FilePath,
-    destination: fileStream
-  );
+    await BotClient.DownloadFileAsync(
+        filePath: fileInfo.FilePath,
+        destination: fileStream
+    );
 }
 ```
 
 ## `GetUpdatesAsync()`, `SetWebhookAsync()`
 
-Value `All` is removed from enum `Telegram.Bot.Types.Enums.UpdateType`. In order to get all kind of updates, pass an empty list such as `new UpdateType[0]` for `allowedUpdates` argument.
+Value `All` is removed from enum `Telegram.Bot.Types.Enums.UpdateType`. In order to get all kind of updates, pass an empty list such as `Array.Empty<UpdateType>()` for `allowedUpdates` argument.
 
 ## `SetWebhookAsync()`
 
@@ -100,12 +102,12 @@ Instead of:
 
 ```csharp
 // bad way. easy to get exceptions
-documentResult = new InlineQueryResultDocument
+var documentResult = new InlineQueryResultDocument
 {
-  Id = "some-id",
-  Url = "https://example.com/document.pdf",
-  Title = "Some title",
-  MimeType = "application/pdf"
+    Id = "some-id",
+    Url = "https://example.com/document.pdf",
+    Title = "Some title",
+    MimeType = "application/pdf"
 };
 ```
 
@@ -113,11 +115,11 @@ You should use:
 
 ```csharp
 // good way
-documentResult = new InlineQueryResultDocument(
-  id: "some-id",
-  documentUrl: "https://example.com/document.pdf",
-  title: "Some title",
-  mimeType: "application/pdf"
+var documentResult = new InlineQueryResultDocument(
+    id: "some-id",
+    documentUrl: "https://example.com/document.pdf",
+    title: "Some title",
+    mimeType: "application/pdf"
 );
 ```
 
@@ -147,10 +149,10 @@ In many cases, you can use implicit casting to pass parameters.
 
 ```csharp
 Stream stream = System.IO.File.OpenRead("photo.png");
-message = await BotClient.SendPhotoAsync("chat id", stream);
+var message = await BotClient.SendPhotoAsync("chat id", stream);
 
 string fileId = "file_id on Telegram servers";
-message = await BotClient.SendPhotoAsync("chat id", fileId);
+var message = await BotClient.SendPhotoAsync("chat id", fileId);
 ```
 
 > *ToDo*. implicit casts
@@ -171,13 +173,15 @@ Many types now have the required parameters in their constructors. To avoid runn
 
 ```c#
 //bad way:
-markup = new InlineKeyboardMarkup {
-  Keyboard = buttonsArray,
-  ResizeKeyboard = true
-};
+var markup = new InlineKeyboardMarkup
+    {
+        Keyboard = buttonsArray,
+        ResizeKeyboard = true
+    };
 
 // better:
-markup = new InlineKeyboardMarkup(buttonsArray) {
-  ResizeKeyboard = true
-};
+var markup = new InlineKeyboardMarkup(buttonsArray)
+    {
+        ResizeKeyboard = true
+    };
 ```

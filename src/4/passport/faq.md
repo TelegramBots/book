@@ -14,8 +14,8 @@ Spot the _problem in this code_ decrypting driver's license files:
 
 ```c#
 byte[] selfieContent = decrypter.DecryptFile(
-  encSelfieContent, // byte array of encrypted selfie file
-  credentials.SecureData.DriverLicense.FrontSide // WRONG! use selfie file credentials
+    encSelfieContent, // byte array of encrypted selfie file
+    credentials.SecureData.DriverLicense.FrontSide // WRONG! use selfie file credentials
 );
 // throws PassportDataDecryptionException: "Data hash mismatch at position 123."
 ```

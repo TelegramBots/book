@@ -2,4 +2,4 @@
 
 ## Welcome
 
-### This book is for developers interested in developing chatbots in .NET framework
+This book is for developers interested in developing Telegram bots in .NET

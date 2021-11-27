@@ -65,8 +65,8 @@ We decrypt credentials using the RSA private key and verify that the same nonce 
 RSA key = EncryptionKey.ReadAsRsa();
 IDecrypter decrypter = new Decrypter();
 Credentials credentials = decrypter.DecryptCredentials(
-  passportData.Credentials,
-  key
+    passportData.Credentials,
+    key
 );
 bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 ```
@@ -75,7 +75,7 @@ bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 
 [![IdDocumentData type](https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square)](https://core.telegram.org/passport#iddocumentdata)
 
-[![method Should_decreypt_document_data](https://img.shields.io/badge/Test_Method-Decreypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_document_data](https://img.shields.io/badge/Test_Method-decrypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 In our test case, there is only 1 item in the `message.passport_data.data` array and that's the encrypted element for
 the driver's license scope.
@@ -83,8 +83,8 @@ We can get information such as document number and expiry date for the license f
 
 ```c#
 IdDocumentData licenseDoc = decrypter.DecryptData<IdDocumentData>(
-  encryptedData: element.Data,
-  dataCredentials: credentials.SecureData.DriverLicense.Data
+    encryptedData: element.Data,
+    dataCredentials: credentials.SecureData.DriverLicense.Data
 );
 ```
 
@@ -104,7 +104,7 @@ It really comes down to your decision on working with _streams_ vs. _byte arrays
 
 ### Front Side File
 
-[![method Should_decreypt_front_side_file](https://img.shields.io/badge/Test_Method-Decreypt_Front_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_front_side_file](https://img.shields.io/badge/Test_Method-decrypt_Front_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 A pretty handy extension method is used here to stream writing the front side file to disk.
 Method [DownloadAndDecryptPassportFileAsync] does a few things:
@@ -118,11 +118,11 @@ Method [DownloadAndDecryptPassportFileAsync] does a few things:
 File encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
-  encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
-    element.FrontSide, // PassportFile object for front side
-    credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
-    stream // destination stream for writing the JPEG content to
-  );
+    encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
+        element.FrontSide, // PassportFile object for front side
+        credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
+        stream // destination stream for writing the JPEG content to
+    );
 }
 ```
 
@@ -130,7 +130,7 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.j
 
 ### Reverse Side File
 
-[![method Should_decreypt_reverse_side_file](https://img.shields.io/badge/Test_Method-Decreypt_Reverse_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_reverse_side_file](https://img.shields.io/badge/Test_Method-decrypt_Reverse_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 Previous method call is divided into two operations here for reverse side of the license.
 Streams are used here as well.
@@ -138,29 +138,29 @@ Streams are used here as well.
 ```c#
 File encryptedFileInfo;
 using (System.IO.Stream
-  encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
-  decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
+    encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
+    decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
 ) {
-  // fetch the encrypted file info and download it to memory
-  encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
-    element.ReverseSide.FileId, // file_id of passport file for reverse side
-    encryptedContent // stream to copy the encrypted file into
-  );
-  // ensure memory stream is at the beginning before reading from it
-  encryptedContent.Position = 0;
+    // fetch the encrypted file info and download it to memory
+    encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+        element.ReverseSide.FileId, // file_id of passport file for reverse side
+        encryptedContent // stream to copy the encrypted file into
+    );
+    // ensure memory stream is at the beginning before reading from it
+    encryptedContent.Position = 0;
 
-  // decrypt the file and write it to disk
-  await decrypter.DecryptFileAsync(
-    encryptedContent,
-    credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
-    decryptedFile // destination stream for writing the JPEG content to
-  );
+    // decrypt the file and write it to disk
+    await decrypter.DecryptFileAsync(
+        encryptedContent,
+        credentials.SecureData.DriverLicense.ReverseSide, // reverse side FileCredentials
+        decryptedFile // destination stream for writing the JPEG content to
+    );
 }
 ```
 
 ### Selfie File
 
-[![method Should_decreypt_selfie_file](https://img.shields.io/badge/Test_Method-Decreypt_Selfie_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_selfie_file](https://img.shields.io/badge/Test_Method-decrypt_Selfie_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 We deal with selfie photo as a byte array.
 This is essentially the same operation as done above via streams.
@@ -173,32 +173,32 @@ File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
-  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+    stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
-  encryptedContent = stream.ToArray();
+    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    encryptedContent = stream.ToArray();
 }
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] selfieContent = decrypter.DecryptFile(
-  encryptedContent,
-  credentials.SecureData.DriverLicense.Selfie
+    encryptedContent,
+    credentials.SecureData.DriverLicense.Selfie
 );
 
 // send the photo to a chat
 using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
-  await BotClient.SendPhotoAsync(
-    123456,
-    stream,
-    "selfie with driver's license"
-  );
+    await BotClient.SendPhotoAsync(
+        123456,
+        stream,
+        "selfie with driver's license"
+    );
 }
 ```
 
 ### Translation File
 
-[![method Should_decreypt_translation_file](https://img.shields.io/badge/Test_Method-Decreypt_Translation_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
+[![method Should_decrypt_translation_file](https://img.shields.io/badge/Test_Method-decrypt_Translation_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.
@@ -219,17 +219,17 @@ File encryptedFileInfo = await BotClient.GetFileAsync(passportFile.FileId);
 // download encrypted file and get its bytes
 byte[] encryptedContent;
 using (System.IO.MemoryStream
-  stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
+    stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-  await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
-  encryptedContent = stream.ToArray();
+    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    encryptedContent = stream.ToArray();
 }
 
 // decrypt the content and get bytes of the actual selfie photo
 byte[] content = decrypter.DecryptFile(
-  encryptedContent,
-  fileCreds
+    encryptedContent,
+    fileCreds
 );
 
 // write the file to disk

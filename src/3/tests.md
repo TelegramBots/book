@@ -29,9 +29,9 @@ in test configurations before hand.
 
 All the tests happen in two chats. A Super Group chat and a Private chat with one of the testers.
 
-Test cases that need tester's interaction to continue, have a limit of usually 2 minues to wait for receving an expected update from API.
+Test cases that need tester's interaction to continue, have a limit of usually 2 minutes to wait for receiving an expected update from API.
 
-Tests could be run individually, in collections, or all at once. All the test collection and test cases whithin them are ordered and tests will not run in parallel.
+Tests could be run individually, in collections, or all at once. All the test collection and test cases within them are ordered and tests will not run in parallel.
 
 ## Test Environment Setup
 
@@ -67,8 +67,8 @@ This is required for executing any test case.
 
 ```json
 {
-    "ApiToken": "MyTestBot-API-TOKEN"
-    /* ... */
+  "ApiToken": "MyTestBot-API-TOKEN"
+  /* ... */
 }
 ```
 
@@ -78,9 +78,9 @@ A comma separated list indicating user name(s) of tester(s). Any update coming f
 
 ```json
 {
-    /* ... */
-    "AllowedUserNames": "tester1, Tester2, TESTER3"
-    /* ... */
+  /* ... */
+  "AllowedUserNames": "tester1, Tester2, TESTER3"
+  /* ... */
 }
 ```
 
@@ -100,9 +100,9 @@ If not set, before starting any test method, bot waits for a tester to send it a
 
 ```json
 {
-    /* ... */
-    "SuperGroupChatId": -1234567890
-    /* ... */
+  /* ... */
+  "SuperGroupChatId": -1234567890
+  /* ... */
 }
 ```
 
@@ -116,9 +116,9 @@ Consult Telegram API documentations and talk to BotFather to get a test token fr
 
 ```json
 {
-    /* ... */
-    "PaymentProviderToken": "MY-PAYMENT-PROVIDER-TOKEN"
-    /* ... */
+  /* ... */
+  "PaymentProviderToken": "MY-PAYMENT-PROVIDER-TOKEN"
+  /* ... */
 }
 ```
 
@@ -128,15 +128,15 @@ Invoices could only be sent to private chats. If not set, bot will wait for a te
 
 ```json
 {
-    /* ... */
-    "TesterPrivateChatId": 1234567890
-    /* ... */
+  /* ... */
+  "TesterPrivateChatId": 1234567890
+  /* ... */
 }
 ```
 
 #### Chat Administration
 
-For this type of tests, bot should be a priviledged admin of that super group. Methods such as kick or unban will be performed on a regular (non-admin) tester in that chat.
+For this type of tests, bot should be a privileged admin of that super group. Methods such as kick or unban will be performed on a regular (non-admin) tester in that chat.
 
 If the following 3 settings are not set, bot will ask a tester to send it `/me` command in a private chat with bot.
 
@@ -146,10 +146,10 @@ If the following 3 settings are not set, bot will ask a tester to send it `/me` 
 
 ```json
 {
-    /* ... */
-    "RegularMemberUserId": 1234567890,
-    "RegularMemberUserName": "tester3",
-    "RegularMemberPrivateChatId": 1234567890
-    /* ... */
+  /* ... */
+  "RegularMemberUserId": 1234567890,
+  "RegularMemberUserName": "tester3",
+  "RegularMemberPrivateChatId": 1234567890
+  /* ... */
 }
 ```

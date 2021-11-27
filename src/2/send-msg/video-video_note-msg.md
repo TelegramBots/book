@@ -7,7 +7,7 @@ Other video formats may be sent as documents.
 
 ## Video
 
-[![method sendVideo](https://img.shields.io/badge/Bot_API_method-send_video-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendvideo)
+[![method sendVideo](https://img.shields.io/badge/Bot_API_method-sendVideo-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendvideo)
 
 Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
 You can optionally specify the duration and resolution of the video.
@@ -17,12 +17,12 @@ and expect the Telegram clients to stream that long video instead of downloading
 We also set a thumbnail image for our video.
 
 ```c#
-Message msg = await botClient.SendVideoAsync(
-  chatId: e.Message.Chat,
-  video: "https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4",
-  thumb: "https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg",
-  supportsStreaming: true
-);
+Message message = await botClient.SendVideoAsync(
+    chatId: chatId,
+    video: "https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4",
+    thumb: "https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg",
+    supportsStreaming: true,
+    cancellationToken: cancellationToken);
 ```
 
 > Check the Bot API docs for `sendVideo` to learn more about video size limits and the thumbnail images.
@@ -35,7 +35,7 @@ User should be able to seek through the video without the video being downloaded
 
 ## Video Note
 
-[![method sendVideoNote](https://img.shields.io/badge/Bot_API_method-send_video_note-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendvideonote)
+[![method sendVideoNote](https://img.shields.io/badge/Bot_API_method-sendVideoNote-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendvideonote)
 
 Video notes, shown in circles to the user, are usually short (1 minute or less) with the same width and height.
 
@@ -45,14 +45,14 @@ Sending video note by its HTTP URL is not supported currently.
 Download the [Sea Waves video] to your disk for this example.
 
 ```c#
-Message msg;
+Message message;
 using (var stream = System.IO.File.OpenRead("/path/to/video-waves.mp4")) {
-  msg = await botClient.SendVideoNoteAsync(
-    chatId: e.Message.Chat,
-    videoNote: stream,
-    duration: 47,
-    length: 360 // value of width/height
-  );
+    message = await botClient.SendVideoNoteAsync(
+        chatId: chatId,
+        videoNote: stream,
+        duration: 47,
+        length: 360, // value of width/height
+        cancellationToken: cancellationToken);
 }
 ```
 

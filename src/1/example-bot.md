@@ -1,77 +1,114 @@
 # Example - First Chat Bot
 
-On the previous page, we got an access token and used the [`getMe`] method to check our setup.
+On the [previous page] we got an access token and used the [`getMe`] method to check our setup.
 Now, it is time to make an _interactive_ bot that gets users' messages and replies to them like in this screenshot:
 
 ![Example Image](docs/shot-example_bot.jpg)
 
+Add a reference to [Telegram.Bot.Extensions.Polling] package:
+
+```bash
+dotnet add package Telegram.Bot.Extensions.Polling
+```
+
 Copy the following code to `Program.cs`.
 
-> Replace `YOUR_ACCESS_TOKEN_HERE` with the access token from Bot Father.
+> ⚠️ Replace `{YOUR_ACCESS_TOKEN_HERE}` with the access token from the [`@BotFather`].
 
 ```c#
-using System;
-using System.Threading;
 using Telegram.Bot;
-using Telegram.Bot.Args;
+using Telegram.Bot.Exceptions;
+using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
-namespace Awesome {
-  class Program {
-    static ITelegramBotClient botClient;
+var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
 
-    static void Main() {
-      botClient = new TelegramBotClient("YOUR_ACCESS_TOKEN_HERE");
+using var cts = new CancellationTokenSource();
 
-      var me = botClient.GetMeAsync().Result;
-      Console.WriteLine(
-        $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
-      );
+// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+var receiverOptions = new ReceiverOptions
+{
+    AllowedUpdates = { } // receive all update types
+};
+botClient.StartReceiving(
+    HandleUpdateAsync,
+    HandleErrorAsync,
+    receiverOptions,
+    cancellationToken: cts.Token);
 
-      botClient.OnMessage += Bot_OnMessage;
-      botClient.StartReceiving();
-      Thread.Sleep(int.MaxValue);
-    }
+var me = await botClient.GetMeAsync();
 
-    static async void Bot_OnMessage(object sender, MessageEventArgs e) {
-      if (e.Message.Text != null)
-      {
-        Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
+Console.WriteLine($"Start listening for @{me.Username}");
+Console.ReadLine();
 
-        await botClient.SendTextMessageAsync(
-          chatId: e.Message.Chat,
-          text:   "You said:\n" + e.Message.Text
-        );
-      }
-    }
-  }
+// Send cancellation request to stop bot
+cts.Cancel();
+
+async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+{
+    // Only process Message updates: https://core.telegram.org/bots/api#message
+    if (update.Type != UpdateType.Message)
+        return;
+    // Only process text messages
+    if (update.Message!.Type != MessageType.Text)
+        return;
+
+    var chatId = update.Message.Chat.Id;
+    var messageText = update.Message.Text;
+
+    Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
+
+    // Echo received message text
+    Message sentMessage = await botClient.SendTextMessageAsync(
+        chatId: chatId,
+        text: "You said:\n" + messageText,
+        cancellationToken: cancellationToken);
+}
+
+Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+{
+    var ErrorMessage = exception switch
+    {
+        ApiRequestException apiRequestException
+            => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
+        _ => exception.ToString()
+    };
+
+    Console.WriteLine(ErrorMessage);
+    return Task.CompletedTask;
 }
 ```
 
-Run the program.
+Run the program:
 
 ```bash
 dotnet run
 ```
 
-It runs for a long time waiting for text messages unless forcefully stopped. Open a private chat with your bot in
+It runs waiting for text messages unless forcefully stopped by pressing Enter. Open a private chat with your bot in
 Telegram and send a text message to it. Bot should reply in no time.
 
-In the code above, we subscribe to `OnMessage` event on bot client to take action on messages that users send to bot.
+By invoking [`StartReceiving(...)`] bot client starts fetching updates using [`getUpdates`] method for the bot
+from Telegram servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use `Console.ReadLine()` to keep the app running.
 
-By invoking `StartReceiving()`, bot client starts fetching updates using [`getUpdates`] method for the bot
-from Telegram Servers. This is an asynchronous operation so `Thread.Sleep()` is used right after that
-to keep the app running for a while in this demo.
-
-When a user sends a message, `Bot_OnMessage()` gets invoked with the message object passed via event arguments.
-We are expecting a text message so we check for `Message.Text` value.
+When user sends a message, the `HandleUpdateAsync(...)` method gets invoked with the `Update` object passed as an argument.
+We check `Message.Type` and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.
 
+The `HandleErrorAsync(...)` method is invoked in case of an error.
+
 If you take a look at the console, the program outputs the `chatId` value. **Copy the chat id number** to make testing easier
-for yourself in the next pages.
+for yourself on the next pages.
 
 ```text
-Received a text message in chat 123456789.
+Received a 'text' message in chat 123456789.
 ```
 
+<!-- -->
+
+[previous page]: quickstart.md
 [`getMe`]: https://core.telegram.org/bots/api#getme
+[Telegram.Bot.Extensions.Polling]: https://www.nuget.org/packages/Telegram.Bot.Extensions.Polling/
 [`getUpdates`]: https://core.telegram.org/bots/api#getupdates
+[`StartReceiving(...)`]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/Extensions/TelegramBotClientPollingExtensions.cs
