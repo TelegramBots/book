@@ -1,6 +1,8 @@
+# Download
+
 First, read the [documentation on `getFile`](https://core.telegram.org/bots/api#getfile).
 
-To download a file you will need its ID.
+To download a file you will need its FileId.
 
 ## Finding the FileId
 
@@ -9,14 +11,15 @@ There are many file objects in the Telegram Bot API:
 
 The FileId for each will be found in their `FileId` property (E.g. `Message.Audio.FileId`).
 
-The exception to that is the Photo, which is a [`PhotoSize[]`][`PhotoSize`].
+The exception to that is the Photo, which is an array of [`PhotoSize[]`][`PhotoSize`] objects.
 Telegram sends you a few different resolutions for each photo that you can choose from.
-Generaly, you will want the highest quality - the last [`PhotoSize`] in the array.
-Using Linq, this boils down to `Message.Photo.Last().FileId`.
+Generally, you will want the highest quality - the last [`PhotoSize`] object in the array.
+Using LINQ, this boils down to `Message.Photo.Last().FileId`.
 
 ## Downloading a file
 
 Downloading a file from Telegram servers is done in two steps:
+
 1. Calling `getFile` to receive a URL from which we can download the file
 2. Downloading the file
 
