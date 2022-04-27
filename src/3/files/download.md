@@ -1,53 +1,62 @@
-# Download
+# Downloading files
 
-First, read the [documentation on `getFile`](https://core.telegram.org/bots/api#getfile).
+First, read the [documentation on `getFile`](https://core.telegram.org/bots/api#getfile) method.
 
-To download a file you will need its FileId.
+To download file you have to know its file identifier - `FileId`.
 
-## Finding the FileId
+## Finding the file identifier
 
-There are many file objects in the Telegram Bot API:
-[`Document`], [`Audio`], [`Voice`], [`Video`], [`VideoNote`], [`Animation`], [`Sticker`], `Photo`.
+Telegram Bot API has several object types, representing file:
+[`PhotoSize`], [`Animation`], [`Audio`], [`Document`], [`Video`], [`VideoNote`], [`Voice`], [`Sticker`].
 
-The FileId for each will be found in their `FileId` property (E.g. `Message.Audio.FileId`).
+The file identifier for each file type can be found in their `FileId` property (e.g. `Message.Audio.FileId`).
 
-The exception to that is the Photo, which is an array of [`PhotoSize[]`][`PhotoSize`] objects.
-Telegram sends you a few different resolutions for each photo that you can choose from.
+The exception is photos, which represented as an array of [`PhotoSize[]`][`PhotoSize`] objects.
+For each photo Telegram sends you a set of [`PhotoSize`] objects - available resolutions, you can choose from.
 Generally, you will want the highest quality - the last [`PhotoSize`] object in the array.
-Using LINQ, this boils down to `Message.Photo.Last().FileId`.
+With LINQ, this boils down to `Message.Photo.Last().FileId`.
 
 ## Downloading a file
 
-Downloading a file from Telegram servers is done in two steps:
+Downloading a file from Telegram is done in two steps:
 
-1. Calling `getFile` to receive a URL from which we can download the file
-2. Downloading the file
+1. Get file information with `getFile` method. Resulting [`File`] object contains `FilePath` from which we can download the file.
+2. Downloading the file.
 
-Calling `Bot.GetFileAsync(fileId)` will return a [`File`] object that contains a `file_path`.
-
-The URL from which you can now download the file is `https://api.telegram.org/file/bot<token>/<file_path>`.
-
-The library provides you with a helper function that does both - `GetInfoAndDownloadFileAsync`.
-
-## Downloading into a FileStream
-
-```csharp
-using (FileStream fs = System.IO.File.OpenWrite("File.pdf"))
-    await Bot.GetInfoAndDownloadFileAsync(message.Document.FileId, fs);
+```C#
+var fileId = update.Message.Photo.Last().FileId;
+var fileInfo = await botClient.GetFileAsync(fileId);
+var filePath = fileInfo.FilePath;
 ```
 
-## Downloading to a byte array
+The URL from which you can now download the file is `https://api.telegram.org/file/bot<token>/<FilePath>`.
 
-```csharp
-byte[] document = await Bot.GetInfoAndDownloadFileAsync(message.Document.FileId);
+To download file you can use `DownloadFileAsync` function:
+
+```C#
+string destinationFilePath = $"../downloaded.file";
+await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await botClient.DownloadFileAsync(
+    filePath: filePath,
+    destination: fileStream);
 ```
 
-[`Document`]: https://core.telegram.org/bots/api#document
+For your convenience the library provides you a helper function that does both - `GetInfoAndDownloadFileAsync`:
+
+```C#
+string destinationFilePath = $"../downloaded.file";
+await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+var file = await botClient.GetInfoAndDownloadFileAsync(
+    fileId: fileId,
+    destination: fileStream);
+```
+
+[`PhotoSize`]: https://core.telegram.org/bots/api#photosize
+[`Animation`]: https://core.telegram.org/bots/api#animation
 [`Audio`]: https://core.telegram.org/bots/api#audio
-[`Voice`]: https://core.telegram.org/bots/api#voice
+[`Document`]: https://core.telegram.org/bots/api#document
 [`Video`]: https://core.telegram.org/bots/api#video
 [`VideoNote`]: https://core.telegram.org/bots/api#videonote
-[`Animation`]: https://core.telegram.org/bots/api#animation
+[`Voice`]: https://core.telegram.org/bots/api#voice
 [`Sticker`]: https://core.telegram.org/bots/api#sticker
-[`PhotoSize`]: https://core.telegram.org/bots/api#photosize
 [`File`]: https://core.telegram.org/bots/api#file
