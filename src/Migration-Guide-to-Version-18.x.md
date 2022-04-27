@@ -28,11 +28,11 @@ Following properties in `Message` object and enum members in `MessageType` enum 
 Also property `CanManageVoiceChats` in `ChatMemberAdministrator` and `PromoteChatMemberRequest` class was renamed to
 `CanManageVideoChats`.
 
-## 2. Removal of property `UntilDate`
+## 2. Renaming static sticker related methods and classes
 
-Since Telegram added animated stickers in one of the previous Bot API updates we needed a way to differentiate between
-methods and classes for creating and senging static and animated stickers. We already used `Animated` suffix for
-methods related to animated stickers so we decided to do the same with static stickers:
+Since Telegram added video stickers in one of the previous Bot API updates we needed a way to differentiate between
+methods and classes for creating and senging static, animated and video stickers. We already used `Animated` and `Video` suffix for
+methods related to animated and video stickers so we decided to do the same with static stickers:
 
 - Classes `CreateNewStickerSetRequest` and `AddStickerToSetRequest` were renamed to `CreateNewStaticStickerSetRequest`
 and `AddStaticStickerToSetRequest`
