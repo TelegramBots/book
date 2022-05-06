@@ -2,31 +2,37 @@
 
 First, read the [documentation on sending files](https://core.telegram.org/bots/api#sending-files).
 
-## Upload an actual file
+## Upload local file
 
-```csharp
-using (FileStream stream = System.IO.File.OpenRead("Local file.pdf"))
-{
-    InputOnlineFile inputOnlineFile = new InputOnlineFile(stream, "Name for the user.pdf");
-    await botClient.SendDocumentAsync(chatId, inputOnlineFile);
-}
+To upload local file open stream and call one of the file-sending functions:
+
+```C#
+await using Stream stream = System.IO.File.OpenRead(@"../hamlet.pdf");
+Message message = await botClient.SendDocumentAsync(
+    chatId: chatId,
+    document: new InputOnlineFile(content: stream, fileName: "hamlet.pdf"),
+    caption: "The Tragedy of Hamlet,\nPrince of Denmark");
 ```
 
-## Upload file by file_id
+Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files.
 
-This is the method that you will want to use the most, as it is the most efficient.
-After sending a file to the user, or receiving a file, you can send the file again using its ID.
+## Upload file by file identifier
 
-This saves you from uploading the entire file.
+If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a `FileId` property. Simply pass this `FileId` as a parameter instead of uploading. There are no limits for files sent this way.
 
-```csharp
-InputOnlineFile inputOnlineFile = new InputOnlineFile("file id");
-await botClient.SendDocumentAsync(chatId, inputOnlineFile);
+```C#
+var fileId = update.Message.Photo.Last().FileId;
+Message message = await botClient.SendPhotoAsync(
+    chatId: chatId,
+    photo: fileId);
 ```
 
-## Uploading by URL
+## Upload by URL
+
+Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.
 
 ```csharp
-InputOnlineFile inputOnlineFile = new InputOnlineFile("telegram.org/img/t_logo.png");
-await Bot.SendDocumentAsync(chatId, inputOnlineFile);
+Message message = await botClient.SendPhotoAsync(
+    chatId: chatId,
+    photo: new InputOnlineFile("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"));
 ```

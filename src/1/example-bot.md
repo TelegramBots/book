@@ -5,12 +5,6 @@ Now, it is time to make an _interactive_ bot that gets users' messages and repli
 
 ![Example Image](docs/shot-example_bot.jpg)
 
-Add a reference to [Telegram.Bot.Extensions.Polling] package:
-
-```bash
-dotnet add package Telegram.Bot.Extensions.Polling
-```
-
 Copy the following code to `Program.cs`.
 
 > ⚠️ Replace `{YOUR_ACCESS_TOKEN_HERE}` with the access token from the [`@BotFather`].
@@ -18,7 +12,7 @@ Copy the following code to `Program.cs`.
 ```c#
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
-using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -29,13 +23,14 @@ using var cts = new CancellationTokenSource();
 // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
 var receiverOptions = new ReceiverOptions
 {
-    AllowedUpdates = { } // receive all update types
+    AllowedUpdates = Array.Empty<UpdateType>() // receive all update types
 };
 botClient.StartReceiving(
-    HandleUpdateAsync,
-    HandleErrorAsync,
-    receiverOptions,
-    cancellationToken: cts.Token);
+    updateHandler: HandleUpdateAsync,
+    pollingErrorHandler: HandlePollingErrorAsync,
+    receiverOptions: receiverOptions,
+    cancellationToken: cts.Token
+);
 
 var me = await botClient.GetMeAsync();
 
@@ -66,7 +61,7 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
         cancellationToken: cancellationToken);
 }
 
-Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
 {
     var ErrorMessage = exception switch
     {
@@ -96,7 +91,7 @@ When user sends a message, the `HandleUpdateAsync(...)` method gets invoked with
 We check `Message.Type` and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.
 
-The `HandleErrorAsync(...)` method is invoked in case of an error.
+The `HandlePollingErrorAsync(...)` method is invoked in case of an error that occurred while fetching updates.
 
 If you take a look at the console, the program outputs the `chatId` value. **Copy the chat id number** to make testing easier
 for yourself on the next pages.

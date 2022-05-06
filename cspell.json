@@ -5,13 +5,16 @@
 		"csharp",
 		"dictionary"
 	],
-    "caseSensitive": true,
+	"caseSensitive": true,
 	"dictionaryDefinitions": [
-		{ "name": "dictionary", "path": "./cspell-dictionary.txt" }
+		{
+			"name": "dictionary",
+			"path": "./cspell-dictionary.txt"
+		}
 	],
-    "flagWords": [
-        "hte"
-    ],
+	"flagWords": [
+		"hte"
+	],
 	"ignoreRegExpList": [
 		"\\(.+\\/.+\\..+\\)",
 		"\\]: .+\\/.+\\..+$",
