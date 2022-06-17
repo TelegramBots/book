@@ -31,3 +31,4 @@ discoverability
 dotnet
 LINQ
 reupload
+WEBP
