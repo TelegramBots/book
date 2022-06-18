@@ -23,7 +23,7 @@ var webProxy = new WebProxy(Host: "https://example.org", Port: 8080) {
     Credentials = new NetworkCredential("USERNAME", "PASSWORD")
 };
 var httpClient = new HttpClient(
-    new HttpClientHandler { Proxy = webProxy, UseProxy = true }
+    new HttpClientHandler { Proxy = webProxy, UseProxy = true, }
 );
 
 var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
@@ -31,28 +31,18 @@ var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 
 ## SOCKS5 Proxy
 
-Unfortunately, there is no built-in support for socks proxies in the .NET Standard libraries.
-You can use an external NuGet package: [`HttpToSocks5Proxy`] provided by one of our team members.
+As of .NET 6, `SocketsHttpHandler` [supports connecting to Socks4, Socks4a and Socks5 proxies](https://devblogs.microsoft.com/dotnet/dotnet-6-networking-improvements/#socks-proxy-support)!
 
 ```csharp
-// using MihaZupan;
-
-var proxy = new HttpToSocks5Proxy(Socks5ServerAddress, Socks5ServerPort);
-
-// Or if you need credentials for your proxy server:
-var proxy = new HttpToSocks5Proxy(
-    Socks5ServerAddress, Socks5ServerPort, "USERNAME", "PASSWORD"
-);
-
-// Allows you to use proxies that are only allowing connections to Telegram
-// Needed for some proxies
-proxy.ResolveHostnamesLocally = true;
-
+var proxy = new WebProxy("socks5://127.0.0.1:9050")
+{
+    Credentials = new NetworkCredential("USERNAME", "PASSWORD")
+};
 var httpClient = new HttpClient(
-    new HttpClientHandler { Proxy = proxy, UseProxy = true }
+    new SocketsHttpHandler { Proxy = proxy, UseProxy = true, }
 );
 
-botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
+var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 ```
 
 ## SOCKS5 Proxy over Tor
@@ -81,15 +71,13 @@ before a production release.
 Usage:
 
 ```csharp
-// using MihaZupan;
-
-var proxy = new HttpToSocks5Proxy("127.0.0.1", 9050);
+var proxy = new WebProxy("socks5://127.0.0.1:9050");
 
 var httpClient = new HttpClient(
-    new HttpClientHandler { Proxy = proxy, UseProxy = true }
+    new SocketsHttpHandler { Proxy = proxy, UseProxy = true }
 );
 
-botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
+var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 ```
 
 > Note that Tor has to be active at all times for the bot to work.
