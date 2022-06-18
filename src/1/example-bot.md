@@ -43,14 +43,13 @@ cts.Cancel();
 async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
 {
     // Only process Message updates: https://core.telegram.org/bots/api#message
-    if (update.Type != UpdateType.Message)
+    if (update.Message is not { } message)
         return;
     // Only process text messages
-    if (update.Message!.Type != MessageType.Text)
+    if (message.Text is not { } messageText)
         return;
 
-    var chatId = update.Message.Chat.Id;
-    var messageText = update.Message.Text;
+    var chatId = message.Chat.Id;
 
     Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
