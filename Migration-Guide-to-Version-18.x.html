@@ -138,18 +138,22 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="migration-guide-for-version-180"><a class="header" href="#migration-guide-for-version-180">Migration guide for version 18.0</a></h1>
-<p>Most breaking changes in v18 come from new Bot API changes, such are:</p>
+<p>Most breaking changes in v18 come from new Bot API changes, such as:</p>
 <ol>
-<li>Deprecation of <code>voice_chat*</code> related message properties in favour of <code>video_chat*</code> properties with the same
-semantics and shape</li>
-<li>A new animated sticker formats required differentiation for different sticker related requests, so static
-<code>StickerSet</code> releated methods and requests were renamed using <code>Static</code> suffix</li>
-<li>A new way of configuring the client</li>
+<li>In <a href="https://core.telegram.org/bots/api#april-16-2022">Bot API 6.0</a> <code>voice_chat*</code> related message properties were
+deprecated in favour of <code>video_chat*</code> with the same semantics and shape.</li>
+<li>With introduction of video stickers in <a href="https://core.telegram.org/bots/api#january-31-2022">Bot API 5.7</a> we needed a way
+to separate methods for different sticker types. So static .WEBP <code>*StickerSet*</code> methods and requests were given a <code>Static</code> prefix.</li>
+<li>Removed <code>untilDate</code> parameter from <code>TelegramBotClientExtensions.BanChatSenderChatAsync</code> method and <code>UntilDate</code> property from <code>BanChatSenderChatRequest</code> class.</li>
+<li>As of the next update some users will be able to upload up to 4GB files, so we changed <code>FileBase.FileSize</code> type to <code>long?</code>.</li>
+<li>A new way of configuring the client.</li>
+<li><code>ApiRequestEventArgs</code> contains full request data.</li>
 </ol>
+<p>Complete list of changes is available in <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/CHANGELOG.md">CHANGELOG</a></p>
 <h2 id="1-removal-of-voicechat-properties-in-message-object"><a class="header" href="#1-removal-of-voicechat-properties-in-message-object">1. Removal of <code>VoiceChat*</code> properties in <code>Message</code> object</a></h2>
-<p>Telegram deprecated <code>voice_chat_*</code> properties in Bot API and replaced them with <code>video_chat_*</code> onces so we replaced
-deprecated properties and corresponding <code>MessageType</code> enum members with new ones.</p>
-<p>Following properties in <code>Message</code> object and enum members in <code>MessageType</code> enum were changed:</p>
+<p>Telegram renamed <code>voice_chat_*</code> properties in the <code>Message</code> class and with <code>video_chat_*</code> onces so we replaced
+corresponding <code>MessageType</code> enum members with the new ones.</p>
+<p>Following properties in <code>Message</code> class and corresponding enum members in <code>MessageType</code> enum were changed:</p>
 <pre><code class="language-diff">-VoiceChatScheduled
 -VoiceChatStarted
 -VoiceChatEnded
@@ -159,21 +163,25 @@ deprecated properties and corresponding <code>MessageType</code> enum members wi
 +VideoChatEnded
 +VideoChatParticipantsInvited
 </code></pre>
-<p>Also property <code>CanManageVoiceChats</code> in <code>ChatMemberAdministrator</code> and <code>PromoteChatMemberRequest</code> class was renamed to
+<p>Also property <code>CanManageVoiceChats</code> in <code>ChatMemberAdministrator</code> and <code>PromoteChatMemberRequest</code> classes was renamed to
 <code>CanManageVideoChats</code>.</p>
-<h2 id="2-renaming-static-sticker-related-methods-and-classes"><a class="header" href="#2-renaming-static-sticker-related-methods-and-classes">2. Renaming static sticker related methods and classes</a></h2>
-<p>Since Telegram added video stickers in one of the previous Bot API updates we needed a way to differentiate between
-methods and classes for creating and senging static, animated and video stickers. We already used <code>Animated</code> and
-<code>Video</code> suffix for methods related to animated and video stickers so we decided to do the same with static stickers:</p>
+<h2 id="2-renaming-static-sticker-methods-and-classes"><a class="header" href="#2-renaming-static-sticker-methods-and-classes">2. Renaming static sticker methods and classes</a></h2>
+<p>With introduction of video stickers in <a href="https://core.telegram.org/bots/api#january-31-2022">Bot API 5.7</a> we needed a way
+to separate methods for different sticker types. We already used <code>Animated</code> and <code>Video</code> suffix for methods related to animated
+and video stickers so we decided to do the same for the static stickers:</p>
 <ul>
 <li>Classes <code>CreateNewStickerSetRequest</code> and <code>AddStickerToSetRequest</code> were renamed to <code>CreateNewStaticStickerSetRequest</code>
-and <code>AddStaticStickerToSetRequest</code></li>
-<li>Methods <code>AddStickerToSetAsync</code> and <code>CreateNewStickerSetAsync</code> where renamed to <code>AddStaticStickerToSetAsync</code> and
-<code>CreateStaticNewStickerSetAsync</code></li>
+and <code>AddStaticStickerToSetRequest</code>.</li>
+<li>Methods <code>CreateNewStickerSetAsync</code> and <code>AddStickerToSetAsync</code> where renamed to
+<code>CreateStaticNewStickerSetAsync</code> and <code>AddStaticStickerToSetAsync</code>.</li>
 </ul>
-<h2 id="3-a-new-way-of-configuration"><a class="header" href="#3-a-new-way-of-configuration">3. A new way of configuration</a></h2>
-<p>From this version all client configuration related to Bot API is passed through <code>TelegramBotClientOptions</code> class.
-You need to first instantiate an instance of it and pass it to the client</p>
+<h2 id="3-removal-of-untildate-parameter-from-banchatsenderchatasync-method-and-untildate-property-from-banchatsenderchatrequest-class"><a class="header" href="#3-removal-of-untildate-parameter-from-banchatsenderchatasync-method-and-untildate-property-from-banchatsenderchatrequest-class">3. Removal of <code>untilDate</code> parameter from <code>BanChatSenderChatAsync</code> method and <code>UntilDate</code> property from <code>BanChatSenderChatRequest</code> class</a></h2>
+<p>The <code>untilDate</code> parameter from <code>TelegramBotClientExtensions.BanChatSenderChatAsync</code> method and <code>UntilDate</code> property from <code>BanChatSenderChatRequest</code> class were removed from the Bot API.</p>
+<h2 id="4-lifting-of-the-filesize-limit"><a class="header" href="#4-lifting-of-the-filesize-limit">4. Lifting of the FileSize limit</a></h2>
+<p>As of the next update some users will be able to upload up to 4GB files, so we changed <code>FileBase.FileSize</code> type to <code>long?</code> to accommodate this change.</p>
+<h2 id="5-a-new-way-of-client-configuration"><a class="header" href="#5-a-new-way-of-client-configuration">5. A new way of client configuration</a></h2>
+<p>Starting with this release client configuration parameters should be passed through <code>TelegramBotClientOptions</code> class.
+You need to create an instance of <code>TelegramBotClientOptions</code> and pass it to the client:</p>
 <pre><code class="language-csharp">using Telegram.Bot;
 
 var options = new TelegramBotClientOptions(
@@ -190,16 +198,15 @@ var client = new TelegramBotClient(options);
 </code></pre>
 <p>If you don't know about test environment you can read more about it in the official
 <a href="https://core.telegram.org/bots/webapps#using-bots-in-the-test-environment">documentation</a>.</p>
-<p>We left a constructor that accepts only the token and an instance of <code>HttpClient</code> since most people don't use custom
-bot servers or test environments so it's more convenient to just pass the token.</p>
+<p>If you don't need extra configuration options you can still use the constructor that accepts a token and an instance of <code>HttpClient</code>:</p>
 <pre><code class="language-csharp">var client = new TelegramBotClient(&quot;&lt;token&gt;&quot;);
 </code></pre>
-<h2 id="polling-functionality-in-the-core-library"><a class="header" href="#polling-functionality-in-the-core-library">Polling functionality in the core library</a></h2>
-<p>The latest biggest change wich is not a breaking one, but nevertheless worth a note: deprecation of
+<h2 id="6-polling-functionality-in-the-core-library"><a class="header" href="#6-polling-functionality-in-the-core-library">6. Polling functionality in the core library</a></h2>
+<p>The latest biggest change which is not a breaking one, but nevertheless worth a note: deprecation of
 <code>Telegram.Bot.Extensions.Polling</code> package.</p>
-<p>All the functionality from the packge was merged into the core library under namespace <code>Telegram.Bot.Polling</code>.</p>
+<p>All the functionality from the package was merged into the core library under namespace <code>Telegram.Bot.Polling</code>.</p>
 <p>Name of the method <code>HandleErrorAsync</code> in <code>IUpdateHandler</code> interface was quite confusing from the beginning since a lot
-of people assumed the can handle all errors in it, but in reality it's used only for handling errors during polling.
+of people assumed they can handle all errors in it, but in reality it's used only for handling errors during polling.
 We decided to give it a more appropriate name: <code>HandlePollingErrorAsync</code>.</p>
 
                     </main>
