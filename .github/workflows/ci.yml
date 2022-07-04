@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: '16'
     - name: Setup linter and spellchecker cli
-      run: npm install -g markdownlint-cli cspell
+      run: npm install --location=global markdownlint-cli cspell
     - name: Lint markdown files
       run: markdownlint src/**/*.md
     - name: Run spellcheck
