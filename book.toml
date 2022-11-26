@@ -7,5 +7,4 @@ site-url = "https://telegrambots.github.io/book/"
 language = "en"
 
 [output.html]
-google-analytics = "UA-131839892-2"
 git-repository-url = "https://github.com/TelegramBots/book"
