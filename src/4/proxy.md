@@ -97,5 +97,4 @@ These three lines make sure you use nodes from the Netherlands as much as possib
 This line tells tor to listen on port 9050 for any socks connections.
 You can change the port to anything you want (9050 is just the default), only make sure to use the same port in your code.
 
-[`HttpToSocks5Proxy`]: https://www.nuget.org/packages/HttpToSocks5Proxy/
 [Tor Browser]: https://www.torproject.org/
