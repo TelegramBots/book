@@ -103,6 +103,5 @@ Received a 'text' message in chat 123456789.
 
 [previous page]: quickstart.md
 [`getMe`]: https://core.telegram.org/bots/api#getme
-[Telegram.Bot.Extensions.Polling]: https://www.nuget.org/packages/Telegram.Bot.Extensions.Polling/
 [`getUpdates`]: https://core.telegram.org/bots/api#getupdates
 [`StartReceiving(...)`]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/Extensions/TelegramBotClientPollingExtensions.cs
