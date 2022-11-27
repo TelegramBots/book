@@ -6,7 +6,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 // ANCHOR_END: usings
 
-namespace BookExamples._1;
+namespace BookExamples.Chatpter1;
 
 internal class ExampleBot
 {

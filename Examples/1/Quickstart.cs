@@ -1,8 +1,8 @@
-﻿// ANCHOR: usings
+// ANCHOR: usings
 using Telegram.Bot;
 // ANCHOR_END: usings
 
-namespace BookExamples._1;
+namespace BookExamples.Chatpter1;
 
 internal class Quickstart
 {
