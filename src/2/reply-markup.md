@@ -87,7 +87,7 @@ Pressing a [switch to inline button] prompts the user to select a chat, opens it
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
 
-{{#include ../../Examples/2/ReplyMarkup.cs:switchto-inline}}
+{{#include ../../Examples/2/ReplyMarkup.cs:switch-to-inline}}
 ```
 
 [special keyboard]: https://core.telegram.org/bots#keyboards

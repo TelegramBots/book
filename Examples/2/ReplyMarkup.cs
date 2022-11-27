@@ -127,7 +127,7 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 
     private async Task SwitchToInline()
     {
-// ANCHOR: switchto-inline
+// ANCHOR: switch-to-inline
 InlineKeyboardMarkup inlineKeyboard = new(new[]
 {
     InlineKeyboardButton.WithSwitchInlineQuery(
@@ -141,6 +141,6 @@ Message sentMessage = await botClient.SendTextMessageAsync(
     text: "A message with an inline keyboard markup",
     replyMarkup: inlineKeyboard,
     cancellationToken: cancellationToken);
-// ANCHOR_END: switchto-inline
+// ANCHOR_END: switch-to-inline
     }
 }
