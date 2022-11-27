@@ -10,4 +10,8 @@
     <PackageReference Include="Telegram.Bot" Version="18.0.0" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);IDE0044;IDE0051;IDE0053;IDE0059;</NoWarn>
+    <NoWarn>$(NoWarn);CA1822;</NoWarn>
+  </PropertyGroup>
 </Project>
