@@ -10,12 +10,7 @@ There are other kind of message types which are supported by the client. In the 
 This is the code to send a contact. Mandatory are the parameters `chatId`, `phoneNumber` and `firstName`.
 
 ```c#
-Message message = await botClient.SendContactAsync(
-    chatId: chatId,
-    phoneNumber: "+1234567890",
-    firstName: "Han",
-    lastName: "Solo",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-contact}}
 ```
 
 ![send contact](../docs/shot-contact.jpg)
@@ -23,18 +18,7 @@ Message message = await botClient.SendContactAsync(
 If you want to send a contact as vCard you can achieve  this by adding a valid vCard `string` as value for the optional parameter `vCard` as seen in the given example below.
 
 ```c#
-Message message = await botClient.SendContactAsync(
-    chatId: chatId,
-    phoneNumber: "+1234567890",
-    firstName: "Han",
-    vCard: "BEGIN:VCARD\n" +
-           "VERSION:3.0\n" +
-           "N:Solo;Han\n" +
-           "ORG:Scruffy-looking nerf herder\n" +
-           "TEL;TYPE=voice,work,pref:+1234567890\n" +
-           "EMAIL:hansolo@mfalcon.com\n" +
-           "END:VCARD",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-vCard}}
 ```
 
 ![send vcard](../docs/shot-contact_vcard.jpg)
@@ -47,13 +31,7 @@ Message message = await botClient.SendContactAsync(
 The code snippet below sends a venue with a title and a address as given parameters:
 
 ```c#
-Message message = await botClient.SendVenueAsync(
-    chatId: chatId,
-    latitude: 50.0840172f,
-    longitude: 14.418288f,
-    title: "Man Hanging out",
-    address: "Husova, 110 00 Staré Město, Czechia",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-venue}}
 ```
 
 ![send contact](../docs/shot-venue.jpg)
@@ -68,11 +46,7 @@ The difference between sending a location and a venue is, that the venue require
 The following snippet shows how to send a location with the mandatory parameters:
 
 ```c#
-Message message = await botClient.SendLocationAsync(
-    chatId: chatId,
-    latitude: 33.747252f,
-    longitude: -112.633853f,
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-location}}
 ```
 
 ![send contact](../docs/shot-location.jpg)
