@@ -2,7 +2,7 @@
 using Telegram.Bot;
 // ANCHOR_END: usings
 
-namespace BookExamples.Chatpter1;
+namespace BookExamples.Chapter1;
 
 internal class Quickstart
 {
