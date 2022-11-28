@@ -13,5 +13,6 @@
   <PropertyGroup>
     <NoWarn>$(NoWarn);IDE0044;IDE0051;IDE0053;IDE0059;</NoWarn>
     <NoWarn>$(NoWarn);CA1822;</NoWarn>
+    <NoWarn>$(NoWarn);RCS1163;RCS1213;RCS1214;</NoWarn>
   </PropertyGroup>
 </Project>

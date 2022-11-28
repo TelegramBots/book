@@ -74,10 +74,10 @@ Message message = await botClient.SendAudioAsync(
     private async Task SendVoice()
     {
 // ANCHOR: send-voice
-await using var stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
+await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
 Message message = await botClient.SendVoiceAsync(
     chatId: chatId,
-    voice: stream,
+    voice: stream!,
     duration: 36,
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-voice
@@ -211,6 +211,9 @@ Message message2 = await botClient.SendStickerAsync(
 
     private async Task SendText()
     {
+    if (update.Message is null)
+        return;
+
 // ANCHOR: send-text
 Message message = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -225,8 +228,17 @@ Message message = await botClient.SendTextMessageAsync(
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-text
 
-// ANCHOR: message-contents
-Console.WriteLine(
+    if (message is not {
+        From: { },
+        ReplyToMessage: { },
+        Entities: { },
+    })
+    {
+        return;
+    }
+
+    // ANCHOR: message-contents
+    Console.WriteLine(
     $"{message.From.FirstName} sent message {message.MessageId} " +
     $"to chat {message.Chat.Id} at {message.Date}. " +
     $"It is a reply to message {message.ReplyToMessage.MessageId} " +

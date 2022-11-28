@@ -1,6 +1,5 @@
 using System.Net;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 
 // ANCHOR: usings
 // using System.Net;
@@ -11,7 +10,7 @@ namespace Examples.Chapter2;
 
 internal class Proxy
 {
-    private async Task ClientWithHttpProxy()
+    private void ClientWithHttpProxy()
     {
 // ANCHOR: http-proxy-client
 WebProxy webProxy = new (Host: "https://example.org", Port: 8080)
@@ -27,7 +26,7 @@ var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 // ANCHOR_END: http-proxy-client
     }
 
-    private async Task ClientWithSocksProxy()
+    private void ClientWithSocksProxy()
     {
 // ANCHOR: socks-proxy-client
 WebProxy proxy = new ("socks5://127.0.0.1:9050")
@@ -42,7 +41,7 @@ var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 // ANCHOR_END: socks-proxy-client
     }
 
-    private async Task TorProxy()
+    private void TorProxy()
     {
 // ANCHOR: tor-proxy-client
 WebProxy proxy = new ("socks5://127.0.0.1:9050");

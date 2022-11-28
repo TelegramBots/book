@@ -13,11 +13,19 @@ internal class Files
 
     private async Task GetFile()
     {
+        if (update.Message is not { Photo: { } }) {
+            return;
+        }
 // ANCHOR: get-file
 var fileId = update.Message.Photo.Last().FileId;
 var fileInfo = await botClient.GetFileAsync(fileId);
 var filePath = fileInfo.FilePath;
-// ANCHOR_END: get-file
+    // ANCHOR_END: get-file
+
+    if (filePath is null)
+    {
+        return;
+    }
 
     await DownloadFile();
     await GetInfoAndDownloadFile();
@@ -25,9 +33,9 @@ var filePath = fileInfo.FilePath;
     async Task DownloadFile()
     {
 // ANCHOR: download-file
-string destinationFilePath = $"../downloaded.file";
+const string destinationFilePath = "../downloaded.file";
 
-await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
 await botClient.DownloadFileAsync(
     filePath: filePath,
     destination: fileStream,
@@ -38,9 +46,9 @@ await botClient.DownloadFileAsync(
     async Task GetInfoAndDownloadFile()
     {
 // ANCHOR: get-and-download-file
-string destinationFilePath = $"../downloaded.file";
+const string destinationFilePath = "../downloaded.file";
 
-await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
 var file = await botClient.GetInfoAndDownloadFileAsync(
     fileId: fileId,
     destination: fileStream,
@@ -52,7 +60,7 @@ var file = await botClient.GetInfoAndDownloadFileAsync(
     private async Task UploadLocalFile()
     {
 // ANCHOR: upload-local-file
-await using Stream stream = System.IO.File.OpenRead(@"../hamlet.pdf");
+await using Stream stream = System.IO.File.OpenRead("../hamlet.pdf");
 Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
     document: new InputOnlineFile(content: stream, fileName: "hamlet.pdf"),
@@ -62,8 +70,13 @@ Message message = await botClient.SendDocumentAsync(
 
     private async Task UploadByFileId()
     {
-// ANCHOR: upload-by-file_id
-var fileId = update.Message.Photo.Last().FileId;
+        if (update.Message is not { Photo: { } })
+        {
+            return;
+        }
+
+    // ANCHOR: upload-by-file_id
+    var fileId = update.Message.Photo.Last().FileId;
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
     photo: fileId);
