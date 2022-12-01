@@ -12,7 +12,7 @@ jobs:
     - name: Setup mdBook
       uses: peaceiris/actions-mdbook@v1
       with:
-        mdbook-version: '0.4.19'
+        mdbook-version: '0.4.22'
     - name: Setup nodejs
       uses: actions/setup-node@v2
       with:
