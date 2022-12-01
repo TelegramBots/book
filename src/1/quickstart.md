@@ -35,12 +35,9 @@ This code fetches Bot information based on its access token by calling the Bot A
 > ⚠️ Replace `{YOUR_ACCESS_TOKEN_HERE}` with your access token from the [`@BotFather`].
 
 ```c#
-using Telegram.Bot;
+{{#include ../../Examples/1/Quickstart.cs:usings}}
 
-var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
-
-var me = await botClient.GetMeAsync();
-Console.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
+{{#include ../../Examples/1/Quickstart.cs:quickstart}}
 ```
 
 Running the program gives you the following output:

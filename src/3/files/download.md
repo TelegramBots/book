@@ -24,9 +24,7 @@ Downloading a file from Telegram is done in two steps:
 2. Downloading the file.
 
 ```C#
-var fileId = update.Message.Photo.Last().FileId;
-var fileInfo = await botClient.GetFileAsync(fileId);
-var filePath = fileInfo.FilePath;
+{{#include ../../../Examples/3/Files.cs:get-file}}
 ```
 
 The URL from which you can now download the file is `https://api.telegram.org/file/bot<token>/<FilePath>`.
@@ -34,21 +32,13 @@ The URL from which you can now download the file is `https://api.telegram.org/fi
 To download file you can use `DownloadFileAsync` function:
 
 ```C#
-string destinationFilePath = $"../downloaded.file";
-await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
-await botClient.DownloadFileAsync(
-    filePath: filePath,
-    destination: fileStream);
+{{#include ../../../Examples/3/Files.cs:download-file}}
 ```
 
 For your convenience the library provides you a helper function that does both - `GetInfoAndDownloadFileAsync`:
 
 ```C#
-string destinationFilePath = $"../downloaded.file";
-await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
-var file = await botClient.GetInfoAndDownloadFileAsync(
-    fileId: fileId,
-    destination: fileStream);
+{{#include ../../../Examples/3/Files.cs:get-and-download-file}}
 ```
 
 [`PhotoSize`]: https://core.telegram.org/bots/api#photosize

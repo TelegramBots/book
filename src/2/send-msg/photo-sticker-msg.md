@@ -7,7 +7,7 @@ You can provide the source file for almost all multimedia messages (e.g. photo, 
 - `file_id` of an existing file on Telegram servers (_recommended_)
 
 Examples in this section show all three.
-You will learn more about them later on when we discuss file upload and download.
+You will learn more about them later on when we discuss file [upload](../../3/files/upload.md) and [download](../../3/files/download.md).
 
 ## Photo
 
@@ -17,12 +17,7 @@ You will learn more about them later on when we discuss file upload and download
 Sending a photo is simple. Here is an example:
 
 ```c#
-Message message = await botClient.SendPhotoAsync(
-    chatId: chatId,
-    photo: "https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg",
-    caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
-    parseMode: ParseMode.Html,
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-photo}}
 ```
 
 ![photo message](../docs/shot-photo_msg.jpg)
@@ -81,23 +76,15 @@ Telegram stickers are fun and our bot is about to send its very first sticker.
 Sticker files should be in [WebP] format.
 
 This code sends the same sticker twice. First by passing HTTP URL to a [WebP] sticker file and
-second by reusing `file_id` of the same sticker on Telegram servers.
+second by reusing `FileId` of the same sticker on Telegram servers.
 
 ```c#
-Message message1 = await botClient.SendStickerAsync(
-    chatId: chatId,
-    sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp",
-    cancellationToken: cancellationToken);
-
-Message message2 = await botClient.SendStickerAsync(
-    chatId: chatId,
-    sticker: message1.Sticker.FileId,
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-sticker}}
 ```
 
 ![sticker messages](../docs/shot-sticker_msgs.jpg)
 
-Try inspecting the `msg1.Sticker` property. It is of type [`Sticker`] and its schema looks similar to a photo.
+Try inspecting the `sticker1.Sticker` property. It is of type [`Sticker`] and its schema looks similar to a photo.
 
 > There is more to stickers and we will talk about them in greater details later.
 
