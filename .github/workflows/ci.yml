@@ -8,7 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout sources
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
     - name: Setup mdBook
       uses: peaceiris/actions-mdbook@v1
       with:
@@ -16,7 +24,7 @@ jobs:
     - name: Setup nodejs
       uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        node-version: '18'
     - name: Setup linter and spellchecker cli
       run: npm install --location=global markdownlint-cli cspell
     - name: Lint markdown files

@@ -8,12 +8,7 @@
 Use [`sendDocument`] method to send general files.
 
 ```c#
-Message message = await botClient.SendDocumentAsync(
-    chatId: chatId,
-    document: "https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg",
-    caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
-    parseMode: ParseMode.Html,
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-document}}
 ```
 
 ## Send animations
@@ -24,11 +19,7 @@ Message message = await botClient.SendDocumentAsync(
 Use [`sendAnimation`] method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
 
 ```c#
-Message message = await botClient.SendAnimationAsync(
-    chatId: chatId,
-    animation: "https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4",
-    caption: "Waves",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-animation}}
 ```
 
 [`sendDocument`]: https://core.telegram.org/bots/api#senddocument

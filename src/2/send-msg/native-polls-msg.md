@@ -2,7 +2,7 @@
 
 [![native poll tests](https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/AnonymousPollTests.cs)
 
-Bots just as regular users can send native polls only to groups and channels, but not to private chats.
+Just as regular users bots can only send native polls to groups and channels, but not to private chats.
 
 ## Send a poll
 
@@ -11,20 +11,12 @@ Bots just as regular users can send native polls only to groups and channels, bu
 This is the code to send a poll to a chat.
 
 ```c#
-Message pollMessage = await botClient.SendPollAsync(
-    chatId: "@group_or_channel_username",
-    question: "Did you ever hear the tragedy of Darth Plagueis The Wise?",
-    options: new []
-    {
-        "Yes for the hundredth time!",
-        "No, who`s that?"
-    },
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-poll}}
 ```
 
 ![native poll](../docs/shot-native_poll_msg.jpeg)
 
-You can optionally send a keyboard with a poll, both an inline and a regular one.
+You can optionally send a keyboard with a poll, both an inline or a regular one.
 
 You'll get the message with [`Poll`](https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs) object inside it.
 
@@ -37,15 +29,12 @@ To close a poll you need to know original chat and message ids of the poll that 
 Let's close the poll that we sent in the previous example:
 
 ```c#
-Poll poll = await botClient.StopPollAsync(
-    chatId: pollMessage.Chat.Id,
-    messageId: pollMessage.MessageId,
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:stop-poll}}
 ```
 
 ![closed native poll](../docs/shot-native_poll_closed.jpeg)
 
-You can also send a new inline keyboard when you close a poll.
+You can add an inline keyboard when you close a poll.
 
 As a result of the request you'll get the the final poll state with property `Poll.IsClosed` set to true.
 
