@@ -16,7 +16,7 @@ Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
     - Or install it using Rust package manager
 
         ```bash
-        cargo install mdbook --vers "^0.4.19"
+        cargo install mdbook --vers "^0.4.22"
         ```
 
 1. Run locally on [http://localhost:3000](http://localhost:3000)
@@ -33,5 +33,5 @@ See [Contribution Guidelines].
 <!-- -->
 
 [mdBook]: https://github.com/rust-lang/mdBook
-[mdBook binary]: https://github.com/rust-lang/mdBook/releases/tag/v0.4.18
+[mdBook binary]: https://github.com/rust-lang/mdBook/releases
 [Contribution Guidelines]: CONTRIBUTING.md
