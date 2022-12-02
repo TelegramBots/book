@@ -166,7 +166,7 @@ We also set a thumbnail image for our video.</p>
     cancellationToken: cancellationToken);
 </code></pre>
 <blockquote>
-<p>Check the Bot API docs for <code>sendVideo</code> to learn more about video size limits and the thumbnail images.</p>
+<p>Check the Bot API docs for <code>sendVideo</code> method to learn more about video size limits and the thumbnail images.</p>
 </blockquote>
 <p><img src="../docs/shot-video_thumb1.jpg" alt="vide screenshot 1" /></p>
 <p>User should be able to seek through the video without the video being downloaded completely.</p>
@@ -177,15 +177,14 @@ We also set a thumbnail image for our video.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-c#">Message message;
-using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;)) {
-    message = await botClient.SendVideoNoteAsync(
-        chatId: chatId,
-        videoNote: stream,
-        duration: 47,
-        length: 360, // value of width/height
-        cancellationToken: cancellationToken);
-}
+<pre><code class="language-c#">await using var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
+
+Message message = await botClient.SendVideoNoteAsync(
+    chatId: chatId,
+    videoNote: stream,
+    duration: 47,
+    length: 360, // value of width/height
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
 

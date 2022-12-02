@@ -151,7 +151,7 @@
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
 <h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
 <p>To upload local file open stream and call one of the file-sending functions:</p>
-<pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead(@&quot;../hamlet.pdf&quot;);
+<pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead(&quot;../hamlet.pdf&quot;);
 Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
     document: new InputOnlineFile(content: stream, fileName: &quot;hamlet.pdf&quot;),
@@ -160,7 +160,7 @@ Message message = await botClient.SendDocumentAsync(
 <p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files.</p>
 <h2 id="upload-file-by-file-identifier"><a class="header" href="#upload-file-by-file-identifier">Upload file by file identifier</a></h2>
 <p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no limits for files sent this way.</p>
-<pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
+<pre><code class="language-C#">    var fileId = update.Message.Photo.Last().FileId;
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
     photo: fileId);

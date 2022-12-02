@@ -149,14 +149,14 @@
                     <main>
                         <h1 id="native-poll-messages"><a class="header" href="#native-poll-messages">Native Poll Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/AnonymousPollTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
-<p>Bots just as regular users can send native polls only to groups and channels, but not to private chats.</p>
+<p>Just as regular users bots can only send native polls to groups and channels, but not to private chats.</p>
 <h2 id="send-a-poll"><a class="header" href="#send-a-poll">Send a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
 <pre><code class="language-c#">Message pollMessage = await botClient.SendPollAsync(
-    chatId: &quot;@group_or_channel_username&quot;,
+    chatId: &quot;@channel_name&quot;,
     question: &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
-    options: new []
+    options: new[]
     {
         &quot;Yes for the hundredth time!&quot;,
         &quot;No, who`s that?&quot;
@@ -164,7 +164,7 @@
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
-<p>You can optionally send a keyboard with a poll, both an inline and a regular one.</p>
+<p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
 <p>You'll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
 <h2 id="stop-a-poll"><a class="header" href="#stop-a-poll">Stop a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
@@ -176,7 +176,7 @@
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
-<p>You can also send a new inline keyboard when you close a poll.</p>
+<p>You can add an inline keyboard when you close a poll.</p>
 <p>As a result of the request you'll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
 <p>If you'll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you'll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
 <p>Also if you'll try to close an already closed poll you'll get <code>ApiRequestException</code> with message <code>Bad Request: poll has already been closed</code>.</p>

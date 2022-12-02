@@ -163,13 +163,14 @@ using Telegram.Bot.Types.Enums;
 
 var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
 
-using var cts = new CancellationTokenSource();
+using CancellationTokenSource cts = new ();
 
-// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
-var receiverOptions = new ReceiverOptions
+    // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+ ReceiverOptions receiverOptions = new ()
 {
     AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types
 };
+
 botClient.StartReceiving(
     updateHandler: HandleUpdateAsync,
     pollingErrorHandler: HandlePollingErrorAsync,

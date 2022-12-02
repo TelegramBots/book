@@ -229,13 +229,14 @@ using Telegram.Bot.Types.Enums;
 
 var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
 
-using var cts = new CancellationTokenSource();
+using CancellationTokenSource cts = new ();
 
-// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
-var receiverOptions = new ReceiverOptions
+    // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+ ReceiverOptions receiverOptions = new ()
 {
     AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types
 };
+
 botClient.StartReceiving(
     updateHandler: HandleUpdateAsync,
     pollingErrorHandler: HandlePollingErrorAsync,
@@ -323,20 +324,20 @@ Fortunately, methods for sending such messages are similar. Take a look at these
 <p><img src="2/send-msg/../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
 <pre><code class="language-c#">Message message = await botClient.SendTextMessageAsync(
     chatId: chatId,
-    text:   &quot;Hello, World!&quot;,
+    text: &quot;Hello, World!&quot;,
     cancellationToken: cancellationToken);
 </code></pre>
 <h2 id="sending-sticker-message"><a class="header" href="#sending-sticker-message">Sending sticker message</a></h2>
 <p><img src="2/send-msg/../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
 <pre><code class="language-c#">Message message = await botClient.SendStickerAsync(
-    chatId:  chatId,
+    chatId: chatId,
     sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;,
     cancellationToken: cancellationToken);
 </code></pre>
 <h2 id="sending-video-message"><a class="header" href="#sending-video-message">Sending video message</a></h2>
 <p><img src="2/send-msg/../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
-    chatId:  chatId,
+    chatId: chatId,
     video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;,
     cancellationToken: cancellationToken);
 </code></pre>
@@ -353,11 +354,7 @@ Text messages are easy to send and fast to display on devices with slower networ
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>chatId</code>
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
-<pre><code class="language-c#">// using Telegram.Bot.Types;
-// using Telegram.Bot.Types.Enums;
-// using Telegram.Bot.Types.ReplyMarkups;
-
-Message message = await botClient.SendTextMessageAsync(
+<pre><code class="language-c#">Message message = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
     parseMode: ParseMode.MarkdownV2,
@@ -365,8 +362,8 @@ Message message = await botClient.SendTextMessageAsync(
     replyToMessageId: update.Message.MessageId,
     replyMarkup: new InlineKeyboardMarkup(
         InlineKeyboardButton.WithUrl(
-            &quot;Check sendMessage method&quot;,
-            &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
+            text: &quot;Check sendMessage method&quot;,
+            url: &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
     cancellationToken: cancellationToken);
 </code></pre>
 <p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
@@ -379,15 +376,13 @@ message id for <code>replyToMessageId</code>.</p>
 Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens
 <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
-<h2 id="the-message-sent"><a class="header" href="#the-message-sent">The Message Sent</a></h2>
-<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
-message object. Add this statement after the previous code.</p>
-<pre><code class="language-c#">Console.WriteLine(
+<h2 id="the-sent-message"><a class="header" href="#the-sent-message">The Sent Message</a></h2>
+<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
+<pre><code class="language-c#">    Console.WriteLine(
     $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
     $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
     $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
-    $&quot;and has {message.Entities.Length} message entities.&quot;
-);
+    $&quot;and has {message.Entities.Length} message entities.&quot;);
 </code></pre>
 <p>Output should look similar to this:</p>
 <pre><code class="language-text">Awesome bot sent message 123 to chat 123456789 at 8/21/18 11:25:09 AM. It is a reply to message 122 and has 2 message entities.
@@ -412,7 +407,7 @@ message.EntityValues.First()  == &quot;all the parameters&quot;
 <li><code>file_id</code> of an existing file on Telegram servers (<em>recommended</em>)</li>
 </ul>
 <p>Examples in this section show all three.
-You will learn more about them later on when we discuss file upload and download.</p>
+You will learn more about them later on when we discuss file <a href="2/send-msg/../../3/files/upload.html">upload</a> and <a href="2/send-msg/../../3/files/download.html">download</a>.</p>
 <h2 id="photo"><a class="header" href="#photo">Photo</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-sendPhoto-blue.svg?style=flat-square" alt="send photo method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
@@ -469,7 +464,7 @@ so you can reuse the <code>file_id</code> value.</p>
 <p>Telegram stickers are fun and our bot is about to send its very first sticker.
 Sticker files should be in <a href="https://developers.google.com/speed/webp/">WebP</a> format.</p>
 <p>This code sends the same sticker twice. First by passing HTTP URL to a <a href="https://developers.google.com/speed/webp/">WebP</a> sticker file and
-second by reusing <code>file_id</code> of the same sticker on Telegram servers.</p>
+second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
 <pre><code class="language-c#">Message message1 = await botClient.SendStickerAsync(
     chatId: chatId,
     sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;,
@@ -477,23 +472,23 @@ second by reusing <code>file_id</code> of the same sticker on Telegram servers.<
 
 Message message2 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: message1.Sticker.FileId,
+    sticker: message1.Sticker!.FileId,
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
-<p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
+<p>Try inspecting the <code>sticker1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
 <blockquote>
 <p>There is more to stickers and we will talk about them in greater details later.</p>
 </blockquote>
 <!-- -------------- -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="audio-and-voice-messages"><a class="header" href="#audio-and-voice-messages">Audio and Voice Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
-<p>These two types of messages are pretty similar. An audio is in MP3 format and gets displayed in music player.
+<p>These two types of messages are pretty similar. Audio is MP3-encoded file that can be played in music player.
 A voice file has OGG format and is not shown in music player.</p>
 <h2 id="audio"><a class="header" href="#audio">Audio</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
-<p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out.
-That's because this MP3 file has metadata on it and Telegram does a good job at reading them.</p>
+<p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out?
+That's because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
 <pre><code class="language-c#">Message message = await botClient.SendAudioAsync(
     chatId: chatId,
     audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;,
@@ -507,7 +502,7 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 <p><img src="2/send-msg/../docs/shot-audio_msg.jpg" alt="audio message" /></p>
 <p>And a user can see the audio in Music Player:</p>
 <p><img src="2/send-msg/../docs/shot-music_player.jpg" alt="music player" /></p>
-<p>Method returns an audio message. Let's take a look at the value of <code>msg.Audio</code> property in JSON format:</p>
+<p>Method returns an audio message. Let's take a look at the value of <code>message.Audio</code> property in JSON format:</p>
 <pre><code class="language-json">{
   &quot;duration&quot;: 91,
   &quot;mime_type&quot;: &quot;audio/mpeg&quot;,
@@ -519,24 +514,22 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 </code></pre>
 <h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
-<p>A voice message is just an OGG audio file.
+<p>A voice message is an OGG audio file.
 Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
 <p>To run this example, download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
 <p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
 <blockquote>
-<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file</p>
+<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
 </blockquote>
-<pre><code class="language-c#">Message message;
-using (var stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;)) {
-    message = await botClient.SendVoiceAsync(
-        chatId: chatId,
-        voice: stream,
-        duration: 36,
-        cancellationToken: cancellationToken);
-}
+<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;);
+Message message = await botClient.SendVoiceAsync(
+    chatId: chatId,
+    voice: stream!,
+    duration: 36,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-voice_msg.jpg" alt="voice message" /></p>
-<p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> property to learn more.</p>
+<p>A voice message is returned from the method. Inspect the <code>message.Voice</code> property to learn more.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="video-and-video-note-messages"><a class="header" href="#video-and-video-note-messages">Video and Video Note Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>You can send MP4 files as a regular video or a <em>video note</em>.
@@ -556,7 +549,7 @@ We also set a thumbnail image for our video.</p>
     cancellationToken: cancellationToken);
 </code></pre>
 <blockquote>
-<p>Check the Bot API docs for <code>sendVideo</code> to learn more about video size limits and the thumbnail images.</p>
+<p>Check the Bot API docs for <code>sendVideo</code> method to learn more about video size limits and the thumbnail images.</p>
 </blockquote>
 <p><img src="2/send-msg/../docs/shot-video_thumb1.jpg" alt="vide screenshot 1" /></p>
 <p>User should be able to seek through the video without the video being downloaded completely.</p>
@@ -567,15 +560,14 @@ We also set a thumbnail image for our video.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-c#">Message message;
-using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;)) {
-    message = await botClient.SendVideoNoteAsync(
-        chatId: chatId,
-        videoNote: stream,
-        duration: 47,
-        length: 360, // value of width/height
-        cancellationToken: cancellationToken);
-}
+<pre><code class="language-c#">await using var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
+
+Message message = await botClient.SendVideoNoteAsync(
+    chatId: chatId,
+    videoNote: stream,
+    duration: 47,
+    length: 360, // value of width/height
+    cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="album-messages"><a class="header" href="#album-messages">Album Messages</a></h1>
@@ -615,14 +607,14 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="native-poll-messages"><a class="header" href="#native-poll-messages">Native Poll Messages</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/AnonymousPollTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
-<p>Bots just as regular users can send native polls only to groups and channels, but not to private chats.</p>
+<p>Just as regular users bots can only send native polls to groups and channels, but not to private chats.</p>
 <h2 id="send-a-poll"><a class="header" href="#send-a-poll">Send a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
 <pre><code class="language-c#">Message pollMessage = await botClient.SendPollAsync(
-    chatId: &quot;@group_or_channel_username&quot;,
+    chatId: &quot;@channel_name&quot;,
     question: &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
-    options: new []
+    options: new[]
     {
         &quot;Yes for the hundredth time!&quot;,
         &quot;No, who`s that?&quot;
@@ -630,7 +622,7 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
-<p>You can optionally send a keyboard with a poll, both an inline and a regular one.</p>
+<p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
 <p>You'll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
 <h2 id="stop-a-poll"><a class="header" href="#stop-a-poll">Stop a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
@@ -642,7 +634,7 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
-<p>You can also send a new inline keyboard when you close a poll.</p>
+<p>You can add an inline keyboard when you close a poll.</p>
 <p>As a result of the request you'll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
 <p>If you'll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you'll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
 <p>Also if you'll try to close an already closed poll you'll get <code>ApiRequestException</code> with message <code>Bad Request: poll has already been closed</code>.</p>
@@ -711,13 +703,13 @@ using (var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
-    })
-    {
-        ResizeKeyboard = true
-    };
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+{
+    new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
+})
+{
+    ResizeKeyboard = true
+};
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -732,14 +724,13 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two rows of buttons:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        new KeyboardButton[] { &quot;One&quot;, &quot;Two&quot; },
-        new KeyboardButton[] { &quot;Three&quot;, &quot;Four&quot; },
-    })
-    {
-        ResizeKeyboard = true
-    };
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+{
+    new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
+})
+{
+    ResizeKeyboard = true
+};
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -751,11 +742,11 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p><a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> containing buttons for contact and location requests using helper methods <code>KeyboardButton.WithRequestLocation</code> and <code>KeyboardButton.WithRequestContact</code>:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        KeyboardButton.WithRequestLocation(&quot;Share Location&quot;),
-        KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
-    });
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+{
+    KeyboardButton.WithRequestLocation(&quot;Share Location&quot;),
+    KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -780,21 +771,21 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use <code>InlineKeyboardButton.WithCallbackData</code> helper method to create a button with a text and callback data.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-InlineKeyboardMarkup inlineKeyboard = new(new []
+InlineKeyboardMarkup inlineKeyboard = new(new[]
+{
+    // first row
+    new []
     {
-        // first row
-        new []
-        {
-            InlineKeyboardButton.WithCallbackData(text: &quot;1.1&quot;, callbackData: &quot;11&quot;),
-            InlineKeyboardButton.WithCallbackData(text: &quot;1.2&quot;, callbackData: &quot;12&quot;),
-        },
-        // second row
-        new []
-        {
-            InlineKeyboardButton.WithCallbackData(text: &quot;2.1&quot;, callbackData: &quot;21&quot;),
-            InlineKeyboardButton.WithCallbackData(text: &quot;2.2&quot;, callbackData: &quot;22&quot;),
-        },
-    });
+        InlineKeyboardButton.WithCallbackData(text: &quot;1.1&quot;, callbackData: &quot;11&quot;),
+        InlineKeyboardButton.WithCallbackData(text: &quot;1.2&quot;, callbackData: &quot;12&quot;),
+    },
+    // second row
+    new []
+    {
+        InlineKeyboardButton.WithCallbackData(text: &quot;2.1&quot;, callbackData: &quot;21&quot;),
+        InlineKeyboardButton.WithCallbackData(text: &quot;2.2&quot;, callbackData: &quot;22&quot;),
+    },
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -806,14 +797,12 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p>Buttons of this type have a small arrow icon to help the user understand that tapping on a <a href="https://core.telegram.org/bots/2-0-intro#url-buttons">URL button</a> will open an external link. In this example we use <code>InlineKeyboardButton.WithUrl</code> helper method to create a button with a text and url.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-InlineKeyboardMarkup inlineKeyboard = new(new []
-    {
-        InlineKeyboardButton.WithUrl(
-            text: &quot;Link to the Repository&quot;,
-            url: &quot;https://github.com/TelegramBots/Telegram.Bot&quot;
-        )
-    }
-);
+InlineKeyboardMarkup inlineKeyboard = new(new[]
+{
+    InlineKeyboardButton.WithUrl(
+        text: &quot;Link to the Repository&quot;,
+        url: &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -826,11 +815,12 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 InlineKeyboardMarkup inlineKeyboard = new(new[]
-    {
-        InlineKeyboardButton.WithSwitchInlineQuery(&quot;switch_inline_query&quot;),
-        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch_inline_query_current_chat&quot;),
-    }
-);
+{
+    InlineKeyboardButton.WithSwitchInlineQuery(
+        text: &quot;switch_inline_query&quot;),
+    InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(
+        text: &quot;switch_inline_query_current_chat&quot;),
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -992,9 +982,10 @@ in test configurations before hand.</p>
 <p>This chapter is not yet written.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="working-with-files"><a class="header" href="#working-with-files">Working with Files</a></h1>
-<blockquote>
-<p>This chapter is not yet written.</p>
-</blockquote>
+<ul>
+<li><a href="3/files/download.html">Download files</a></li>
+<li><a href="3/files/upload.html">Upload files</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="downloading-files"><a class="header" href="#downloading-files">Downloading files</a></h1>
 <p>First, read the <a href="https://core.telegram.org/bots/api#getfile">documentation on <code>getFile</code></a> method.</p>
 <p>To download file you have to know its file identifier - <code>FileId</code>.</p>
@@ -1018,24 +1009,28 @@ var filePath = fileInfo.FilePath;
 </code></pre>
 <p>The URL from which you can now download the file is <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</p>
 <p>To download file you can use <code>DownloadFileAsync</code> function:</p>
-<pre><code class="language-C#">string destinationFilePath = $&quot;../downloaded.file&quot;;
-await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+<pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
+
+await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
 await botClient.DownloadFileAsync(
     filePath: filePath,
-    destination: fileStream);
+    destination: fileStream,
+    cancellationToken: cancellationToken);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFileAsync</code>:</p>
-<pre><code class="language-C#">string destinationFilePath = $&quot;../downloaded.file&quot;;
-await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+<pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
+
+await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
 var file = await botClient.GetInfoAndDownloadFileAsync(
     fileId: fileId,
-    destination: fileStream);
+    destination: fileStream,
+    cancellationToken: cancellationToken);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
 <h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
 <p>To upload local file open stream and call one of the file-sending functions:</p>
-<pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead(@&quot;../hamlet.pdf&quot;);
+<pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead(&quot;../hamlet.pdf&quot;);
 Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
     document: new InputOnlineFile(content: stream, fileName: &quot;hamlet.pdf&quot;),
@@ -1044,7 +1039,7 @@ Message message = await botClient.SendDocumentAsync(
 <p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files.</p>
 <h2 id="upload-file-by-file-identifier"><a class="header" href="#upload-file-by-file-identifier">Upload file by file identifier</a></h2>
 <p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no limits for files sent this way.</p>
-<pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
+<pre><code class="language-C#">    var fileId = update.Message.Photo.Last().FileId;
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
     photo: fileId);
@@ -1527,23 +1522,27 @@ accompanying credentials to decryption methods.</p>
 <pre><code class="language-csharp">// using System.Net;
 // using System.Net.Http;
 
-var webProxy = new WebProxy(Host: &quot;https://example.org&quot;, Port: 8080) {
+WebProxy webProxy = new (Host: &quot;https://example.org&quot;, Port: 8080)
+{
     // Credentials if needed:
     Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
 };
-var httpClient = new HttpClient(
+HttpClient httpClient = new (
     new HttpClientHandler { Proxy = webProxy, UseProxy = true, }
 );
 
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
 </code></pre>
 <h2 id="socks5-proxy"><a class="header" href="#socks5-proxy">SOCKS5 Proxy</a></h2>
-<p>As of .NET 6, <code>SocketsHttpHandler</code> <a href="https://devblogs.microsoft.com/dotnet/dotnet-6-networking-improvements/#socks-proxy-support">supports connecting to Socks4, Socks4a and Socks5 proxies</a>!</p>
-<pre><code class="language-csharp">var proxy = new WebProxy(&quot;socks5://127.0.0.1:9050&quot;)
+<p>As of .NET 6, <code>SocketsHttpHandler</code> <a href="https://devblogs.microsoft.com/dotnet/dotnet-6-networking-improvements/#socks-proxy-support">is able to use Socks4, Socks4a and Socks5 proxies</a>!</p>
+<pre><code class="language-csharp">// using System.Net;
+// using System.Net.Http;
+
+WebProxy proxy = new (&quot;socks5://127.0.0.1:9050&quot;)
 {
     Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
 };
-var httpClient = new HttpClient(
+HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true, }
 );
 
@@ -1579,9 +1578,12 @@ SocksPort 127.0.0.1:9050
 </li>
 </ol>
 <p>Usage:</p>
-<pre><code class="language-csharp">var proxy = new WebProxy(&quot;socks5://127.0.0.1:9050&quot;);
+<pre><code class="language-csharp">// using System.Net;
+// using System.Net.Http;
 
-var httpClient = new HttpClient(
+WebProxy proxy = new (&quot;socks5://127.0.0.1:9050&quot;);
+
+HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true }
 );
 

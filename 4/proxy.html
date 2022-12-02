@@ -163,23 +163,27 @@
 <pre><code class="language-csharp">// using System.Net;
 // using System.Net.Http;
 
-var webProxy = new WebProxy(Host: &quot;https://example.org&quot;, Port: 8080) {
+WebProxy webProxy = new (Host: &quot;https://example.org&quot;, Port: 8080)
+{
     // Credentials if needed:
     Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
 };
-var httpClient = new HttpClient(
+HttpClient httpClient = new (
     new HttpClientHandler { Proxy = webProxy, UseProxy = true, }
 );
 
 var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
 </code></pre>
 <h2 id="socks5-proxy"><a class="header" href="#socks5-proxy">SOCKS5 Proxy</a></h2>
-<p>As of .NET 6, <code>SocketsHttpHandler</code> <a href="https://devblogs.microsoft.com/dotnet/dotnet-6-networking-improvements/#socks-proxy-support">supports connecting to Socks4, Socks4a and Socks5 proxies</a>!</p>
-<pre><code class="language-csharp">var proxy = new WebProxy(&quot;socks5://127.0.0.1:9050&quot;)
+<p>As of .NET 6, <code>SocketsHttpHandler</code> <a href="https://devblogs.microsoft.com/dotnet/dotnet-6-networking-improvements/#socks-proxy-support">is able to use Socks4, Socks4a and Socks5 proxies</a>!</p>
+<pre><code class="language-csharp">// using System.Net;
+// using System.Net.Http;
+
+WebProxy proxy = new (&quot;socks5://127.0.0.1:9050&quot;)
 {
     Credentials = new NetworkCredential(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)
 };
-var httpClient = new HttpClient(
+HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true, }
 );
 
@@ -215,9 +219,12 @@ SocksPort 127.0.0.1:9050
 </li>
 </ol>
 <p>Usage:</p>
-<pre><code class="language-csharp">var proxy = new WebProxy(&quot;socks5://127.0.0.1:9050&quot;);
+<pre><code class="language-csharp">// using System.Net;
+// using System.Net.Http;
 
-var httpClient = new HttpClient(
+WebProxy proxy = new (&quot;socks5://127.0.0.1:9050&quot;);
+
+HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true }
 );
 

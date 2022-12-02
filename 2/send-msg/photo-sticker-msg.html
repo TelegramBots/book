@@ -155,7 +155,7 @@
 <li><code>file_id</code> of an existing file on Telegram servers (<em>recommended</em>)</li>
 </ul>
 <p>Examples in this section show all three.
-You will learn more about them later on when we discuss file upload and download.</p>
+You will learn more about them later on when we discuss file <a href="../../3/files/upload.html">upload</a> and <a href="../../3/files/download.html">download</a>.</p>
 <h2 id="photo"><a class="header" href="#photo">Photo</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-sendPhoto-blue.svg?style=flat-square" alt="send photo method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
@@ -212,7 +212,7 @@ so you can reuse the <code>file_id</code> value.</p>
 <p>Telegram stickers are fun and our bot is about to send its very first sticker.
 Sticker files should be in <a href="https://developers.google.com/speed/webp/">WebP</a> format.</p>
 <p>This code sends the same sticker twice. First by passing HTTP URL to a <a href="https://developers.google.com/speed/webp/">WebP</a> sticker file and
-second by reusing <code>file_id</code> of the same sticker on Telegram servers.</p>
+second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
 <pre><code class="language-c#">Message message1 = await botClient.SendStickerAsync(
     chatId: chatId,
     sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;,
@@ -220,11 +220,11 @@ second by reusing <code>file_id</code> of the same sticker on Telegram servers.<
 
 Message message2 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: message1.Sticker.FileId,
+    sticker: message1.Sticker!.FileId,
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
-<p>Try inspecting the <code>msg1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
+<p>Try inspecting the <code>sticker1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>
 <blockquote>
 <p>There is more to stickers and we will talk about them in greater details later.</p>
 </blockquote>

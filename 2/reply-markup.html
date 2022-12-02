@@ -158,13 +158,13 @@
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
-    })
-    {
-        ResizeKeyboard = true
-    };
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+{
+    new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
+})
+{
+    ResizeKeyboard = true
+};
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -179,14 +179,13 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two rows of buttons:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        new KeyboardButton[] { &quot;One&quot;, &quot;Two&quot; },
-        new KeyboardButton[] { &quot;Three&quot;, &quot;Four&quot; },
-    })
-    {
-        ResizeKeyboard = true
-    };
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+{
+    new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
+})
+{
+    ResizeKeyboard = true
+};
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -198,11 +197,11 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p><a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> containing buttons for contact and location requests using helper methods <code>KeyboardButton.WithRequestLocation</code> and <code>KeyboardButton.WithRequestContact</code>:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        KeyboardButton.WithRequestLocation(&quot;Share Location&quot;),
-        KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
-    });
+ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+{
+    KeyboardButton.WithRequestLocation(&quot;Share Location&quot;),
+    KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -227,21 +226,21 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use <code>InlineKeyboardButton.WithCallbackData</code> helper method to create a button with a text and callback data.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-InlineKeyboardMarkup inlineKeyboard = new(new []
+InlineKeyboardMarkup inlineKeyboard = new(new[]
+{
+    // first row
+    new []
     {
-        // first row
-        new []
-        {
-            InlineKeyboardButton.WithCallbackData(text: &quot;1.1&quot;, callbackData: &quot;11&quot;),
-            InlineKeyboardButton.WithCallbackData(text: &quot;1.2&quot;, callbackData: &quot;12&quot;),
-        },
-        // second row
-        new []
-        {
-            InlineKeyboardButton.WithCallbackData(text: &quot;2.1&quot;, callbackData: &quot;21&quot;),
-            InlineKeyboardButton.WithCallbackData(text: &quot;2.2&quot;, callbackData: &quot;22&quot;),
-        },
-    });
+        InlineKeyboardButton.WithCallbackData(text: &quot;1.1&quot;, callbackData: &quot;11&quot;),
+        InlineKeyboardButton.WithCallbackData(text: &quot;1.2&quot;, callbackData: &quot;12&quot;),
+    },
+    // second row
+    new []
+    {
+        InlineKeyboardButton.WithCallbackData(text: &quot;2.1&quot;, callbackData: &quot;21&quot;),
+        InlineKeyboardButton.WithCallbackData(text: &quot;2.2&quot;, callbackData: &quot;22&quot;),
+    },
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -253,14 +252,12 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <p>Buttons of this type have a small arrow icon to help the user understand that tapping on a <a href="https://core.telegram.org/bots/2-0-intro#url-buttons">URL button</a> will open an external link. In this example we use <code>InlineKeyboardButton.WithUrl</code> helper method to create a button with a text and url.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-InlineKeyboardMarkup inlineKeyboard = new(new []
-    {
-        InlineKeyboardButton.WithUrl(
-            text: &quot;Link to the Repository&quot;,
-            url: &quot;https://github.com/TelegramBots/Telegram.Bot&quot;
-        )
-    }
-);
+InlineKeyboardMarkup inlineKeyboard = new(new[]
+{
+    InlineKeyboardButton.WithUrl(
+        text: &quot;Link to the Repository&quot;,
+        url: &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,
@@ -273,11 +270,12 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 InlineKeyboardMarkup inlineKeyboard = new(new[]
-    {
-        InlineKeyboardButton.WithSwitchInlineQuery(&quot;switch_inline_query&quot;),
-        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch_inline_query_current_chat&quot;),
-    }
-);
+{
+    InlineKeyboardButton.WithSwitchInlineQuery(
+        text: &quot;switch_inline_query&quot;),
+    InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(
+        text: &quot;switch_inline_query_current_chat&quot;),
+});
 
 Message sentMessage = await botClient.SendTextMessageAsync(
     chatId: chatId,

@@ -160,11 +160,7 @@ Text messages are easy to send and fast to display on devices with slower networ
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>chatId</code>
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
-<pre><code class="language-c#">// using Telegram.Bot.Types;
-// using Telegram.Bot.Types.Enums;
-// using Telegram.Bot.Types.ReplyMarkups;
-
-Message message = await botClient.SendTextMessageAsync(
+<pre><code class="language-c#">Message message = await botClient.SendTextMessageAsync(
     chatId: chatId,
     text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
     parseMode: ParseMode.MarkdownV2,
@@ -172,8 +168,8 @@ Message message = await botClient.SendTextMessageAsync(
     replyToMessageId: update.Message.MessageId,
     replyMarkup: new InlineKeyboardMarkup(
         InlineKeyboardButton.WithUrl(
-            &quot;Check sendMessage method&quot;,
-            &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
+            text: &quot;Check sendMessage method&quot;,
+            url: &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
     cancellationToken: cancellationToken);
 </code></pre>
 <p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
@@ -186,15 +182,13 @@ message id for <code>replyToMessageId</code>.</p>
 Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens
 <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
-<h2 id="the-message-sent"><a class="header" href="#the-message-sent">The Message Sent</a></h2>
-<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
-message object. Add this statement after the previous code.</p>
-<pre><code class="language-c#">Console.WriteLine(
+<h2 id="the-sent-message"><a class="header" href="#the-sent-message">The Sent Message</a></h2>
+<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
+<pre><code class="language-c#">    Console.WriteLine(
     $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
     $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
     $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
-    $&quot;and has {message.Entities.Length} message entities.&quot;
-);
+    $&quot;and has {message.Entities.Length} message entities.&quot;);
 </code></pre>
 <p>Output should look similar to this:</p>
 <pre><code class="language-text">Awesome bot sent message 123 to chat 123456789 at 8/21/18 11:25:09 AM. It is a reply to message 122 and has 2 message entities.
