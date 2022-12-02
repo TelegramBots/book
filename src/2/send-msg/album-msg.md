@@ -6,14 +6,7 @@
 Using [`sendMediaGroup`] method you can send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type.
 
 ```c#
-Message[] messages = await botClient.SendMediaGroupAsync(
-    chatId: chatId,
-    media: new IAlbumInputMedia[]
-    {
-        new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"),
-        new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"),
-    },
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-media-group}}
 ```
 
 [`sendMediaGroup`]: https://core.telegram.org/bots/api#sendmediagroup
