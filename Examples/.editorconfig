@@ -1,0 +1,44 @@
+# http://EditorConfig.org
+
+# This file is the top-most EditorConfig file
+root = true
+
+# All Files
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 120
+
+# C# Files
+[*.cs]
+csharp_use_indent_from_previous_element = true
+csharp_alignment_tab_fill_style = optimal_fill
+csharp_align_multiline_calls_chain = true
+csharp_int_align_switch_expressions = true
+csharp_align_multiline_parameter = true
+csharp_align_multiline_extends_list = true
+csharp_align_linq_query = true
+csharp_place_attribute_on_same_line = false
+csharp_empty_block_style = together
+csharp_max_line_length = 120
+
+# Solution Files
+[*.sln]
+indent_style = tab
+
+# XML Project Files
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+indent_size = 2
+
+# Configuration Files
+[*.{json,xml,yml,config,props,targets,nuspec,resx,ruleset,vsixmanifest,vsct}]
+indent_size = 2
+
+# Markdown Files
+[*.md]
+trim_trailing_whitespace = false
+indent_size = 2

@@ -8,10 +8,7 @@ Fortunately, methods for sending such messages are similar. Take a look at these
 ![text message screenshot](../docs/shot-text_msg.jpg)
 
 ```c#
-Message message = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text:   "Hello, World!",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:text-message}}
 ```
 
 ## Sending sticker message
@@ -19,10 +16,7 @@ Message message = await botClient.SendTextMessageAsync(
 ![sticker message screenshot](../docs/shot-sticker.jpg)
 
 ```c#
-Message message = await botClient.SendStickerAsync(
-    chatId:  chatId,
-    sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:sticker-message}}
 ```
 
 ## Sending video message
@@ -30,8 +24,5 @@ Message message = await botClient.SendStickerAsync(
 ![video message screenshot](../docs/shot-video.jpg)
 
 ```c#
-Message message = await botClient.SendVideoAsync(
-    chatId:  chatId,
-    video: "https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4",
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:video-message}}
 ```

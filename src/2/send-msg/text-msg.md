@@ -17,21 +17,7 @@ The code snippet below sends a message with multiple parameters that looks like 
 > or put the `chatId` value if you know it.
 
 ```c#
-// using Telegram.Bot.Types;
-// using Telegram.Bot.Types.Enums;
-// using Telegram.Bot.Types.ReplyMarkups;
-
-Message message = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "Trying *all the parameters* of `sendMessage` method",
-    parseMode: ParseMode.MarkdownV2,
-    disableNotification: true,
-    replyToMessageId: update.Message.MessageId,
-    replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl(
-            "Check sendMessage method",
-            "https://core.telegram.org/bots/api#sendmessage")),
-    cancellationToken: cancellationToken);
+{{#include ../../../Examples/2/SendMessage.cs:send-text}}
 ```
 
 The method `SendTextMessageAsync` of .NET Bot Client maps to [`sendMessage`] on Telegram's Bot API. This method sends a
@@ -49,18 +35,12 @@ Reply markups are explained in details later in this book.
 Here we used an _Inline Keyboard Markup_ with a button that attaches to the message itself. Clicking that opens
 [`sendMessage`] method documentation in the browser.
 
-## The Message Sent
+## The Sent Message
 
-Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this
-message object. Add this statement after the previous code.
+Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.
 
 ```c#
-Console.WriteLine(
-    $"{message.From.FirstName} sent message {message.MessageId} " +
-    $"to chat {message.Chat.Id} at {message.Date}. " +
-    $"It is a reply to message {message.ReplyToMessage.MessageId} " +
-    $"and has {message.Entities.Length} message entities."
-);
+{{#include ../../../Examples/2/SendMessage.cs:message-contents}}
 ```
 
 Output should look similar to this:
