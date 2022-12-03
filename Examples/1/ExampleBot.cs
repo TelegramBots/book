@@ -17,7 +17,7 @@ var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
 
 using CancellationTokenSource cts = new ();
 
-    // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
  ReceiverOptions receiverOptions = new ()
 {
     AllowedUpdates = Array.Empty<UpdateType>() // receive all update types
