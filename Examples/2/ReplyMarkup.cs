@@ -38,7 +38,8 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 // ANCHOR: multiple-row
 ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
 {
-    new KeyboardButton[] { "Help me", "Call me ☎️" },
+    new KeyboardButton[] { "Help me" },
+    new KeyboardButton[] { "Call me ☎️" },
 })
 {
     ResizeKeyboard = true
