@@ -180,7 +180,8 @@ Message sentMessage = await botClient.SendTextMessageAsync(
 
 ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
 {
-    new KeyboardButton[] { &quot;Help me&quot;, &quot;Call me ☎️&quot; },
+    new KeyboardButton[] { &quot;Help me&quot; },
+    new KeyboardButton[] { &quot;Call me ☎️&quot; },
 })
 {
     ResizeKeyboard = true
