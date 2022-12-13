@@ -3,26 +3,26 @@
 [![book](https://img.shields.io/badge/TelegramBots-Book-blue.svg?style=flat)](https://telegrambots.github.io/book/)
 [![master](https://github.com/TelegramBots/book/actions/workflows/ci.yml/badge.svg)](https://github.com/TelegramBots/book/actions/workflows/ci.yml)
 
-This repository contains documentation for TelegramBots projects.
-Book is a great example-based tutorial for developing Telegram chat bots 🤖.
+This repository contains documentation for [TelegramBots](https://github.com/TelegramBots) projects.
+Book is a great tutorial on writing Telegram bots in .NET ecosystem 🤖.
 
 ## 🔨 Build & Test ✔
 
-This book is a web app generated from markdown files using [mdBook] tool.
-Each file mentioned in [SUMMARY](src/SUMMARY.md) will be a HTML page.
+This book is a web app generated from markdown files with [mdBook].
+Each markdown file mentioned in [SUMMARY](src/SUMMARY.md) will be rendered as an HTML page.
 
-1. Install [mdBook]
-    - You can use a [mdBook binary]
+1. Install [mdBook]:
+    - You can download a [mdBook binary]
     - Or install it using Rust package manager
 
-        ```bash
-        cargo install mdbook --vers "^0.4.22"
-        ```
+      ```bash
+      cargo install mdbook --vers "^0.4.22"
+      ```
 
-1. Run locally on [http://localhost:3000](http://localhost:3000)
+1. Run locally at [localhost:3000](http://localhost:3000):
 
     ```bash
-    mdbook serve
+    mdbook serve --open
     ```
 
 ## Contribute 👋

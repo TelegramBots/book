@@ -1,6 +1,6 @@
 # Beginner
 
-- [Sending Messages](send-msg)
+- [Sending Messages](send-msg/)
   - [Text](send-msg/text-msg.md)
   - [Photo & Sticker](send-msg/photo-sticker-msg.md)
   - [Audio & Voice](send-msg/audio-voice-msg.md)
@@ -9,4 +9,3 @@
   - [Document & Animation](send-msg/document-animation-msg.md)
   - [Other Messages](send-msg/other-msg.md)
 - [Reply Markup](reply-markup.md)
-- [Getting Updates](get-updates.md)
