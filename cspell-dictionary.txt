@@ -32,3 +32,5 @@ dotnet
 LINQ
 reupload
 WEBP
+setinline
+setinlinefeedback
