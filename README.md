@@ -16,7 +16,7 @@ Each markdown file mentioned in [SUMMARY](src/SUMMARY.md) will be rendered as an
     - Or install it using Rust package manager
 
       ```bash
-      cargo install mdbook --vers "^0.4.22"
+      cargo install mdbook --vers "^0.4.28"
       ```
 
 1. Run locally at [localhost:3000](http://localhost:3000):
