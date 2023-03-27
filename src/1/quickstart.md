@@ -55,8 +55,7 @@ Great! This bot is self-aware. To make the bot interact with a user, head to the
 <!-- -->
 
 [`@BotFather`]: https://t.me/botfather
-[Create a new
-bot]: https://core.telegram.org/bots#6-botfather
+[Create a new bot]: https://core.telegram.org/bots#6-botfather
 [`Telegram.Bot`]: https://www.nuget.org/packages/Telegram.Bot
 [`getMe`]: https://core.telegram.org/bots/api#getme
 [next page]: example-bot.md
