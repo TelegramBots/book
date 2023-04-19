@@ -35,7 +35,7 @@ var filePath = fileInfo.FilePath;
 // ANCHOR: download-file
 const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await using Stream fileStream = System.IO.File.Create(destinationFilePath);
 await botClient.DownloadFileAsync(
     filePath: filePath,
     destination: fileStream,
@@ -48,7 +48,7 @@ await botClient.DownloadFileAsync(
 // ANCHOR: get-and-download-file
 const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await using Stream fileStream = System.IO.File.Create(destinationFilePath);
 var file = await botClient.GetInfoAndDownloadFileAsync(
     fileId: fileId,
     destination: fileStream,
