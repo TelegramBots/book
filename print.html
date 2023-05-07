@@ -5,17 +5,20 @@
         <meta charset="UTF-8">
         <title>A guide to Telegram.Bot library</title>
         <meta name="robots" content="noindex" />
-        <!-- Custom HTML head -->
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B8JVQVCBTX"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
 
-          gtag('config', 'G-B8JVQVCBTX');
-        </script>
-        <!--  -->
+
+        <!-- Custom HTML head -->
+                <!-- Google tag (gtag.js) -->
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-B8JVQVCBTX"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+        
+                  gtag('config', 'G-B8JVQVCBTX');
+                </script>
+                <!--  -->
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -25,17 +28,21 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -73,10 +80,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -92,7 +101,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -122,6 +131,7 @@
                         <a href="https://github.com/TelegramBots/book" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -135,6 +145,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -229,10 +240,10 @@ var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
 
 using CancellationTokenSource cts = new ();
 
-    // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
  ReceiverOptions receiverOptions = new ()
 {
-    AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types
+    AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types except ChatMember related updates
 };
 
 botClient.StartReceiving(
@@ -328,14 +339,14 @@ Fortunately, methods for sending such messages are similar. Take a look at these
 <p><img src="2/send-msg/../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
 <pre><code class="language-c#">Message message = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;,
+    sticker: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp&quot;),
     cancellationToken: cancellationToken);
 </code></pre>
 <h2 id="sending-video-message"><a class="header" href="#sending-video-message">Sending video message</a></h2>
 <p><img src="2/send-msg/../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
     chatId: chatId,
-    video: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;,
+    video: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4&quot;),
     cancellationToken: cancellationToken);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="text-messages-and-more"><a class="header" href="#text-messages-and-more">Text Messages and More</a></h1>
@@ -375,7 +386,7 @@ Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to t
 <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
 <h2 id="the-sent-message"><a class="header" href="#the-sent-message">The Sent Message</a></h2>
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
-<pre><code class="language-c#">    Console.WriteLine(
+<pre><code class="language-c#">Console.WriteLine(
     $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
     $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
     $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
@@ -411,7 +422,7 @@ You will learn more about them later on when we discuss file <a href="2/send-msg
 <p>Sending a photo is simple. Here is an example:</p>
 <pre><code class="language-c#">Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
-    photo: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
+    photo: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;),
     caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
     parseMode: ParseMode.Html,
     cancellationToken: cancellationToken);
@@ -464,12 +475,12 @@ Sticker files should be in <a href="https://developers.google.com/speed/webp/">W
 second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
 <pre><code class="language-c#">Message message1 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;,
+    sticker: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;),
     cancellationToken: cancellationToken);
 
 Message message2 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: message1.Sticker!.FileId,
+    sticker: InputFile.FromFileId(message1.Sticker!.FileId),
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
@@ -488,7 +499,7 @@ A voice file has OGG format and is not shown in music player.</p>
 That's because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
 <pre><code class="language-c#">Message message = await botClient.SendAudioAsync(
     chatId: chatId,
-    audio: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;,
+    audio: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3&quot;),
     /*
     performer: &quot;Joel Thomas Hunger&quot;,
     title: &quot;Fun Guitar and Ukulele&quot;,
@@ -521,7 +532,7 @@ Let's send it differently this time by uploading the file from disk alongside wi
 <pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;);
 Message message = await botClient.SendVoiceAsync(
     chatId: chatId,
-    voice: stream!,
+    voice: InputFile.FromStream(stream),
     duration: 36,
     cancellationToken: cancellationToken);
 </code></pre>
@@ -540,8 +551,8 @@ and expect the Telegram clients to stream that long video instead of downloading
 We also set a thumbnail image for our video.</p>
 <pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
     chatId: chatId,
-    video: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4&quot;,
-    thumb: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg&quot;,
+    video: InputFile.FromUri(&quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4&quot;),
+    thumbnail: InputFile.FromUri(&quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg&quot;),
     supportsStreaming: true,
     cancellationToken: cancellationToken);
 </code></pre>
@@ -557,11 +568,11 @@ We also set a thumbnail image for our video.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-c#">await using var stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
+<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
 
 Message message = await botClient.SendVideoNoteAsync(
     chatId: chatId,
-    videoNote: stream,
+    videoNote: InputFile.FromStream(stream),
     duration: 47,
     length: 360, // value of width/height
     cancellationToken: cancellationToken);
@@ -575,8 +586,10 @@ Message message = await botClient.SendVideoNoteAsync(
     chatId: chatId,
     media: new IAlbumInputMedia[]
     {
-        new InputMediaPhoto(&quot;https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg&quot;),
-        new InputMediaPhoto(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;),
+        new InputMediaPhoto(
+            InputFile.FromUri(&quot;https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg&quot;)),
+        new InputMediaPhoto(
+            InputFile.FromUri(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;)),
     },
     cancellationToken: cancellationToken);
 </code></pre>
@@ -587,7 +600,7 @@ Message message = await botClient.SendVideoNoteAsync(
 <p>Use <a href="https://core.telegram.org/bots/api#senddocument"><code>sendDocument</code></a> method to send general files.</p>
 <pre><code class="language-c#">Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
-    document: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;,
+    document: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;),
     caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
     parseMode: ParseMode.Html,
     cancellationToken: cancellationToken);
@@ -598,7 +611,7 @@ Message message = await botClient.SendVideoNoteAsync(
 <p>Use <a href="https://core.telegram.org/bots/api#sendanimation"><code>sendAnimation</code></a> method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).</p>
 <pre><code class="language-c#">Message message = await botClient.SendAnimationAsync(
     chatId: chatId,
-    animation: &quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4&quot;,
+    animation: InputFile.FromUri(&quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4&quot;),
     caption: &quot;Waves&quot;,
     cancellationToken: cancellationToken);
 </code></pre>
@@ -885,9 +898,69 @@ To be able to handle webhook updates you'll need a server that:</p>
 <p>This chapter is not yet written.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="inline-mode"><a class="header" href="#inline-mode">Inline Mode</a></h1>
-<blockquote>
-<p>This chapter is not yet written.</p>
-</blockquote>
+<p><a href="https://core.telegram.org/bots/api#inline-mode"><img src="https://img.shields.io/badge/Bot_API_Object-Inline%20Mode-blue.svg?style=flat-square" alt="inline mode bot API" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/Telegram.Bot.Examples.InlineQueries/Program.cs"><img src="https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square" alt="inline queries example" /></a></p>
+<p>Telegram bots can be queried directly in the chat or via inline queries.</p>
+<p>To use inline queries in your bot, you need to set up inline mode by command:</p>
+<p><img src="3/docs/shot-setinline_command.png" alt="/setinline command in BotFather" /></p>
+<p>Import <code>Telegram.Bot.Types.InlineQueryResults</code> namespace for inline query types.</p>
+<p>There are two types that allow you to work with inline queries - <code>InlineQuery</code> and <code>ChosenInlineResult</code>:</p>
+<pre><code class="language-c#">await (update.Type switch
+{
+    UpdateType.InlineQuery        =&gt; BotOnInlineQueryReceived(bot, update.InlineQuery!),
+    UpdateType.ChosenInlineResult =&gt; BotOnChosenInlineResultReceived(bot, update.ChosenInlineResult!),
+});
+</code></pre>
+<h2 id="inlinequery"><a class="header" href="#inlinequery"><code>InlineQuery</code></a></h2>
+<p><a href="https://core.telegram.org/bots/api#inlinequeryresult"><img src="https://img.shields.io/badge/Bot_API_Object-InlineQueryResult-blue.svg?style=flat-square" alt="inline query result bot API" /></a></p>
+<p>Suppose we have two arrays:</p>
+<pre><code class="language-c#">private readonly string[] sites = { &quot;Google&quot;, &quot;Github&quot;, &quot;Telegram&quot;, &quot;Wikipedia&quot; };
+private readonly string[] siteDescriptions =
+{
+    &quot;Google is a search engine&quot;,
+    &quot;Github is a git repository hosting&quot;,
+    &quot;Telegram is a messenger&quot;,
+    &quot;Wikipedia is an open wiki&quot;
+};
+</code></pre>
+<p>So we can handle inline queries this way:</p>
+<pre><code class="language-c#">async Task BotOnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQuery)
+{
+    var results = new List&lt;InlineQueryResult&gt;();
+
+    var counter = 0;
+    foreach (var site in sites)
+    {
+        results.Add(new InlineQueryResultArticle(
+            $&quot;{counter}&quot;, // we use the counter as an id for inline query results
+            site, // inline query result title
+            new InputTextMessageContent(siteDescriptions[counter])) // content that is submitted when the inline query result title is clicked
+        );
+        counter++;
+    }
+
+    await bot.AnswerInlineQueryAsync(inlineQuery.Id, results); // answer by sending the inline query result list
+}
+</code></pre>
+<p><code>InlineQueryResult</code> is an abstract type used to create a response for inline queries. You can use these result types for inline queries: <code>InlineQueryResultArticle</code> for articles, <code>InlineQueryResultPhoto</code> for photos, etc.</p>
+<h2 id="choseninlineresult"><a class="header" href="#choseninlineresult"><code>ChosenInlineResult</code></a></h2>
+<p><a href="https://core.telegram.org/bots/api#choseninlineresult"><img src="https://img.shields.io/badge/Bot_API_Object-ChosenInlineResult-blue.svg?style=flat-square" alt="chosen inline result bot API" /></a></p>
+<p>This type helps to handle chosen inline result. For example, you may want to know which result users chose:</p>
+<pre><code class="language-csharp">Task BotOnChosenInlineResultReceived(ITelegramBotClient bot, ChosenInlineResult chosenInlineResult)
+{
+    if (uint.TryParse(chosenInlineResult.ResultId, out var resultId) // check if a result id is parsable and introduce variable
+        &amp;&amp; resultId &lt; sites.Length)
+    {
+        Console.WriteLine($&quot;User {chosenInlineResult.From} has selected site: {sites[resultId]}&quot;);
+    }
+
+    return Task.CompletedTask;
+}
+</code></pre>
+<p>To use the feature you need to enable &quot;inline feedback&quot; in BotFather by <code>/setinlinefeedback</code> command:</p>
+<p><img src="3/docs/shot-setinlinefeedback_command.png" alt="set inline feedback command" /></p>
+<p>Final result:</p>
+<p><img src="3/docs/shot-inline_bot_showcase.png" alt="result" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="working-with-files"><a class="header" href="#working-with-files">Working with Files</a></h1>
 <ul>
 <li><a href="3/files/download.html">Download files</a></li>
@@ -918,7 +991,7 @@ var filePath = fileInfo.FilePath;
 <p>To download file you can use <code>DownloadFileAsync</code> function:</p>
 <pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
 
-await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await using Stream fileStream = System.IO.File.Create(destinationFilePath);
 await botClient.DownloadFileAsync(
     filePath: filePath,
     destination: fileStream,
@@ -927,7 +1000,7 @@ await botClient.DownloadFileAsync(
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFileAsync</code>:</p>
 <pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
 
-await using Stream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+await using Stream fileStream = System.IO.File.Create(destinationFilePath);
 var file = await botClient.GetInfoAndDownloadFileAsync(
     fileId: fileId,
     destination: fileStream,
@@ -940,22 +1013,22 @@ var file = await botClient.GetInfoAndDownloadFileAsync(
 <pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead(&quot;../hamlet.pdf&quot;);
 Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
-    document: new InputOnlineFile(content: stream, fileName: &quot;hamlet.pdf&quot;),
+    document: InputFile.FromStream(stream: stream, fileName: &quot;hamlet.pdf&quot;),
     caption: &quot;The Tragedy of Hamlet,\nPrince of Denmark&quot;);
 </code></pre>
 <p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files.</p>
 <h2 id="upload-file-by-file-identifier"><a class="header" href="#upload-file-by-file-identifier">Upload file by file identifier</a></h2>
 <p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no limits for files sent this way.</p>
-<pre><code class="language-C#">    var fileId = update.Message.Photo.Last().FileId;
+<pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
-    photo: fileId);
+    photo: InputFile.FromFileId(fileId));
 </code></pre>
 <h2 id="upload-by-url"><a class="header" href="#upload-by-url">Upload by URL</a></h2>
 <p>Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.</p>
 <pre><code class="language-csharp">Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
-    photo: new InputOnlineFile(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;));
+    photo: InputFile.FromUri(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;));
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="stickers"><a class="header" href="#stickers">Stickers</a></h1>
 <h2 id="sticker-1"><a class="header" href="#sticker-1">Sticker</a></h2>
@@ -967,12 +1040,12 @@ Sticker files should be in <a href="https://developers.google.com/speed/webp/">W
 second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
 <pre><code class="language-c#">Message message1 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: &quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;,
+    sticker: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp&quot;),
     cancellationToken: cancellationToken);
 
 Message message2 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: message1.Sticker!.FileId,
+    sticker: InputFile.FromFileId(message1.Sticker!.FileId),
     cancellationToken: cancellationToken);
 </code></pre>
 <p><img src="3/docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
@@ -1987,31 +2060,43 @@ Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>Upd
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
             </nav>
 
         </div>
 
+
+
+
         <script>
             window.playground_copyable = true;
         </script>
+
+
         <script src="elasticlunr.min.js"></script>
         <script src="mark.min.js"></script>
         <script src="searcher.js"></script>
+
         <script src="clipboard.min.js"></script>
         <script src="highlight.js"></script>
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
+
         <script>
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
+    </div>
     </body>
 </html>
