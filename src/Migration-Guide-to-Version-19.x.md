@@ -52,11 +52,11 @@ Implicit conversion from `ChatId` to `string` was removed due to complaints and 
 ## Stickers
 
 - All methods and types with animated, static and video sticker distinction were removed and replaced with a single set of sticker related methods per new Bot API updates: `AddAnimatedStickerToSetAsync`, `AddStaticStickerToSetAsync`, `AddVideoStickerToSetAsync`, etc. Remove the words `Static`, `Animated` and `Video` from sticker related methods in your code
-- Associated emojies and masks moved to a separate type `InputSticker`, use them there instead, consult the official Bot API docs for a more detailed information
+- Associated emojies and masks were moved to a separate type `InputSticker`, use them there instead, consult the official Bot API docs for a more detailed information
 
 ## .NET Core 3.1 removed as a separate target framework
 
-Since .NET Core 3.1 LTS status is not officialy supported we changed the target to `netstandard2.0` and `net6.0` instead. If you're using .NET Core 3.1 or .NET 5 runtimes you need to use build for `netstandard2.0` instead. If you relied on `IAsyncEnumerable` implementation of poller you need to move to .NET 6 instead.
+Since .NET Core 3.1 LTS status is not officialy supported anymore we changed the target to `netstandard2.0` and `net6.0` instead. If you're using .NET Core 3.1 or .NET 5 runtimes you need to use build for `netstandard2.0` instead. If you relied on `IAsyncEnumerable` implementation of poller you need to move to .NET 6 instead.
 
 ## Other changes
 
