@@ -5,8 +5,8 @@ namespace Examples.Chapter3;
 
 internal class Files
 {
-    private readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
-    private readonly CancellationToken cancellationToken = new CancellationTokenSource().Token;
+    private readonly ITelegramBotClient botClient = new("{YOUR_ACCESS_TOKEN_HERE}");
+    private readonly CancellationToken cancellationToken = new().Token;
     private readonly ChatId chatId = 12345;
     private readonly Update update = new();
 
@@ -62,7 +62,7 @@ var file = await botClient.GetInfoAndDownloadFileAsync(
 await using Stream stream = System.IO.File.OpenRead("../hamlet.pdf");
 Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
-    document: new InputFile(content: stream, fileName: "hamlet.pdf"),
+    document: InputFile.FromStream(stream: stream, fileName: "hamlet.pdf"),
     caption: "The Tragedy of Hamlet,\nPrince of Denmark");
 // ANCHOR_END: upload-local-file
     }
@@ -78,7 +78,7 @@ Message message = await botClient.SendDocumentAsync(
 var fileId = update.Message.Photo.Last().FileId;
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
-    photo: new InputFileId(fileId));
+    photo: InputFile.FromFileId(fileId));
 // ANCHOR_END: upload-by-file_id
     }
 
@@ -87,7 +87,7 @@ Message message = await botClient.SendPhotoAsync(
 // ANCHOR: upload-by-url
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
-    photo: new InputFileUrl("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"));
+    photo: InputFile.FromUrl("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"));
 // ANCHOR_END: upload-by-url
     }
 }

@@ -27,7 +27,7 @@ Message message = await botClient.SendTextMessageAsync(
 // ANCHOR: sticker-message
 Message message = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: new InputFileUrl("https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp"),
+    sticker: InputFile.FromUrl("https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp"),
     cancellationToken: cancellationToken);
 // ANCHOR_END: sticker-message
     }
@@ -37,7 +37,7 @@ Message message = await botClient.SendStickerAsync(
 // ANCHOR: video-message
 Message message = await botClient.SendVideoAsync(
     chatId: chatId,
-    video: new InputFileUrl("https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4"),
+    video: InputFile.FromUrl("https://github.com/TelegramBots/book/raw/master/src/docs/video-bulb.mp4"),
     cancellationToken: cancellationToken);
 // ANCHOR_END: video-message
     }
@@ -50,9 +50,9 @@ Message[] messages = await botClient.SendMediaGroupAsync(
     media: new IAlbumInputMedia[]
     {
         new InputMediaPhoto(
-            new InputFileUrl("https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg")),
+            InputFile.FromUrl("https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg")),
         new InputMediaPhoto(
-            new InputFileUrl("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg")),
+            InputFile.FromUrl("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg")),
     },
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-media-group
@@ -63,7 +63,7 @@ Message[] messages = await botClient.SendMediaGroupAsync(
 // ANCHOR: send-audio
 Message message = await botClient.SendAudioAsync(
     chatId: chatId,
-    audio: new InputFileUrl("https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3"),
+    audio: InputFile.FromUrl("https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3"),
     /*
     performer: "Joel Thomas Hunger",
     title: "Fun Guitar and Ukulele",
@@ -79,7 +79,7 @@ Message message = await botClient.SendAudioAsync(
 await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
 Message message = await botClient.SendVoiceAsync(
     chatId: chatId,
-    voice: new InputFile(stream),
+    voice: InputFile.FromStream(stream),
     duration: 36,
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-voice
@@ -90,7 +90,7 @@ Message message = await botClient.SendVoiceAsync(
 // ANCHOR: send-document
 Message message = await botClient.SendDocumentAsync(
     chatId: chatId,
-    document: new InputFileUrl("https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg"),
+    document: InputFile.FromUrl("https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg"),
     caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
     parseMode: ParseMode.Html,
     cancellationToken: cancellationToken);
@@ -102,7 +102,7 @@ Message message = await botClient.SendDocumentAsync(
 // ANCHOR: send-animation
 Message message = await botClient.SendAnimationAsync(
     chatId: chatId,
-    animation: new InputFileUrl("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4"),
+    animation: InputFile.FromUrl("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4"),
     caption: "Waves",
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-animation
@@ -189,7 +189,7 @@ Message message = await botClient.SendLocationAsync(
 // ANCHOR: send-photo
 Message message = await botClient.SendPhotoAsync(
     chatId: chatId,
-    photo: new InputFileUrl("https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg"),
+    photo: InputFile.FromUrl("https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg"),
     caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
     parseMode: ParseMode.Html,
     cancellationToken: cancellationToken);
@@ -201,12 +201,12 @@ Message message = await botClient.SendPhotoAsync(
 // ANCHOR: send-sticker
 Message message1 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: new InputFileUrl("https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp"),
+    sticker: InputFile.FromUrl("https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp"),
     cancellationToken: cancellationToken);
 
 Message message2 = await botClient.SendStickerAsync(
     chatId: chatId,
-    sticker: new InputFileId(message1.Sticker!.FileId),
+    sticker: InputFile.FromFileId(message1.Sticker!.FileId),
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-sticker
     }
@@ -252,8 +252,8 @@ Console.WriteLine(
 // ANCHOR: send-video
 Message message = await botClient.SendVideoAsync(
     chatId: chatId,
-    video:new InputFileUrl("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4"),
-    thumb: new InputFileUrl("https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg"),
+    video:InputFile.FromUrl("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4"),
+    thumb: InputFile.FromUrl("https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg"),
     supportsStreaming: true,
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-video
@@ -266,7 +266,7 @@ await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
 
 Message message = await botClient.SendVideoNoteAsync(
     chatId: chatId,
-    videoNote: new InputFile(stream),
+    videoNote: InputFile.FromUrl(stream),
     duration: 47,
     length: 360, // value of width/height
     cancellationToken: cancellationToken);
