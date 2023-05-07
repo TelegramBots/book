@@ -56,7 +56,7 @@ Implicit conversion from `ChatId` to `string` was removed due to complaints and 
 
 ## .NET Core 3.1 removed as a separate target framework
 
-Since .NET Core 3.1 LTS status is not officialy supported anymore we changed the target to `netstandard2.0` and `net6.0` instead. If you're using .NET Core 3.1 or .NET 5 runtimes you need to use build for `netstandard2.0` instead. If you relied on `IAsyncEnumerable` implementation of poller you need to move to .NET 6 instead.
+Since .NET Core 3.1 LTS status is not officialy supported anymore we changed the target to `netstandard2.0` and `net6.0` instead. If you're using .NET Core 3.1 or .NET 5 runtimes you need to use the build for `netstandard2.0` instead. If you relied on `IAsyncEnumerable` implementation of poller you need to move to .NET 6 instead.
 
 ## Other changes
 
