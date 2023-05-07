@@ -252,8 +252,8 @@ Console.WriteLine(
 // ANCHOR: send-video
 Message message = await botClient.SendVideoAsync(
     chatId: chatId,
-    video:InputFile.FromUri("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4"),
-    thumb: InputFile.FromUri("https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg"),
+    video: InputFile.FromUri("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4"),
+    thumbnail: InputFile.FromUri("https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg"),
     supportsStreaming: true,
     cancellationToken: cancellationToken);
 // ANCHOR_END: send-video
@@ -266,7 +266,7 @@ await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
 
 Message message = await botClient.SendVideoNoteAsync(
     chatId: chatId,
-    videoNote: InputFile.FromUri(stream),
+    videoNote: InputFile.FromStream(stream),
     duration: 47,
     length: 360, // value of width/height
     cancellationToken: cancellationToken);

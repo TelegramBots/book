@@ -6,7 +6,7 @@ namespace Examples.Chapter3;
 internal class Files
 {
     private readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
-    private readonly CancellationToken cancellationToken = new().Token;
+    private readonly CancellationToken cancellationToken = new CancellationTokenSource().Token;
     private readonly ChatId chatId = 12345;
     private readonly Update update = new();
 
@@ -19,7 +19,7 @@ internal class Files
 var fileId = update.Message.Photo.Last().FileId;
 var fileInfo = await botClient.GetFileAsync(fileId);
 var filePath = fileInfo.FilePath;
-    // ANCHOR_END: get-file
+// ANCHOR_END: get-file
 
     if (filePath is null)
     {
