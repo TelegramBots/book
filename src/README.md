@@ -22,16 +22,20 @@ chatbot in .NET. There are also many concrete examples written in C#.
 The guides here can even be useful to bot developers using other languages/platforms as it shows best practices
 in developing Telegram chatbots with examples.
 
+## Get Started
+
+**Begin your bot development journey with the [_Quickstart_](1/quickstart.md) guide.**
+
+## Examples
+
+Check out our [expamles](https://github.com/TelegramBots/Telegram.Bot.Examples) repository for more.
+
 ## Correctness & Testing
 
 This project is fully tested using Unit tests and Systems Integration tests before each release.
 In fact, our test cases are self-documenting and serve as examples for Bot API methods.
 Once you learn the basics of Telegram chatbots, you will be able to easily understand the code in examples and
 use it in your own bot program.
-
-## Get Started
-
-**Begin your bot development journey with the [_Quickstart_](1/quickstart.md) guide.**
 
 ---
 
