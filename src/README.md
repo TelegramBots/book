@@ -28,7 +28,7 @@ in developing Telegram chatbots with examples.
 
 ## Examples
 
-Check out our [expamles](https://github.com/TelegramBots/Telegram.Bot.Examples) repository for more.
+Check out our [examples](https://github.com/TelegramBots/Telegram.Bot.Examples) repository for more.
 
 ## Correctness & Testing
 
