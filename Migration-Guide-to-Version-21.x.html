@@ -230,6 +230,16 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <li><code>prices:</code> with a single price</li>
 <li>no tip amounts</li>
 </ul>
+<h2 id="webhooks-with-systemtextjson"><a class="header" href="#webhooks-with-systemtextjson">Webhooks with System.Text.Json</a></h2>
+<p>The library now uses <code>System.Text.Json</code> instead of <code>NewtonsoftJson</code>.</p>
+<p>To make it work in your ASP.NET projects, you'll need to:</p>
+<ul>
+<li>Remove package <strong>Microsoft.AspNetCore.Mvc.NewtonsoftJson</strong> from your project dependencies</li>
+<li>Configure your webapp services in your Startup with
+<code>services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);</code></li>
+<li>or if you use minimal APIs, use this line instead:
+<code>builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);</code></li>
+</ul>
 
                     </main>
 

@@ -2174,6 +2174,16 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <li><code>prices:</code> with a single price</li>
 <li>no tip amounts</li>
 </ul>
+<h2 id="webhooks-with-systemtextjson"><a class="header" href="#webhooks-with-systemtextjson">Webhooks with System.Text.Json</a></h2>
+<p>The library now uses <code>System.Text.Json</code> instead of <code>NewtonsoftJson</code>.</p>
+<p>To make it work in your ASP.NET projects, you'll need to:</p>
+<ul>
+<li>Remove package <strong>Microsoft.AspNetCore.Mvc.NewtonsoftJson</strong> from your project dependencies</li>
+<li>Configure your webapp services in your Startup with
+<code>services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);</code></li>
+<li>or if you use minimal APIs, use this line instead:
+<code>builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);</code></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
 <h2 id="how-do-i-use-an-httpsocks-proxy"><a class="header" href="#how-do-i-use-an-httpsocks-proxy">How do I use an HTTP/Socks proxy?</a></h2>
 <p>Look at the wiki page: <a href="4/proxy.html">Working Behind a Proxy</a>.</p>
@@ -2187,7 +2197,8 @@ This is <em>not</em> recommended, because usernames can be changed.</p>
 <p>If you are using polling, you will have to subscribe to the <code>OnUpdate</code> event.
 Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>UpdateType.ChannelPost</code> then the <code>Update.ChannelPost</code> property will be set.</p>
 <h2 id="i-have-serialization-issues-or-null-values-in-update-object-in-my-webhook-what-do-i-do"><a class="header" href="#i-have-serialization-issues-or-null-values-in-update-object-in-my-webhook-what-do-i-do">I have serialization issues or null values in <code>Update</code> object in my webhook. What do I do?</a></h2>
-<p>If you're using ASP.NET Core 3.0+ you need to install additional Nuget package: <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/">Microsoft.AspNetCore.Mvc.NewtonsoftJson</a>. For more information read <a href="https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.1&amp;tabs=visual-studio#use-newtonsoftjson-in-an-aspnet-core-30-mvc-project">this page</a> about migrating from previous versions of ASP.NET Core.</p>
+<p>If you're using ASP.NET Core 3.0+ you need to configure System.Text.Json options to work correctly with Telegram.Bot</p>
+<p>See <a href="Migration-Guide-to-Version-21.x.html#webhooks-with-systemtextjson">this page for instructions</a>.</p>
 <h2 id="is-there-a-way-to-get-a-list-of-users-in-a-group-or-a-channel"><a class="header" href="#is-there-a-way-to-get-a-list-of-users-in-a-group-or-a-channel">Is there a way to get a list of users in a group or a channel?</a></h2>
 <p>There's no API to get all users in a chat, there's only <a href="https://core.telegram.org/bots/api#getchatmember"><code>getChatMember</code></a> request to obtain a
 <a href="https://core.telegram.org/bots/api#chatmember"><code>ChatMember</code></a> object knowing it's <code>user_id</code>.</p>
