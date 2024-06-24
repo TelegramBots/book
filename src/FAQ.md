@@ -21,7 +21,9 @@ Check the `UpdateType` of the `Update`. If it is `UpdateType.ChannelPost` then t
 
 ## I have serialization issues or null values in `Update` object in my webhook. What do I do?
 
-If you're using ASP.NET Core 3.0+ you need to install additional Nuget package: [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/). For more information read [this page](https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.1&tabs=visual-studio#use-newtonsoftjson-in-an-aspnet-core-30-mvc-project) about migrating from previous versions of ASP.NET Core.
+If you're using ASP.NET Core 3.0+ you need to configure System.Text.Json options to work correctly with Telegram.Bot
+
+See [this page for instructions](Migration-Guide-to-Version-21.x.md#webhooks-with-systemtextjson).
 
 ## Is there a way to get a list of users in a group or a channel?
 

@@ -71,3 +71,13 @@ To make a payment in [Telegram Stars](https://t.me/BotNews/90) with SendInvoiceA
 - `prices:` with a single price
 - no tip amounts
 
+## Webhooks with System.Text.Json
+
+The library now uses `System.Text.Json` instead of `NewtonsoftJson`.
+
+To make it work in your ASP.NET projects, you'll need to:
+- Remove package **Microsoft.AspNetCore.Mvc.NewtonsoftJson** from your project dependencies
+- Configure your webapp services in your Startup with
+`services.ConfigureTelegramBot<Microsoft.AspNetCore.Mvc.JsonOptions>(opt => opt.JsonSerializerOptions);`
+- or if you use minimal APIs, use this line instead:
+`builder.Services.ConfigureTelegramBot<Microsoft.AspNetCore.Http.Json.JsonOptions>(opt => opt.SerializerOptions);`
