@@ -38,4 +38,5 @@
 - [Migration guide => v17](Migration-Guide-to-Version-17.x.md)
 - [Migration guide => v18](Migration-Guide-to-Version-18.x.md)
 - [Migration guide => v19](Migration-Guide-to-Version-19.x.md)
+- [Migration guide => v21](Migration-Guide-to-Version-21.x.md)
 - [FAQ](FAQ.md)
