@@ -1,6 +1,10 @@
 ﻿# Migration guide for version 21.x
 
-Migrate directly to version 21, don't bother about version 20.
+Important notes:
+- Don't bother about version 20, migrate directly to version 21.*
+- You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-obtain-latest-versions).
+- Version 21.1 supports [Bot API 7.5](https://core.telegram.org/bots/api-changelog#june-18-2024) _(including [Telegram Stars payments](#payments-with-telegram-stars))_
+- Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. _([See below](#webhooks-with-systemtextjson))_
 
 ## Renamed parameter _replyToMessageId:_ → _replyParameters:_
 
@@ -35,13 +39,14 @@ We added/restored features & implicit conversions that make your code simpler:
 - `ReactionType`: just pass a `long` when you want to send a custom emoji (id)
 - Some other obvious implicit conversion operators for structures containing a single property
 - No more enforcing `init;` properties, so you can adjust the content of fields as you wish or modify a structure returned by the API _(before passing it back to the API if you want)_
-- Restored some `MessageType` enum value that were removed (renamed) recently (easier compatibility)
+- No more JSON "required properties" during deserialization, so your old saved JSON files won't break if a field is added/renamed.
+- Restored some `MessageType` enum values that were removed (renamed) recently (easier compatibility)
 
 ## MaybeInaccessibleMessage
 
 This class hierarchy was introduced in Bot API 7.0 and broke existing code and added unnecessary complexity.
 
-This was removed in our library v21 and you will just receive directly a Message.
+This was removed in our library v21 and you will just receive directly a Message _(as before)_.
 
 To identify an "inaccessible message", you can just check `message.Type == MessageType.Unknown` or `message.Date == default`.
 
@@ -56,12 +61,12 @@ The new `ChatFullInfo` structure inherits from `Chat` and is returned only by Ge
 
 ## Request structures
 
-Request structures (types ending with `Request`) are NOT the recommended way to use the library in your projects.
+Request structures _(types ending with `Request`)_ are NOT the recommended way to use the library in your projects.
 
 They are to be considered as low-level raw access to Bot API structures for advanced programmers, and might change/break at any time in the future.
 
 If you have existing code using them, you can use the `MakeRequestAsync` method to send those requests.
-(Other methods will be removed soon)
+(Other methods based on those requests will be removed soon)
 
 ## Payments with Telegram Stars
 
