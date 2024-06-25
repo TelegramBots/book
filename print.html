@@ -2128,7 +2128,13 @@ We decided to give it a more appropriate name: <code>HandlePollingErrorAsync</co
 <li>A new type <code>InlineQueryResultsButton</code> is used instead of <code>SwitchPmText</code> and <code>SwitchPmParameter</code> properties, consult the official Bot API docs</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="migration-guide-for-version-21x"><a class="header" href="#migration-guide-for-version-21x">Migration guide for version 21.x</a></h1>
-<p>Migrate directly to version 21, don't bother about version 20.</p>
+<p>Important notes:</p>
+<ul>
+<li>Don't bother about version 20, migrate directly to version 21.*</li>
+<li>You won't find this version on Nuget: <a href="https://telegrambots.github.io/book/index.html#-obtain-latest-versions">See this guide to install it in your programs</a>.</li>
+<li>Version 21.1 supports <a href="https://core.telegram.org/bots/api-changelog#june-18-2024">Bot API 7.5</a> <em>(including <a href="Migration-Guide-to-Version-21.x.html#payments-with-telegram-stars">Telegram Stars payments</a>)</em></li>
+<li>Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. <em>(<a href="Migration-Guide-to-Version-21.x.html#webhooks-with-systemtextjson">See below</a>)</em></li>
+</ul>
 <h2 id="renamed-parameter-replytomessageid--replyparameters"><a class="header" href="#renamed-parameter-replytomessageid--replyparameters">Renamed parameter <em>replyToMessageId:</em> → <em>replyParameters:</em></a></h2>
 <p>That parameter was renamed and you can still pass a <strong>messageId</strong> for simple replies.</p>
 <p>Or you can pass a <a href="https://core.telegram.org/bots/api#replyparameters">ReplyParameters</a> structure for more advanced reply configuration.</p>
@@ -2150,11 +2156,12 @@ We decided to give it a more appropriate name: <code>HandlePollingErrorAsync</co
 <li><code>ReactionType</code>: just pass a <code>long</code> when you want to send a custom emoji (id)</li>
 <li>Some other obvious implicit conversion operators for structures containing a single property</li>
 <li>No more enforcing <code>init;</code> properties, so you can adjust the content of fields as you wish or modify a structure returned by the API <em>(before passing it back to the API if you want)</em></li>
-<li>Restored some <code>MessageType</code> enum value that were removed (renamed) recently (easier compatibility)</li>
+<li>No more JSON &quot;required properties&quot; during deserialization, so your old saved JSON files won't break if a field is added/renamed.</li>
+<li>Restored some <code>MessageType</code> enum values that were removed (renamed) recently (easier compatibility)</li>
 </ul>
 <h2 id="maybeinaccessiblemessage"><a class="header" href="#maybeinaccessiblemessage">MaybeInaccessibleMessage</a></h2>
 <p>This class hierarchy was introduced in Bot API 7.0 and broke existing code and added unnecessary complexity.</p>
-<p>This was removed in our library v21 and you will just receive directly a Message.</p>
+<p>This was removed in our library v21 and you will just receive directly a Message <em>(as before)</em>.</p>
 <p>To identify an &quot;inaccessible message&quot;, you can just check <code>message.Type == MessageType.Unknown</code> or <code>message.Date == default</code>.</p>
 <h2 id="chat-and-chatfullinfo"><a class="header" href="#chat-and-chatfullinfo">Chat and ChatFullInfo</a></h2>
 <p>In previous versions, the big <code>Chat</code> structure contained many fields that were filled only after a call to GetChatAsync.</p>
@@ -2162,10 +2169,10 @@ We decided to give it a more appropriate name: <code>HandlePollingErrorAsync</co
 <p>The new <code>Chat</code> structure contains only common fields that are always filled.
 The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and is returned only by GetChatAsync method, with all the extra fields.</p>
 <h2 id="request-structures"><a class="header" href="#request-structures">Request structures</a></h2>
-<p>Request structures (types ending with <code>Request</code>) are NOT the recommended way to use the library in your projects.</p>
+<p>Request structures <em>(types ending with <code>Request</code>)</em> are NOT the recommended way to use the library in your projects.</p>
 <p>They are to be considered as low-level raw access to Bot API structures for advanced programmers, and might change/break at any time in the future.</p>
 <p>If you have existing code using them, you can use the <code>MakeRequestAsync</code> method to send those requests.
-(Other methods will be removed soon)</p>
+(Other methods based on those requests will be removed soon)</p>
 <h2 id="payments-with-telegram-stars"><a class="header" href="#payments-with-telegram-stars">Payments with Telegram Stars</a></h2>
 <p>To make a payment in <a href="https://t.me/BotNews/90">Telegram Stars</a> with SendInvoiceAsync, set the following parameters:</p>
 <ul>
