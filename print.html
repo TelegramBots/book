@@ -542,7 +542,7 @@ You can optionally specify the duration and resolution of the video.</p>
 <p>In the example below, we send a video of a 10 minute countdown
 and expect the Telegram clients to stream that long video instead of downloading it completely.
 We also set a thumbnail image for our video.</p>
-<pre><code class="language-c#">var message = await botClient.SendVideoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-countdown.mp4&quot;,
+<pre><code class="language-c#">await botClient.SendVideoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-countdown.mp4&quot;,
     thumbnail: &quot;https://telegrambots.github.io/book/2/docs/thumb-clock.jpg&quot;, supportsStreaming: true);
 </code></pre>
 <blockquote>
@@ -559,7 +559,7 @@ Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
 <pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
 
-var message = await botClient.SendVideoNoteAsync(chatId, stream,
+await botClient.SendVideoNoteAsync(chatId, stream,
     duration: 47, length: 360); // value of width/height
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
@@ -578,14 +578,14 @@ var message = await botClient.SendVideoNoteAsync(chatId, stream,
 <p><a href="https://core.telegram.org/bots/api#senddocument"><img src="https://img.shields.io/badge/Bot_API_method-sendDocument-blue.svg?style=flat-square" alt="sendDocument method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#senddocument"><code>sendDocument</code></a> method to send general files.</p>
-<pre><code class="language-c#">var message = await botClient.SendDocumentAsync(chatId, &quot;https://telegrambots.github.io/book/docs/photo-ara.jpg&quot;,
+<pre><code class="language-c#">await botClient.SendDocumentAsync(chatId, &quot;https://telegrambots.github.io/book/docs/photo-ara.jpg&quot;,
     caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;, parseMode: ParseMode.Html);
 </code></pre>
 <h2 id="send-animations"><a class="header" href="#send-animations">Send animations</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendanimation"><img src="https://img.shields.io/badge/Bot_API_method-sendAnimation-blue.svg?style=flat-square" alt="sendAnimation method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AnimationMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Animation_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#sendanimation"><code>sendAnimation</code></a> method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).</p>
-<pre><code class="language-c#">var message = await botClient.SendAnimationAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-waves.mp4&quot;,
+<pre><code class="language-c#">await botClient.SendAnimationAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-waves.mp4&quot;,
     caption: &quot;Waves&quot;);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="native-poll-messages"><a class="header" href="#native-poll-messages">Native Poll Messages</a></h1>
@@ -623,11 +623,11 @@ var pollMessage = await botClient.SendPollAsync(&quot;@channel_name&quot;,
 <p><a href="https://core.telegram.org/bots/api#sendcontact"><img src="https://img.shields.io/badge/Bot_API_method-sendContact-blue.svg?style=flat-square" alt="send contact method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingContactMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Contact-green.svg?style=flat-square" alt="send contacts tests" /></a></p>
 <p>This is the code to send a contact. Mandatory are the parameters <code>chatId</code>, <code>phoneNumber</code> and <code>firstName</code>.</p>
-<pre><code class="language-c#">var message = await botClient.SendContactAsync(chatId, phoneNumber: &quot;+1234567890&quot;, firstName: &quot;Han&quot;, lastName: &quot;Solo&quot;);
+<pre><code class="language-c#">await botClient.SendContactAsync(chatId, phoneNumber: &quot;+1234567890&quot;, firstName: &quot;Han&quot;, lastName: &quot;Solo&quot;);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-contact.jpg" alt="send contact" /></p>
 <p>If you want to send a contact as vCard you can achieve  this by adding a valid vCard <code>string</code> as value for the optional parameter <code>vCard</code> as seen in the given example below.</p>
-<pre><code class="language-c#">var message = await botClient.SendContactAsync(chatId, phoneNumber: &quot;+1234567890&quot;, firstName: &quot;Han&quot;,
+<pre><code class="language-c#">await botClient.SendContactAsync(chatId, phoneNumber: &quot;+1234567890&quot;, firstName: &quot;Han&quot;,
     vcard: &quot;BEGIN:VCARD\n&quot; +
            &quot;VERSION:3.0\n&quot; +
            &quot;N:Solo;Han\n&quot; +
@@ -641,7 +641,7 @@ var pollMessage = await botClient.SendPollAsync(&quot;@channel_name&quot;,
 <p><a href="https://core.telegram.org/bots/api#sendvenue"><img src="https://img.shields.io/badge/Bot_API_method-sendVenue-blue.svg?style=flat-square" alt="send venue method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Venue-green.svg?style=flat-square" alt="send venue tests" /></a></p>
 <p>The code snippet below sends a venue with a title and a address as given parameters:</p>
-<pre><code class="language-c#">var message = await botClient.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
+<pre><code class="language-c#">await botClient.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
     title: &quot;Man Hanging out&quot;, address: &quot;Husova, 110 00 Staré Město, Czechia&quot;);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-venue.jpg" alt="send contact" /></p>
@@ -650,7 +650,7 @@ var pollMessage = await botClient.SendPollAsync(&quot;@channel_name&quot;,
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Location-green.svg?style=flat-square" alt="send location tests" /></a></p>
 <p>The difference between sending a location and a venue is, that the venue requires a title and address. A location can be any given point as latitude and longitude.</p>
 <p>The following snippet shows how to send a location with the mandatory parameters:</p>
-<pre><code class="language-c#">var message = await botClient.SendLocationAsync(chatId, latitude: 33.747252f, longitude: -112.633853f);
+<pre><code class="language-c#">await botClient.SendLocationAsync(chatId, latitude: 33.747252f, longitude: -112.633853f);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-location.jpg" alt="send contact" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reply-markup"><a class="header" href="#reply-markup">Reply Markup</a></h1>
@@ -814,11 +814,13 @@ To be able to handle webhook updates you'll need a server that:</p>
 <p>This chapter is not yet written.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
+<p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.WebHook"><img src="https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square" alt="Webhook ASP.NET example" /></a></p>
 <blockquote>
-<p>This chapter is not yet written.</p>
+<p>This chapter is not yet written. See the useful badges/links above</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="inline-mode"><a class="header" href="#inline-mode">Inline Mode</a></h1>
-<p><a href="https://core.telegram.org/bots/api#inline-mode"><img src="https://img.shields.io/badge/Bot_API_Object-Inline%20Mode-blue.svg?style=flat-square" alt="inline mode bot API" /></a>
+<p><a href="https://core.telegram.org/bots/api#inline-mode"><img src="https://img.shields.io/badge/Bot_API_Doc-Inline%20Mode-blue.svg?style=flat-square" alt="inline mode bot API" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/Telegram.Bot.Examples.InlineQueries/Program.cs"><img src="https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square" alt="inline queries example" /></a></p>
 <p>Telegram bots can be queried directly in the chat or via inline queries.</p>
 <p>To use inline queries in your bot, you need to set up inline mode by command:</p>
