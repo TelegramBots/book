@@ -197,7 +197,7 @@ Text messages are easy to send and fast to display on devices with slower networ
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>chatId</code>
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
-<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(chatId, &quot;Trying more parameters for `sendMessage` method&quot;,
+<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(chatId, &quot;Trying *all the parameters* of `sendMessage` method&quot;,
     parseMode: ParseMode.MarkdownV2,
     protectContent: true,
     replyParameters: update.Message.MessageId,
@@ -235,7 +235,6 @@ For example, in the message we just sent:</p>
 <pre><code class="language-c#">message.Entities.First().Type == MessageEntityType.Bold
 message.EntityValues.First()  == &quot;all the parameters&quot;
 </code></pre>
-<p>Currently, message object doesn't contain information about its reply markup.</p>
 <p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
 
                     </main>

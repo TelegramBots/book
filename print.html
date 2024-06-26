@@ -282,11 +282,7 @@ var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;, canc
     AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types except ChatMember related updates
 };
 
-botClient.StartReceiving(
-    updateHandler: HandleUpdateAsync,
-    pollingErrorHandler: HandlePollingErrorAsync,
-    receiverOptions: receiverOptions
-);
+botClient.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, receiverOptions);
 
 var me = await botClient.GetMeAsync();
 
@@ -362,15 +358,15 @@ for yourself on the next pages.</p>
 Fortunately, methods for sending such messages are similar. Take a look at these examples:</p>
 <h2 id="sending-text-message"><a class="header" href="#sending-text-message">Sending text message</a></h2>
 <p><img src="2/send-msg/../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
-<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(chatId, &quot;Hello, World!&quot;);
+<pre><code class="language-c#">await botClient.SendTextMessageAsync(chatId, &quot;Hello, World!&quot;);
 </code></pre>
 <h2 id="sending-sticker-message"><a class="header" href="#sending-sticker-message">Sending sticker message</a></h2>
 <p><img src="2/send-msg/../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
-<pre><code class="language-c#">var message = await botClient.SendStickerAsync(chatId, &quot;https://telegrambots.github.io/book/docs/sticker-dali.webp&quot;);
+<pre><code class="language-c#">await botClient.SendStickerAsync(chatId, &quot;https://telegrambots.github.io/book/docs/sticker-dali.webp&quot;);
 </code></pre>
 <h2 id="sending-video-message"><a class="header" href="#sending-video-message">Sending video message</a></h2>
 <p><img src="2/send-msg/../docs/shot-video.jpg" alt="video message screenshot" /></p>
-<pre><code class="language-c#">var message = await botClient.SendVideoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-hawk.mp4&quot;);
+<pre><code class="language-c#">await botClient.SendVideoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-hawk.mp4&quot;);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="text-messages-and-more"><a class="header" href="#text-messages-and-more">Text Messages and More</a></h1>
 <p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-sendMessage-blue.svg?style=flat-square" alt="send message method" /></a>
@@ -385,7 +381,7 @@ Text messages are easy to send and fast to display on devices with slower networ
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>chatId</code>
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
-<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(chatId, &quot;Trying more parameters for `sendMessage` method&quot;,
+<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(chatId, &quot;Trying *all the parameters* of `sendMessage` method&quot;,
     parseMode: ParseMode.MarkdownV2,
     protectContent: true,
     replyParameters: update.Message.MessageId,
@@ -423,7 +419,6 @@ For example, in the message we just sent:</p>
 <pre><code class="language-c#">message.Entities.First().Type == MessageEntityType.Bold
 message.EntityValues.First()  == &quot;all the parameters&quot;
 </code></pre>
-<p>Currently, message object doesn't contain information about its reply markup.</p>
 <p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="photo-and-sticker-messages"><a class="header" href="#photo-and-sticker-messages">Photo and Sticker Messages</a></h1>
 <p>You can provide the source file for almost all multimedia messages (e.g. photo, video) in 3 ways:</p>
@@ -506,7 +501,7 @@ A voice file has OGG format and is not shown in music player.</p>
 <p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out?
 That's because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
 <pre><code class="language-c#">var message = await botClient.SendAudioAsync(chatId, &quot;https://telegrambots.github.io/book/docs/audio-guitar.mp3&quot;
-    //  , performer: &quot;Joel Thomas Hunger&quot;, title: &quot;Fun Guitar and Ukulele&quot;, duration: 91        // optional
+    //  , performer: &quot;Joel Thomas Hunger&quot;, title: &quot;Fun Guitar and Ukulele&quot;, duration: 91    // optional
     );
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-audio_msg.jpg" alt="audio message" /></p>
@@ -745,7 +740,7 @@ var sent = await botClient.SendTextMessageAsync(chatId, &quot;A message with an 
 
 var buttons = new[]
 {
-    InlineKeyboardButton.WithUrl(&quot;Repositoy Link&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+    InlineKeyboardButton.WithUrl(&quot;Repository Link&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
 };
 
 var sent = await botClient.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
@@ -2067,10 +2062,6 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <li>or if you use minimal APIs, use this line instead:
 <code>builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);</code></li>
 </ul>
-<h2 id="global-cancellation-token"><a class="header" href="#global-cancellation-token">Global cancellation token</a></h2>
-<p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>
-<p>This way, you won't need to pass a cancellationToken to every method call after that
-(if you just need one single cancellation token for stopping your bot)</p>
 <h2 id="inputpolloption-in-sendpollasync"><a class="header" href="#inputpolloption-in-sendpollasync">InputPollOption in SendPollAsync</a></h2>
 <p>SendPollAsync now expect an array of InputPollOption instead of string.</p>
 <p>But we added an implicit conversion from string to InputPollOption, so the change is minimal:</p>
@@ -2079,6 +2070,10 @@ await botClient.SendPollAsync(chatId, &quot;question&quot;, new[] { &quot;answer
 // after:
 await botClient.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &quot;answer1&quot;, &quot;answer2&quot; });
 </code></pre>
+<h2 id="global-cancellation-token-v212"><a class="header" href="#global-cancellation-token-v212">Global cancellation token (v21.2)</a></h2>
+<p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>
+<p>This way, you won't need to pass a cancellationToken to every method call after that
+(if you just need one single cancellation token for stopping your bot)</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
 <h2 id="how-do-i-use-an-httpsocks-proxy"><a class="header" href="#how-do-i-use-an-httpsocks-proxy">How do I use an HTTP/Socks proxy?</a></h2>
 <p>Look at the wiki page: <a href="4/proxy.html">Working Behind a Proxy</a>.</p>

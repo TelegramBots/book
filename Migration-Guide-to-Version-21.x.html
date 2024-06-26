@@ -248,10 +248,6 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <li>or if you use minimal APIs, use this line instead:
 <code>builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);</code></li>
 </ul>
-<h2 id="global-cancellation-token"><a class="header" href="#global-cancellation-token">Global cancellation token</a></h2>
-<p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>
-<p>This way, you won't need to pass a cancellationToken to every method call after that
-(if you just need one single cancellation token for stopping your bot)</p>
 <h2 id="inputpolloption-in-sendpollasync"><a class="header" href="#inputpolloption-in-sendpollasync">InputPollOption in SendPollAsync</a></h2>
 <p>SendPollAsync now expect an array of InputPollOption instead of string.</p>
 <p>But we added an implicit conversion from string to InputPollOption, so the change is minimal:</p>
@@ -260,6 +256,10 @@ await botClient.SendPollAsync(chatId, &quot;question&quot;, new[] { &quot;answer
 // after:
 await botClient.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &quot;answer1&quot;, &quot;answer2&quot; });
 </code></pre>
+<h2 id="global-cancellation-token-v212"><a class="header" href="#global-cancellation-token-v212">Global cancellation token (v21.2)</a></h2>
+<p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>
+<p>This way, you won't need to pass a cancellationToken to every method call after that
+(if you just need one single cancellation token for stopping your bot)</p>
 
                     </main>
 
