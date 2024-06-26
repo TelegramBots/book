@@ -63,7 +63,7 @@ var message = await botClient.SendVoiceAsync(chatId, stream, duration: 36);
     private async Task SendDocument()
     {
 // ANCHOR: send-document
-var message = await botClient.SendDocumentAsync(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
+await botClient.SendDocumentAsync(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
     caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", parseMode: ParseMode.Html);
 // ANCHOR_END: send-document
     }
@@ -71,7 +71,7 @@ var message = await botClient.SendDocumentAsync(chatId, "https://telegrambots.gi
     private async Task SendAnimation()
     {
 // ANCHOR: send-animation
-var message = await botClient.SendAnimationAsync(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4",
+await botClient.SendAnimationAsync(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4",
     caption: "Waves");
 // ANCHOR_END: send-animation
     }
@@ -97,14 +97,14 @@ Poll poll = await botClient.StopPollAsync(pollMessage.Chat.Id, pollMessage.Messa
     private async Task SendContact()
     {
 // ANCHOR: send-contact
-var message = await botClient.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han", lastName: "Solo");
+await botClient.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han", lastName: "Solo");
 // ANCHOR_END: send-contact
     }
 
     private async Task SendvCard()
     {
 // ANCHOR: send-vCard
-var message = await botClient.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han",
+await botClient.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han",
     vcard: "BEGIN:VCARD\n" +
            "VERSION:3.0\n" +
            "N:Solo;Han\n" +
@@ -118,7 +118,7 @@ var message = await botClient.SendContactAsync(chatId, phoneNumber: "+1234567890
     private async Task SendVenue()
     {
 // ANCHOR: send-venue
-var message = await botClient.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
+await botClient.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
     title: "Man Hanging out", address: "Husova, 110 00 Staré Město, Czechia");
 // ANCHOR_END: send-venue
     }
@@ -126,7 +126,7 @@ var message = await botClient.SendVenueAsync(chatId, latitude: 50.0840172f, long
     private async Task SendLocation()
     {
 // ANCHOR: send-location
-var message = await botClient.SendLocationAsync(chatId, latitude: 33.747252f, longitude: -112.633853f);
+await botClient.SendLocationAsync(chatId, latitude: 33.747252f, longitude: -112.633853f);
 // ANCHOR_END: send-location
     }
 
@@ -181,7 +181,7 @@ Console.WriteLine(
     private async Task SendVideo()
     {
 // ANCHOR: send-video
-var message = await botClient.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
+await botClient.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
     thumbnail: "https://telegrambots.github.io/book/2/docs/thumb-clock.jpg", supportsStreaming: true);
 // ANCHOR_END: send-video
     }
@@ -191,7 +191,7 @@ var message = await botClient.SendVideoAsync(chatId, "https://telegrambots.githu
 // ANCHOR: send-video-note
 await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
 
-var message = await botClient.SendVideoNoteAsync(chatId, stream,
+await botClient.SendVideoNoteAsync(chatId, stream,
     duration: 47, length: 360); // value of width/height
 // ANCHOR_END: send-video-note
     }
