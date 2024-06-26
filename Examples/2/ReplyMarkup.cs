@@ -10,138 +10,104 @@ namespace BookExamples.Chapter2;
 
 internal class ReplyMarkup
 {
-    private readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
-    private readonly ChatId chatId = 12345;
-    private readonly CancellationToken cancellationToken = new CancellationTokenSource().Token;
+    public readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ChatId chatId = 12345;
 
     private async Task SingleRowMarkup()
     {
 // ANCHOR: single-row
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+var buttons = new KeyboardButton[]
 {
-    new KeyboardButton[] { "Help me", "Call me ☎️" },
-})
-{
-    ResizeKeyboard = true
+    "Help me", "Call me ☎️",
 };
 
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "Choose a response",
-    replyMarkup: replyKeyboardMarkup,
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "Choose a response",
+    replyMarkup: new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true });
 // ANCHOR_END: single-row
     }
 
     private async Task MultipleRowMarkup()
     {
 // ANCHOR: multiple-row
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+var buttons = new KeyboardButton[][]
 {
     new KeyboardButton[] { "Help me" },
-    new KeyboardButton[] { "Call me ☎️" },
-})
-{
-    ResizeKeyboard = true
+    new KeyboardButton[] { "Call me ☎️", "Write me ✉️" },
 };
 
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "Choose a response",
-    replyMarkup: replyKeyboardMarkup,
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "Choose a response",
+    replyMarkup: new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true });
 // ANCHOR_END: multiple-row
     }
 
     private async Task RequestInfo()
     {
 // ANCHOR: request-info
-ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+var buttons = new[]
 {
     KeyboardButton.WithRequestLocation("Share Location"),
     KeyboardButton.WithRequestContact("Share Contact"),
-});
+};
 
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "Who or Where are you?",
-    replyMarkup: replyKeyboardMarkup,
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "Who or Where are you?",
+    replyMarkup: new ReplyKeyboardMarkup(buttons));
 // ANCHOR_END: request-info
     }
 
     private async Task RemoveKeyboard()
     {
 // ANCHOR: remove-keyboard
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "Removing keyboard",
-    replyMarkup: new ReplyKeyboardRemove(),
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "Removing keyboard",
+    replyMarkup: new ReplyKeyboardRemove());
 // ANCHOR_END: remove-keyboard
     }
 
     private async Task CallbackButtons()
     {
 // ANCHOR: callback-buttons
-InlineKeyboardMarkup inlineKeyboard = new(new[]
+var buttons = new InlineKeyboardButton[][]
 {
-    // first row
-    new []
+    new[] // first row
     {
-        InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "11"),
-        InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "12"),
+        InlineKeyboardButton.WithCallbackData("1.1", "11"),
+        InlineKeyboardButton.WithCallbackData("1.2", "12"),
     },
-    // second row
-    new []
+    new[] // second row
     {
-        InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
-        InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
+        InlineKeyboardButton.WithCallbackData("2.1", "21"),
+        InlineKeyboardButton.WithCallbackData("2.2", "22"),
     },
-});
+};
 
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard,
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+    replyMarkup: new InlineKeyboardMarkup(buttons));
 // ANCHOR_END: callback-buttons
     }
 
     private async Task UrlButtons()
     {
 // ANCHOR: url-buttons
-InlineKeyboardMarkup inlineKeyboard = new(new[]
+var buttons = new[]
 {
-    InlineKeyboardButton.WithUrl(
-        text: "Link to the Repository",
-        url: "https://github.com/TelegramBots/Telegram.Bot")
-});
+    InlineKeyboardButton.WithUrl("Repositoy Link", "https://github.com/TelegramBots/Telegram.Bot")
+};
 
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard,
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+    replyMarkup: new InlineKeyboardMarkup(buttons));
 // ANCHOR_END: url-buttons
     }
 
     private async Task SwitchToInline()
     {
 // ANCHOR: switch-to-inline
-InlineKeyboardMarkup inlineKeyboard = new(new[]
+var buttons = new[]
 {
-    InlineKeyboardButton.WithSwitchInlineQuery(
-        text: "switch_inline_query"),
-    InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(
-        text: "switch_inline_query_current_chat"),
-});
+    InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
+    InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"),
+};
 
-Message sentMessage = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: "A message with an inline keyboard markup",
-    replyMarkup: inlineKeyboard,
-    cancellationToken: cancellationToken);
+var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+    replyMarkup: new InlineKeyboardMarkup(buttons));
 // ANCHOR_END: switch-to-inline
     }
 }

@@ -10,7 +10,7 @@ namespace BookExamples.Chapter3;
 
 internal class Inline
 {
-    private readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
 // ANCHOR: arrays
 private readonly string[] sites = { "Google", "Github", "Telegram", "Wikipedia" };
 private readonly string[] siteDescriptions =
@@ -45,11 +45,15 @@ private readonly string[] siteDescriptions =
         try
         {
 // ANCHOR: switch-statement
-await (update.Type switch
+switch (update.Type)
 {
-    UpdateType.InlineQuery        => BotOnInlineQueryReceived(bot, update.InlineQuery!),
-    UpdateType.ChosenInlineResult => BotOnChosenInlineResultReceived(bot, update.ChosenInlineResult!),
-});
+    case UpdateType.InlineQuery:
+        await OnInlineQueryReceived(bot, update.InlineQuery!);
+        break;
+    case UpdateType.ChosenInlineResult:
+        await OnChosenInlineResultReceived(bot, update.ChosenInlineResult!);
+        break;
+};
 // ANCHOR_END: switch-statement
         }
         catch (Exception ex)
@@ -59,7 +63,7 @@ await (update.Type switch
     }
 
 // ANCHOR: on-inline-query-received
-async Task BotOnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQuery)
+async Task OnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQuery)
 {
     var results = new List<InlineQueryResult>();
 
@@ -79,7 +83,7 @@ async Task BotOnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQu
 // ANCHOR_END: on-inline-query-received
 
 // ANCHOR: on-chosen-inline-result-received
-Task BotOnChosenInlineResultReceived(ITelegramBotClient bot, ChosenInlineResult chosenInlineResult)
+Task OnChosenInlineResultReceived(ITelegramBotClient bot, ChosenInlineResult chosenInlineResult)
 {
     if (uint.TryParse(chosenInlineResult.ResultId, out var resultId) // check if a result id is parsable and introduce variable
         && resultId < sites.Length)

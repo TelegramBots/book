@@ -13,12 +13,12 @@ internal class ExampleBot
     private async Task BookExamples()
     {
 // ANCHOR: example-bot
-var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+using CancellationTokenSource cts = new();
 
-using CancellationTokenSource cts = new ();
+var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}", cancellationToken: cts.Token);
 
 // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
- ReceiverOptions receiverOptions = new ()
+ var receiverOptions = new ReceiverOptions()
 {
     AllowedUpdates = Array.Empty<UpdateType>() // receive all update types except ChatMember related updates
 };
@@ -26,8 +26,7 @@ using CancellationTokenSource cts = new ();
 botClient.StartReceiving(
     updateHandler: HandleUpdateAsync,
     pollingErrorHandler: HandlePollingErrorAsync,
-    receiverOptions: receiverOptions,
-    cancellationToken: cts.Token
+    receiverOptions: receiverOptions
 );
 
 var me = await botClient.GetMeAsync();
@@ -52,10 +51,7 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
     // Echo received message text
-    Message sentMessage = await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text: "You said:\n" + messageText,
-        cancellationToken: cancellationToken);
+    Message sentMessage = await botClient.SendTextMessageAsync(chatId, "You said:\n" + messageText);
 }
 
 Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)

@@ -25,10 +25,10 @@ text message and returns the message object sent.
 
 `text` is written in [MarkDown format] and `parseMode` indicates that. You can also write in HTML or plain text.
 
-By passing `disableNotification` we tell Telegram client on user's device not to show/sound a notification.
+By passing `protectContent` we prevent the message (and eventual media) to be copiable/forwardable elsewhere.
 
 It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
-message id for `replyToMessageId`.
+message id for `replyParameters`.
 
 You have the option of specifying a `replyMarkup` when sending messages.
 Reply markups are explained in details later in this book.

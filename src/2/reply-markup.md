@@ -34,6 +34,8 @@ A [`ReplyKeyboardMarkup`] with two rows of buttons:
 {{#include ../../Examples/2/ReplyMarkup.cs:multiple-row}}
 ```
 
+You can use `new List<List<KeyboardButton>>` instead of `KeyboardButton[][]` if you prefer to build the list dynamically.
+
 ### Request information
 
 [`ReplyKeyboardMarkup`] containing buttons for contact and location requests using helper methods `KeyboardButton.WithRequestLocation` and `KeyboardButton.WithRequestContact`:
@@ -69,6 +71,8 @@ When a user presses a [callback button], no messages are sent to the chat. Inste
 
 {{#include ../../Examples/2/ReplyMarkup.cs:callback-buttons}}
 ```
+
+You can use `new List<List<InlineKeyboardButton>>` instead of `InlineKeyboardButton[][]` if you prefer to build the list dynamically.
 
 ### URL buttons
 

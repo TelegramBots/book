@@ -45,4 +45,4 @@ Download the [Sea Waves video] to your disk for this example.
 
 ![vide note screenshot](../docs/shot-video_note.jpg)
 
-[Sea Waves video]: https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4
+[Sea Waves video]: https://telegrambots.github.io/book/docs/video-waves.mp4
