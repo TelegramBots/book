@@ -1,6 +1,6 @@
 # Inline Mode
 
-[![inline mode bot API](https://img.shields.io/badge/Bot_API_Object-Inline%20Mode-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#inline-mode)
+[![inline mode bot API](https://img.shields.io/badge/Bot_API_Doc-Inline%20Mode-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#inline-mode)
 [![inline queries example](https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/Telegram.Bot.Examples.InlineQueries/Program.cs)
 
 Telegram bots can be queried directly in the chat or via inline queries.
