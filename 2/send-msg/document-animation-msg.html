@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -188,22 +189,15 @@
 <p><a href="https://core.telegram.org/bots/api#senddocument"><img src="https://img.shields.io/badge/Bot_API_method-sendDocument-blue.svg?style=flat-square" alt="sendDocument method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#senddocument"><code>sendDocument</code></a> method to send general files.</p>
-<pre><code class="language-c#">Message message = await botClient.SendDocumentAsync(
-    chatId: chatId,
-    document: InputFile.FromUri(&quot;https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg&quot;),
-    caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;,
-    parseMode: ParseMode.Html,
-    cancellationToken: cancellationToken);
+<pre><code class="language-c#">var message = await botClient.SendDocumentAsync(chatId, &quot;https://telegrambots.github.io/book/docs/photo-ara.jpg&quot;,
+    caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;, parseMode: ParseMode.Html);
 </code></pre>
 <h2 id="send-animations"><a class="header" href="#send-animations">Send animations</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendanimation"><img src="https://img.shields.io/badge/Bot_API_method-sendAnimation-blue.svg?style=flat-square" alt="sendAnimation method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AnimationMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Animation_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#sendanimation"><code>sendAnimation</code></a> method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).</p>
-<pre><code class="language-c#">Message message = await botClient.SendAnimationAsync(
-    chatId: chatId,
-    animation: InputFile.FromUri(&quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4&quot;),
-    caption: &quot;Waves&quot;,
-    cancellationToken: cancellationToken);
+<pre><code class="language-c#">var message = await botClient.SendAnimationAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-waves.mp4&quot;,
+    caption: &quot;Waves&quot;);
 </code></pre>
 
                     </main>

@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -194,12 +195,8 @@ You can optionally specify the duration and resolution of the video.</p>
 <p>In the example below, we send a video of a 10 minute countdown
 and expect the Telegram clients to stream that long video instead of downloading it completely.
 We also set a thumbnail image for our video.</p>
-<pre><code class="language-c#">Message message = await botClient.SendVideoAsync(
-    chatId: chatId,
-    video: InputFile.FromUri(&quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4&quot;),
-    thumbnail: InputFile.FromUri(&quot;https://raw.githubusercontent.com/TelegramBots/book/master/src/2/docs/thumb-clock.jpg&quot;),
-    supportsStreaming: true,
-    cancellationToken: cancellationToken);
+<pre><code class="language-c#">var message = await botClient.SendVideoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-countdown.mp4&quot;,
+    thumbnail: &quot;https://telegrambots.github.io/book/2/docs/thumb-clock.jpg&quot;, supportsStreaming: true);
 </code></pre>
 <blockquote>
 <p>Check the Bot API docs for <code>sendVideo</code> method to learn more about video size limits and the thumbnail images.</p>
@@ -212,15 +209,11 @@ We also set a thumbnail image for our video.</p>
 <p>Video notes, shown in circles to the user, are usually short (1 minute or less) with the same width and height.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
-<p>Download the <a href="https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
+<p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
 <pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
 
-Message message = await botClient.SendVideoNoteAsync(
-    chatId: chatId,
-    videoNote: InputFile.FromStream(stream),
-    duration: 47,
-    length: 360, // value of width/height
-    cancellationToken: cancellationToken);
+var message = await botClient.SendVideoNoteAsync(chatId, stream,
+    duration: 47, length: 360); // value of width/height
 </code></pre>
 <p><img src="../docs/shot-video_note.jpg" alt="vide note screenshot" /></p>
 

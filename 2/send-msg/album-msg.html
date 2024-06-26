@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -187,16 +188,11 @@
 <p><a href="https://core.telegram.org/bots/api#sendmediagroup"><img src="https://img.shields.io/badge/Bot_API_method-sendMediaGroup-blue.svg?style=flat-square" alt="send media group method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AlbumMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Album_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Using <a href="https://core.telegram.org/bots/api#sendmediagroup"><code>sendMediaGroup</code></a> method you can send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type.</p>
-<pre><code class="language-c#">Message[] messages = await botClient.SendMediaGroupAsync(
-    chatId: chatId,
-    media: new IAlbumInputMedia[]
+<pre><code class="language-c#">var messages = await botClient.SendMediaGroupAsync(chatId, new IAlbumInputMedia[]
     {
-        new InputMediaPhoto(
-            InputFile.FromUri(&quot;https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg&quot;)),
-        new InputMediaPhoto(
-            InputFile.FromUri(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;)),
-    },
-    cancellationToken: cancellationToken);
+        new InputMediaPhoto(&quot;https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg&quot;),
+        new InputMediaPhoto(&quot;https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg&quot;),
+    });
 </code></pre>
 
                     </main>

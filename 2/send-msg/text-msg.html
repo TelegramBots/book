@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -196,24 +197,19 @@ Text messages are easy to send and fast to display on devices with slower networ
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>chatId</code>
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
-<pre><code class="language-c#">Message message = await botClient.SendTextMessageAsync(
-    chatId: chatId,
-    text: &quot;Trying *all the parameters* of `sendMessage` method&quot;,
+<pre><code class="language-c#">var message = await botClient.SendTextMessageAsync(chatId, &quot;Trying more parameters for `sendMessage` method&quot;,
     parseMode: ParseMode.MarkdownV2,
-    disableNotification: true,
-    replyToMessageId: update.Message.MessageId,
+    protectContent: true,
+    replyParameters: update.Message.MessageId,
     replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl(
-            text: &quot;Check sendMessage method&quot;,
-            url: &quot;https://core.telegram.org/bots/api#sendmessage&quot;)),
-    cancellationToken: cancellationToken);
+        InlineKeyboardButton.WithUrl(&quot;Check sendMessage method&quot;, &quot;https://core.telegram.org/bots/api#sendmessage&quot;)));
 </code></pre>
 <p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
 text message and returns the message object sent.</p>
 <p><code>text</code> is written in <a href="https://core.telegram.org/bots/api#markdown-style">MarkDown format</a> and <code>parseMode</code> indicates that. You can also write in HTML or plain text.</p>
-<p>By passing <code>disableNotification</code> we tell Telegram client on user's device not to show/sound a notification.</p>
+<p>By passing <code>protectContent</code> we prevent the message (and eventual media) to be copiable/forwardable elsewhere.</p>
 <p>It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
-message id for <code>replyToMessageId</code>.</p>
+message id for <code>replyParameters</code>.</p>
 <p>You have the option of specifying a <code>replyMarkup</code> when sending messages.
 Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself. Clicking that opens

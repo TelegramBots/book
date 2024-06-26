@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -187,7 +188,7 @@
 <p>Important notes:</p>
 <ul>
 <li>Don't bother about version 20, migrate directly to version 21.*</li>
-<li>You won't find this version on Nuget: <a href="https://telegrambots.github.io/book/index.html#-obtain-latest-versions">See this guide to install it in your programs</a>.</li>
+<li>You won't find this version on Nuget: <a href="https://telegrambots.github.io/book/index.html#-installation">See this guide to install it in your programs</a>.</li>
 <li>Version 21.1 supports <a href="https://core.telegram.org/bots/api-changelog#june-18-2024">Bot API 7.5</a> <em>(including <a href="#payments-with-telegram-stars">Telegram Stars payments</a>)</em></li>
 <li>Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. <em>(<a href="#webhooks-with-systemtextjson">See below</a>)</em></li>
 </ul>
@@ -247,6 +248,18 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <li>or if you use minimal APIs, use this line instead:
 <code>builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);</code></li>
 </ul>
+<h2 id="global-cancellation-token"><a class="header" href="#global-cancellation-token">Global cancellation token</a></h2>
+<p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>
+<p>This way, you won't need to pass a cancellationToken to every method call after that
+(if you just need one single cancellation token for stopping your bot)</p>
+<h2 id="inputpolloption-in-sendpollasync"><a class="header" href="#inputpolloption-in-sendpollasync">InputPollOption in SendPollAsync</a></h2>
+<p>SendPollAsync now expect an array of InputPollOption instead of string.</p>
+<p>But we added an implicit conversion from string to InputPollOption, so the change is minimal:</p>
+<pre><code class="language-csharp">// before:
+await botClient.SendPollAsync(chatId, &quot;question&quot;, new[] { &quot;answer1&quot;, &quot;answer2&quot; });
+// after:
+await botClient.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &quot;answer1&quot;, &quot;answer2&quot; });
+</code></pre>
 
                     </main>
 

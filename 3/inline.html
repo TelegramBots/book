@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -191,11 +192,15 @@
 <p><img src="docs/shot-setinline_command.png" alt="/setinline command in BotFather" /></p>
 <p>Import <code>Telegram.Bot.Types.InlineQueryResults</code> namespace for inline query types.</p>
 <p>There are two types that allow you to work with inline queries - <code>InlineQuery</code> and <code>ChosenInlineResult</code>:</p>
-<pre><code class="language-c#">await (update.Type switch
+<pre><code class="language-c#">switch (update.Type)
 {
-    UpdateType.InlineQuery        =&gt; BotOnInlineQueryReceived(bot, update.InlineQuery!),
-    UpdateType.ChosenInlineResult =&gt; BotOnChosenInlineResultReceived(bot, update.ChosenInlineResult!),
-});
+    case UpdateType.InlineQuery:
+        await OnInlineQueryReceived(bot, update.InlineQuery!);
+        break;
+    case UpdateType.ChosenInlineResult:
+        await OnChosenInlineResultReceived(bot, update.ChosenInlineResult!);
+        break;
+};
 </code></pre>
 <h2 id="inlinequery"><a class="header" href="#inlinequery"><code>InlineQuery</code></a></h2>
 <p><a href="https://core.telegram.org/bots/api#inlinequeryresult"><img src="https://img.shields.io/badge/Bot_API_Object-InlineQueryResult-blue.svg?style=flat-square" alt="inline query result bot API" /></a></p>
@@ -210,7 +215,7 @@ private readonly string[] siteDescriptions =
 };
 </code></pre>
 <p>So we can handle inline queries this way:</p>
-<pre><code class="language-c#">async Task BotOnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQuery)
+<pre><code class="language-c#">async Task OnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQuery)
 {
     var results = new List&lt;InlineQueryResult&gt;();
 
@@ -232,7 +237,7 @@ private readonly string[] siteDescriptions =
 <h2 id="choseninlineresult"><a class="header" href="#choseninlineresult"><code>ChosenInlineResult</code></a></h2>
 <p><a href="https://core.telegram.org/bots/api#choseninlineresult"><img src="https://img.shields.io/badge/Bot_API_Object-ChosenInlineResult-blue.svg?style=flat-square" alt="chosen inline result bot API" /></a></p>
 <p>This type helps to handle chosen inline result. For example, you may want to know which result users chose:</p>
-<pre><code class="language-csharp">Task BotOnChosenInlineResultReceived(ITelegramBotClient bot, ChosenInlineResult chosenInlineResult)
+<pre><code class="language-csharp">Task OnChosenInlineResultReceived(ITelegramBotClient bot, ChosenInlineResult chosenInlineResult)
 {
     if (uint.TryParse(chosenInlineResult.ResultId, out var resultId) // check if a result id is parsable and introduce variable
         &amp;&amp; resultId &lt; sites.Length)

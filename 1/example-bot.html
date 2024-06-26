@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -197,12 +198,12 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
+using CancellationTokenSource cts = new();
 
-using CancellationTokenSource cts = new ();
+var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;, cancellationToken: cts.Token);
 
 // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
- ReceiverOptions receiverOptions = new ()
+ var receiverOptions = new ReceiverOptions()
 {
     AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types except ChatMember related updates
 };
@@ -210,8 +211,7 @@ using CancellationTokenSource cts = new ();
 botClient.StartReceiving(
     updateHandler: HandleUpdateAsync,
     pollingErrorHandler: HandlePollingErrorAsync,
-    receiverOptions: receiverOptions,
-    cancellationToken: cts.Token
+    receiverOptions: receiverOptions
 );
 
 var me = await botClient.GetMeAsync();
@@ -236,10 +236,7 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     Console.WriteLine($&quot;Received a '{messageText}' message in chat {chatId}.&quot;);
 
     // Echo received message text
-    Message sentMessage = await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text: &quot;You said:\n&quot; + messageText,
-        cancellationToken: cancellationToken);
+    Message sentMessage = await botClient.SendTextMessageAsync(chatId, &quot;You said:\n&quot; + messageText);
 }
 
 Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)

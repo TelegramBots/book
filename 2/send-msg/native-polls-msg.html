@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -189,15 +190,14 @@
 <h2 id="send-a-poll"><a class="header" href="#send-a-poll">Send a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
-<pre><code class="language-c#">Message pollMessage = await botClient.SendPollAsync(
-    chatId: &quot;@channel_name&quot;,
-    question: &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
-    options: new[]
+<pre><code class="language-c#">
+var pollMessage = await botClient.SendPollAsync(&quot;@channel_name&quot;,
+    &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
+    new InputPollOption[]
     {
         &quot;Yes for the hundredth time!&quot;,
         &quot;No, who`s that?&quot;
-    },
-    cancellationToken: cancellationToken);
+    });
 </code></pre>
 <p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
 <p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
@@ -206,10 +206,7 @@
 <p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
 <p>To close a poll you need to know original chat and message ids of the poll that you got from calling <code>SendPollAsync</code> method.</p>
 <p>Let's close the poll that we sent in the previous example:</p>
-<pre><code class="language-c#">Poll poll = await botClient.StopPollAsync(
-    chatId: pollMessage.Chat.Id,
-    messageId: pollMessage.MessageId,
-    cancellationToken: cancellationToken);
+<pre><code class="language-c#">Poll poll = await botClient.StopPollAsync(pollMessage.Chat.Id, pollMessage.MessageId);
 </code></pre>
 <p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
 <p>You can add an inline keyboard when you close a poll.</p>

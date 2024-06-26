@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/custom.css">
 
     </head>
     <body class="sidebar-visible no-js">
@@ -209,19 +210,13 @@ var filePath = fileInfo.FilePath;
 <pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
-await botClient.DownloadFileAsync(
-    filePath: filePath,
-    destination: fileStream,
-    cancellationToken: cancellationToken);
+await botClient.DownloadFileAsync(filePath, fileStream);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFileAsync</code>:</p>
 <pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
-var file = await botClient.GetInfoAndDownloadFileAsync(
-    fileId: fileId,
-    destination: fileStream,
-    cancellationToken: cancellationToken);
+var file = await botClient.GetInfoAndDownloadFileAsync(fileId, fileStream);
 </code></pre>
 
                     </main>
