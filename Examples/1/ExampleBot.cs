@@ -23,11 +23,7 @@ var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}", cancellationTo
     AllowedUpdates = Array.Empty<UpdateType>() // receive all update types except ChatMember related updates
 };
 
-botClient.StartReceiving(
-    updateHandler: HandleUpdateAsync,
-    pollingErrorHandler: HandlePollingErrorAsync,
-    receiverOptions: receiverOptions
-);
+botClient.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, receiverOptions);
 
 var me = await botClient.GetMeAsync();
 

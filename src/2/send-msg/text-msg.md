@@ -64,8 +64,6 @@ message.Entities.First().Type == MessageEntityType.Bold
 message.EntityValues.First()  == "all the parameters"
 ```
 
-Currently, message object doesn't contain information about its reply markup.
-
 Try putting a breakpoint in the code to examine all the properties on a message objects you get.
 
 [`sendMessage`]: https://core.telegram.org/bots/api#sendmessage

@@ -89,7 +89,7 @@ var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inlin
 // ANCHOR: url-buttons
 var buttons = new[]
 {
-    InlineKeyboardButton.WithUrl("Repositoy Link", "https://github.com/TelegramBots/Telegram.Bot")
+    InlineKeyboardButton.WithUrl("Repository Link", "https://github.com/TelegramBots/Telegram.Bot")
 };
 
 var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
