@@ -14,21 +14,21 @@ internal class SendMessage
     private async Task SendTextMessage()
     {
 // ANCHOR: text-message
-var message = await botClient.SendTextMessageAsync(chatId, "Hello, World!");
+await botClient.SendTextMessageAsync(chatId, "Hello, World!");
 // ANCHOR_END: text-message
     }
 
     private async Task SendStickerMessage()
     {
 // ANCHOR: sticker-message
-var message = await botClient.SendStickerAsync(chatId, "https://telegrambots.github.io/book/docs/sticker-dali.webp");
+await botClient.SendStickerAsync(chatId, "https://telegrambots.github.io/book/docs/sticker-dali.webp");
 // ANCHOR_END: sticker-message
     }
 
     private async Task SendVideoMessage()
     {
 // ANCHOR: video-message
-var message = await botClient.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
+await botClient.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
 // ANCHOR_END: video-message
     }
 
@@ -47,7 +47,7 @@ var messages = await botClient.SendMediaGroupAsync(chatId, new IAlbumInputMedia[
     {
 // ANCHOR: send-audio
 var message = await botClient.SendAudioAsync(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
-    //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91        // optional
+    //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
     );
 // ANCHOR_END: send-audio
     }
@@ -153,7 +153,7 @@ var message2 = await botClient.SendStickerAsync(chatId, message1.Sticker!.FileId
         return;
 
 // ANCHOR: send-text
-var message = await botClient.SendTextMessageAsync(chatId, "Trying more parameters for `sendMessage` method",
+var message = await botClient.SendTextMessageAsync(chatId, "Trying *all the parameters* of `sendMessage` method",
     parseMode: ParseMode.MarkdownV2,
     protectContent: true,
     replyParameters: update.Message.MessageId,

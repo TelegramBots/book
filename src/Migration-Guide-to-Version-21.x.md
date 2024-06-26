@@ -87,13 +87,6 @@ To make it work in your ASP.NET projects, you'll need to:
 - or if you use minimal APIs, use this line instead:
 `builder.Services.ConfigureTelegramBot<Microsoft.AspNetCore.Http.Json.JsonOptions>(opt => opt.SerializerOptions);`
 
-## Global cancellation token
-
-You can now specify a global `CancellationToken` directly in TelegramBotClient constructor.
-
-This way, you won't need to pass a cancellationToken to every method call after that
-(if you just need one single cancellation token for stopping your bot)
-
 ## InputPollOption in SendPollAsync
 
 SendPollAsync now expect an array of InputPollOption instead of string.
@@ -105,3 +98,10 @@ await botClient.SendPollAsync(chatId, "question", new[] { "answer1", "answer2" }
 // after:
 await botClient.SendPollAsync(chatId, "question", new InputPollOption[] { "answer1", "answer2" });
 ```
+
+## Global cancellation token (v21.2)
+
+You can now specify a global `CancellationToken` directly in TelegramBotClient constructor.
+
+This way, you won't need to pass a cancellationToken to every method call after that
+(if you just need one single cancellation token for stopping your bot)
