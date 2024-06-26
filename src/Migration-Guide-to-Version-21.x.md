@@ -2,7 +2,7 @@
 
 Important notes:
 - Don't bother about version 20, migrate directly to version 21.*
-- You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-obtain-latest-versions).
+- You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-installation).
 - Version 21.1 supports [Bot API 7.5](https://core.telegram.org/bots/api-changelog#june-18-2024) _(including [Telegram Stars payments](#payments-with-telegram-stars))_
 - Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. _([See below](#webhooks-with-systemtextjson))_
 
@@ -86,3 +86,22 @@ To make it work in your ASP.NET projects, you'll need to:
 `services.ConfigureTelegramBot<Microsoft.AspNetCore.Mvc.JsonOptions>(opt => opt.JsonSerializerOptions);`
 - or if you use minimal APIs, use this line instead:
 `builder.Services.ConfigureTelegramBot<Microsoft.AspNetCore.Http.Json.JsonOptions>(opt => opt.SerializerOptions);`
+
+## Global cancellation token
+
+You can now specify a global `CancellationToken` directly in TelegramBotClient constructor.
+
+This way, you won't need to pass a cancellationToken to every method call after that
+(if you just need one single cancellation token for stopping your bot)
+
+## InputPollOption in SendPollAsync
+
+SendPollAsync now expect an array of InputPollOption instead of string.
+
+But we added an implicit conversion from string to InputPollOption, so the change is minimal:
+```csharp
+// before:
+await botClient.SendPollAsync(chatId, "question", new[] { "answer1", "answer2" });
+// after:
+await botClient.SendPollAsync(chatId, "question", new InputPollOption[] { "answer1", "answer2" });
+```

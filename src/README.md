@@ -22,7 +22,7 @@ chatbot in .NET. There are also many concrete examples written in C#.
 The guides here can even be useful to bot developers using other languages/platforms as it shows best practices
 in developing Telegram chatbots with examples.
 
-## ⚠️ Obtain latest versions
+## 🧩 Installation
 Latest versions of the library are not yet available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue.
 
 In the mean time, it's available on our [special nuget feed](https://nuget.voids.site/packages/Telegram.Bot): `https://nuget.voids.site/v3/index.json`

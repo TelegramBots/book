@@ -56,4 +56,4 @@ A value is passed for `duration` because Telegram can't figure that out from a f
 
 A voice message is returned from the method. Inspect the `message.Voice` property to learn more.
 
-[NFL Commentary voice file]: https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/voice-nfl_commentary.ogg
+[NFL Commentary voice file]: https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg

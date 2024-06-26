@@ -8,3 +8,4 @@ language = "en"
 
 [output.html]
 git-repository-url = "https://github.com/TelegramBots/book"
+additional-css = ["custom.css"]
