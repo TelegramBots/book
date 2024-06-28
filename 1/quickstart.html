@@ -209,9 +209,9 @@ It could be a legacy project targeting .NET Framework 4.6.1-4.8 or a modern .NET
 </blockquote>
 <pre><code class="language-c#">using Telegram.Bot;
 
-var botClient = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
+var bot = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
 
-var me = await botClient.GetMeAsync();
+var me = await bot.GetMeAsync();
 Console.WriteLine($&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;);
 </code></pre>
 <p>Running the program gives you the following output:</p>

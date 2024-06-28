@@ -272,7 +272,7 @@ Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport
 <pre><code class="language-c#">File encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-side.jpg&quot;))
 {
-    encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
+    encryptedFileInfo = await bot.DownloadAndDecryptPassportFileAsync(
         element.FrontSide, // PassportFile object for front side
         credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
         stream // destination stream for writing the JPEG content to
@@ -292,7 +292,7 @@ using (System.IO.Stream
     decryptedFile = System.IO.File.OpenWrite(&quot;/path/to/reverse-side.jpg&quot;)
 ) {
     // fetch the encrypted file info and download it to memory
-    encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+    encryptedFileInfo = await bot.GetInfoAndDownloadFileAsync(
         element.ReverseSide.FileId, // file_id of passport file for reverse side
         encryptedContent // stream to copy the encrypted file into
     );
@@ -313,7 +313,7 @@ using (System.IO.Stream
 This is essentially the same operation as done above via streams.
 We also post the selfie photo to a chat.</p>
 <pre><code class="language-c#">// fetch the info of the passport file(selfie) residing on Telegram servers
-File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
+File encryptedFileInfo = await bot.GetFileAsync(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
@@ -321,7 +321,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -333,7 +333,7 @@ byte[] selfieContent = decrypter.DecryptFile(
 
 // send the photo to a chat
 using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
-    await BotClient.SendPhotoAsync(
+    await bot.SendPhotoAsync(
         123456,
         stream,
         &quot;selfie with driver's license&quot;
@@ -352,7 +352,7 @@ Translations are also encrypted passport files so their decryption is no differe
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 
 // fetch passport file info
-File encryptedFileInfo = await BotClient.GetFileAsync(passportFile.FileId);
+File encryptedFileInfo = await bot.GetFileAsync(passportFile.FileId);
 
 // download encrypted file and get its bytes
 byte[] encryptedContent;
@@ -360,7 +360,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
     encryptedContent = stream.ToArray();
 }
 

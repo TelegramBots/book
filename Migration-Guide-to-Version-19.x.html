@@ -189,11 +189,11 @@
 <p>New topics functionality allow bots interact with users in topic specified by <code>messageThreadId</code> parameter.</p>
 <p>We try to keep our Bot API implementation as close to <a href="https://core.telegram.org/bots/api#forumtopicclosed">Telegram Bot API</a> as possible. This means, that the new <code>messageThreadId</code> now the first optional parameter for a variety of methods.</p>
 <p>Consider to use named parameters to avoid confusion with changed parameter order.</p>
-<pre><code class="language-diff">-Message message = await BotClient.SendTextMessageAsync(
+<pre><code class="language-diff">-Message message = await bot.SendTextMessageAsync(
 -    _fixture.SupergroupChat.Id,
 -    &quot;Please click on *Notify* button.&quot;,
 -    cancellationToken);
-+Message message = await BotClient.SendTextMessageAsync(
++Message message = await bot.SendTextMessageAsync(
 +    chatId: _fixture.SupergroupChat.Id,
 +    text: &quot;Please click on *Notify* button.&quot;,
 +    messageThreadId: threadId,

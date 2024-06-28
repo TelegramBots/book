@@ -243,18 +243,15 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <p>To make it work in your ASP.NET projects, you'll need to:</p>
 <ul>
 <li>Remove package <strong>Microsoft.AspNetCore.Mvc.NewtonsoftJson</strong> from your project dependencies</li>
-<li>Configure your webapp services in your Startup with
-<code>services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);</code></li>
-<li>or if you use minimal APIs, use this line instead:
-<code>builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);</code></li>
+<li>Configure your webapp. See our <a href="3/updates/webhook.html">Webhook page</a></li>
 </ul>
 <h2 id="inputpolloption-in-sendpollasync"><a class="header" href="#inputpolloption-in-sendpollasync">InputPollOption in SendPollAsync</a></h2>
 <p>SendPollAsync now expect an array of InputPollOption instead of string.</p>
 <p>But we added an implicit conversion from string to InputPollOption, so the change is minimal:</p>
 <pre><code class="language-csharp">// before:
-await botClient.SendPollAsync(chatId, &quot;question&quot;, new[] { &quot;answer1&quot;, &quot;answer2&quot; });
+await bot.SendPollAsync(chatId, &quot;question&quot;, new[] { &quot;answer1&quot;, &quot;answer2&quot; });
 // after:
-await botClient.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &quot;answer1&quot;, &quot;answer2&quot; });
+await bot.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &quot;answer1&quot;, &quot;answer2&quot; });
 </code></pre>
 <h2 id="global-cancellation-token-v212"><a class="header" href="#global-cancellation-token-v212">Global cancellation token (v21.2)</a></h2>
 <p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>

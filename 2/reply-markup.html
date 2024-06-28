@@ -200,7 +200,7 @@ var buttons = new KeyboardButton[]
     &quot;Help me&quot;, &quot;Call me ☎️&quot;,
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;Choose a response&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;Choose a response&quot;,
     replyMarkup: new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true });
 </code></pre>
 <blockquote>
@@ -216,7 +216,7 @@ var buttons = new KeyboardButton[][]
     new KeyboardButton[] { &quot;Call me ☎️&quot;, &quot;Write me ✉️&quot; },
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;Choose a response&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;Choose a response&quot;,
     replyMarkup: new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true });
 </code></pre>
 <p>You can use <code>new List&lt;List&lt;KeyboardButton&gt;&gt;</code> instead of <code>KeyboardButton[][]</code> if you prefer to build the list dynamically.</p>
@@ -230,14 +230,14 @@ var buttons = new[]
     KeyboardButton.WithRequestContact(&quot;Share Contact&quot;),
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;Who or Where are you?&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;Who or Where are you?&quot;,
     replyMarkup: new ReplyKeyboardMarkup(buttons));
 </code></pre>
 <h3 id="remove-keyboard"><a class="header" href="#remove-keyboard">Remove keyboard</a></h3>
 <p>To remove keyboard you have to send an instance of <a href="https://core.telegram.org/bots/api#replykeyboardremove"><code>ReplyKeyboardRemove</code></a> object:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;Removing keyboard&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;Removing keyboard&quot;,
     replyMarkup: new ReplyKeyboardRemove());
 </code></pre>
 <h2 id="inline-keyboards"><a class="header" href="#inline-keyboards">Inline keyboards</a></h2>
@@ -261,7 +261,7 @@ var buttons = new InlineKeyboardButton[][]
     },
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
     replyMarkup: new InlineKeyboardMarkup(buttons));
 </code></pre>
 <p>You can use <code>new List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> instead of <code>InlineKeyboardButton[][]</code> if you prefer to build the list dynamically.</p>
@@ -274,7 +274,7 @@ var buttons = new[]
     InlineKeyboardButton.WithUrl(&quot;Repository Link&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
     replyMarkup: new InlineKeyboardMarkup(buttons));
 </code></pre>
 <h3 id="switch-to-inline-buttons"><a class="header" href="#switch-to-inline-buttons">Switch to Inline buttons</a></h3>
@@ -287,7 +287,7 @@ var buttons = new[]
     InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch_inline_query_current_chat&quot;),
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
+var sent = await bot.SendTextMessageAsync(chatId, &quot;A message with an inline keyboard markup&quot;,
     replyMarkup: new InlineKeyboardMarkup(buttons));
 </code></pre>
 

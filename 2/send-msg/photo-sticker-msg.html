@@ -197,7 +197,7 @@ You will learn more about them later on when we discuss file <a href="../../3/fi
 <p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-sendPhoto-blue.svg?style=flat-square" alt="send photo method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
 <p>Sending a photo is simple. Here is an example:</p>
-<pre><code class="language-c#">var message = await botClient.SendPhotoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/photo-ara.jpg&quot;,
+<pre><code class="language-c#">var message = await bot.SendPhotoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/photo-ara.jpg&quot;,
     caption: &quot;&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\&quot;https://pixabay.com\&quot;&gt;Pixabay&lt;/a&gt;&quot;, parseMode: ParseMode.Html);
 </code></pre>
 <p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
@@ -246,9 +246,9 @@ so you can reuse the <code>file_id</code> value.</p>
 Sticker files should be in <a href="https://developers.google.com/speed/webp/">WebP</a> format.</p>
 <p>This code sends the same sticker twice. First by passing HTTP URL to a <a href="https://developers.google.com/speed/webp/">WebP</a> sticker file and
 second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
-<pre><code class="language-c#">var message1 = await botClient.SendStickerAsync(chatId, &quot;https://telegrambots.github.io/book/docs/sticker-fred.webp&quot;);
+<pre><code class="language-c#">var message1 = await bot.SendStickerAsync(chatId, &quot;https://telegrambots.github.io/book/docs/sticker-fred.webp&quot;);
 
-var message2 = await botClient.SendStickerAsync(chatId, message1.Sticker!.FileId);
+var message2 = await bot.SendStickerAsync(chatId, message1.Sticker!.FileId);
 </code></pre>
 <p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
 <p>Try inspecting the <code>sticker1.Sticker</code> property. It is of type <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> and its schema looks similar to a photo.</p>

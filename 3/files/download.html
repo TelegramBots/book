@@ -202,7 +202,7 @@ With LINQ, this boils down to <code>Message.Photo.Last().FileId</code>.</p>
 <li>Downloading the file.</li>
 </ol>
 <pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
-var fileInfo = await botClient.GetFileAsync(fileId);
+var fileInfo = await bot.GetFileAsync(fileId);
 var filePath = fileInfo.FilePath;
 </code></pre>
 <p>The URL from which you can now download the file is <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</p>
@@ -210,13 +210,13 @@ var filePath = fileInfo.FilePath;
 <pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
-await botClient.DownloadFileAsync(filePath, fileStream);
+await bot.DownloadFileAsync(filePath, fileStream);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFileAsync</code>:</p>
 <pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
-var file = await botClient.GetInfoAndDownloadFileAsync(fileId, fileStream);
+var file = await bot.GetInfoAndDownloadFileAsync(fileId, fileStream);
 </code></pre>
 
                     </main>

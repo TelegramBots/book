@@ -185,9 +185,32 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="long-polling"><a class="header" href="#long-polling">Long Polling</a></h1>
-<blockquote>
-<p>This chapter is not yet written.</p>
-</blockquote>
+<p>If you don't want to use our recommended StartReceiving helper (<a href="../1/example-bot.html">see first example</a>),
+you can just call GetUpdateAsync with a timeout in a loop,
+such that the call blocks for <strong>up to</strong> X seconds until there is an incoming update</p>
+<p>Here is an example implementation:</p>
+<pre><code class="language-csharp">        CancellationTokenSource cts = new();
+        var bot = new TelegramBotClient(&quot;{YOUR BOT TOKEN HERE}&quot;, cancellationToken: cts.Token);
+
+        int? offset = null;
+        while (!cts.IsCancellationRequested)
+        {
+            var updates = await bot.GetUpdatesAsync(offset, timeout: 2);
+            foreach (var update in updates)
+            {
+                offset = update.Id + 1;
+                try
+                {
+                    // put your code to handle one Update here.
+                }
+                catch (Exception ex)
+                {
+                    // log exception and continue
+                }
+                if (cts.IsCancellationRequested) break;
+            }
+        }
+</code></pre>
 
                     </main>
 

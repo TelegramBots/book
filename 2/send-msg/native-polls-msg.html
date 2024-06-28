@@ -191,7 +191,7 @@
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
 <pre><code class="language-c#">
-var pollMessage = await botClient.SendPollAsync(&quot;@channel_name&quot;,
+var pollMessage = await bot.SendPollAsync(&quot;@channel_name&quot;,
     &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
     new InputPollOption[]
     {
@@ -206,7 +206,7 @@ var pollMessage = await botClient.SendPollAsync(&quot;@channel_name&quot;,
 <p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
 <p>To close a poll you need to know original chat and message ids of the poll that you got from calling <code>SendPollAsync</code> method.</p>
 <p>Let's close the poll that we sent in the previous example:</p>
-<pre><code class="language-c#">Poll poll = await botClient.StopPollAsync(pollMessage.Chat.Id, pollMessage.MessageId);
+<pre><code class="language-c#">Poll poll = await bot.StopPollAsync(pollMessage.Chat.Id, pollMessage.MessageId);
 </code></pre>
 <p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
 <p>You can add an inline keyboard when you close a poll.</p>

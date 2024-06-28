@@ -188,7 +188,7 @@
 <h2 id="date-and-time"><a class="header" href="#date-and-time">Date and Time</a></h2>
 <p>All <code>DateTime</code> values are now in UTC format. Here are some examples of usage:</p>
 <pre><code class="language-csharp">// Use UTC time when making a request
-await BotClient.KickChatMemberAsync(
+await bot.KickChatMemberAsync(
     chatId: -9876,
     userId: 1234,
     untilDate: DateTime.UtcNow.AddDays(2)
@@ -201,7 +201,7 @@ DateTime localTime = update.Message.Date.ToLocalTime();
 <p>Many keyboard button types are removed from project. It is more convenient to use factory methods on <code>KeyboardButton</code> and <code>InlineKeyboardButton</code> classes.</p>
 <p>Here are some examples:</p>
 <pre><code class="language-csharp">// Message having an inline keyboard button with URL that redirects to a page
-await BotClient.SendTextMessageAsync(
+await bot.SendTextMessageAsync(
     chatId: -9876,
     text: &quot;Check out the source code&quot;,
     replyMarkup: new InlineKeyboardMarkup(
@@ -210,7 +210,7 @@ await BotClient.SendTextMessageAsync(
 );
 </code></pre>
 <pre><code class="language-csharp">// Message to a private chat having a 2-row reply keyboard
-await BotClient.SendTextMessageAsync(
+await bot.SendTextMessageAsync(
     chatId: 1234,
     text: &quot;Share your contact &amp; location&quot;,
     replyMarkup: new ReplyKeyboardMarkup(
@@ -229,7 +229,7 @@ await BotClient.SendTextMessageAsync(
 <pre><code class="language-csharp">// Gets file info and saves it to &quot;path/to/file.pdf&quot;
 using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
 {
-    File fileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+    File fileInfo = await bot.GetInfoAndDownloadFileAsync(
         fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
         destination: fileStream
     );
@@ -240,11 +240,11 @@ using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
 </blockquote>
 <p>There are two more methods that assist you with downloading files:</p>
 <pre><code class="language-csharp">// New version of GetFileAsync() only gets the file info (step 1)
-File fileInfo = await BotClient.GetFileAsync(&quot;BsdfgLg4Khdlsn-bldBD&quot;);
+File fileInfo = await bot.GetFileAsync(&quot;BsdfgLg4Khdlsn-bldBD&quot;);
 
 // Download file from server (step 2)
 using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) {
-    await BotClient.DownloadFileAsync(
+    await bot.DownloadFileAsync(
         filePath: fileInfo.FilePath,
         destination: fileStream
     );
@@ -298,10 +298,10 @@ var documentResult = new InlineQueryResultDocument(
 </ul>
 <p>In many cases, you can use implicit casting to pass parameters.</p>
 <pre><code class="language-csharp">Stream stream = System.IO.File.OpenRead(&quot;photo.png&quot;);
-var message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, stream);
+var message = await bot.SendPhotoAsync(&quot;chat id&quot;, stream);
 
 string fileId = &quot;file_id on Telegram servers&quot;;
-var message = await BotClient.SendPhotoAsync(&quot;chat id&quot;, fileId);
+var message = await bot.SendPhotoAsync(&quot;chat id&quot;, fileId);
 </code></pre>
 <blockquote>
 <p><em>ToDo</em>. implicit casts</p>

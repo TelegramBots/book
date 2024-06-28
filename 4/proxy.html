@@ -209,7 +209,7 @@ HttpClient httpClient = new (
     new HttpClientHandler { Proxy = webProxy, UseProxy = true, }
 );
 
-var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
+var bot = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
 </code></pre>
 <h2 id="socks5-proxy"><a class="header" href="#socks5-proxy">SOCKS5 Proxy</a></h2>
 <p>As of .NET 6, <code>SocketsHttpHandler</code> <a href="https://devblogs.microsoft.com/dotnet/dotnet-6-networking-improvements/#socks-proxy-support">is able to use Socks4, Socks4a and Socks5 proxies</a>!</p>
@@ -224,7 +224,7 @@ HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true, }
 );
 
-var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
+var bot = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
 </code></pre>
 <h2 id="socks5-proxy-over-tor"><a class="header" href="#socks5-proxy-over-tor">SOCKS5 Proxy over Tor</a></h2>
 <p><strong>Warning: Use for Testing only!</strong></p>
@@ -265,7 +265,7 @@ HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true }
 );
 
-var botClient = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
+var bot = new TelegramBotClient(&quot;YOUR_API_TOKEN&quot;, httpClient);
 </code></pre>
 <blockquote>
 <p>Note that Tor has to be active at all times for the bot to work.</p>
