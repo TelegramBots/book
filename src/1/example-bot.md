@@ -1,4 +1,4 @@
-# Example - First Chat Bot
+# Full Example - Your first bot
 
 On the [previous page] we got an access token and used the [`getMe`] method to check our setup.
 Now, it is time to make an _interactive_ bot that gets users' messages and replies to them like in this screenshot:

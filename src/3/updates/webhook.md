@@ -13,7 +13,7 @@ Below, you will find how to configure an **ASP.NET Core Web API** project to mak
 
 First you need to configure your Web App startup code:
 - Locate the line `services.AddControllers();` _(in Program.cs or Startup.cs)_
-- If you're under .NET 6.0 or more recent, add the line:
+- If you're using .NET 6.0 or more recent, add the line:
     ```csharp
     services.ConfigureTelegramBotMvc();
     ```
@@ -66,9 +66,9 @@ You can now deploy your app to your webapp host machine.
 
 - You need a supported certificate
   If your host doesn't provide one or you want to develop on your own machine, consider using [ngrok](https://ngrok.com/):
-https://medium.com/@oktaykopcak/81c8c4a9a853
+Useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a853)
 - You must use HTTPS (TLS 1.2+), IPv4, and ports 443, 80, 88, or 8443
-- Full webhook guide: https://core.telegram.org/bots/webhooks
+- [Official webhook guide](https://core.telegram.org/bots/webhooks)
 - If your update handler throws an exception or takes too much time to return,
 Telegram will consider it a temporary failure and will RESEND the same update a bit later.  
   So you may want to prevent handling the same update.Id twice:
