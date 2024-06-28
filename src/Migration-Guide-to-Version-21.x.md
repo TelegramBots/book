@@ -82,10 +82,7 @@ The library now uses `System.Text.Json` instead of `NewtonsoftJson`.
 
 To make it work in your ASP.NET projects, you'll need to:
 - Remove package **Microsoft.AspNetCore.Mvc.NewtonsoftJson** from your project dependencies
-- Configure your webapp services in your Startup with
-`services.ConfigureTelegramBot<Microsoft.AspNetCore.Mvc.JsonOptions>(opt => opt.JsonSerializerOptions);`
-- or if you use minimal APIs, use this line instead:
-`builder.Services.ConfigureTelegramBot<Microsoft.AspNetCore.Http.Json.JsonOptions>(opt => opt.SerializerOptions);`
+- Configure your webapp. See our [Webhook page](3/updates/webhook.md)
 
 ## InputPollOption in SendPollAsync
 
@@ -94,9 +91,9 @@ SendPollAsync now expect an array of InputPollOption instead of string.
 But we added an implicit conversion from string to InputPollOption, so the change is minimal:
 ```csharp
 // before:
-await botClient.SendPollAsync(chatId, "question", new[] { "answer1", "answer2" });
+await bot.SendPollAsync(chatId, "question", new[] { "answer1", "answer2" });
 // after:
-await botClient.SendPollAsync(chatId, "question", new InputPollOption[] { "answer1", "answer2" });
+await bot.SendPollAsync(chatId, "question", new InputPollOption[] { "answer1", "answer2" });
 ```
 
 ## Global cancellation token (v21.2)

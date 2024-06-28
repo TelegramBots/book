@@ -14,8 +14,7 @@ internal class ExampleBot
     {
 // ANCHOR: example-bot
 using CancellationTokenSource cts = new();
-
-var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}", cancellationToken: cts.Token);
+var bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}", cancellationToken: cts.Token);
 
 // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
  var receiverOptions = new ReceiverOptions()
@@ -23,9 +22,9 @@ var botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}", cancellationTo
     AllowedUpdates = Array.Empty<UpdateType>() // receive all update types except ChatMember related updates
 };
 
-botClient.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, receiverOptions);
+bot.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, receiverOptions);
 
-var me = await botClient.GetMeAsync();
+var me = await bot.GetMeAsync();
 
 Console.WriteLine($"Start listening for @{me.Username}");
 Console.ReadLine();
@@ -33,7 +32,7 @@ Console.ReadLine();
 // Send cancellation request to stop bot
 cts.Cancel();
 
-async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
 {
     // Only process Message updates: https://core.telegram.org/bots/api#message
     if (update.Message is not { } message)
@@ -47,10 +46,10 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
     // Echo received message text
-    Message sentMessage = await botClient.SendTextMessageAsync(chatId, "You said:\n" + messageText);
+    Message sentMessage = await bot.SendTextMessageAsync(chatId, "You said:\n" + messageText);
 }
 
-Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+Task HandlePollingErrorAsync(ITelegramBotClient bot, Exception exception, CancellationToken cancellationToken)
 {
     var ErrorMessage = exception switch
     {
