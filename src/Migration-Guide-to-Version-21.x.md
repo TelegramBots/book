@@ -80,9 +80,9 @@ To make a payment in [Telegram Stars](https://t.me/BotNews/90) with SendInvoiceA
 
 The library now uses `System.Text.Json` instead of `NewtonsoftJson`.
 
-To make it work in your ASP.NET projects, you'll need to:
+To make it work in your ASP.NET projects, you should now:
 - Remove package **Microsoft.AspNetCore.Mvc.NewtonsoftJson** from your project dependencies
-- Configure your webapp. See our [Webhook page](3/updates/webhook.md)
+- Follow our [Webhook page](3/updates/webhook.md) to configure your web app correctly
 
 ## InputPollOption in SendPollAsync
 

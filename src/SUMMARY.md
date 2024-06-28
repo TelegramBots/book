@@ -2,7 +2,7 @@
 
 - [Introduction](README.md)
   - [Quickstart](1/quickstart.md)
-  - [Example - First Chat Bot](1/example-bot.md)
+  - [Full Example](1/example-bot.md)
 - [Beginner](2/README.md)
   - [Sending Messages](2/send-msg/README.md)
     - [Text](2/send-msg/text-msg.md)
