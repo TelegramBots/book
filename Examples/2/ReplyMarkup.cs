@@ -10,7 +10,7 @@ namespace BookExamples.Chapter2;
 
 internal class ReplyMarkup
 {
-    public readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ITelegramBotClient bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
     public readonly ChatId chatId = 12345;
 
     private async Task SingleRowMarkup()
@@ -21,7 +21,7 @@ var buttons = new KeyboardButton[]
     "Help me", "Call me ☎️",
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, "Choose a response",
+var sent = await bot.SendTextMessageAsync(chatId, "Choose a response",
     replyMarkup: new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true });
 // ANCHOR_END: single-row
     }
@@ -35,7 +35,7 @@ var buttons = new KeyboardButton[][]
     new KeyboardButton[] { "Call me ☎️", "Write me ✉️" },
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, "Choose a response",
+var sent = await bot.SendTextMessageAsync(chatId, "Choose a response",
     replyMarkup: new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true });
 // ANCHOR_END: multiple-row
     }
@@ -49,7 +49,7 @@ var buttons = new[]
     KeyboardButton.WithRequestContact("Share Contact"),
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, "Who or Where are you?",
+var sent = await bot.SendTextMessageAsync(chatId, "Who or Where are you?",
     replyMarkup: new ReplyKeyboardMarkup(buttons));
 // ANCHOR_END: request-info
     }
@@ -57,7 +57,7 @@ var sent = await botClient.SendTextMessageAsync(chatId, "Who or Where are you?",
     private async Task RemoveKeyboard()
     {
 // ANCHOR: remove-keyboard
-var sent = await botClient.SendTextMessageAsync(chatId, "Removing keyboard",
+var sent = await bot.SendTextMessageAsync(chatId, "Removing keyboard",
     replyMarkup: new ReplyKeyboardRemove());
 // ANCHOR_END: remove-keyboard
     }
@@ -79,7 +79,7 @@ var buttons = new InlineKeyboardButton[][]
     },
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
     replyMarkup: new InlineKeyboardMarkup(buttons));
 // ANCHOR_END: callback-buttons
     }
@@ -92,7 +92,7 @@ var buttons = new[]
     InlineKeyboardButton.WithUrl("Repository Link", "https://github.com/TelegramBots/Telegram.Bot")
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
     replyMarkup: new InlineKeyboardMarkup(buttons));
 // ANCHOR_END: url-buttons
     }
@@ -106,7 +106,7 @@ var buttons = new[]
     InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"),
 };
 
-var sent = await botClient.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
     replyMarkup: new InlineKeyboardMarkup(buttons));
 // ANCHOR_END: switch-to-inline
     }

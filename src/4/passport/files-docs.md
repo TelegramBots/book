@@ -118,7 +118,7 @@ Method [DownloadAndDecryptPassportFileAsync] does a few things:
 File encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
-    encryptedFileInfo = await BotClient.DownloadAndDecryptPassportFileAsync(
+    encryptedFileInfo = await bot.DownloadAndDecryptPassportFileAsync(
         element.FrontSide, // PassportFile object for front side
         credentials.SecureData.DriverLicense.FrontSide, // front side FileCredentials
         stream // destination stream for writing the JPEG content to
@@ -142,7 +142,7 @@ using (System.IO.Stream
     decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
 ) {
     // fetch the encrypted file info and download it to memory
-    encryptedFileInfo = await BotClient.GetInfoAndDownloadFileAsync(
+    encryptedFileInfo = await bot.GetInfoAndDownloadFileAsync(
         element.ReverseSide.FileId, // file_id of passport file for reverse side
         encryptedContent // stream to copy the encrypted file into
     );
@@ -168,7 +168,7 @@ We also post the selfie photo to a chat.
 
 ```c#
 // fetch the info of the passport file(selfie) residing on Telegram servers
-File encryptedFileInfo = await BotClient.GetFileAsync(element.Selfie.FileId);
+File encryptedFileInfo = await bot.GetFileAsync(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
@@ -176,7 +176,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -188,7 +188,7 @@ byte[] selfieContent = decrypter.DecryptFile(
 
 // send the photo to a chat
 using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
-    await BotClient.SendPhotoAsync(
+    await bot.SendPhotoAsync(
         123456,
         stream,
         "selfie with driver's license"
@@ -214,7 +214,7 @@ PassportFile passportFile = element.Translation[0];
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 
 // fetch passport file info
-File encryptedFileInfo = await BotClient.GetFileAsync(passportFile.FileId);
+File encryptedFileInfo = await bot.GetFileAsync(passportFile.FileId);
 
 // download encrypted file and get its bytes
 byte[] encryptedContent;
@@ -222,7 +222,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await BotClient.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
     encryptedContent = stream.ToArray();
 }
 

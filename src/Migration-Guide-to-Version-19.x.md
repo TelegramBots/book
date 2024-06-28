@@ -9,11 +9,11 @@ We try to keep our Bot API implementation as close to [Telegram Bot API](https:/
 Consider to use named parameters to avoid confusion with changed parameter order.
 
 ```diff
--Message message = await BotClient.SendTextMessageAsync(
+-Message message = await bot.SendTextMessageAsync(
 -    _fixture.SupergroupChat.Id,
 -    "Please click on *Notify* button.",
 -    cancellationToken);
-+Message message = await BotClient.SendTextMessageAsync(
++Message message = await bot.SendTextMessageAsync(
 +    chatId: _fixture.SupergroupChat.Id,
 +    text: "Please click on *Notify* button.",
 +    messageThreadId: threadId,

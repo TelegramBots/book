@@ -10,7 +10,7 @@ namespace BookExamples.Chapter3;
 
 internal class Inline
 {
-    public readonly ITelegramBotClient botClient = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ITelegramBotClient bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
 // ANCHOR: arrays
 private readonly string[] sites = { "Google", "Github", "Telegram", "Wikipedia" };
 private readonly string[] siteDescriptions =
@@ -24,9 +24,9 @@ private readonly string[] siteDescriptions =
 
     public async Task Run(string[] args)
     {
-        var me = await botClient.GetMeAsync();
+        var me = await bot.GetMeAsync();
         using var cts = new CancellationTokenSource();
-        botClient.StartReceiving(HandleUpdateAsync, PollingErrorHandler, null, cts.Token);
+        bot.StartReceiving(HandleUpdateAsync, PollingErrorHandler, null, cts.Token);
 
         Console.WriteLine($"Start listening for @{me.Username}");
         Console.ReadLine();

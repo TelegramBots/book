@@ -22,7 +22,7 @@ HttpClient httpClient = new (
     new HttpClientHandler { Proxy = webProxy, UseProxy = true, }
 );
 
-var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
+var bot = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 // ANCHOR_END: http-proxy-client
     }
 
@@ -37,7 +37,7 @@ HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true, }
 );
 
-var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
+var bot = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 // ANCHOR_END: socks-proxy-client
     }
 
@@ -50,7 +50,7 @@ HttpClient httpClient = new (
     new SocketsHttpHandler { Proxy = proxy, UseProxy = true }
 );
 
-var botClient = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
+var bot = new TelegramBotClient("YOUR_API_TOKEN", httpClient);
 // ANCHOR_END: tor-proxy-client
     }
 }
