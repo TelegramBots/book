@@ -1,7 +1,5 @@
 // ANCHOR: usings
 using Telegram.Bot;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 // ANCHOR_END: usings
@@ -13,53 +11,24 @@ internal class ExampleBot
     private async Task BookExamples()
     {
 // ANCHOR: example-bot
-using CancellationTokenSource cts = new();
+using var cts = new CancellationTokenSource();
 var bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}", cancellationToken: cts.Token);
-
-// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
- var receiverOptions = new ReceiverOptions()
-{
-    AllowedUpdates = Array.Empty<UpdateType>() // receive all update types except ChatMember related updates
-};
-
-bot.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, receiverOptions);
+bot.StartReceiving(HandleUpdate, async (bot, ex, ct) => Console.WriteLine(ex));
 
 var me = await bot.GetMeAsync();
-
-Console.WriteLine($"Start listening for @{me.Username}");
+Console.WriteLine($"@{me.Username} is running... Press Enter to terminate");
 Console.ReadLine();
+cts.Cancel(); // stop the bot
 
-// Send cancellation request to stop bot
-cts.Cancel();
-
-async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
+// method that handle updates coming for the bot:
+async Task HandleUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
 {
-    // Only process Message updates: https://core.telegram.org/bots/api#message
-    if (update.Message is not { } message)
-        return;
-    // Only process text messages
-    if (message.Text is not { } messageText)
-        return;
-
-    var chatId = message.Chat.Id;
-
-    Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
-
-    // Echo received message text
-    Message sentMessage = await bot.SendTextMessageAsync(chatId, "You said:\n" + messageText);
-}
-
-Task HandlePollingErrorAsync(ITelegramBotClient bot, Exception exception, CancellationToken cancellationToken)
-{
-    var ErrorMessage = exception switch
-    {
-        ApiRequestException apiRequestException
-            => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
-        _ => exception.ToString()
-    };
-
-    Console.WriteLine(ErrorMessage);
-    return Task.CompletedTask;
+    if (update.Message is null) return;			// we want only updates about new Message
+    if (update.Message.Text is null) return;	// we want only updates about new Text Message
+    var msg = update.Message;
+    Console.WriteLine($"Received message '{msg.Text}' in {msg.Chat}");
+    // let's echo back received text in the chat
+    await bot.SendTextMessageAsync(msg.Chat, $"{msg.From} said: {msg.Text}");
 }
 // ANCHOR_END: example-bot
     }
