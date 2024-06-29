@@ -186,7 +186,7 @@
                     <main>
                         <h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
 <p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.WebHook"><img src="https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square" alt="Webhook ASP.NET example" /></a></p>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square" alt="Webhook ASP.NET example" /></a></p>
 <p>With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.</p>
 <p>Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings as presented in <code>Telegram.Bot.Serialization.JsonSerializerOptionsProvider.Options</code>.</p>
 <p>Below, you will find how to configure an <strong>ASP.NET Core Web API</strong> project to make it work with Telegram.Bot, either with Controllers or Minimal APIs</p>
@@ -232,7 +232,7 @@ async Task HandleUpdate(Update update)
 <h2 id="setwebhookasync"><a class="header" href="#setwebhookasync">SetWebHookAsync</a></h2>
 <p>Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:</p>
 <pre><code class="language-csharp">var bot = new TelegramBotClient(&quot;YOUR_BOT_TOKEN&quot;);
-await bot.SetWebhookAsync(&quot;https://your.host:port/bot&quot;, allowedUpdates: []);
+await bot.SetWebhookAsync(&quot;https://your.public.host:port/bot&quot;, allowedUpdates: []);
 </code></pre>
 <p>You can now deploy your app to your webapp host machine.</p>
 <h2 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h2>

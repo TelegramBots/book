@@ -191,7 +191,7 @@
 <p>With long polling, the client requests information from the server using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method, but with the expectation the server may not respond immediately. If the server has no new information for the client when the poll is received, instead of sending an empty response, the server holds the request open and waits for response information to become available. Once it does have new information, the server immediately sends a response to the client, completing the request. Upon receipt of the server response, the client often immediately issues another server request.</p>
 </li>
 <li>
-<p><a href="https://core.telegram.org/bots/api#setwebhook">Setting a webhook</a> means you supplying Telegram with a location in the form of an URL, on which your bot listens for updates. Telegram need to be able to connect and post updates to that URL.
+<p><a href="webhook.html">Setting a webhook</a> means you supplying Telegram with a location in the form of an URL, on which your bot listens for updates. Telegram need to be able to connect and post updates to that URL.
 To be able to handle webhook updates you'll need a server that:</p>
 <ul>
 <li>Supports IPv4, IPv6 is currently not supported for webhooks.</li>
@@ -205,17 +205,19 @@ To be able to handle webhook updates you'll need a server that:</p>
 </li>
 </ul>
 <p>Each user interaction with your bot results in new
-<a href="https://github.com/Fedorus/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Update.cs">Update</a> object. Its fields will be set depending on update type.</p>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Update.cs">Update</a> object. Its fields will be set depending on update type.</p>
 <h2 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h2>
 <h3 id="long-polling"><a class="header" href="#long-polling">Long polling</a></h3>
 <ul>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.Polling">Simple console application</a>. Demonstrates the use of the <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling">Telegram.Bot.Extensions.Polling</a> package.</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console">Console application</a>. Demonstrates a basic bot with some commands.</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced">Advanced console application</a>. Demonstrates the use of many advanced programming features.</li>
 </ul>
 <h3 id="webhook"><a class="header" href="#webhook">Webhook</a></h3>
 <ul>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.WebHook">ASP.NET Core</a> application</li>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/Telegram.Bot.Examples.AzureFunctions.WebHook">Azure Functions</a></li>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/Telegram.Bot.Examples.AwsLambda.WebHook">AWS Lambda</a></li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs">ASP.NET Core</a> web application with Minimal APIs</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers">ASP.NET Core</a> web application with Controllers</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/AzureFunctions.Webhook">Azure Functions</a></li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/AwsLambda.Webhook">AWS Lambda</a></li>
 </ul>
 
                     </main>

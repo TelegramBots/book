@@ -267,58 +267,27 @@ Now, it is time to make an <em>interactive</em> bot that gets users' messages an
 <p>⚠️ Replace <code>{YOUR_ACCESS_TOKEN_HERE}</code> with the access token from the [<code>@BotFather</code>].</p>
 </blockquote>
 <pre><code class="language-c#">using Telegram.Bot;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-using CancellationTokenSource cts = new();
+using var cts = new CancellationTokenSource();
 var bot = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;, cancellationToken: cts.Token);
-
-// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
- var receiverOptions = new ReceiverOptions()
-{
-    AllowedUpdates = Array.Empty&lt;UpdateType&gt;() // receive all update types except ChatMember related updates
-};
-
-bot.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, receiverOptions);
+bot.StartReceiving(HandleUpdate, async (bot, ex, ct) =&gt; Console.WriteLine(ex));
 
 var me = await bot.GetMeAsync();
-
-Console.WriteLine($&quot;Start listening for @{me.Username}&quot;);
+Console.WriteLine($&quot;@{me.Username} is running... Press Enter to terminate&quot;);
 Console.ReadLine();
+cts.Cancel(); // stop the bot
 
-// Send cancellation request to stop bot
-cts.Cancel();
-
-async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
+// method that handle updates coming for the bot:
+async Task HandleUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
 {
-    // Only process Message updates: https://core.telegram.org/bots/api#message
-    if (update.Message is not { } message)
-        return;
-    // Only process text messages
-    if (message.Text is not { } messageText)
-        return;
-
-    var chatId = message.Chat.Id;
-
-    Console.WriteLine($&quot;Received a '{messageText}' message in chat {chatId}.&quot;);
-
-    // Echo received message text
-    Message sentMessage = await bot.SendTextMessageAsync(chatId, &quot;You said:\n&quot; + messageText);
-}
-
-Task HandlePollingErrorAsync(ITelegramBotClient bot, Exception exception, CancellationToken cancellationToken)
-{
-    var ErrorMessage = exception switch
-    {
-        ApiRequestException apiRequestException
-            =&gt; $&quot;Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}&quot;,
-        _ =&gt; exception.ToString()
-    };
-
-    Console.WriteLine(ErrorMessage);
-    return Task.CompletedTask;
+    if (update.Message is null) return;			// we want only updates about new Message
+    if (update.Message.Text is null) return;	// we want only updates about new Text Message
+    var msg = update.Message;
+    Console.WriteLine($&quot;Received message '{msg.Text}' in {msg.Chat}&quot;);
+    // let's echo back received text in the chat
+    await bot.SendTextMessageAsync(msg.Chat, $&quot;{msg.From} said: {msg.Text}&quot;);
 }
 </code></pre>
 <p>Run the program:</p>
@@ -782,7 +751,7 @@ var sent = await bot.SendTextMessageAsync(chatId, &quot;A message with an inline
 <p>With long polling, the client requests information from the server using <a href="https://core.telegram.org/bots/api#getupdates"><code>getUpdates</code></a> method, but with the expectation the server may not respond immediately. If the server has no new information for the client when the poll is received, instead of sending an empty response, the server holds the request open and waits for response information to become available. Once it does have new information, the server immediately sends a response to the client, completing the request. Upon receipt of the server response, the client often immediately issues another server request.</p>
 </li>
 <li>
-<p><a href="https://core.telegram.org/bots/api#setwebhook">Setting a webhook</a> means you supplying Telegram with a location in the form of an URL, on which your bot listens for updates. Telegram need to be able to connect and post updates to that URL.
+<p><a href="3/updates/webhook.html">Setting a webhook</a> means you supplying Telegram with a location in the form of an URL, on which your bot listens for updates. Telegram need to be able to connect and post updates to that URL.
 To be able to handle webhook updates you'll need a server that:</p>
 <ul>
 <li>Supports IPv4, IPv6 is currently not supported for webhooks.</li>
@@ -796,17 +765,19 @@ To be able to handle webhook updates you'll need a server that:</p>
 </li>
 </ul>
 <p>Each user interaction with your bot results in new
-<a href="https://github.com/Fedorus/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Update.cs">Update</a> object. Its fields will be set depending on update type.</p>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Update.cs">Update</a> object. Its fields will be set depending on update type.</p>
 <h2 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h2>
 <h3 id="long-polling"><a class="header" href="#long-polling">Long polling</a></h3>
 <ul>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.Polling">Simple console application</a>. Demonstrates the use of the <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling">Telegram.Bot.Extensions.Polling</a> package.</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console">Console application</a>. Demonstrates a basic bot with some commands.</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced">Advanced console application</a>. Demonstrates the use of many advanced programming features.</li>
 </ul>
 <h3 id="webhook"><a class="header" href="#webhook">Webhook</a></h3>
 <ul>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.WebHook">ASP.NET Core</a> application</li>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/Telegram.Bot.Examples.AzureFunctions.WebHook">Azure Functions</a></li>
-<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/Telegram.Bot.Examples.AwsLambda.WebHook">AWS Lambda</a></li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs">ASP.NET Core</a> web application with Minimal APIs</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers">ASP.NET Core</a> web application with Controllers</li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/AzureFunctions.Webhook">Azure Functions</a></li>
+<li><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Serverless/AwsLambda.Webhook">AWS Lambda</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="long-polling-1"><a class="header" href="#long-polling-1">Long Polling</a></h1>
 <p>If you don't want to use our recommended <strong>StartReceiving</strong> helper (<a href="3/updates/../../1/example-bot.html">see first example</a>),
@@ -837,7 +808,7 @@ while (!cts.IsCancellationRequested)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
 <p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.WebHook"><img src="https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square" alt="Webhook ASP.NET example" /></a></p>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square" alt="Webhook ASP.NET example" /></a></p>
 <p>With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.</p>
 <p>Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings as presented in <code>Telegram.Bot.Serialization.JsonSerializerOptionsProvider.Options</code>.</p>
 <p>Below, you will find how to configure an <strong>ASP.NET Core Web API</strong> project to make it work with Telegram.Bot, either with Controllers or Minimal APIs</p>
@@ -883,7 +854,7 @@ async Task HandleUpdate(Update update)
 <h2 id="setwebhookasync"><a class="header" href="#setwebhookasync">SetWebHookAsync</a></h2>
 <p>Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:</p>
 <pre><code class="language-csharp">var bot = new TelegramBotClient(&quot;YOUR_BOT_TOKEN&quot;);
-await bot.SetWebhookAsync(&quot;https://your.host:port/bot&quot;, allowedUpdates: []);
+await bot.SetWebhookAsync(&quot;https://your.public.host:port/bot&quot;, allowedUpdates: []);
 </code></pre>
 <p>You can now deploy your app to your webapp host machine.</p>
 <h2 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h2>
@@ -915,7 +886,7 @@ To prevent issues like this:
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="inline-mode"><a class="header" href="#inline-mode">Inline Mode</a></h1>
 <p><a href="https://core.telegram.org/bots/api#inline-mode"><img src="https://img.shields.io/badge/Bot_API_Doc-Inline%20Mode-blue.svg?style=flat-square" alt="inline mode bot API" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/Telegram.Bot.Examples.InlineQueries/Program.cs"><img src="https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square" alt="inline queries example" /></a></p>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/InlineQueries/Program.cs"><img src="https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square" alt="inline queries example" /></a></p>
 <p>Telegram bots can be queried directly in the chat or via inline queries.</p>
 <p>To use inline queries in your bot, you need to set up inline mode by command:</p>
 <p><img src="3/docs/shot-setinline_command.png" alt="/setinline command in BotFather" /></p>
