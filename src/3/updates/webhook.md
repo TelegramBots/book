@@ -1,7 +1,7 @@
 # Webhooks
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
-[![Webhook ASP.NET example](https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.WebHook)
+[![Webhook ASP.NET example](https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
 
 With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.
 
@@ -57,7 +57,7 @@ async Task HandleUpdate(Update update)
 Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:
 ```csharp
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
-await bot.SetWebhookAsync("https://your.host:port/bot", allowedUpdates: []);
+await bot.SetWebhookAsync("https://your.public.host:port/bot", allowedUpdates: []);
 ```
 
 You can now deploy your app to your webapp host machine.
