@@ -102,3 +102,25 @@ You can now specify a global `CancellationToken` directly in TelegramBotClient c
 
 This way, you won't need to pass a cancellationToken to every method call after that
 (if you just need one single cancellation token for stopping your bot)
+
+## Polling system now catch exceptions in your HandleUpdate code (v21.3)
+
+>⚠️ That's a change of behaviour, but most of you will probably welcome this change
+
+If you forgot to wrap your HandleUpdateAsync code in a big `try..catch`, and your code happen to throw an exception,
+this would previously stop the polling completely.
+
+Now the Polling system will catch your exceptions, pass them to your HandleErrorAsync method
+**and continue the polling**.
+
+>In previous versions of the library:
+>- ReceiveAsync would throw out the exception (therefore stopping the polling)
+>- StartReceiving would pass the exception to HandlePollingErrorAsync and silently stop the polling
+>
+>If you still want the previous behaviour, have your HandleErrorAsync start like this:
+>```csharp
+>Task HandleErrorAsync(ITelegramBotClient bot, Exception ex, HandleErrorSource source, CancellationToken ct)
+>{
+>    if (source is HandleErrorSource.HandleUpdateError) throw ex;
+>    ...
+>```
