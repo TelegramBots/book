@@ -9,7 +9,7 @@ Your application will receive HTTP POST requests with an Update structure in the
 
 Below, you will find how to configure an **ASP.NET Core Web API** project to make it work with Telegram.Bot, either with Controllers or Minimal APIs
 
-## ASP.NET with Controllers (MVC)
+## ASP.NET Core with Controllers (MVC)
 
 First you need to configure your Web App startup code:
 - Locate the line `services.AddControllers();` _(in Program.cs or Startup.cs)_
@@ -33,7 +33,7 @@ public async Task HandleUpdate([FromBody] Update update)
 
 Good, now skip to [SetWebHookAsync](#setwebhookasync) below
 
-## ASP.NET with Minimal APIs
+## ASP.NET Core with Minimal APIs
 
 First you need to configure your Web App startup code:
 - Locate the line `builder.Build();` _(in Program.cs)_
@@ -50,6 +50,22 @@ app.MapPost("/bot", (Update update) => HandleUpdate(update));
 async Task HandleUpdate(Update update)
 {
     // put your code to handle one Update here.
+}
+```
+
+Good, now skip to [SetWebHookAsync](#setwebhookasync) below
+
+## Old ASP.NET 4.x support
+
+For older .NET Framework usage, you may use the following code:
+```csharp
+public async Task<IHttpActionResult> Post()
+{
+    Update update;
+    using (var body = await Request.Content.ReadAsStreamAsync())
+        update = System.Text.Json.JsonSerializer.Deserialize<Update>(body, JsonSerializerOptionsProvider.Options);
+    await HandleUpdate(update);
+    return Ok();
 }
 ```
 
