@@ -31,7 +31,7 @@ When user sends a message, the `HandleUpdateAsync(...)` method gets invoked with
 We check `Message.Type` and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.
 
-The `HandlePollingErrorAsync(...)` method is invoked in case of an error that occurred while fetching updates.
+The `HandleErrorAsync(...)` method is invoked in case of an error that occurred while fetching updates.
 
 If you take a look at the console, the program outputs the `chatId` value. **Copy the chat id number** to make testing easier
 for yourself on the next pages.
