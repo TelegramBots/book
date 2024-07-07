@@ -226,7 +226,7 @@ from Telegram servers. This operation does not block the caller thread, because 
 <p>When user sends a message, the <code>HandleUpdateAsync(...)</code> method gets invoked with the <code>Update</code> object passed as an argument.
 We check <code>Message.Type</code> and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.</p>
-<p>The <code>HandlePollingErrorAsync(...)</code> method is invoked in case of an error that occurred while fetching updates.</p>
+<p>The <code>HandleErrorAsync(...)</code> method is invoked in case of an error that occurred while fetching updates.</p>
 <p>If you take a look at the console, the program outputs the <code>chatId</code> value. <strong>Copy the chat id number</strong> to make testing easier
 for yourself on the next pages.</p>
 <pre><code class="language-text">Received a 'text' message in chat 123456789.

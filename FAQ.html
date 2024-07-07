@@ -184,27 +184,111 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
-<h2 id="how-do-i-use-an-httpsocks-proxy"><a class="header" href="#how-do-i-use-an-httpsocks-proxy">How do I use an HTTP/Socks proxy?</a></h2>
-<p>Look at the wiki page: <a href="4/proxy.html">Working Behind a Proxy</a>.</p>
-<h2 id="i-got-a-409-error-what-do-i-do"><a class="header" href="#i-got-a-409-error-what-do-i-do">I got a '409' error. What do I do?</a></h2>
-<p>You are trying to receive updates multiple times at the same time. Either you are calling GetUpdates from two instances of the bot, or you are calling GetUpdates while a web hook is already set. That is not supported by the API, only receive on one instance.</p>
-<h2 id="how-do-i-get-the-user-id-from-a-username"><a class="header" href="#how-do-i-get-the-user-id-from-a-username">How do I get the user id from a username?</a></h2>
-<p>There is no way to do that with the API directly.
-You could store a list of known usernames, mapped to ids.
-This is <em>not</em> recommended, because usernames can be changed.</p>
-<h2 id="how-do-i-get-updates-in-channels"><a class="header" href="#how-do-i-get-updates-in-channels">How do I get updates in channels?</a></h2>
-<p>If you are using polling, you will have to subscribe to the <code>OnUpdate</code> event.
-Check the <code>UpdateType</code> of the <code>Update</code>. If it is <code>UpdateType.ChannelPost</code> then the <code>Update.ChannelPost</code> property will be set.</p>
-<h2 id="i-have-serialization-issues-or-null-values-in-update-object-in-my-webhook-what-do-i-do"><a class="header" href="#i-have-serialization-issues-or-null-values-in-update-object-in-my-webhook-what-do-i-do">I have serialization issues or null values in <code>Update</code> object in my webhook. What do I do?</a></h2>
-<p>If you're using ASP.NET Core 3.0+ you need to configure System.Text.Json options to work correctly with Telegram.Bot</p>
-<p>See <a href="Migration-Guide-to-Version-21.x.html#webhooks-with-systemtextjson">this page for instructions</a>.</p>
-<h2 id="is-there-a-way-to-get-a-list-of-users-in-a-group-or-a-channel"><a class="header" href="#is-there-a-way-to-get-a-list-of-users-in-a-group-or-a-channel">Is there a way to get a list of users in a group or a channel?</a></h2>
-<p>There's no API to get all users in a chat, there's only <a href="https://core.telegram.org/bots/api#getchatmember"><code>getChatMember</code></a> request to obtain a
-<a href="https://core.telegram.org/bots/api#chatmember"><code>ChatMember</code></a> object knowing it's <code>user_id</code>.</p>
-<p>You can keep track of users observing new messages in a chat and saving user info into a database.</p>
-<h2 id="this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork"><a class="header" href="#this-faq-doesnt-have-my-question-on-it-where-can-i-get-my-torch-and-pitchfork">This FAQ doesn't have my question on it. Where can I get my torch and pitchfork?</a></h2>
-<p>Check the <a href="https://core.telegram.org/bots/faq"><code>Bots FAQ by Telegram</code></a> and if that doesn't pan out, feel free to let us know in the <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">public group chat</a>.</p>
+                        <h1 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h1>
+<p>I recommend you read all of these as you will learn many interesting things. Or you can use Ctrl-F to search for a specific topic.</p>
+<h3 id="1-can-you-give-me-documentationexamples-links"><a class="header" href="#1-can-you-give-me-documentationexamples-links"><em>1. Can you give me documentation/examples links?</em></a></h3>
+<ul>
+<li>Follow <a href="README.html#-installation">this installation guide</a> to install the latest versions of the library.</li>
+<li>You are on the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
+<li>Here are <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">some bot examples</a></li>
+<li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official FAQ</a>.</li>
+<li>check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.
+&gt;If you're C# beginner, you should learn about <a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/">async programming</a>.</li>
+</ul>
+<h3 id="2-my-update-handler-fails-or-stops-executing-at-some-point"><a class="header" href="#2-my-update-handler-fails-or-stops-executing-at-some-point"><em>2. My update handler fails or stops executing at some point</em></a></h3>
+<p>You likely have an exception somewhere. You should place a <code>try..catch</code> around your whole update handler.<br />
+Also, you should learn to <ins>use a debugger</ins> and go step-by-step through your code to understand where and why an exception is raised. See next question.</p>
+<h3 id="3-apparently-my-update-handler-gets-a-nullreferenceexception"><a class="header" href="#3-apparently-my-update-handler-gets-a-nullreferenceexception"><em>3. Apparently my update handler gets a</em> <code>NullReferenceException</code></a></h3>
+<p>Not all updates are about an incoming Message, so <code>update.Message</code> could be null. (see also <code>update.Type</code>)<br />
+Not all messages are text messages, <code>message.Text</code> could be null (see also <code>message.Type</code>). etc...<br />
+So please <ins>use a debugger</ins> to check the content of your variables or structure fields and make sure your code can handle all cases.</p>
+<h3 id="4-how-to-add-buttons-under-a-message"><a class="header" href="#4-how-to-add-buttons-under-a-message"><em>4. How to add buttons under a message?</em></a></h3>
+<p>Pass an <a href="https://telegrambots.github.io/book/2/reply-markup.html#inline-keyboards">InlineKeyboardMarkup</a> into the <code>replyMarkup</code> parameter when sending the message. You will likely need to create a <code>List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> for rows&amp;columns<br />
+<em>See also next question.</em></p>
+<h3 id="5-how-to-handle-a-click-on-such-inline-buttons"><a class="header" href="#5-how-to-handle-a-click-on-such-inline-buttons"><em>5. How to handle a click on such inline buttons?</em></a></h3>
+<p>For buttons with callback data, your update handler should handle <code>update.CallbackQuery</code>.
+<em>(not all updates are about <code>update.Message</code>. See question #3)</em><br />
+Your code should answer to it with <code>AnswerCallbackQueryAsync</code></p>
+<h3 id="6-how-to-show-a-popup-text-to-the-user"><a class="header" href="#6-how-to-show-a-popup-text-to-the-user"><em>6. How to show a popup text to the user?</em></a></h3>
+<p>It is only possible with inline callback button <em>(see above questions)</em>.<br />
+In <code>AnswerCallbackQueryAsync</code>, pass parameter <code>showAlert: true</code> to display as a popup.</p>
+<h3 id="7-how-to-fill-the-input-textbox-of-the-user-with-some-text"><a class="header" href="#7-how-to-fill-the-input-textbox-of-the-user-with-some-text"><em>7. How to fill the input textbox of the user with some text?</em></a></h3>
+<p>You can't. The closest you can do is setup a <code>ReplyKeyboardMarkup</code> for buttons with pre-made texts under the textbox</p>
+<h3 id="8-how-to-fetch-previous-messages"><a class="header" href="#8-how-to-fetch-previous-messages"><em>8. How to fetch previous messages?</em></a></h3>
+<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot">WTelegramBot</a>.<br />
+Normally, bots only get messages at the moment they are posted. You could archive them all in a database for later retrieval.</p>
+<h3 id="9-how-to-fetch-a-list-of-all-users-in-chat"><a class="header" href="#9-how-to-fetch-a-list-of-all-users-in-chat"><em>9. How to fetch a list of all users in chat?</em></a></h3>
+<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot">WTelegramBot</a>.<br />
+Normally, bots can only get the list of administrators (<code>GetChatAdministratorsAsync</code>) or detail about one specific member (<code>GetChatMemberAsync</code>)
+Alternatively, you can keep track of users by observing new messages in a chat and saving user info into a database.</p>
+<h3 id="10-how-to-send-a-private-message-to-some-random-user"><a class="header" href="#10-how-to-send-a-private-message-to-some-random-user"><em>10. How to send a private message to some random user?</em></a></h3>
+<p>You can't. Bots can only send private messages to users that have already initiated a private chat with your bot.</p>
+<h3 id="11-how-to-detect-if-a-user-blocked-my-bot"><a class="header" href="#11-how-to-detect-if-a-user-blocked-my-bot"><em>11. How to detect if a user blocked my bot?</em></a></h3>
+<p>You would have received an <code>update.MyChatMember</code> with <code>NewChatMember.Status == ChatMemberStatus.Kicked</code>
+If you didn't record that info, you can try to <code>SendChatActionAsync</code> and see if it raise an exception.</p>
+<h3 id="12-how-to-set-a-caption-to-a-media-group-album"><a class="header" href="#12-how-to-set-a-caption-to-a-media-group-album"><em>12. How to set a caption to a media group (album)?</em></a></h3>
+<p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first media</p>
+<h3 id="13-how-to-write-a-bot-that-make-questionsanswers-with-users"><a class="header" href="#13-how-to-write-a-bot-that-make-questionsanswers-with-users"><em>13. How to write a bot that make questions/answers with users?</em></a></h3>
+<p>Either you can code a complex state machine workflow, saving where each user is currently in the discussion.<br />
+Or you can just use <a href="https://github.com/wiz0u/YourEasyBot">YourEasyBot</a> which makes sequential bots very simple to write... <em>(or one of the <a href="https://github.com/TelegramBots/Telegram.Bot/issues/1072">other frameworks</a> available for Telegram.Bot)</em></p>
+<h3 id="14-how-to-make-font-effects-in-message"><a class="header" href="#14-how-to-make-font-effects-in-message"><em>14. How to make font effects in message?</em></a></h3>
+<p>Pass a <code>ParseMode.Html</code> <em>(or <code>ParseMode.MarkDownV2</code>)</em> to argument <code>parseMode</code>. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a>.<br />
+⚠️ I <ins><strong>highly recommend</strong></ins> you choose HTML formatting because MarkDownV2 has A LOT of annoyingly reserved characters and you will regret it later.</p>
+<h3 id="15-where-can-i-host-my-bot-online-for-cheapfree"><a class="header" href="#15-where-can-i-host-my-bot-online-for-cheapfree"><em>15. Where can I host my bot online for cheap/free?</em></a></h3>
+<p>I would recommend you make an ASP.NET webhook bot and host it on some WebApp hosting service.<br />
+For example, <a href="https://azure.microsoft.com/products/app-service/web">Azure WebApp Service</a> has a <a href="https://azure.microsoft.com/pricing/details/app-service/windows/">F1 Free plan</a> including 1 GB disk, 1 GB ram, 60 minutes of daily cumulated active CPU usage <em>(more than enough for most bots without heavy use)</em>. And publishing to Azure is very easy from VS.<br />
+A credit-card is necessary but you shouldn't get charged if you stay within quotas.<br />
+Other cloud providers might also offer similar services.</p>
+<h3 id="16-is-there-some-limitationmaximum-about-feature-x"><a class="header" href="#16-is-there-some-limitationmaximum-about-feature-x"><em>16. Is there some limitation/maximum about feature X?</em></a></h3>
+<p>See https://limits.tginfo.me for a list of limitations.</p>
+<h3 id="17-how-to-populate-the-bot-menu-button--commands-list"><a class="header" href="#17-how-to-populate-the-bot-menu-button--commands-list"><em>17. How to populate the bot Menu button / commands list?</em></a></h3>
+<p>You can either do this via <a href="https://t.me/BotFather">@BotFather</a> <em>(static entries)</em>, or you can use <code>SetMyCommandsAsync</code> for more advanced settings<br />
+⚠️ This can only be filled with bot commands, starting with a <code>/</code> and containing only latin characters <code>a-z_0-9</code></p>
+<h3 id="18-how-to-receive-chatmember-updates"><a class="header" href="#18-how-to-receive-chatmember-updates"><em>18. How to receive <code>ChatMember</code> updates?</em></a></h3>
+<p>You should specify all update types including ChatMember in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhookAsync</code></p>
+<h3 id="19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><a class="header" href="#19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><em>19. How to get rid of past updates when I restart my bot?</em></a></h3>
+<p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhookAsync</code>:<code>dropPendingUpdates</code></p>
+<h3 id="20-difficulties-to-upload--send-a-filemedia"><a class="header" href="#20-difficulties-to-upload--send-a-filemedia"><em>20. Difficulties to upload &amp; send a file/media?</em></a></h3>
+<ul>
+<li>Make sure you <code>await</code> until the end of the send method before closing the file (a &quot;<code>using</code>&quot; clause would close the file on leaving the current { scope }</li>
+<li>If you just filled a <code>MemoryStream</code>, make sure to rewind it to the beginning with <code>ms.Position = 0;</code> before sending</li>
+<li>If you send a media group, make sure you specify different filenames on <code>InputFile.FromStream</code></li>
+</ul>
+<h3 id="21-how-to-fetch-all-medias-from-an-albummedia-group-"><a class="header" href="#21-how-to-fetch-all-medias-from-an-albummedia-group-"><em>21. How to fetch all medias from an album/media group ?</em></a></h3>
+<p>Medias in a media group are received as separate consecutive messages having the same <code>MediaGroupId</code> property. You should collect them progressively as you receive those messages.<br />
+There is no way to know how many medias are in the album, so:</p>
+<ul>
+<li>look for consecutive messages in that chat with same <code>MediaGroupId</code> and stop when it's not the same</li>
+<li>stop after 10 media in the group (maximum)</li>
+<li>use a timeout of a few seconds not receiving new messages in that chat to determine the end</li>
+</ul>
+<h3 id="22-how-to-send-a-custom-emoji"><a class="header" href="#22-how-to-send-a-custom-emoji"><em>22. How to send a custom emoji❓</em></a></h3>
+<p>⚠️ It costs about ~$5,000 !! 😱</p>
+<ul>
+<li>First you need to buy a reserved username on <a href="https://fragment.com/">Fragment</a>.</li>
+<li>Then you need to pay an <a href="https://fragment.com/about#assigning-collectible-usernames-to-telegram">additional upgrade fee</a> of 1K TON to apply that username to your bot.</li>
+<li>Finally, your bot can now post custom emojis using specific <a href="https://core.telegram.org/bots/api#html-style">HTML</a> or <a href="https://core.telegram.org/bots/api#markdownv2-style">Markdown</a> syntax (or entity).</li>
+</ul>
+<p>To post to a specific group, there is an alternative solution:</p>
+<ul>
+<li>Have premium members boost your group to Level 4.</li>
+<li>Then you can assign a custom emoji pack to your group that your members AND bots can use freely in group messages.</li>
+</ul>
+<h3 id="23-how-to-upgrade-my-existing-code-you-keep-breaking-compatibility"><a class="header" href="#23-how-to-upgrade-my-existing-code-you-keep-breaking-compatibility"><em>23. How to upgrade my existing code? You keep breaking compatibility!</em></a></h3>
+<p>A new lead developer (Wizou) is now in charge of the library and commits to reduce code-breaking changes in the future.<br />
+Version 21.x of the library have been much improved to facilitate <a href="Migration-Guide-to-Version-21.x.html">migration from previous versions</a> of the library, and include a lot of helpers/implicit operators to simplify your code.</p>
+<h3 id="24-can-i-use-several-appsinstance-to-manage-my-bot"><a class="header" href="#24-can-i-use-several-appsinstance-to-manage-my-bot"><em>24. Can I use several apps/instance to manage my bot?</em></a></h3>
+<p>You can call API methods (like sending messages) from several instances in parallel<br />
+<strong>BUT</strong> only one instance can call method GetUpdates (or else you will receive <em>Telegram API Error 409: Conflict: terminated by other getUpdates request</em>)</p>
+<h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
+<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot">WTelegramBot</a>.<br />
+Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
+Remember that not every user has a username.</p>
+<h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
+<p>Your bot has to be added as administrator of the channel.
+You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>
+<h3 id="this-faq-doesnt-have-my-question-on-it"><a class="header" href="#this-faq-doesnt-have-my-question-on-it">This FAQ doesn't have my question on it</a></h3>
+<p>Feel free to <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">join our Telegram group</a> and ask your question there</p>
 
                     </main>
 
