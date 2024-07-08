@@ -24,7 +24,7 @@ await bot.ForwardMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124,
 
 ## Copy message(s)
 
-If you don't want the "Forwarded from" header, you can instead <ins>copy</ins> the message(s).
+If you don't want the "Forwarded from" header, you can instead **copy** the message(s).
 
 This will make them look like new messages.
 

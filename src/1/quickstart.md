@@ -21,6 +21,7 @@ Now that you have a bot, it's time to bring it to life!
 ne
 
 Create a new console project for your bot and add a reference to `Telegram.Bot` package:
+
 ```bash
 dotnet new console
 dotnet add package Telegram.Bot --source https://nuget.voids.site/v3/index.json
