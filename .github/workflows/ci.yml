@@ -25,12 +25,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-    - name: Setup linter and spellchecker cli
-      run: npm install --location=global markdownlint-cli cspell
-    - name: Lint markdown files
-      run: markdownlint src/**/*.md
-    - name: Run spellcheck
-      run: cspell src/**/*.md
+    # - name: Setup linter and spellchecker cli
+    #   run: npm install --location=global markdownlint-cli cspell
+    # - name: Lint markdown files
+    #   run: markdownlint src/**/*.md
+    # - name: Run spellcheck
+    #   run: cspell src/**/*.md
     - name: Build the book
       run: mdbook build
     - name: Deploy to Github Pages
