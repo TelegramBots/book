@@ -41,10 +41,10 @@ This book is filled with ready-to-use snippets of code, but you can also find fu
 
 |Visit our|URL|
 |--|--|
-|Nuget feed|https://nuget.voids.site/packages/Telegram.Bot|
-|Github repo|https://github.com/TelegramBots/Telegram.Bot|
-|Examples repo|https://github.com/TelegramBots/Telegram.Bot.Examples|
-|Telegram news channel|https://t.me/tgbots_dotnet|
-|Telegram support group|https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA|
-|Team page|https://github.com/orgs/TelegramBots/people|
+|Nuget feed|<https://nuget.voids.site/packages/Telegram.Bot>|
+|Github repo|<https://github.com/TelegramBots/Telegram.Bot>|
+|Examples repo|<https://github.com/TelegramBots/Telegram.Bot.Examples>|
+|Telegram news channel|<https://t.me/tgbots_dotnet>|
+|Telegram support group|<https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA>|
+|Team page|<https://github.com/orgs/TelegramBots/people>|
 

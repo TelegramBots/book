@@ -1,5 +1,5 @@
 [book]
-authors = ["Poulad Ashrafpour", "Aleksey Usatov", "karb0f0s", "Miha Zupan"]
+authors = ["Poulad Ashrafpour", "Aleksey Usatov", "karb0f0s", "Miha Zupan", "Wizou"]
 multilingual = false
 src = "src"
 title = "A guide to Telegram.Bot library"
