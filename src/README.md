@@ -19,7 +19,8 @@ In the mean time, latest versions are available on our [special nuget feed](http
 Follow the pictures below to configure the Package source in Visual Studio:
 ![In Visual Studio](1/docs/NugetPackageManager.jpg)
 
-Alternatively you can set up a `nuget.config` file at the root of your project/solution:
+Alternatively you can use command line: `dotnet nuget add source https://nuget.voids.site/v3/index.json`  
+Or set up a `nuget.config` file at the root of your project/solution:
 ```xml
 <configuration>
   <packageSources>

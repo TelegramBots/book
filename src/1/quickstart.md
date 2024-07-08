@@ -24,7 +24,8 @@ Create a new console project for your bot and add a reference to `Telegram.Bot` 
 
 ```bash
 dotnet new console
-dotnet add package Telegram.Bot --source https://nuget.voids.site/v3/index.json
+dotnet nuget add source https://nuget.voids.site/v3/index.json
+dotnet add package Telegram.Bot
 ```
 
 The code below fetches Bot information based on its access token by calling the Bot API [`getMe`] method. Open `Program.cs` and use the following content:
