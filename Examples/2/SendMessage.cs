@@ -153,8 +153,8 @@ var message2 = await bot.SendStickerAsync(chatId, message1.Sticker!.FileId);
         return;
 
 // ANCHOR: send-text
-var message = await bot.SendTextMessageAsync(chatId, "Trying *all the parameters* of `sendMessage` method",
-    parseMode: ParseMode.MarkdownV2,
+var message = await bot.SendTextMessageAsync(chatId, "Trying <b>all the parameters</b> of <code>sendMessage</code> method",
+    parseMode: ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.MessageId,
     replyMarkup: new InlineKeyboardMarkup(

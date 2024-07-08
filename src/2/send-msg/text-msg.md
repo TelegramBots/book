@@ -5,7 +5,9 @@
 
 Text is a powerful interface for your bot and [`sendMessage`] probably is the most used method of the Telegram Bot API.
 Text messages are easy to send and fast to display on devices with slower networking.
-_Don't send boring plain text to users all the time_. Telegram allows you to format the text using Markdown or HTML.
+
+_Don't send boring plain text to users all the time_. Telegram allows you to format the text using HTML or Markdown.
+> We highly recommend you use HTML instead of Markdown because Markdown has lots of annoying aspects
 
 ## Send Text Message
 
@@ -23,7 +25,7 @@ The code snippet below sends a message with multiple parameters that looks like 
 The method `SendTextMessageAsync` of .NET Bot Client maps to [`sendMessage`] on Telegram's Bot API. This method sends a
 text message and returns the message object sent.
 
-`text` is written in [MarkDown format] and `parseMode` indicates that. You can also write in HTML or plain text.
+`text` is written in [HTML format] and `parseMode` indicates that. You can also write in Markdown or plain text.
 
 By passing `protectContent` we prevent the message (and eventual media) to be copiable/forwardable elsewhere.
 
@@ -67,6 +69,6 @@ message.EntityValues.First()  == "all the parameters"
 Try putting a breakpoint in the code to examine all the properties on a message objects you get.
 
 [`sendMessage`]: https://core.telegram.org/bots/api#sendmessage
-[MarkDown format]: https://core.telegram.org/bots/api#markdown-style
+[HTML format]: https://core.telegram.org/bots/api#html-style
 [UTC format]: https://en.wikipedia.org/wiki/Coordinated_Universal_Time
 [Message Entity]: https://core.telegram.org/bots/api#messageentity

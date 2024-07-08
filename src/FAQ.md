@@ -25,8 +25,9 @@ _See also next question._
 
 ### _5. How to handle a click on such inline buttons?_
 For buttons with callback data, your update handler should handle `update.CallbackQuery`.
-_(not all updates are about `update.Message`. See question #3)_  
-Your code should answer to it with `AnswerCallbackQueryAsync`
+_(Remember that not all updates are about `update.Message`. See question #3)_  
+
+Your code should answer to the query within 10 seconds, using `AnswerCallbackQueryAsync` _(or else the button gets momentarily disabled)_
 
 ### _6. How to show a popup text to the user?_
 It is only possible with inline callback button _(see above questions)_.  
