@@ -16,8 +16,8 @@ in developing Telegram chatbots with examples.
 
 In the mean time, latest versions are available on our [special nuget feed](https://nuget.voids.site/packages/Telegram.Bot): `https://nuget.voids.site/v3/index.json`
 
-Follow the pictures below to configure the Package source in Visual Studio:
-![In Visual Studio](1/docs/NugetPackageManager.jpg)
+See the screenshots below to configure the Package source in Visual Studio:
+![In Visual Studio](1/docs/NugetPackageManager.png)
 
 Alternatively you can use command line: `dotnet nuget add source https://nuget.voids.site/v3/index.json`  
 Or set up a `nuget.config` file at the root of your project/solution:
@@ -25,7 +25,7 @@ Or set up a `nuget.config` file at the root of your project/solution:
 <configuration>
   <packageSources>
     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
-    <add key="nuget voids.site" value="https://nuget.voids.site/v3/index.json" />
+    <add key="nuget.voids.site" value="https://nuget.voids.site/v3/index.json" />
   </packageSources>
 </configuration>
 ```
