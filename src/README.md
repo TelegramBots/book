@@ -29,9 +29,16 @@ In the mean time, it's available on our [special nuget feed](https://nuget.voids
 
 Follow the pictures below to configure the Package source in Visual Studio:
 ![In Visual Studio](1/docs/NugetPackageManager.jpg)
-or alternatively in a `nuget.config` file:
-![In nuget.config file](1/docs/nuget_config.jpg)
 
+Alternatively you can set up a `nuget.config` file at the root of your project/solution:
+```xml
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <add key="nuget voids.site" value="https://nuget.voids.site/v3/index.json" />
+  </packageSources>
+</configuration>
+```
 
 ## 🔨 Get Started
 
