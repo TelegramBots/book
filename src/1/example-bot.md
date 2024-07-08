@@ -27,11 +27,11 @@ Telegram and send a text message to it. Bot should reply in no time.
 By invoking [`StartReceiving(...)`] bot client starts fetching updates using [`getUpdates`] method for the bot
 from Telegram servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use `Console.ReadLine()` to keep the app running.
 
-When user sends a message, the `HandleUpdateAsync(...)` method gets invoked with the `Update` object passed as an argument.
+When user sends a message, the `OnUpdate(...)` method gets invoked with the `Update` object passed as an argument.
 We check `Message.Type` and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.
 
-The `HandleErrorAsync(...)` method is invoked in case of an error that occurred while fetching updates.
+The second argument to `StartReceiving` is a lambda method invoked in case of an error that occurred while fetching updates.
 
 If you take a look at the console, the program outputs the `chatId` value. **Copy the chat id number** to make testing easier
 for yourself on the next pages.
