@@ -8,12 +8,15 @@ _Note: When you use the plural form of the copy/forward methods, it will keep Me
 
 ## Forward message(s)
 
+[![forward message method](https://img.shields.io/badge/Bot_API_method-forwardMessage-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#forwardmessage)
+[![forward messages method](https://img.shields.io/badge/Bot_API_method-forwardMessages-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#forwardmessages)
+
 You can **forward** message(s) from a source chat to a target chat _(it can be the same chat)_.
 They will appear with a "Forwarded from" header.
 
 ```csharp
 // Forward a single message
-await bot.CopyMessageAsync(targetChatId, sourceChatId, messageId);
+await bot.ForwardMessageAsync(targetChatId, sourceChatId, messageId);
 
 // Forward an incoming message (from the update) onto a target ChatId
 await bot.ForwardMessageAsync(chatId, update.Message.Chat, update.Message.MessageId);
@@ -23,6 +26,9 @@ await bot.ForwardMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124,
 ```
 
 ## Copy message(s)
+
+[![copy message method](https://img.shields.io/badge/Bot_API_method-copyMessage-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#copymessage)
+[![copy messages method](https://img.shields.io/badge/Bot_API_method-copyMessages-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#copymessages)
 
 If you don't want the "Forwarded from" header, you can instead **copy** the message(s).
 
@@ -44,6 +50,9 @@ await bot.CopyMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124, 12
 ```
 
 ## Delete message(s)
+
+[![delete message method](https://img.shields.io/badge/Bot_API_method-deleteMessage-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#deletemessage)
+[![delete messages method](https://img.shields.io/badge/Bot_API_method-deleteMessages-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#deletemessages)
 
 Finally you can **delete** message(s).
 

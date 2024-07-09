@@ -1,9 +1,11 @@
 # Telegram Mini Apps
 
+[![Mini App bot API](https://img.shields.io/badge/Bot_API_Doc-Mini%20Apps-blue.svg?style=flat-square)](https://core.telegram.org/bots/webapps)
+
 If standard Telegram Bot features aren't enough to fit your needs,
 you may want to consider building a [Mini App](https://core.telegram.org/bots/webapps) instead.
 
-This take the form of an integrated browser window showing directly web pages from your bot website,
+This take the form of an integrated browser window showing directly web pages from your bot WebApp,
 so you have more control with HTML/JS to display the interface you like.
 
 Mini Apps can be launched from various ways:
