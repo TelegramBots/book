@@ -189,10 +189,12 @@
 <p>You will need to provide the source messageId(s), the source chatId and eventually the target chatId.</p>
 <p><em>Note: When you use the plural form of the copy/forward methods, it will keep Media Groups (albums) as such.</em></p>
 <h2 id="forward-messages"><a class="header" href="#forward-messages">Forward message(s)</a></h2>
+<p><a href="https://core.telegram.org/bots/api#forwardmessage"><img src="https://img.shields.io/badge/Bot_API_method-forwardMessage-blue.svg?style=flat-square" alt="forward message method" /></a>
+<a href="https://core.telegram.org/bots/api#forwardmessages"><img src="https://img.shields.io/badge/Bot_API_method-forwardMessages-blue.svg?style=flat-square" alt="forward messages method" /></a></p>
 <p>You can <strong>forward</strong> message(s) from a source chat to a target chat <em>(it can be the same chat)</em>.
 They will appear with a &quot;Forwarded from&quot; header.</p>
 <pre><code class="language-csharp">// Forward a single message
-await bot.CopyMessageAsync(targetChatId, sourceChatId, messageId);
+await bot.ForwardMessageAsync(targetChatId, sourceChatId, messageId);
 
 // Forward an incoming message (from the update) onto a target ChatId
 await bot.ForwardMessageAsync(chatId, update.Message.Chat, update.Message.MessageId);
@@ -201,6 +203,8 @@ await bot.ForwardMessageAsync(chatId, update.Message.Chat, update.Message.Messag
 await bot.ForwardMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
 </code></pre>
 <h2 id="copy-messages"><a class="header" href="#copy-messages">Copy message(s)</a></h2>
+<p><a href="https://core.telegram.org/bots/api#copymessage"><img src="https://img.shields.io/badge/Bot_API_method-copyMessage-blue.svg?style=flat-square" alt="copy message method" /></a>
+<a href="https://core.telegram.org/bots/api#copymessages"><img src="https://img.shields.io/badge/Bot_API_method-copyMessages-blue.svg?style=flat-square" alt="copy messages method" /></a></p>
 <p>If you don't want the &quot;Forwarded from&quot; header, you can instead <strong>copy</strong> the message(s).</p>
 <p>This will make them look like new messages.</p>
 <pre><code class="language-csharp">// Copy a single message
@@ -217,6 +221,8 @@ await bot.CopyMessageAsync(targetChatId, update.Message.Chat, update.Message.Mes
 await bot.CopyMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
 </code></pre>
 <h2 id="delete-messages"><a class="header" href="#delete-messages">Delete message(s)</a></h2>
+<p><a href="https://core.telegram.org/bots/api#deletemessage"><img src="https://img.shields.io/badge/Bot_API_method-deleteMessage-blue.svg?style=flat-square" alt="delete message method" /></a>
+<a href="https://core.telegram.org/bots/api#deletemessages"><img src="https://img.shields.io/badge/Bot_API_method-deleteMessages-blue.svg?style=flat-square" alt="delete messages method" /></a></p>
 <p>Finally you can <strong>delete</strong> message(s).</p>
 <p>This is particularly useful for cleaning unwanted messages in groups.</p>
 <pre><code class="language-csharp">// Delete a single message
