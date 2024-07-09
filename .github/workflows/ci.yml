@@ -20,7 +20,7 @@ jobs:
     - name: Install mdBook
       run: |
         curl https://sh.rustup.rs -sSf | sh
-        rustup update
+        rustup -y update
         cargo install --force --version ${MDBOOK_VERSION} mdbook
         cargo install --force mdbook-alerts
     - name: Setup Pages
