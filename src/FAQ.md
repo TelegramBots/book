@@ -21,7 +21,7 @@ Not all messages are text messages, `message.Text` could be null (see also `mess
 So please <ins>use a debugger</ins> to check the content of your variables or structure fields and make sure your code can handle all cases.
 
 ### _4. How to add buttons under a message?_
-Pass an [InlineKeyboardMarkup](/2/reply-markup.md#inline-keyboards) into the `replyMarkup` parameter when sending the message. You will likely need to create a `List<List<InlineKeyboardButton>>` for rows&columns  
+Pass an [InlineKeyboardMarkup](2/reply-markup.md#inline-keyboards) into the `replyMarkup` parameter when sending the message. You will likely need to create a `List<List<InlineKeyboardButton>>` for rows&columns  
 _See also next question._
 
 ### _5. How to handle a click on such inline buttons?_
@@ -35,7 +35,7 @@ It is only possible with inline callback button _(see above questions)_.
 Use `AnswerCallbackQueryAsync` with some text, and pass parameter `showAlert: true` to display the text as an alert box instead of a short popup.
 
 ### _7. How to fill the input textbox of the user with some text?_
-You can't. The closest you can do is setup a [ReplyKeyboardMarkup](/2/reply-markup.md#custom-keyboards) for buttons with pre-made texts under the textbox
+You can't. The closest you can do is setup a [ReplyKeyboardMarkup](2/reply-markup.md#custom-keyboards) for buttons with pre-made texts under the textbox
 
 ### _8. How to fetch previous messages?_
 You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
