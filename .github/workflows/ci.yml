@@ -19,7 +19,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Install mdBook
       run: |
-        curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
+        curl https://sh.rustup.rs -sSf | sh
         rustup update
         cargo install --force --version ${MDBOOK_VERSION} mdbook
         cargo install --force mdbook-alerts
