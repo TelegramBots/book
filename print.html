@@ -237,7 +237,8 @@ Or set up a <code>nuget.config</code> file at the root of your project/solution:
 <h2 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h2>
 <p>Now that you have a bot, it's time to bring it to life!</p>
 <blockquote>
-<p>We recommend a recent .NET version like .NET 8, but we also support older .NET Framework (4.6.1+), .NET Core (2.0+) or .NET (5.0+)
+<p>[!NOTE]<br />
+We recommend a recent .NET version like .NET 8, but we also support older .NET Framework (4.6.1+), .NET Core (2.0+) or .NET (5.0+)
 ne</p>
 </blockquote>
 <p>Create a new console project for your bot and add a reference to <code>Telegram.Bot</code> package:</p>
@@ -350,7 +351,8 @@ Fortunately, methods for sending such messages are similar. Take a look at these
 Text messages are easy to send and fast to display on devices with slower networking.</p>
 <p><em>Don't send boring plain text to users all the time</em>. Telegram allows you to format the text using HTML or Markdown.</p>
 <blockquote>
-<p>We highly recommend you use HTML instead of Markdown because Markdown has lots of annoying aspects</p>
+<p>[!IMPORTANT]<br />
+We highly recommend you use HTML instead of Markdown because Markdown has lots of annoying aspects</p>
 </blockquote>
 <h2 id="send-text-message"><a class="header" href="#send-text-message">Send Text Message</a></h2>
 <p>The code snippet below sends a message with multiple parameters that looks like this:</p>
@@ -1485,7 +1487,8 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-s
 }
 </code></pre>
 <blockquote>
-<p><strong>Warning</strong>: This method is convenient to use but gives you the least amount of control over the operations.</p>
+<p>[!WARNING]<br />
+This method is convenient to use but gives you the least amount of control over the operations.</p>
 </blockquote>
 <h3 id="reverse-side-file"><a class="header" href="#reverse-side-file">Reverse Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-decrypt_Reverse_Side_File-green.svg?style=flat-square" alt="method Should_decrypt_reverse_side_file" /></a></p>
@@ -1612,7 +1615,8 @@ static RSA GetPrivateKey() {
 }
 </code></pre>
 <blockquote>
-<p><strong>Note</strong>: You don't necessarily need to have a dependency on the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a> in your bot project.
+<p>[!NOTE]<br />
+You don't necessarily need to have a dependency on the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a> in your bot project.
 The section below offers a better alternative.</p>
 </blockquote>
 <h2 id="from-rsa-parameters"><a class="header" href="#from-rsa-parameters">From RSA Parameters</a></h2>
@@ -2142,7 +2146,8 @@ await bot.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &q
 (if you just need one single cancellation token for stopping your bot)</p>
 <h2 id="polling-system-now-catch-exceptions-in-your-handleupdate-code-v213"><a class="header" href="#polling-system-now-catch-exceptions-in-your-handleupdate-code-v213">Polling system now catch exceptions in your HandleUpdate code (v21.3)</a></h2>
 <blockquote>
-<p>⚠️ That's a change of behaviour, but most of you will probably welcome this change</p>
+<p>[!WARNING]<br />
+That's a change of behaviour, but most of you will probably welcome this change</p>
 </blockquote>
 <p>If you forgot to wrap your HandleUpdateAsync code in a big <code>try..catch</code>, and your code happen to throw an exception,
 this would previously stop the polling completely.</p>
