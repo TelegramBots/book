@@ -105,7 +105,8 @@ This way, you won't need to pass a cancellationToken to every method call after 
 
 ## Polling system now catch exceptions in your HandleUpdate code (v21.3)
 
->⚠️ That's a change of behaviour, but most of you will probably welcome this change
+> [!WARNING]  
+> That's a change of behaviour, but most of you will probably welcome this change
 
 If you forgot to wrap your HandleUpdateAsync code in a big `try..catch`, and your code happen to throw an exception,
 this would previously stop the polling completely.

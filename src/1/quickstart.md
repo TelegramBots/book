@@ -17,6 +17,7 @@ Bot token is a key that required to authorize the bot and send requests to the B
 
 Now that you have a bot, it's time to bring it to life!
 
+> [!NOTE]  
 > We recommend a recent .NET version like .NET 8, but we also support older .NET Framework (4.6.1+), .NET Core (2.0+) or .NET (5.0+)
 ne
 
