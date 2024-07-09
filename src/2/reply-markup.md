@@ -64,7 +64,10 @@ Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't resu
 
 ### Callback buttons
 
-When a user presses a [callback button], no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use `InlineKeyboardButton.WithCallbackData` helper method to create a button with a text and callback data.
+When a user presses a [callback button], no messages are sent to the chat, and your bot simply receives an `update.CallbackQuery` instead.
+Upon receiving this, your bot should answer to that query within 10 seconds, using `AnswerCallbackQueryAsync` _(or else the button gets momentarily disabled)_
+
+In this example we use `InlineKeyboardButton.WithCallbackData` helper method to create a button with a text and callback data:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}

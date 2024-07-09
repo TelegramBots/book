@@ -3,11 +3,12 @@
 I recommend you read all of these as you will learn many interesting things. Or you can use Ctrl-F to search for a specific topic.
 
 ### _1. Can you give me documentation/examples links?_
-- Follow [this installation guide](README.md#-installation) to install the latest versions of the library.
-- You are on the [main documentation website](https://telegrambots.github.io/book/).
-- Here are [some bot examples](https://github.com/TelegramBots/Telegram.Bot.Examples)
-- Search the [official API documentation](https://core.telegram.org/bots/api) and [official FAQ](https://core.telegram.org/bots/faq).
+- Follow [this installation guide](https://telegrambots.github.io/book/#-installation) to install the latest versions of the library.
+- Here is on the [main documentation website](https://telegrambots.github.io/book/).
+- You can find [more bot example projects](https://github.com/TelegramBots/Telegram.Bot.Examples) here
+- Search the [official API documentation](https://core.telegram.org/bots/api) and [official bots FAQ](https://core.telegram.org/bots/faq).
 - check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.
+
 >If you're C# beginner, you should learn about [async programming](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/).
 
 ### _2. My update handler fails or stops executing at some point_
@@ -20,7 +21,7 @@ Not all messages are text messages, `message.Text` could be null (see also `mess
 So please <ins>use a debugger</ins> to check the content of your variables or structure fields and make sure your code can handle all cases.
 
 ### _4. How to add buttons under a message?_
-Pass an [InlineKeyboardMarkup](https://telegrambots.github.io/book/2/reply-markup.html#inline-keyboards) into the `replyMarkup` parameter when sending the message. You will likely need to create a `List<List<InlineKeyboardButton>>` for rows&columns  
+Pass an [InlineKeyboardMarkup](/2/reply-markup.md#inline-keyboards) into the `replyMarkup` parameter when sending the message. You will likely need to create a `List<List<InlineKeyboardButton>>` for rows&columns  
 _See also next question._
 
 ### _5. How to handle a click on such inline buttons?_
@@ -31,26 +32,26 @@ Your code should answer to the query within 10 seconds, using `AnswerCallbackQue
 
 ### _6. How to show a popup text to the user?_
 It is only possible with inline callback button _(see above questions)_.  
-In `AnswerCallbackQueryAsync`, pass parameter `showAlert: true` to display as a popup.
+Use `AnswerCallbackQueryAsync` with some text, and pass parameter `showAlert: true` to display the text as an alert box instead of a short popup.
 
 ### _7. How to fill the input textbox of the user with some text?_
-You can't. The closest you can do is setup a `ReplyKeyboardMarkup` for buttons with pre-made texts under the textbox
+You can't. The closest you can do is setup a [ReplyKeyboardMarkup](/2/reply-markup.md#custom-keyboards) for buttons with pre-made texts under the textbox
 
 ### _8. How to fetch previous messages?_
-You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot).  
+You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
 Normally, bots only get messages at the moment they are posted. You could archive them all in a database for later retrieval.
 
 ### _9. How to fetch a list of all users in chat?_
-You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot).  
-Normally, bots can only get the list of administrators (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)
+You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
+Normally, bots can only get the list of administrators (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)  
 Alternatively, you can keep track of users by observing new messages in a chat and saving user info into a database.
 
 ### _10. How to send a private message to some random user?_
 You can't. Bots can only send private messages to users that have already initiated a private chat with your bot.
 
 ### _11. How to detect if a user blocked my bot?_
-You would have received an `update.MyChatMember` with `NewChatMember.Status == ChatMemberStatus.Kicked`
-If you didn't record that info, you can try to `SendChatActionAsync` and see if it raise an exception.
+You would have received an `update.MyChatMember` with `NewChatMember.Status == ChatMemberStatus.Kicked`  
+If you didn't record that info, you can try to `SendChatActionAsync` and see if it raises an exception.
 
 ### _12. How to set a caption to a media group (album)?_
 Set the `media.Caption` (and `media.ParseMode`) on the first media
@@ -70,14 +71,14 @@ A credit-card is necessary but you shouldn't get charged if you stay within quot
 Other cloud providers might also offer similar services.
 
 ### _16. Is there some limitation/maximum about feature X?_
-See https://limits.tginfo.me for a list of limitations.
+See <https://limits.tginfo.me> for a list of limitations.
 
 ### _17. How to populate the bot Menu button / commands list?_
 You can either do this via [@BotFather](https://t.me/BotFather) _(static entries)_, or you can use `SetMyCommandsAsync` for more advanced settings  
 ⚠️ This can only be filled with bot commands, starting with a `/` and containing only latin characters `a-z_0-9`
 
 ### _18. How to receive `ChatMember` updates?_
-You should specify all update types including ChatMember in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhookAsync`
+You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhookAsync`
 
 ### _19. How to get rid of past updates when I restart my bot?_
 Pass true into `StartReceiving`:`ReceiverOptions`:`DropPendingUpdates` or `SetWebhookAsync`:`dropPendingUpdates`
@@ -114,7 +115,7 @@ You can call API methods (like sending messages) from several instances in paral
 
 ### _25. How do I get the user id from a username?_
 
-You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot).  
+You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
 Alternatively, you could store in database the mapping of `UserId`<->`Username`.  
 Remember that not every user has a username.
 
