@@ -14,7 +14,9 @@ in developing Telegram chatbots with examples.
 Also don't miss our [Frequently Asked Questions](FAQ.md) which answers a lot of issues.
 
 ## 🧩 Installation
-⚠️ _Latest versions of the library are not available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue._
+
+> [!IMPORTANT]
+> _Latest versions of the library are not available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue._
 
 In the mean time, latest versions are available on our [special nuget feed](https://nuget.voids.site/packages/Telegram.Bot): `https://nuget.voids.site/v3/index.json`
 

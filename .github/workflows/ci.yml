@@ -17,10 +17,19 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Setup mdBook
-      uses: peaceiris/actions-mdbook@v2
-      with:
-        mdbook-version: '0.4.35'
+    - name: Install mdBook
+      run: |
+        curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
+        rustup update
+        cargo install --force --version ${MDBOOK_VERSION} mdbook
+        cargo install --force mdbook-alerts
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v4
+    # - name: Setup mdBook
+    #   uses: peaceiris/actions-mdbook@v2
+    #   with:
+    #     mdbook-version: '0.4.35'
     - name: Setup nodejs
       uses: actions/setup-node@v4
       with:
