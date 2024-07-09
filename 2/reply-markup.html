@@ -244,7 +244,9 @@ var sent = await bot.SendTextMessageAsync(chatId, &quot;Removing keyboard&quot;,
 <p>There are times when you'd prefer to do things without sending any messages to the chat. For example, when your user is changing settings or flipping through search results. In such cases you can use <a href="https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating">Inline Keyboards</a> that are integrated directly into the messages they belong to.</p>
 <p>Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't result in messages sent to the chat. Instead, inline keyboards support buttons that work behind the scenes: <a href="#callback-buttons">callback buttons</a>, <a href="#url-buttons">URL buttons</a> and <a href="#switch-to-inline-buttons">switch to inline buttons</a>.</p>
 <h3 id="callback-buttons"><a class="header" href="#callback-buttons">Callback buttons</a></h3>
-<p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat. Instead, your bot simply receives the relevant query. Upon receiving the query, your bot can display some result in a notification at the top of the chat screen or in an alert. In this example we use <code>InlineKeyboardButton.WithCallbackData</code> helper method to create a button with a text and callback data.</p>
+<p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat, and your bot simply receives an <code>update.CallbackQuery</code> instead.
+Upon receiving this, your bot should answer to that query within 10 seconds, using <code>AnswerCallbackQueryAsync</code> <em>(or else the button gets momentarily disabled)</em></p>
+<p>In this example we use <code>InlineKeyboardButton.WithCallbackData</code> helper method to create a button with a text and callback data:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 var buttons = new InlineKeyboardButton[][]

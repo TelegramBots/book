@@ -188,13 +188,15 @@
 <p>I recommend you read all of these as you will learn many interesting things. Or you can use Ctrl-F to search for a specific topic.</p>
 <h3 id="1-can-you-give-me-documentationexamples-links"><a class="header" href="#1-can-you-give-me-documentationexamples-links"><em>1. Can you give me documentation/examples links?</em></a></h3>
 <ul>
-<li>Follow <a href="README.html#-installation">this installation guide</a> to install the latest versions of the library.</li>
-<li>You are on the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
-<li>Here are <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">some bot examples</a></li>
-<li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official FAQ</a>.</li>
-<li>check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.
-&gt;If you're C# beginner, you should learn about <a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/">async programming</a>.</li>
+<li>Follow <a href="https://telegrambots.github.io/book/#-installation">this installation guide</a> to install the latest versions of the library.</li>
+<li>Here is on the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
+<li>You can find <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">more bot example projects</a> here</li>
+<li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official bots FAQ</a>.</li>
+<li>check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.</li>
 </ul>
+<blockquote>
+<p>If you're C# beginner, you should learn about <a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/">async programming</a>.</p>
+</blockquote>
 <h3 id="2-my-update-handler-fails-or-stops-executing-at-some-point"><a class="header" href="#2-my-update-handler-fails-or-stops-executing-at-some-point"><em>2. My update handler fails or stops executing at some point</em></a></h3>
 <p>You likely have an exception somewhere. You should place a <code>try..catch</code> around your whole update handler.<br />
 Also, you should learn to <ins>use a debugger</ins> and go step-by-step through your code to understand where and why an exception is raised. See next question.</p>
@@ -203,7 +205,7 @@ Also, you should learn to <ins>use a debugger</ins> and go step-by-step through 
 Not all messages are text messages, <code>message.Text</code> could be null (see also <code>message.Type</code>). etc...<br />
 So please <ins>use a debugger</ins> to check the content of your variables or structure fields and make sure your code can handle all cases.</p>
 <h3 id="4-how-to-add-buttons-under-a-message"><a class="header" href="#4-how-to-add-buttons-under-a-message"><em>4. How to add buttons under a message?</em></a></h3>
-<p>Pass an <a href="https://telegrambots.github.io/book/2/reply-markup.html#inline-keyboards">InlineKeyboardMarkup</a> into the <code>replyMarkup</code> parameter when sending the message. You will likely need to create a <code>List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> for rows&amp;columns<br />
+<p>Pass an <a href="/2/reply-markup.html#inline-keyboards">InlineKeyboardMarkup</a> into the <code>replyMarkup</code> parameter when sending the message. You will likely need to create a <code>List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> for rows&amp;columns<br />
 <em>See also next question.</em></p>
 <h3 id="5-how-to-handle-a-click-on-such-inline-buttons"><a class="header" href="#5-how-to-handle-a-click-on-such-inline-buttons"><em>5. How to handle a click on such inline buttons?</em></a></h3>
 <p>For buttons with callback data, your update handler should handle <code>update.CallbackQuery</code>.
@@ -211,21 +213,21 @@ So please <ins>use a debugger</ins> to check the content of your variables or st
 <p>Your code should answer to the query within 10 seconds, using <code>AnswerCallbackQueryAsync</code> <em>(or else the button gets momentarily disabled)</em></p>
 <h3 id="6-how-to-show-a-popup-text-to-the-user"><a class="header" href="#6-how-to-show-a-popup-text-to-the-user"><em>6. How to show a popup text to the user?</em></a></h3>
 <p>It is only possible with inline callback button <em>(see above questions)</em>.<br />
-In <code>AnswerCallbackQueryAsync</code>, pass parameter <code>showAlert: true</code> to display as a popup.</p>
+Use <code>AnswerCallbackQueryAsync</code> with some text, and pass parameter <code>showAlert: true</code> to display the text as an alert box instead of a short popup.</p>
 <h3 id="7-how-to-fill-the-input-textbox-of-the-user-with-some-text"><a class="header" href="#7-how-to-fill-the-input-textbox-of-the-user-with-some-text"><em>7. How to fill the input textbox of the user with some text?</em></a></h3>
-<p>You can't. The closest you can do is setup a <code>ReplyKeyboardMarkup</code> for buttons with pre-made texts under the textbox</p>
+<p>You can't. The closest you can do is setup a <a href="/2/reply-markup.html#custom-keyboards">ReplyKeyboardMarkup</a> for buttons with pre-made texts under the textbox</p>
 <h3 id="8-how-to-fetch-previous-messages"><a class="header" href="#8-how-to-fetch-previous-messages"><em>8. How to fetch previous messages?</em></a></h3>
-<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot">WTelegramBot</a>.<br />
+<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Normally, bots only get messages at the moment they are posted. You could archive them all in a database for later retrieval.</p>
 <h3 id="9-how-to-fetch-a-list-of-all-users-in-chat"><a class="header" href="#9-how-to-fetch-a-list-of-all-users-in-chat"><em>9. How to fetch a list of all users in chat?</em></a></h3>
-<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot">WTelegramBot</a>.<br />
-Normally, bots can only get the list of administrators (<code>GetChatAdministratorsAsync</code>) or detail about one specific member (<code>GetChatMemberAsync</code>)
+<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
+Normally, bots can only get the list of administrators (<code>GetChatAdministratorsAsync</code>) or detail about one specific member (<code>GetChatMemberAsync</code>)<br />
 Alternatively, you can keep track of users by observing new messages in a chat and saving user info into a database.</p>
 <h3 id="10-how-to-send-a-private-message-to-some-random-user"><a class="header" href="#10-how-to-send-a-private-message-to-some-random-user"><em>10. How to send a private message to some random user?</em></a></h3>
 <p>You can't. Bots can only send private messages to users that have already initiated a private chat with your bot.</p>
 <h3 id="11-how-to-detect-if-a-user-blocked-my-bot"><a class="header" href="#11-how-to-detect-if-a-user-blocked-my-bot"><em>11. How to detect if a user blocked my bot?</em></a></h3>
-<p>You would have received an <code>update.MyChatMember</code> with <code>NewChatMember.Status == ChatMemberStatus.Kicked</code>
-If you didn't record that info, you can try to <code>SendChatActionAsync</code> and see if it raise an exception.</p>
+<p>You would have received an <code>update.MyChatMember</code> with <code>NewChatMember.Status == ChatMemberStatus.Kicked</code><br />
+If you didn't record that info, you can try to <code>SendChatActionAsync</code> and see if it raises an exception.</p>
 <h3 id="12-how-to-set-a-caption-to-a-media-group-album"><a class="header" href="#12-how-to-set-a-caption-to-a-media-group-album"><em>12. How to set a caption to a media group (album)?</em></a></h3>
 <p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first media</p>
 <h3 id="13-how-to-write-a-bot-that-make-questionsanswers-with-users"><a class="header" href="#13-how-to-write-a-bot-that-make-questionsanswers-with-users"><em>13. How to write a bot that make questions/answers with users?</em></a></h3>
@@ -240,12 +242,12 @@ For example, <a href="https://azure.microsoft.com/products/app-service/web">Azur
 A credit-card is necessary but you shouldn't get charged if you stay within quotas.<br />
 Other cloud providers might also offer similar services.</p>
 <h3 id="16-is-there-some-limitationmaximum-about-feature-x"><a class="header" href="#16-is-there-some-limitationmaximum-about-feature-x"><em>16. Is there some limitation/maximum about feature X?</em></a></h3>
-<p>See https://limits.tginfo.me for a list of limitations.</p>
+<p>See <a href="https://limits.tginfo.me">https://limits.tginfo.me</a> for a list of limitations.</p>
 <h3 id="17-how-to-populate-the-bot-menu-button--commands-list"><a class="header" href="#17-how-to-populate-the-bot-menu-button--commands-list"><em>17. How to populate the bot Menu button / commands list?</em></a></h3>
 <p>You can either do this via <a href="https://t.me/BotFather">@BotFather</a> <em>(static entries)</em>, or you can use <code>SetMyCommandsAsync</code> for more advanced settings<br />
 ⚠️ This can only be filled with bot commands, starting with a <code>/</code> and containing only latin characters <code>a-z_0-9</code></p>
 <h3 id="18-how-to-receive-chatmember-updates"><a class="header" href="#18-how-to-receive-chatmember-updates"><em>18. How to receive <code>ChatMember</code> updates?</em></a></h3>
-<p>You should specify all update types including ChatMember in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhookAsync</code></p>
+<p>You should specify all update types <strong>including ChatMember</strong> in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhookAsync</code></p>
 <h3 id="19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><a class="header" href="#19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><em>19. How to get rid of past updates when I restart my bot?</em></a></h3>
 <p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhookAsync</code>:<code>dropPendingUpdates</code></p>
 <h3 id="20-difficulties-to-upload--send-a-filemedia"><a class="header" href="#20-difficulties-to-upload--send-a-filemedia"><em>20. Difficulties to upload &amp; send a file/media?</em></a></h3>
@@ -281,7 +283,7 @@ Version 21.x of the library have been much improved to facilitate <a href="Migra
 <p>You can call API methods (like sending messages) from several instances in parallel<br />
 <strong>BUT</strong> only one instance can call method GetUpdates (or else you will receive <em>Telegram API Error 409: Conflict: terminated by other getUpdates request</em>)</p>
 <h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
-<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot">WTelegramBot</a>.<br />
+<p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
 Remember that not every user has a username.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
