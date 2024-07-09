@@ -2259,7 +2259,7 @@ Also, you should learn to <ins>use a debugger</ins> and go step-by-step through 
 Not all messages are text messages, <code>message.Text</code> could be null (see also <code>message.Type</code>). etc...<br />
 So please <ins>use a debugger</ins> to check the content of your variables or structure fields and make sure your code can handle all cases.</p>
 <h3 id="4-how-to-add-buttons-under-a-message"><a class="header" href="#4-how-to-add-buttons-under-a-message"><em>4. How to add buttons under a message?</em></a></h3>
-<p>Pass an <a href="/2/reply-markup.html#inline-keyboards">InlineKeyboardMarkup</a> into the <code>replyMarkup</code> parameter when sending the message. You will likely need to create a <code>List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> for rows&amp;columns<br />
+<p>Pass an <a href="2/reply-markup.html#inline-keyboards">InlineKeyboardMarkup</a> into the <code>replyMarkup</code> parameter when sending the message. You will likely need to create a <code>List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> for rows&amp;columns<br />
 <em>See also next question.</em></p>
 <h3 id="5-how-to-handle-a-click-on-such-inline-buttons"><a class="header" href="#5-how-to-handle-a-click-on-such-inline-buttons"><em>5. How to handle a click on such inline buttons?</em></a></h3>
 <p>For buttons with callback data, your update handler should handle <code>update.CallbackQuery</code>.
@@ -2269,7 +2269,7 @@ So please <ins>use a debugger</ins> to check the content of your variables or st
 <p>It is only possible with inline callback button <em>(see above questions)</em>.<br />
 Use <code>AnswerCallbackQueryAsync</code> with some text, and pass parameter <code>showAlert: true</code> to display the text as an alert box instead of a short popup.</p>
 <h3 id="7-how-to-fill-the-input-textbox-of-the-user-with-some-text"><a class="header" href="#7-how-to-fill-the-input-textbox-of-the-user-with-some-text"><em>7. How to fill the input textbox of the user with some text?</em></a></h3>
-<p>You can't. The closest you can do is setup a <a href="/2/reply-markup.html#custom-keyboards">ReplyKeyboardMarkup</a> for buttons with pre-made texts under the textbox</p>
+<p>You can't. The closest you can do is setup a <a href="2/reply-markup.html#custom-keyboards">ReplyKeyboardMarkup</a> for buttons with pre-made texts under the textbox</p>
 <h3 id="8-how-to-fetch-previous-messages"><a class="header" href="#8-how-to-fetch-previous-messages"><em>8. How to fetch previous messages?</em></a></h3>
 <p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Normally, bots only get messages at the moment they are posted. You could archive them all in a database for later retrieval.</p>
