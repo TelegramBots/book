@@ -11,6 +11,8 @@ in developing Telegram chatbots with examples.
 
 ➡️ Access the book pages via the Table Of Content (top/left), or start your journey with our [_Quickstart_](1/quickstart.md) guide.
 
+Also don't miss our [Frequently Asked Questions](FAQ.md) which answers a lot of issues.
+
 ## 🧩 Installation
 ⚠️ _Latest versions of the library are not available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue._
 
