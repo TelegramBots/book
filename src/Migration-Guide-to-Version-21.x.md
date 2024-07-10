@@ -125,3 +125,22 @@ Now the Polling system will catch your exceptions, pass them to your HandleError
 >    if (source is HandleErrorSource.HandleUpdateError) throw ex;
 >    ...
 >```
+
+## New helpers/extensions to simplify your code (v21.5)
+
+- When replying to a message, you can now simply pass a `Message` for _replyParameters:_ rather than a `Message.MessageId`
+- `Update.AllTypes` is a constant array containing all `UpdateType`s. You can pass it for the _allowedUpdates:_ parameter (`GetUpdatesAsync`/`SetWebhookAsync`)
+- Message has now 2 extensions methods: `.ToHtml()` and `.ToMarkdown()` to convert the message text/caption and their entities into a simple Html or Markdown string.
+- You can also use methods `Markdown.Escape()` and `HtmlText.Escape()` to sanitize reserved characters from strings
+- Reply/Inline Keyboard Markup now have construction methods to simplify building keyboards dynamically:
+```csharp
+var replyMarkup = new InlineKeyboardMarkup()
+    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddNewRow().AddButton("callback").AddButton("caption", "data")
+    .AddNewRow("with", "three", "buttons")
+    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
+```
+
+As [previously announced](#request-structures), the Request-typed methods are gone.
+But you can still send Request structures via the `MakeRequestAsync` method.
+
