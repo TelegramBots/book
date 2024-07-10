@@ -351,6 +351,22 @@ this would previously stop the polling completely.</p>
    ...
 </code></pre>
 </blockquote>
+<h2 id="new-helpersextensions-to-simplify-your-code-v215"><a class="header" href="#new-helpersextensions-to-simplify-your-code-v215">New helpers/extensions to simplify your code (v21.5)</a></h2>
+<ul>
+<li>When replying to a message, you can now simply pass a <code>Message</code> for <em>replyParameters:</em> rather than a <code>Message.MessageId</code></li>
+<li><code>Update.AllTypes</code> is a constant array containing all <code>UpdateType</code>s. You can pass it for the <em>allowedUpdates:</em> parameter (<code>GetUpdatesAsync</code>/<code>SetWebhookAsync</code>)</li>
+<li>Message has now 2 extensions methods: <code>.ToHtml()</code> and <code>.ToMarkdown()</code> to convert the message text/caption and their entities into a simple Html or Markdown string.</li>
+<li>You can also use methods <code>Markdown.Escape()</code> and <code>HtmlText.Escape()</code> to sanitize reserved characters from strings</li>
+<li>Reply/Inline Keyboard Markup now have construction methods to simplify building keyboards dynamically:</li>
+</ul>
+<pre><code class="language-csharp">var replyMarkup = new InlineKeyboardMarkup()
+    .AddButton(InlineKeyboardButton.WithUrl(&quot;Link to Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;))
+    .AddNewRow().AddButton(&quot;callback&quot;).AddButton(&quot;caption&quot;, &quot;data&quot;)
+    .AddNewRow(&quot;with&quot;, &quot;three&quot;, &quot;buttons&quot;)
+    .AddNewRow().AddButtons(&quot;A&quot;, &quot;B&quot;, InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch&quot;));
+</code></pre>
+<p>As <a href="#request-structures">previously announced</a>, the Request-typed methods are gone.
+But you can still send Request structures via the <code>MakeRequestAsync</code> method.</p>
 
                     </main>
 
