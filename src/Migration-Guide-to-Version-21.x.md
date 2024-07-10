@@ -140,6 +140,7 @@ var replyMarkup = new InlineKeyboardMarkup()
     .AddNewRow("with", "three", "buttons")
     .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
 ```
+- Same for ReplyKeyboardMarkup (and you can use `new ReplyKeyboardMarkup(true)` to resize keyboard)
 
 As [previously announced](#request-structures), the Request-typed methods are gone.
 But you can still send Request structures via the `MakeRequestAsync` method.
