@@ -365,6 +365,9 @@ this would previously stop the polling completely.</p>
     .AddNewRow(&quot;with&quot;, &quot;three&quot;, &quot;buttons&quot;)
     .AddNewRow().AddButtons(&quot;A&quot;, &quot;B&quot;, InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch&quot;));
 </code></pre>
+<ul>
+<li>Same for ReplyKeyboardMarkup (and you can use <code>new ReplyKeyboardMarkup(true)</code> to resize keyboard)</li>
+</ul>
 <p>As <a href="#request-structures">previously announced</a>, the Request-typed methods are gone.
 But you can still send Request structures via the <code>MakeRequestAsync</code> method.</p>
 
