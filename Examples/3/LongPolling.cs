@@ -2,6 +2,8 @@ using Telegram.Bot;
 
 namespace BookExamples.Chapter3;
 
+#pragma warning disable CS0168 // Variable is declared but never used
+
 internal class ExampleBot
 {
     private async Task LongPolling()

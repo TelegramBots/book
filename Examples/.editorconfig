@@ -27,6 +27,16 @@ csharp_empty_block_style = together
 csharp_max_line_length = 120
 
 # Solution Files
+
+# CS1998: Async method lacks 'await' operators and will run synchronously
+dotnet_diagnostic.CS1998.severity = silent
+
+# IDE0062: Make local function 'static'
+dotnet_diagnostic.IDE0062.severity = silent
+
+# CA2016: Forward the 'CancellationToken' parameter to methods
+dotnet_diagnostic.CA2016.severity = none
+
 [*.sln]
 indent_style = tab
 
