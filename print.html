@@ -4775,7 +4775,7 @@ We decided to give it a more appropriate name: <code>HandlePollingErrorAsync</co
 <ul>
 <li>Don't bother about version 20, migrate directly to version 21.*</li>
 <li>You won't find this version on Nuget: <a href="https://telegrambots.github.io/book/index.html#-installation">See this guide to install it in your programs</a>.</li>
-<li>Version 21.1 supports <a href="https://core.telegram.org/bots/api-changelog#june-18-2024">Bot API 7.5</a> <em>(including <a href="Migration-Guide-to-Version-21.x.html#payments-with-telegram-stars">Telegram Stars payments</a>)</em></li>
+<li>Version 21.6 supports <a href="https://core.telegram.org/bots/api-changelog">Bot API 7.7</a> <em>(including <a href="Migration-Guide-to-Version-21.x.html#payments-with-telegram-stars">Telegram Stars payments</a>)</em></li>
 <li>Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. <em>(<a href="Migration-Guide-to-Version-21.x.html#webhooks-with-systemtextjson">See below</a>)</em></li>
 </ul>
 <h2 id="renamed-parameter-replytomessageid--replyparameters"><a class="header" href="#renamed-parameter-replytomessageid--replyparameters">Renamed parameter <em>replyToMessageId:</em> → <em>replyParameters:</em></a></h2>
@@ -4815,7 +4815,7 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <p>Request structures <em>(types ending with <code>Request</code>)</em> are NOT the recommended way to use the library in your projects.</p>
 <p>They are to be considered as low-level raw access to Bot API structures for advanced programmers, and might change/break at any time in the future.</p>
 <p>If you have existing code using them, you can use the <code>MakeRequestAsync</code> method to send those requests.
-(Other methods based on those requests will be removed soon)</p>
+<em>(Other methods based on those requests will be removed soon)</em></p>
 <h2 id="payments-with-telegram-stars"><a class="header" href="#payments-with-telegram-stars">Payments with Telegram Stars</a></h2>
 <p>To make a payment in <a href="https://t.me/BotNews/90">Telegram Stars</a> with SendInvoiceAsync, set the following parameters:</p>
 <ul>
