@@ -3,7 +3,7 @@
 Important notes:
 - Don't bother about version 20, migrate directly to version 21.*
 - You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-installation).
-- Version 21.1 supports [Bot API 7.5](https://core.telegram.org/bots/api-changelog#june-18-2024) _(including [Telegram Stars payments](#payments-with-telegram-stars))_
+- Version 21.6 supports [Bot API 7.7](https://core.telegram.org/bots/api-changelog) _(including [Telegram Stars payments](#payments-with-telegram-stars))_
 - Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. _([See below](#webhooks-with-systemtextjson))_
 
 ## Renamed parameter _replyToMessageId:_ → _replyParameters:_
@@ -66,7 +66,7 @@ Request structures _(types ending with `Request`)_ are NOT the recommended way t
 They are to be considered as low-level raw access to Bot API structures for advanced programmers, and might change/break at any time in the future.
 
 If you have existing code using them, you can use the `MakeRequestAsync` method to send those requests.
-(Other methods based on those requests will be removed soon)
+_(Other methods based on those requests will be removed soon)_
 
 ## Payments with Telegram Stars
 
