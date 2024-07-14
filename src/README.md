@@ -4,14 +4,8 @@
 
 **[Telegram.Bot](https://github.com/TelegramBots/Telegram.Bot)** is the most popular .NET client for [Telegram Bot API](https://core.telegram.org/bots/api), allowing [developers to build bots](https://core.telegram.org/bots) for [Telegram](https://www.telegram.org) messaging app.
 
-Telegram Bot API is [officially documented](https://core.telegram.org/bots/api) but this book covers all you need to know to create a
-chatbot in .NET. There are also many concrete examples written in C#.
-The guides here can even be useful to bot developers using other languages/platforms as it shows best practices
-in developing Telegram chatbots with examples.
-
-➡️ Access the book pages via the Table Of Content (top/left), or start your journey with our [_Quickstart_](1/quickstart.md) guide.
-
-Also don't miss our [Frequently Asked Questions](FAQ.md) which answers a lot of issues.
+This book covers all you need to know to create a chatbot in .NET, with many concrete examples written in C#.  
+Begin with our [_Quickstart_](1/quickstart.md), or choose from the Table Of Content (left/top), and don't miss our useful [Frequently Asked Questions](FAQ.md).
 
 ## 🧩 Installation
 
