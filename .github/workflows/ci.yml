@@ -21,9 +21,9 @@ jobs:
       uses: peaceiris/actions-mdbook@v2
       with:
         mdbook-version: '0.4.36'
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
+    # - uses: actions-rs/toolchain@v1
+    #   with:
+    #     toolchain: stable
     - run: cargo install mdbook-alerts
     - name: Setup nodejs
       uses: actions/setup-node@v4
