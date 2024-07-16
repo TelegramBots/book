@@ -328,7 +328,7 @@ Telegram will consider it a temporary failure and will RESEND the same update a 
 So you may want to prevent handling the same update.Id twice:
 <pre><code class="language-csharp">if (update.Id &lt;= LastUpdateId) return;
 LastUpdateId = update.Id;
-// put your code to handle the Update here.
+// your code to handle the Update here.
 </code></pre>
 </li>
 <li>Most web hostings will recycle your app after some HTTP inactivity (= stop your app and restart it on the next HTTP request)<br />
