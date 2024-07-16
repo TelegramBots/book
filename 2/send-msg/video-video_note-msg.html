@@ -264,8 +264,8 @@ You can optionally specify the duration and resolution of the video.</p>
 <p>In the example below, we send a video of a 10 minute countdown
 and expect the Telegram clients to stream that long video instead of downloading it completely.
 We also set a thumbnail image for our video.</p>
-<pre><code class="language-c#">await bot.SendVideoAsync(chatId, &quot;https://telegrambots.github.io/book/docs/video-countdown.mp4&quot;,
-    thumbnail: &quot;https://telegrambots.github.io/book/2/docs/thumb-clock.jpg&quot;, supportsStreaming: true);
+<pre><code class="language-c#">await bot.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
+    thumbnail: "https://telegrambots.github.io/book/2/docs/thumb-clock.jpg", supportsStreaming: true);
 </code></pre>
 <blockquote>
 <p>Check the Bot API docs for <code>sendVideo</code> method to learn more about video size limits and the thumbnail images.</p>
@@ -279,7 +279,7 @@ We also set a thumbnail image for our video.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/video-waves.mp4&quot;);
+<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
 
 await bot.SendVideoNoteAsync(chatId, stream,
     duration: 47, length: 360); // value of width/height

@@ -272,7 +272,7 @@ We can generate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.s
 // using Org.BouncyCastle.Security;
 
 static RSA GetPrivateKey() {
-    string privateKeyPem = File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
+    string privateKeyPem = File.ReadAllText("/path/to/private-key.pem");
     PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
     AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
     RSAParameters rsaParameters = DotNetUtilities
@@ -297,27 +297,27 @@ Those help with serialization.</p>
 <p>You still need to <strong>use BouncyCastle only once</strong> to read the RSA key in PEM format and serialize its parameters:</p>
 <pre><code class="language-c#">// ONLY ONCE: read the RSA private key and serialize its parameters to JSON
 static void WriteRsaParametersToJson() {
-    string privateKeyPem = System.IO.File.ReadAllText(&quot;/path/to/private-key.pem&quot;);
+    string privateKeyPem = System.IO.File.ReadAllText("/path/to/private-key.pem");
     string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
-    System.IO.File.WriteAllText(&quot;/path/to/private-key-params.json&quot;, json);
+    System.IO.File.WriteAllText("/path/to/private-key-params.json", json);
 }
 
 // Now, read the JSON file and create an RSA instance
 static RSA GetRsaKey() {
-    string json = System.IO.File.ReadAllText(&quot;/path/to/private-key-params.json&quot;);
+    string json = System.IO.File.ReadAllText("/path/to/private-key-params.json");
     return EncryptionKeyUtility.GetRsaKeyFromJson(json);
 }
 </code></pre>
 <p>Content of <code>private-key-params.json</code> will look similar to this:</p>
 <pre><code class="language-json">{
-  &quot;E&quot;: &quot;AQAB&quot;,
-  &quot;M&quot;: &quot;0VElW...Fw==&quot;,
-  &quot;P&quot;: &quot;56Mdiw...i7FSwDaM=&quot;,
-  &quot;Q&quot;: &quot;51UN2sd...J44NTf0=&quot;,
-  &quot;D&quot;: &quot;nrXEeOl2Ky...JIQ==&quot;,
-  &quot;DP&quot;: &quot;KZYZWbsy.../lk60=&quot;,
-  &quot;DQ&quot;: &quot;Y25KgzPj...AdBd0=&quot;,
-  &quot;IQ&quot;: &quot;0153...N6Y=&quot;
+  "E": "AQAB",
+  "M": "0VElW...Fw==",
+  "P": "56Mdiw...i7FSwDaM=",
+  "Q": "51UN2sd...J44NTf0=",
+  "D": "nrXEeOl2Ky...JIQ==",
+  "DP": "KZYZWbsy.../lk60=",
+  "DQ": "Y25KgzPj...AdBd0=",
+  "IQ": "0153...N6Y="
 }
 </code></pre>
 <p>It's worth mentioning that <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyParameters.cs">EncryptionKeyParameters</a> is just a copy of <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0">RSAParameters</a> struct.

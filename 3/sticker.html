@@ -261,7 +261,7 @@
 Sticker files should be in <a href="https://developers.google.com/speed/webp/">WebP</a> format.</p>
 <p>This code sends the same sticker twice. First by passing HTTP URL to a <a href="https://developers.google.com/speed/webp/">WebP</a> sticker file and
 second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
-<pre><code class="language-c#">var message1 = await bot.SendStickerAsync(chatId, &quot;https://telegrambots.github.io/book/docs/sticker-fred.webp&quot;);
+<pre><code class="language-c#">var message1 = await bot.SendStickerAsync(chatId, "https://telegrambots.github.io/book/docs/sticker-fred.webp");
 
 var message2 = await bot.SendStickerAsync(chatId, message1.Sticker!.FileId);
 </code></pre>

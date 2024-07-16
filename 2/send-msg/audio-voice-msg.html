@@ -261,8 +261,8 @@ A voice file has OGG format and is not shown in music player.</p>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
 <p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out?
 That's because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
-<pre><code class="language-c#">var message = await bot.SendAudioAsync(chatId, &quot;https://telegrambots.github.io/book/docs/audio-guitar.mp3&quot;
-    //  , performer: &quot;Joel Thomas Hunger&quot;, title: &quot;Fun Guitar and Ukulele&quot;, duration: 91    // optional
+<pre><code class="language-c#">var message = await bot.SendAudioAsync(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
+    //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
     );
 </code></pre>
 <p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
@@ -270,12 +270,12 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 <p><img src="../docs/shot-music_player.jpg" alt="music player" /></p>
 <p>Method returns an audio message. Let's take a look at the value of <code>message.Audio</code> property in JSON format:</p>
 <pre><code class="language-json">{
-  &quot;duration&quot;: 91,
-  &quot;mime_type&quot;: &quot;audio/mpeg&quot;,
-  &quot;title&quot;: &quot;Fun Guitar and Ukulele&quot;,
-  &quot;performer&quot;: &quot;Joel Thomas Hunger&quot;,
-  &quot;file_id&quot;: &quot;CQADBAADKQADA3oUUKalqDOOcqesAg&quot;,
-  &quot;file_size&quot;: 1102154
+  "duration": 91,
+  "mime_type": "audio/mpeg",
+  "title": "Fun Guitar and Ukulele",
+  "performer": "Joel Thomas Hunger",
+  "file_id": "CQADBAADKQADA3oUUKalqDOOcqesAg",
+  "file_size": 1102154
 }
 </code></pre>
 <h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
@@ -287,7 +287,7 @@ Let's send it differently this time by uploading the file from disk alongside wi
 <blockquote>
 <p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
 </blockquote>
-<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead(&quot;/path/to/voice-nfl_commentary.ogg&quot;);
+<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
 var message = await bot.SendVoiceAsync(chatId, stream, duration: 36);
 </code></pre>
 <p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>

@@ -292,11 +292,11 @@ You can alternatively have a button in an HTML page on your website for that.</p
 <p>Type <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs">AuthorizationRequestParameters</a>  helps you in creating such an URI.</p>
 <pre><code class="language-c#">AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
     botId: 123456, // bot user ID
-    publicKey: &quot;...&quot;, // public key in PEM format. same as the key above.
-    nonce: &quot;unique nonce for this request&quot;,
+    publicKey: "...", // public key in PEM format. same as the key above.
+    nonce: "unique nonce for this request",
     scope: new PassportScope(new[] { // a PassportScope object
-        new PassportScopeElementOne(&quot;address&quot;),
-        new PassportScopeElementOne(&quot;phone_number&quot;)
+        new PassportScopeElementOne("address"),
+        new PassportScopeElementOne("phone_number")
     })
 );
 </code></pre>

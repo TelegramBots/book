@@ -274,13 +274,13 @@
 <h2 id="inlinequery"><a class="header" href="#inlinequery"><code>InlineQuery</code></a></h2>
 <p><a href="https://core.telegram.org/bots/api#inlinequeryresult"><img src="https://img.shields.io/badge/Bot_API_Object-InlineQueryResult-blue.svg?style=flat-square" alt="inline query result bot API" /></a></p>
 <p>Suppose we have two arrays:</p>
-<pre><code class="language-c#">private readonly string[] sites = { &quot;Google&quot;, &quot;Github&quot;, &quot;Telegram&quot;, &quot;Wikipedia&quot; };
+<pre><code class="language-c#">private readonly string[] sites = { "Google", "Github", "Telegram", "Wikipedia" };
 private readonly string[] siteDescriptions =
 {
-    &quot;Google is a search engine&quot;,
-    &quot;Github is a git repository hosting&quot;,
-    &quot;Telegram is a messenger&quot;,
-    &quot;Wikipedia is an open wiki&quot;
+    "Google is a search engine",
+    "Github is a git repository hosting",
+    "Telegram is a messenger",
+    "Wikipedia is an open wiki"
 };
 </code></pre>
 <p>So we can handle inline queries this way:</p>
@@ -292,7 +292,7 @@ private readonly string[] siteDescriptions =
     foreach (var site in sites)
     {
         results.Add(new InlineQueryResultArticle(
-            $&quot;{counter}&quot;, // we use the counter as an id for inline query results
+            $"{counter}", // we use the counter as an id for inline query results
             site, // inline query result title
             new InputTextMessageContent(siteDescriptions[counter])) // content that is submitted when the inline query result title is clicked
         );
@@ -311,13 +311,13 @@ private readonly string[] siteDescriptions =
     if (uint.TryParse(chosenInlineResult.ResultId, out var resultId) // check if a result id is parsable and introduce variable
         &amp;&amp; resultId &lt; sites.Length)
     {
-        Console.WriteLine($&quot;User {chosenInlineResult.From} has selected site: {sites[resultId]}&quot;);
+        Console.WriteLine($"User {chosenInlineResult.From} has selected site: {sites[resultId]}");
     }
 
     return Task.CompletedTask;
 }
 </code></pre>
-<p>To use the feature you need to enable &quot;inline feedback&quot; in BotFather by <code>/setinlinefeedback</code> command:</p>
+<p>To use the feature you need to enable "inline feedback" in BotFather by <code>/setinlinefeedback</code> command:</p>
 <p><img src="docs/shot-setinlinefeedback_command.png" alt="set inline feedback command" /></p>
 <p>Final result:</p>
 <p><img src="docs/shot-inline_bot_showcase.png" alt="result" /></p>

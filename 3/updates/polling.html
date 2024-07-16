@@ -259,7 +259,7 @@ you can just call GetUpdateAsync with a timeout in a loop,
 such that the call blocks for <strong>up to</strong> X seconds until there is an incoming update</p>
 <p>Here is an example implementation:</p>
 <pre><code class="language-csharp">CancellationTokenSource cts = new();
-var bot = new TelegramBotClient(&quot;{YOUR BOT TOKEN HERE}&quot;, cancellationToken: cts.Token);
+var bot = new TelegramBotClient("{YOUR BOT TOKEN HERE}", cancellationToken: cts.Token);
 
 int? offset = null;
 while (!cts.IsCancellationRequested)

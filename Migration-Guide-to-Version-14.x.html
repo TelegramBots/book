@@ -272,19 +272,19 @@ DateTime localTime = update.Message.Date.ToLocalTime();
 <pre><code class="language-csharp">// Message having an inline keyboard button with URL that redirects to a page
 await bot.SendTextMessageAsync(
     chatId: -9876,
-    text: &quot;Check out the source code&quot;,
+    text: "Check out the source code",
     replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl(&quot;Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;)
+        InlineKeyboardButton.WithUrl("Repository", "https://github.com/TelegramBots/Telegram.Bot")
     )
 );
 </code></pre>
 <pre><code class="language-csharp">// Message to a private chat having a 2-row reply keyboard
 await bot.SendTextMessageAsync(
     chatId: 1234,
-    text: &quot;Share your contact &amp; location&quot;,
+    text: "Share your contact &amp; location",
     replyMarkup: new ReplyKeyboardMarkup(
-        new [] { KeyboardButton.WithRequestContact(&quot;Share Contact&quot;) },
-        new [] { KeyboardButton.WithRequestLocation(&quot;Share Location&quot;) },
+        new [] { KeyboardButton.WithRequestContact("Share Contact") },
+        new [] { KeyboardButton.WithRequestLocation("Share Location") },
     )
 );
 </code></pre>
@@ -295,11 +295,11 @@ await bot.SendTextMessageAsync(
 <li>Download file from <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;</code></li>
 </ol>
 <p><code>GetFileAsync()</code> is replaced by 3 methods. Method <code>GetInfoAndDownloadFileAsync()</code> looks very similar to old <code>GetFileAsync()</code>:</p>
-<pre><code class="language-csharp">// Gets file info and saves it to &quot;path/to/file.pdf&quot;
-using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
+<pre><code class="language-csharp">// Gets file info and saves it to "path/to/file.pdf"
+using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf"))
 {
     File fileInfo = await bot.GetInfoAndDownloadFileAsync(
-        fileId: &quot;BsdfgLg4Khdlsn-bldBD&quot;,
+        fileId: "BsdfgLg4Khdlsn-bldBD",
         destination: fileStream
     );
 }
@@ -309,10 +309,10 @@ using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;))
 </blockquote>
 <p>There are two more methods that assist you with downloading files:</p>
 <pre><code class="language-csharp">// New version of GetFileAsync() only gets the file info (step 1)
-File fileInfo = await bot.GetFileAsync(&quot;BsdfgLg4Khdlsn-bldBD&quot;);
+File fileInfo = await bot.GetFileAsync("BsdfgLg4Khdlsn-bldBD");
 
 // Download file from server (step 2)
-using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) {
+using (var fileStream = System.IO.File.OpenWrite("path/to/file.pdf")) {
     await bot.DownloadFileAsync(
         filePath: fileInfo.FilePath,
         destination: fileStream
@@ -330,19 +330,19 @@ using (var fileStream = System.IO.File.OpenWrite(&quot;path/to/file.pdf&quot;)) 
 <pre><code class="language-csharp">// bad way. easy to get exceptions
 var documentResult = new InlineQueryResultDocument
 {
-    Id = &quot;some-id&quot;,
-    Url = &quot;https://example.com/document.pdf&quot;,
-    Title = &quot;Some title&quot;,
-    MimeType = &quot;application/pdf&quot;
+    Id = "some-id",
+    Url = "https://example.com/document.pdf",
+    Title = "Some title",
+    MimeType = "application/pdf"
 };
 </code></pre>
 <p>You should use:</p>
 <pre><code class="language-csharp">// good way
 var documentResult = new InlineQueryResultDocument(
-    id: &quot;some-id&quot;,
-    documentUrl: &quot;https://example.com/document.pdf&quot;,
-    title: &quot;Some title&quot;,
-    mimeType: &quot;application/pdf&quot;
+    id: "some-id",
+    documentUrl: "https://example.com/document.pdf",
+    title: "Some title",
+    mimeType: "application/pdf"
 );
 </code></pre>
 <h2 id="sendmediagroupasync"><a class="header" href="#sendmediagroupasync"><code>SendMediaGroupAsync()</code></a></h2>
@@ -366,11 +366,11 @@ var documentResult = new InlineQueryResultDocument(
 <li><code>InputOnlineFile</code>:</li>
 </ul>
 <p>In many cases, you can use implicit casting to pass parameters.</p>
-<pre><code class="language-csharp">Stream stream = System.IO.File.OpenRead(&quot;photo.png&quot;);
-var message = await bot.SendPhotoAsync(&quot;chat id&quot;, stream);
+<pre><code class="language-csharp">Stream stream = System.IO.File.OpenRead("photo.png");
+var message = await bot.SendPhotoAsync("chat id", stream);
 
-string fileId = &quot;file_id on Telegram servers&quot;;
-var message = await bot.SendPhotoAsync(&quot;chat id&quot;, fileId);
+string fileId = "file_id on Telegram servers";
+var message = await bot.SendPhotoAsync("chat id", fileId);
 </code></pre>
 <blockquote>
 <p><em>ToDo</em>. implicit casts</p>

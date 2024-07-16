@@ -273,12 +273,12 @@ Text messages are easy to send and fast to display on devices with slower networ
 <p>You can use this code snippet in the event handler from Example Bot page and use <code>chatId</code>
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
-<pre><code class="language-c#">var message = await bot.SendTextMessageAsync(chatId, &quot;Trying &lt;b&gt;all the parameters&lt;/b&gt; of &lt;code&gt;sendMessage&lt;/code&gt; method&quot;,
+<pre><code class="language-c#">var message = await bot.SendTextMessageAsync(chatId, "Trying &lt;b&gt;all the parameters&lt;/b&gt; of &lt;code&gt;sendMessage&lt;/code&gt; method",
     parseMode: ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.MessageId,
     replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl(&quot;Check sendMessage method&quot;, &quot;https://core.telegram.org/bots/api#sendmessage&quot;)));
+        InlineKeyboardButton.WithUrl("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage")));
 </code></pre>
 <p>The method <code>SendTextMessageAsync</code> of .NET Bot Client maps to <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> on Telegram's Bot API. This method sends a
 text message and returns the message object sent.</p>
@@ -293,10 +293,10 @@ Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to t
 <h2 id="the-sent-message"><a class="header" href="#the-sent-message">The Sent Message</a></h2>
 <p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
 <pre><code class="language-c#">Console.WriteLine(
-    $&quot;{message.From.FirstName} sent message {message.MessageId} &quot; +
-    $&quot;to chat {message.Chat.Id} at {message.Date}. &quot; +
-    $&quot;It is a reply to message {message.ReplyToMessage.MessageId} &quot; +
-    $&quot;and has {message.Entities.Length} message entities.&quot;);
+    $"{message.From.FirstName} sent message {message.MessageId} " +
+    $"to chat {message.Chat.Id} at {message.Date}. " +
+    $"It is a reply to message {message.ReplyToMessage.MessageId} " +
+    $"and has {message.Entities.Length} message entities.");
 </code></pre>
 <p>Output should look similar to this:</p>
 <pre><code class="language-text">Awesome bot sent message 123 to chat 123456789 at 8/21/18 11:25:09 AM. It is a reply to message 122 and has 2 message entities.
@@ -309,7 +309,7 @@ Convert it to local time by calling <code>message.Date.ToLocalTime()</code> meth
 Property <code>message.Entities</code> holds the formatting information and <code>message.EntityValues</code> gives you the actual value.
 For example, in the message we just sent:</p>
 <pre><code class="language-c#">message.Entities.First().Type == MessageEntityType.Bold
-message.EntityValues.First()  == &quot;all the parameters&quot;
+message.EntityValues.First()  == "all the parameters"
 </code></pre>
 <p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
 

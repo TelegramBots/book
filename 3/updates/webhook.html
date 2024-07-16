@@ -290,7 +290,7 @@ public async Task HandleUpdate([FromBody] Update update)
 </li>
 </ul>
 <p>Next, you need to map an action for the updates. Typically:</p>
-<pre><code class="language-csharp">app.MapPost(&quot;/bot&quot;, (Update update) =&gt; HandleUpdate(update));
+<pre><code class="language-csharp">app.MapPost("/bot", (Update update) =&gt; HandleUpdate(update));
 ...
 
 async Task HandleUpdate(Update update)
@@ -312,8 +312,8 @@ async Task HandleUpdate(Update update)
 </code></pre>
 <h2 id="setwebhookasync"><a class="header" href="#setwebhookasync">SetWebHookAsync</a></h2>
 <p>Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:</p>
-<pre><code class="language-csharp">var bot = new TelegramBotClient(&quot;YOUR_BOT_TOKEN&quot;);
-await bot.SetWebhookAsync(&quot;https://your.public.host:port/bot&quot;, allowedUpdates: []);
+<pre><code class="language-csharp">var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
+await bot.SetWebhookAsync("https://your.public.host:port/bot", allowedUpdates: []);
 </code></pre>
 <p>You can now deploy your app to your webapp host machine.</p>
 <h2 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h2>

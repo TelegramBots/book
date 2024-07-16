@@ -281,10 +281,10 @@ dotnet add package Telegram.Bot
 </blockquote>
 <pre><code class="language-c#">using Telegram.Bot;
 
-var bot = new TelegramBotClient(&quot;{YOUR_ACCESS_TOKEN_HERE}&quot;);
+var bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
 
 var me = await bot.GetMeAsync();
-Console.WriteLine($&quot;Hello, World! I am user {me.Id} and my name is {me.FirstName}.&quot;);
+Console.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
 </code></pre>
 <p>Running the program gives you the following output:</p>
 <pre><code class="language-bash">dotnet run

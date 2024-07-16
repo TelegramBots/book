@@ -261,7 +261,7 @@
 <p><a href="https://core.telegram.org/bots/api#forwardmessage"><img src="https://img.shields.io/badge/Bot_API_method-forwardMessage-blue.svg?style=flat-square" alt="forward message method" /></a>
 <a href="https://core.telegram.org/bots/api#forwardmessages"><img src="https://img.shields.io/badge/Bot_API_method-forwardMessages-blue.svg?style=flat-square" alt="forward messages method" /></a></p>
 <p>You can <strong>forward</strong> message(s) from a source chat to a target chat <em>(it can be the same chat)</em>.
-They will appear with a &quot;Forwarded from&quot; header.</p>
+They will appear with a "Forwarded from" header.</p>
 <pre><code class="language-csharp">// Forward a single message
 await bot.ForwardMessageAsync(targetChatId, sourceChatId, messageId);
 
@@ -274,7 +274,7 @@ await bot.ForwardMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124,
 <h2 id="copy-messages"><a class="header" href="#copy-messages">Copy message(s)</a></h2>
 <p><a href="https://core.telegram.org/bots/api#copymessage"><img src="https://img.shields.io/badge/Bot_API_method-copyMessage-blue.svg?style=flat-square" alt="copy message method" /></a>
 <a href="https://core.telegram.org/bots/api#copymessages"><img src="https://img.shields.io/badge/Bot_API_method-copyMessages-blue.svg?style=flat-square" alt="copy messages method" /></a></p>
-<p>If you don't want the &quot;Forwarded from&quot; header, you can instead <strong>copy</strong> the message(s).</p>
+<p>If you don't want the "Forwarded from" header, you can instead <strong>copy</strong> the message(s).</p>
 <p>This will make them look like new messages.</p>
 <pre><code class="language-csharp">// Copy a single message
 await bot.CopyMessageAsync(targetChatId, sourceChatId, messageId);
@@ -284,7 +284,7 @@ await bot.CopyMessageAsync(targetChatId, update.Message.Chat, update.Message.Mes
 
 // Copy a media message and change its caption at the same time
 await bot.CopyMessageAsync(targetChatId, update.Message.Chat, update.Message.MessageId,
-    caption: &quot;New &lt;b&gt;caption&lt;/b&gt; for this media&quot;, parseMode: ParseMode.Html);
+    caption: "New &lt;b&gt;caption&lt;/b&gt; for this media", parseMode: ParseMode.Html);
 
 // Copy a bunch of messages from a source ChatId to a target ChatId, using a list of their message ids
 await bot.CopyMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
@@ -304,15 +304,15 @@ await bot.CopyMessageAsync(update.Message.Chat, update.Message.MessageId);
 await bot.DeleteMessagesAsync(chatId, new int[] { 123, 124, 125 });
 </code></pre>
 <h2 id="check-if-a-message-is-a-forward"><a class="header" href="#check-if-a-message-is-a-forward">Check if a message is a forward</a></h2>
-<p>When receiving an update about a message, you can check if that message is &quot;Forwarded from&quot; somewhere,
+<p>When receiving an update about a message, you can check if that message is "Forwarded from" somewhere,
 by checking if <code>Message.ForwardOrigin</code> is set:</p>
 <pre><code class="language-csharp">Console.WriteLine(update.Message.ForwardOrigin switch
 {
-    MessageOriginChannel moc     =&gt; $&quot;Forwarded from channel {moc.Chat.Title}&quot;,
-    MessageOriginUser mou        =&gt; $&quot;Forwarded from user {mou.SenderUser}&quot;,
-    MessageOriginHiddenUser mohu =&gt; $&quot;Forwarded from hidden user {mohu.SenderUserName}&quot;,
-    MessageOriginChat moch       =&gt; $&quot;Forwarded on behalf of {moch.SenderChat}&quot;,
-    _                            =&gt; &quot;Not forwarded&quot;
+    MessageOriginChannel moc     =&gt; $"Forwarded from channel {moc.Chat.Title}",
+    MessageOriginUser mou        =&gt; $"Forwarded from user {mou.SenderUser}",
+    MessageOriginHiddenUser mohu =&gt; $"Forwarded from hidden user {mohu.SenderUserName}",
+    MessageOriginChat moch       =&gt; $"Forwarded on behalf of {moch.SenderChat}",
+    _                            =&gt; "Not forwarded"
 });
 </code></pre>
 

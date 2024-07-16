@@ -276,13 +276,13 @@ var filePath = fileInfo.FilePath;
 </code></pre>
 <p>The URL from which you can now download the file is <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</p>
 <p>To download file you can use <code>DownloadFileAsync</code> function:</p>
-<pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
+<pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
 await bot.DownloadFileAsync(filePath, fileStream);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFileAsync</code>:</p>
-<pre><code class="language-C#">const string destinationFilePath = &quot;../downloaded.file&quot;;
+<pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
 var file = await bot.GetInfoAndDownloadFileAsync(fileId, fileStream);

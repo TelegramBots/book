@@ -301,10 +301,10 @@ You need to create an instance of <code>TelegramBotClientOptions</code> and pass
 <pre><code class="language-csharp">using Telegram.Bot;
 
 var options = new TelegramBotClientOptions(
-    token: &quot;&lt;token&gt;&quot;
+    token: "&lt;token&gt;"
 
     // pass an optional baseUrl if you want to use a custom bot server
-    baseUrl: &quot;https://custombotserverdomain.com&quot;,
+    baseUrl: "https://custombotserverdomain.com",
 
     // pass an optional flag `true` if you want to use test environment
     useTestEnvironment = true
@@ -315,7 +315,7 @@ var client = new TelegramBotClient(options);
 <p>If you don't know about test environment you can read more about it in the official
 <a href="https://core.telegram.org/bots/webapps#using-bots-in-the-test-environment">documentation</a>.</p>
 <p>If you don't need extra configuration options you can still use the constructor that accepts a token and an instance of <code>HttpClient</code>:</p>
-<pre><code class="language-csharp">var client = new TelegramBotClient(&quot;&lt;token&gt;&quot;);
+<pre><code class="language-csharp">var client = new TelegramBotClient("&lt;token&gt;");
 </code></pre>
 <h2 id="6-polling-functionality-in-the-core-library"><a class="header" href="#6-polling-functionality-in-the-core-library">6. Polling functionality in the core library</a></h2>
 <p>The latest biggest change which is not a breaking one, but nevertheless worth a note: deprecation of

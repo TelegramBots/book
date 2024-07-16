@@ -259,18 +259,18 @@
 <p><a href="https://core.telegram.org/bots/api#sendcontact"><img src="https://img.shields.io/badge/Bot_API_method-sendContact-blue.svg?style=flat-square" alt="send contact method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingContactMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Contact-green.svg?style=flat-square" alt="send contacts tests" /></a></p>
 <p>This is the code to send a contact. Mandatory are the parameters <code>chatId</code>, <code>phoneNumber</code> and <code>firstName</code>.</p>
-<pre><code class="language-c#">await bot.SendContactAsync(chatId, phoneNumber: &quot;+1234567890&quot;, firstName: &quot;Han&quot;, lastName: &quot;Solo&quot;);
+<pre><code class="language-c#">await bot.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han", lastName: "Solo");
 </code></pre>
 <p><img src="../docs/shot-contact.jpg" alt="send contact" /></p>
 <p>If you want to send a contact as vCard you can achieve  this by adding a valid vCard <code>string</code> as value for the optional parameter <code>vCard</code> as seen in the given example below.</p>
-<pre><code class="language-c#">await bot.SendContactAsync(chatId, phoneNumber: &quot;+1234567890&quot;, firstName: &quot;Han&quot;,
-    vcard: &quot;BEGIN:VCARD\n&quot; +
-           &quot;VERSION:3.0\n&quot; +
-           &quot;N:Solo;Han\n&quot; +
-           &quot;ORG:Scruffy-looking nerf herder\n&quot; +
-           &quot;TEL;TYPE=voice,work,pref:+1234567890\n&quot; +
-           &quot;EMAIL:hansolo@mfalcon.com\n&quot; +
-           &quot;END:VCARD&quot;);
+<pre><code class="language-c#">await bot.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han",
+    vcard: "BEGIN:VCARD\n" +
+           "VERSION:3.0\n" +
+           "N:Solo;Han\n" +
+           "ORG:Scruffy-looking nerf herder\n" +
+           "TEL;TYPE=voice,work,pref:+1234567890\n" +
+           "EMAIL:hansolo@mfalcon.com\n" +
+           "END:VCARD");
 </code></pre>
 <p><img src="../docs/shot-contact_vcard.jpg" alt="send vcard" /></p>
 <h2 id="venue"><a class="header" href="#venue">Venue</a></h2>
@@ -278,7 +278,7 @@
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Venue-green.svg?style=flat-square" alt="send venue tests" /></a></p>
 <p>The code snippet below sends a venue with a title and a address as given parameters:</p>
 <pre><code class="language-c#">await bot.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
-    title: &quot;Man Hanging out&quot;, address: &quot;Husova, 110 00 Staré Město, Czechia&quot;);
+    title: "Man Hanging out", address: "Husova, 110 00 Staré Město, Czechia");
 </code></pre>
 <p><img src="../docs/shot-venue.jpg" alt="send contact" /></p>
 <h2 id="location"><a class="header" href="#location">Location</a></h2>

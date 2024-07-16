@@ -282,13 +282,13 @@
 <li><code>ReactionType</code>: just pass a <code>long</code> when you want to send a custom emoji (id)</li>
 <li>Some other obvious implicit conversion operators for structures containing a single property</li>
 <li>No more enforcing <code>init;</code> properties, so you can adjust the content of fields as you wish or modify a structure returned by the API <em>(before passing it back to the API if you want)</em></li>
-<li>No more JSON &quot;required properties&quot; during deserialization, so your old saved JSON files won't break if a field is added/renamed.</li>
+<li>No more JSON "required properties" during deserialization, so your old saved JSON files won't break if a field is added/renamed.</li>
 <li>Restored some <code>MessageType</code> enum values that were removed (renamed) recently (easier compatibility)</li>
 </ul>
 <h2 id="maybeinaccessiblemessage"><a class="header" href="#maybeinaccessiblemessage">MaybeInaccessibleMessage</a></h2>
 <p>This class hierarchy was introduced in Bot API 7.0 and broke existing code and added unnecessary complexity.</p>
 <p>This was removed in our library v21 and you will just receive directly a Message <em>(as before)</em>.</p>
-<p>To identify an &quot;inaccessible message&quot;, you can just check <code>message.Type == MessageType.Unknown</code> or <code>message.Date == default</code>.</p>
+<p>To identify an "inaccessible message", you can just check <code>message.Type == MessageType.Unknown</code> or <code>message.Date == default</code>.</p>
 <h2 id="chat-and-chatfullinfo"><a class="header" href="#chat-and-chatfullinfo">Chat and ChatFullInfo</a></h2>
 <p>In previous versions, the big <code>Chat</code> structure contained many fields that were filled only after a call to GetChatAsync.</p>
 <p>This structure is now split into <code>Chat</code> and <code>ChatFullInfo</code> structures.</p>
@@ -302,8 +302,8 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <h2 id="payments-with-telegram-stars"><a class="header" href="#payments-with-telegram-stars">Payments with Telegram Stars</a></h2>
 <p>To make a payment in <a href="https://t.me/BotNews/90">Telegram Stars</a> with SendInvoiceAsync, set the following parameters:</p>
 <ul>
-<li><code>providerToken:</code> <code>null</code> or <code>&quot;&quot;</code></li>
-<li><code>currency:</code> <code>&quot;XTR&quot;</code></li>
+<li><code>providerToken:</code> <code>null</code> or <code>""</code></li>
+<li><code>currency:</code> <code>"XTR"</code></li>
 <li><code>prices:</code> with a single price</li>
 <li>no tip amounts</li>
 </ul>
@@ -318,9 +318,9 @@ The new <code>ChatFullInfo</code> structure inherits from <code>Chat</code> and 
 <p>SendPollAsync now expect an array of InputPollOption instead of string.</p>
 <p>But we added an implicit conversion from string to InputPollOption, so the change is minimal:</p>
 <pre><code class="language-csharp">// before:
-await bot.SendPollAsync(chatId, &quot;question&quot;, new[] { &quot;answer1&quot;, &quot;answer2&quot; });
+await bot.SendPollAsync(chatId, "question", new[] { "answer1", "answer2" });
 // after:
-await bot.SendPollAsync(chatId, &quot;question&quot;, new InputPollOption[] { &quot;answer1&quot;, &quot;answer2&quot; });
+await bot.SendPollAsync(chatId, "question", new InputPollOption[] { "answer1", "answer2" });
 </code></pre>
 <h2 id="global-cancellation-token-v212"><a class="header" href="#global-cancellation-token-v212">Global cancellation token (v21.2)</a></h2>
 <p>You can now specify a global <code>CancellationToken</code> directly in TelegramBotClient constructor.</p>
@@ -360,10 +360,10 @@ this would previously stop the polling completely.</p>
 <li>Reply/Inline Keyboard Markup now have construction methods to simplify building keyboards dynamically:</li>
 </ul>
 <pre><code class="language-csharp">var replyMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithUrl(&quot;Link to Repository&quot;, &quot;https://github.com/TelegramBots/Telegram.Bot&quot;))
-    .AddNewRow().AddButton(&quot;callback&quot;).AddButton(&quot;caption&quot;, &quot;data&quot;)
-    .AddNewRow(&quot;with&quot;, &quot;three&quot;, &quot;buttons&quot;)
-    .AddNewRow().AddButtons(&quot;A&quot;, &quot;B&quot;, InlineKeyboardButton.WithSwitchInlineQueryCurrentChat(&quot;switch&quot;));
+    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddNewRow().AddButton("callback").AddButton("caption", "data")
+    .AddNewRow("with", "three", "buttons")
+    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
 </code></pre>
 <ul>
 <li>Same for ReplyKeyboardMarkup (and you can use <code>new ReplyKeyboardMarkup(true)</code> to resize keyboard)</li>

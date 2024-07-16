@@ -254,7 +254,7 @@
 
 </style>
 <h1 id="passport-files-and-documents"><a class="header" href="#passport-files-and-documents">Passport Files and Documents</a></h1>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square" alt="driver's license scope tests" /></a></p>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square" alt="driver&#39;s license scope tests" /></a></p>
 <p>We use the driver's license scope here to show decryption of <em>ID document data</em> and <em>passport files</em> for
 front side scan, reverse side scan, selfie photo, and translation scan.
 That should cover most of the <a href="https://core.telegram.org/passport#fields">field types in Telegram Passport</a>.</p>
@@ -282,13 +282,13 @@ Here are the steps:</p>
 <p>We start by generating an authorization URI.
 Since a driver's license is considered as a proof of identity, we ask for optional data <em>selfie with document</em> and
 <em>translation document scan</em> as well.</p>
-<p><img src="../docs/shot-passport_driver_license_link.jpg" alt="driver's license passport link" /></p>
+<p><img src="../docs/shot-passport_driver_license_link.jpg" alt="driver&#39;s license passport link" /></p>
 <h2 id="drivers-license-info"><a class="header" href="#drivers-license-info">Driver's License Info</a></h2>
 <p>As a user, provide information for the required fields: front side, reverse side, and document number.
 Also, test methods here expect a selfie photo and a file for translation scan.</p>
-<p><img src="../docs/shot-passport_driver_license1.jpg" alt="driver's license passport 1" />
-<img src="../docs/shot-passport_driver_license2.jpg" alt="driver's license passport 2" />
-<img src="../docs/shot-passport_driver_license3.jpg" alt="driver's license passport 3" /></p>
+<p><img src="../docs/shot-passport_driver_license1.jpg" alt="driver&#39;s license passport 1" />
+<img src="../docs/shot-passport_driver_license2.jpg" alt="driver&#39;s license passport 2" />
+<img src="../docs/shot-passport_driver_license3.jpg" alt="driver&#39;s license passport 3" /></p>
 <p>Click the <em>Authorize</em> button at the end.</p>
 <h2 id="passport-message"><a class="header" href="#passport-message">Passport Message</a></h2>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
@@ -305,7 +305,7 @@ Credentials credentials = decrypter.DecryptCredentials(
     passportData.Credentials,
     key
 );
-bool isSameNonce = credentials.Nonce == &quot;Test nonce for driver's license&quot;;
+bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 </code></pre>
 <h2 id="id-document-data"><a class="header" href="#id-document-data">ID Document Data</a></h2>
 <p><a href="https://core.telegram.org/passport#iddocumentdata"><img src="https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square" alt="IdDocumentData type" /></a></p>
@@ -339,7 +339,7 @@ Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport
 <li>Writes the actual content to the destination stream</li>
 </ol>
 <pre><code class="language-c#">File encryptedFileInfo;
-using (System.IO.Stream stream = System.IO.File.OpenWrite(&quot;/path/to/front-side.jpg&quot;))
+using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
     encryptedFileInfo = await bot.DownloadAndDecryptPassportFileAsync(
         element.FrontSide, // PassportFile object for front side
@@ -362,7 +362,7 @@ Streams are used here as well.</p>
 <pre><code class="language-c#">File encryptedFileInfo;
 using (System.IO.Stream
     encryptedContent = new System.IO.MemoryStream(element.ReverseSide.FileSize),
-    decryptedFile = System.IO.File.OpenWrite(&quot;/path/to/reverse-side.jpg&quot;)
+    decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
 ) {
     // fetch the encrypted file info and download it to memory
     encryptedFileInfo = await bot.GetInfoAndDownloadFileAsync(
@@ -409,7 +409,7 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
     await bot.SendPhotoAsync(
         123456,
         stream,
-        &quot;selfie with driver's license&quot;
+        "selfie with driver's license"
     );
 }
 </code></pre>
@@ -444,7 +444,7 @@ byte[] content = decrypter.DecryptFile(
 );
 
 // write the file to disk
-await System.IO.File.WriteAllBytesAsync(&quot;/path/to/translation.jpg&quot;, content);
+await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 </code></pre>
 <!-- ----------- -->
 

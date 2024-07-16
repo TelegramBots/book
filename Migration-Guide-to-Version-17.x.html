@@ -270,7 +270,7 @@
 <p>Look at the following example on how to handle different kinds of exceptions. You might not need to implement everything as you see, it's there only for demonstration purposes.</p>
 <pre><code class="language-csharp">try
 {
-    await bot.SendTextMessageAsync(chatId, &quot;Hello&quot;);
+    await bot.SendTextMessageAsync(chatId, "Hello");
 }
 catch (ApiRequestException exception)
 {
@@ -367,8 +367,8 @@ if (chatMember is ChatMemberKicked kickedMember)
 <pre><code class="language-csharp">var replyKeyboardMarkup = new ReplyKeyboardMarkup(
     new KeyboardButton[][]
     {
-        new KeyboardButton[] { &quot;1.1&quot;, &quot;1.2&quot; },
-        new KeyboardButton[] { &quot;2.1&quot;, &quot;2.2&quot; },
+        new KeyboardButton[] { "1.1", "1.2" },
+        new KeyboardButton[] { "2.1", "2.2" },
     })
     {
         ResizeKeyboard = true

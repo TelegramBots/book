@@ -321,7 +321,7 @@ Other cloud providers might also offer similar services.</p>
 <p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhookAsync</code>:<code>dropPendingUpdates</code></p>
 <h3 id="20-difficulties-to-upload--send-a-filemedia"><a class="header" href="#20-difficulties-to-upload--send-a-filemedia"><em>20. Difficulties to upload &amp; send a file/media?</em></a></h3>
 <ul>
-<li>Make sure you <code>await</code> until the end of the send method before closing the file (a &quot;<code>using</code>&quot; clause would close the file on leaving the current { scope }</li>
+<li>Make sure you <code>await</code> until the end of the send method before closing the file (a "<code>using</code>" clause would close the file on leaving the current { scope }</li>
 <li>If you just filled a <code>MemoryStream</code>, make sure to rewind it to the beginning with <code>ms.Position = 0;</code> before sending</li>
 <li>If you send a media group, make sure you specify different filenames on <code>InputFile.FromStream</code></li>
 </ul>

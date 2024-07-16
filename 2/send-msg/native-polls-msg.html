@@ -260,12 +260,12 @@
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
 <pre><code class="language-c#">
-var pollMessage = await bot.SendPollAsync(&quot;@channel_name&quot;,
-    &quot;Did you ever hear the tragedy of Darth Plagueis The Wise?&quot;,
+var pollMessage = await bot.SendPollAsync("@channel_name",
+    "Did you ever hear the tragedy of Darth Plagueis The Wise?",
     new InputPollOption[]
     {
-        &quot;Yes for the hundredth time!&quot;,
-        &quot;No, who`s that?&quot;
+        "Yes for the hundredth time!",
+        "No, who`s that?"
     });
 </code></pre>
 <p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
