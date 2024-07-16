@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Include="..\src\**\*" />
+    <None Include="..\.github\workflows\ci.yml" Link="ci.yml" />
   </ItemGroup>
 
   <ItemGroup>

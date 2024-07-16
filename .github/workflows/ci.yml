@@ -17,18 +17,24 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Setup mdBook
-      uses: peaceiris/actions-mdbook@v2
+
+    - name: Install mdbook and cargo-binstall binaries
+      uses: taiki-e/install-action@v2
       with:
-        mdbook-version: '0.4.36'
-    # - uses: actions-rs/toolchain@v1
+        tool: mdbook,cargo-binstall
+    - name: Install mdbook extensions
+      run: cargo binstall -y mdbook-mermaid mdbook-alerts
+
+    # - name: Setup mdBook
+    #   uses: peaceiris/actions-mdbook@v2
     #   with:
-    #     toolchain: stable
-    - run: cargo install mdbook-alerts
-    - name: Setup nodejs
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+    #     mdbook-version: '0.4.36'
+    # - run: cargo install mdbook-alerts
+    # - name: Setup nodejs
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '18'
+
     # - name: Setup linter and spellchecker cli
     #   run: npm install --location=global markdownlint-cli cspell
     # - name: Lint markdown files
