@@ -91,7 +91,7 @@ Telegram will consider it a temporary failure and will RESEND the same update a 
   ```csharp
   if (update.Id <= LastUpdateId) return;
   LastUpdateId = update.Id;
-  // put your code to handle the Update here.
+  // your code to handle the Update here.
   ```
 - Most web hostings will recycle your app after some HTTP inactivity (= stop your app and restart it on the next HTTP request)  
   To prevent issues like this:
