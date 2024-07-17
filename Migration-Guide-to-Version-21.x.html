@@ -370,6 +370,18 @@ this would previously stop the polling completely.</p>
 </ul>
 <p>As <a href="#request-structures">previously announced</a>, the Request-typed methods are gone.
 But you can still send Request structures via the <code>MakeRequestAsync</code> method.</p>
+<h2 id="simplified-polling-with-events-v217"><a class="header" href="#simplified-polling-with-events-v217">Simplified polling with events (v21.7)</a></h2>
+<p>Instead of <code>StartReceiving</code>/<code>ReceiveAsync</code> system, you can now simply set 2 or 3 events on the botClient:</p>
+<ul>
+<li><code>bot.OnMessage += ...</code> to receive Message updates</li>
+<li><code>bot.OnUpdate += ...</code> to receive other updates <em>(or <ins>all</ins> updates if you don't set <code>OnMessage</code>)</em></li>
+<li><code>bot.OnError += ...</code> to handle errors/exceptions during polling or your handlers</li>
+</ul>
+<p>Note: The second argument to <code>OnMessage</code> events specify which kind of update it was (if it's an <em>edited</em>, <em>channel</em> or <em>business</em> message)</p>
+<p>When you assign those events, polling starts automatically, you don't have anything to do.<br />
+Polling will stop when you remove (<code>-=</code>) your events, or when you cancel the <a href="#global-cancellation-token-v212">global cancellation token</a></p>
+<p>You can also use <code>await bot.DropPendingUpdateAsync()</code> before setting those events in order to ignore past updates.</p>
+<p>The <a href="(https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console)">Console example project</a> has been updated to demonstrate these events.</p>
 
                     </main>
 
