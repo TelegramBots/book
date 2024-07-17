@@ -145,3 +145,18 @@ var replyMarkup = new InlineKeyboardMarkup()
 As [previously announced](#request-structures), the Request-typed methods are gone.
 But you can still send Request structures via the `MakeRequestAsync` method.
 
+## Simplified polling with events (v21.7)
+
+Instead of `StartReceiving`/`ReceiveAsync` system, you can now simply set 2 or 3 events on the botClient:
+- `bot.OnMessage += ...` to receive Message updates
+- `bot.OnUpdate += ...` to receive other updates _(or <ins>all</ins> updates if you don't set `OnMessage`)_
+- `bot.OnError += ...` to handle errors/exceptions during polling or your handlers
+
+Note: The second argument to `OnMessage` events specify which kind of update it was (if it's an _edited_, _channel_ or _business_ message)
+
+When you assign those events, polling starts automatically, you don't have anything to do.  
+Polling will stop when you remove (`-=`) your events, or when you cancel the [global cancellation token](#global-cancellation-token-v212)
+
+You can also use `await bot.DropPendingUpdateAsync()` before setting those events in order to ignore past updates.
+
+The [Console example project]((https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console)) has been updated to demonstrate these events.

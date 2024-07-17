@@ -5,7 +5,7 @@
 
 With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.
 
-Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings as presented in `Telegram.Bot.Serialization.JsonSerializerOptionsProvider.Options`.
+Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings `Telegram.Bot.JsonBotAPI.Options`.
 
 Below, you will find how to configure an **ASP.NET Core Web API** project to make it work with Telegram.Bot, either with Controllers or Minimal APIs
 
@@ -63,7 +63,7 @@ public async Task<IHttpActionResult> Post()
 {
     Update update;
     using (var body = await Request.Content.ReadAsStreamAsync())
-        update = System.Text.Json.JsonSerializer.Deserialize<Update>(body, JsonSerializerOptionsProvider.Options);
+        update = System.Text.Json.JsonSerializer.Deserialize<Update>(body, JsonBotAPI.Options);
     await HandleUpdate(update);
     return Ok();
 }
@@ -87,7 +87,7 @@ Useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a853)
 - [Official webhook guide](https://core.telegram.org/bots/webhooks)
 - If your update handler throws an exception or takes too much time to return,
 Telegram will consider it a temporary failure and will RESEND the same update a bit later.  
-  So you may want to prevent handling the same update.Id twice:
+  You may want to prevent handling the same update.Id twice:
   ```csharp
   if (update.Id <= LastUpdateId) return;
   LastUpdateId = update.Id;
