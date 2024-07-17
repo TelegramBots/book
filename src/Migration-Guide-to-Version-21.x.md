@@ -159,4 +159,4 @@ Polling will stop when you remove (`-=`) your events, or when you cancel the [gl
 
 You can also use `await bot.DropPendingUpdateAsync()` before setting those events in order to ignore past updates.
 
-The [Console example project]((https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console)) has been updated to demonstrate these events.
+The [Console example project](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console) has been updated to demonstrate these events.
