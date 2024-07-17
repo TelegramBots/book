@@ -157,6 +157,6 @@ Note: The second argument to `OnMessage` events specify which kind of update it 
 When you assign those events, polling starts automatically, you don't have anything to do.  
 Polling will stop when you remove (`-=`) your events, or when you cancel the [global cancellation token](#global-cancellation-token-v212)
 
-You can also use `await bot.DropPendingUpdateAsync()` before setting those events in order to ignore past updates.
+You can also use `await bot.DropPendingUpdatesAsync()` before setting those events in order to ignore past updates.
 
 The [Console example project](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console) has been updated to demonstrate these events.
