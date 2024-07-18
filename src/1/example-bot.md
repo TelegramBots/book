@@ -1,18 +1,36 @@
-# Full Example - Your first bot
+# Your First Chat Bot
 
-On the [previous page] we got an access token and used the [`getMe`] method to check our setup.
+On the [previous page](quickstart.md) we got a bot token and used the [`getMe`](https://core.telegram.org/bots/api#getme) method to check our setup.
 Now, it is time to make an _interactive_ bot that gets users' messages and replies to them like in this screenshot:
 
 ![Example Image](docs/shot-example_bot.jpg)
 
 Copy the following code to `Program.cs`.
 
-> ⚠️ Replace `{YOUR_ACCESS_TOKEN_HERE}` with the access token from the [`@BotFather`].
+> ⚠️ Replace `YOUR_BOT_TOKEN` with the bot token obtained from [`@BotFather`].
 
 ```c#
-{{#include ../../Examples/1/ExampleBot.cs:usings}}
+using Telegram.Bot;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
-{{#include ../../Examples/1/ExampleBot.cs:example-bot}}
+using var cts = new CancellationTokenSource();
+var bot = new TelegramBotClient("YOUR_BOT_TOKEN", cancellationToken: cts.Token);
+var me = await bot.GetMeAsync();
+bot.OnMessage += OnMessage;
+
+Console.WriteLine($"@{me.Username} is running... Press Enter to terminate");
+Console.ReadLine();
+cts.Cancel(); // stop the bot
+
+// method that handle messages received by the bot:
+async Task OnMessage(Message msg, UpdateType type)
+{
+    if (msg.Text is null) return;	// we only handle Text messages here
+    Console.WriteLine($"Received {type} '{msg.Text}' in {msg.Chat}");
+    // let's echo back received text in the chat
+    await bot.SendTextMessageAsync(msg.Chat, $"{msg.From} said: {msg.Text}");
+}
 ```
 
 Run the program:
@@ -22,27 +40,21 @@ dotnet run
 ```
 
 It runs waiting for text messages unless forcefully stopped by pressing Enter. Open a private chat with your bot in
-Telegram and send a text message to it. Bot should reply in no time.
+Telegram and send a text message to it. Bot should reply immediately.
 
-By invoking [`StartReceiving(...)`] bot client starts fetching updates using [`getUpdates`] method for the bot
-from Telegram servers. This operation does not block the caller thread, because it is done on the ThreadPool. We use `Console.ReadLine()` to keep the app running.
+By setting `bot.OnMessage`, the bot client starts polling Telegram servers for messages received by the bot.
+This is done automatically in the background, so your program continue to execute and we use `Console.ReadLine()` to keep it running until you press Enter.
 
-When user sends a message, the `OnUpdate(...)` method gets invoked with the `Update` object passed as an argument.
+When user sends a message, the `OnMessage(...)` method gets invoked with the `Message` object passed as an argument (and the type of update).
+
 We check `Message.Type` and skip the rest if it is not a text message.
 Finally, we send a text message back to the same chat we got the message from.
 
-The second argument to `StartReceiving` is a lambda method invoked in case of an error that occurred while fetching updates.
-
-If you take a look at the console, the program outputs the `chatId` value. **Copy the chat id number** to make testing easier
-for yourself on the next pages.
+If you take a look at the console, the program outputs the `chatId` numeric value.  
+In a private chat with you, it would be your `userId`, so remember it as it's useful to send yourself messages.
 
 ```text
-Received a 'text' message in chat 123456789.
+Received Message 'test' in Private chat with @You (123456789).
 ```
 
 <!-- -->
-
-[previous page]: quickstart.md
-[`getMe`]: https://core.telegram.org/bots/api#getme
-[`getUpdates`]: https://core.telegram.org/bots/api#getupdates
-[`StartReceiving(...)`]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling/blob/master/src/Telegram.Bot.Extensions.Polling/Extensions/TelegramBotClientPollingExtensions.cs

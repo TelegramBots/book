@@ -5,7 +5,7 @@ namespace Examples.Chapter3;
 
 internal class Files
 {
-    public readonly ITelegramBotClient bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ITelegramBotClient bot = new TelegramBotClient("YOUR_BOT_TOKEN");
     public readonly ChatId chatId = 12345;
     public readonly Update update = new();
 

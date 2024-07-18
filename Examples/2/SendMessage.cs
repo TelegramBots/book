@@ -7,7 +7,7 @@ namespace Examples.Chapter2;
 
 internal class SendMessage
 {
-    public readonly ITelegramBotClient bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ITelegramBotClient bot = new TelegramBotClient("YOUR_BOT_TOKEN");
     public readonly ChatId chatId = 12345;
     public readonly Update update = new ();
 
@@ -90,7 +90,7 @@ var pollMessage = await bot.SendPollAsync("@channel_name",
 // ANCHOR_END: send-poll
 
 // ANCHOR: stop-poll
-Poll poll = await bot.StopPollAsync(pollMessage.Chat.Id, pollMessage.MessageId);
+Poll poll = await bot.StopPollAsync(pollMessage.Chat, pollMessage.MessageId);
 // ANCHOR_END: stop-poll
     }
 

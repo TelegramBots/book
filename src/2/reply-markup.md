@@ -22,7 +22,7 @@ A [`ReplyKeyboardMarkup`] with two buttons in a single row:
 {{#include ../../Examples/2/ReplyMarkup.cs:single-row}}
 ```
 
-> We specify `ResizeKeyboard = true` here to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).
+> We specify `true` on the constructor to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).
 
 ### Multi-row keyboard markup
 
@@ -33,8 +33,6 @@ A [`ReplyKeyboardMarkup`] with two rows of buttons:
 
 {{#include ../../Examples/2/ReplyMarkup.cs:multiple-row}}
 ```
-
-You can use `new List<List<KeyboardButton>>` instead of `KeyboardButton[][]` if you prefer to build the list dynamically.
 
 ### Request information
 
@@ -62,20 +60,20 @@ There are times when you'd prefer to do things without sending any messages to t
 
 Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't result in messages sent to the chat. Instead, inline keyboards support buttons that work behind the scenes: [callback buttons](#callback-buttons), [URL buttons](#url-buttons) and [switch to inline buttons](#switch-to-inline-buttons).
 
+You can have several rows and columns of inline buttons of mixed types.
+
 ### Callback buttons
 
 When a user presses a [callback button], no messages are sent to the chat, and your bot simply receives an `update.CallbackQuery` instead.
 Upon receiving this, your bot should answer to that query within 10 seconds, using `AnswerCallbackQueryAsync` _(or else the button gets momentarily disabled)_
 
-In this example we use `InlineKeyboardButton.WithCallbackData` helper method to create a button with a text and callback data:
+In this example we use the `AddButton(buttonText, callbackData)` helper, but you can also create such button with `InlineKeyboardButton.WithCallbackData`:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
 
 {{#include ../../Examples/2/ReplyMarkup.cs:callback-buttons}}
 ```
-
-You can use `new List<List<InlineKeyboardButton>>` instead of `InlineKeyboardButton[][]` if you prefer to build the list dynamically.
 
 ### URL buttons
 
@@ -100,7 +98,7 @@ Pressing a [switch to inline button] prompts the user to select a chat, opens it
 [special keyboard]: https://core.telegram.org/bots#keyboards
 [`ReplyKeyboardMarkup`]: https://core.telegram.org/bots/api/#replykeyboardmarkup
 [`KeyboardButton`]: https://core.telegram.org/bots/api/#keyboardbutton
-[Inline Keyboards]: https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
+[Inline Keyboards]: https://core.telegram.org/bots/features#inline-keyboards
 [callback button]: https://core.telegram.org/bots/2-0-intro#callback-buttons
 [URL button]: https://core.telegram.org/bots/2-0-intro#url-buttons
 [switch to inline button]: https://core.telegram.org/bots/2-0-intro#switch-to-inline-buttons
