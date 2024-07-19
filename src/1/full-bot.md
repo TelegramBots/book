@@ -2,7 +2,7 @@
 
 On the [previous page](example-bot.md) we got a basic bot reacting to messages via `bot.OnMessage`.
 
-Now, we are going set also `bot.OnUpdate` and `bot.OnError` to make a more complete bot
+Now, we are going to set also `bot.OnUpdate` and `bot.OnError` to make a more complete bot
 
 Modify your `Program.cs` to the following:
 
@@ -11,6 +11,7 @@ using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 using var cts = new CancellationTokenSource();
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN", cancellationToken: cts.Token);
@@ -52,7 +53,7 @@ async Task OnUpdate(Update update)
 
 Run the program and send `/start` to the bot.
 > [!NOTE]  
-> `/start` is the first message your bot receives automatically when a user interact in private with the bot for the first time
+> `/start` is the first message your bot receives automatically when a user interacts in private with the bot for the first time
 
 The bot will reply with its welcome message and 2 inline buttons for you to choose.
 
