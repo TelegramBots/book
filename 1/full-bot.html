@@ -255,12 +255,13 @@
 </style>
 <h1 id="full-example"><a class="header" href="#full-example">Full Example</a></h1>
 <p>On the <a href="example-bot.html">previous page</a> we got a basic bot reacting to messages via <code>bot.OnMessage</code>.</p>
-<p>Now, we are going set also <code>bot.OnUpdate</code> and <code>bot.OnError</code> to make a more complete bot</p>
+<p>Now, we are going to set also <code>bot.OnUpdate</code> and <code>bot.OnError</code> to make a more complete bot</p>
 <p>Modify your <code>Program.cs</code> to the following:</p>
 <pre><code class="language-c#">using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 using var cts = new CancellationTokenSource();
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN", cancellationToken: cts.Token);
@@ -305,7 +306,7 @@ async Task OnUpdate(Update update)
   <span class="mdbook-alerts-icon"></span>
   note
 </p>
-<p><code>/start</code> is the first message your bot receives automatically when a user interact in private with the bot for the first time</p>
+<p><code>/start</code> is the first message your bot receives automatically when a user interacts in private with the bot for the first time</p>
 </div>
 <p>The bot will reply with its welcome message and 2 inline buttons for you to choose.</p>
 <p>When you click on a button, your bot receives an Update of type <strong>CallbackQuery</strong> that is not a simple message.<br />
