@@ -58,7 +58,7 @@ Set the `media.Caption` (and `media.ParseMode`) on the first media
 
 ### _13. How to write a bot that make questions/answers with users?_
 Either you can code a complex state machine workflow, saving where each user is currently in the discussion.  
-Or you can just use [YourEasyBot](https://github.com/wiz0u/YourEasyBot) which makes sequential bots very simple to write... _(or one of the [other frameworks](https://github.com/TelegramBots/Telegram.Bot/issues/1072) available for Telegram.Bot)_
+Or you can just use [YourEasyBot](https://github.com/wiz0u/YourEasyBot) which makes sequential bots very simple to write... _(or one of the [other frameworks](https://github.com/TelegramBots/Telegram.Bot/wiki) available for Telegram.Bot)_
 
 ### _14. How to make font effects in message?_
 Pass a `ParseMode.Html` _(or `ParseMode.MarkDownV2`)_ to argument `parseMode`. See [formatting options](https://core.telegram.org/bots/api#formatting-options).  

@@ -1,7 +1,8 @@
 # Webhooks
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
-[![Webhook ASP.NET example](https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
+[![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
+[![ASP.NET example with Minimal APIs](https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
 
 With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.
 
@@ -77,6 +78,8 @@ await bot.SetWebhookAsync("https://your.public.host:port/bot", allowedUpdates: [
 ```
 
 You can now deploy your app to your webapp host machine.
+
+_Note: If you decide to switch back to [Long Polling](polling.md), remember to call `bot.DeleteWebhookAsync()`_
 
 ## Common issues
 
