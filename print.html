@@ -2284,7 +2284,8 @@ while (!cts.IsCancellationRequested)
 </style>
 <h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
 <p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-ASP.NET%20WebApp-green?style=flat-square" alt="Webhook ASP.NET example" /></a></p>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers"><img src="https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square" alt="ASP.NET example with Controllers" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square" alt="ASP.NET example with Minimal APIs" /></a></p>
 <p>With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.</p>
 <p>Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings <code>Telegram.Bot.JsonBotAPI.Options</code>.</p>
 <p>Below, you will find how to configure an <strong>ASP.NET Core Web API</strong> project to make it work with Telegram.Bot, either with Controllers or Minimal APIs</p>
@@ -2345,6 +2346,7 @@ async Task HandleUpdate(Update update)
 await bot.SetWebhookAsync("https://your.public.host:port/bot", allowedUpdates: []);
 </code></pre>
 <p>You can now deploy your app to your webapp host machine.</p>
+<p><em>Note: If you decide to switch back to <a href="3/updates/polling.html">Long Polling</a>, remember to call <code>bot.DeleteWebhookAsync()</code></em></p>
 <h2 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h2>
 <ul>
 <li>You need a supported certificate
@@ -5128,7 +5130,7 @@ If you didn't record that info, you can try to <code>SendChatActionAsync</code> 
 <p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first media</p>
 <h3 id="13-how-to-write-a-bot-that-make-questionsanswers-with-users"><a class="header" href="#13-how-to-write-a-bot-that-make-questionsanswers-with-users"><em>13. How to write a bot that make questions/answers with users?</em></a></h3>
 <p>Either you can code a complex state machine workflow, saving where each user is currently in the discussion.<br />
-Or you can just use <a href="https://github.com/wiz0u/YourEasyBot">YourEasyBot</a> which makes sequential bots very simple to write... <em>(or one of the <a href="https://github.com/TelegramBots/Telegram.Bot/issues/1072">other frameworks</a> available for Telegram.Bot)</em></p>
+Or you can just use <a href="https://github.com/wiz0u/YourEasyBot">YourEasyBot</a> which makes sequential bots very simple to write... <em>(or one of the <a href="https://github.com/TelegramBots/Telegram.Bot/wiki">other frameworks</a> available for Telegram.Bot)</em></p>
 <h3 id="14-how-to-make-font-effects-in-message"><a class="header" href="#14-how-to-make-font-effects-in-message"><em>14. How to make font effects in message?</em></a></h3>
 <p>Pass a <code>ParseMode.Html</code> <em>(or <code>ParseMode.MarkDownV2</code>)</em> to argument <code>parseMode</code>. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a>.<br />
 ⚠️ I <ins><strong>highly recommend</strong></ins> you choose HTML formatting because MarkDownV2 has A LOT of annoyingly reserved characters and you will regret it later.</p>
