@@ -109,7 +109,7 @@ To post to a specific group, there is an alternative solution:
 
 ### _23. How to upgrade my existing code? You keep breaking compatibility!_
 A new lead developer (Wizou) is now in charge of the library and commits to reduce code-breaking changes in the future.  
-Version 21.x of the library have been much improved to facilitate [migration from previous versions](migrate/Migration-Guide-to-Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
+Version 21.x of the library have been much improved to facilitate [migration from previous versions](migrate/Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
 
 ### _24. Can I use several apps/instance to manage my bot?_
 You can call API methods (like sending messages) from several instances in parallel  
