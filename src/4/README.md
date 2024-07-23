@@ -1,4 +1,4 @@
-# Advanced
+# Advanced topics
 
 - [Proxy](proxy.md)
 - [Mini Apps](webapps.md)
