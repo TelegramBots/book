@@ -5,11 +5,13 @@ src = "src"
 title = "A guide to Telegram.Bot library"
 site-url = "https://telegrambots.github.io/book/"
 language = "en"
-output.html.fold.enable = true
 
 [output.html]
 git-repository-url = "https://github.com/TelegramBots/book"
 additional-css = ["theme/custom.css"]
+
+[output.html.fold]
+enable = true
 
 [preprocessor.alerts]
 
