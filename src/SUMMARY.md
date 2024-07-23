@@ -35,7 +35,7 @@
     - [RSA Key](4/passport/key.md)
     - [Decryption FAQ](4/passport/faq.md)
   - [Login Widget](4/login-widget.md)
-- Migration guides to newer versions
+- [Migration guides to newer versions]()
     - [Migrate to v14.*](Migration-Guide-to-Version-14.x.md)
     - [Migrate to v17.*](Migration-Guide-to-Version-17.x.md)
     - [Migrate to v18.*](Migration-Guide-to-Version-18.x.md)
