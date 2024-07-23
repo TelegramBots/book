@@ -5187,6 +5187,15 @@ Remember that not every user has a username.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
 <p>Your bot has to be added as administrator of the channel.
 You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>
+<h3 id="27-how-to-sent-the-same-media-multiple-times"><a class="header" href="#27-how-to-sent-the-same-media-multiple-times"><em>27. How to sent the same media multiple times</em></a></h3>
+<p>The first time, you will send the media with a stream (upload). Next times, you will use its <strong>FileId</strong>:</p>
+<pre><code class="language-csharp">var sent = await bot.SendVideoAsync(chatId, stream, ....);
+var fileId = sent.Video.FileId
+
+// next times:
+await bot.SendVideoAsync(chatId2, fileId, ...);
+</code></pre>
+<p>For photos, use <code>sent.Photo[^1].FileId</code></p>
 <h3 id="this-faq-doesnt-have-my-question-on-it"><a class="header" href="#this-faq-doesnt-have-my-question-on-it">This FAQ doesn't have my question on it</a></h3>
 <p>Feel free to <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">join our Telegram group</a> and ask your question there</p>
 
