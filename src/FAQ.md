@@ -124,6 +124,18 @@ Remember that not every user has a username.
 Your bot has to be added as administrator of the channel.
 You will then receive the messages as `update.ChannelPost` or `update.EditedChannelPost`.
 
+### _27. How to sent the same media multiple times_
+The first time, you will send the media with a stream (upload). Next times, you will use its **FileId**:
+```csharp
+var sent = await bot.SendVideoAsync(chatId, stream, ....);
+var fileId = sent.Video.FileId
+
+// next times:
+await bot.SendVideoAsync(chatId2, fileId, ...);
+```
+For photos, use `sent.Photo[^1].FileId`
+
+
 ### This FAQ doesn't have my question on it
 
 Feel free to [join our Telegram group](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) and ask your question there
