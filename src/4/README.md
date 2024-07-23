@@ -9,4 +9,3 @@
   - [RSA Key](passport/key.md)
   - [Decryption FAQ](passport/faq.md)
 - [Login Widget](login-widget.md)
-- [Logging](logging.md)
