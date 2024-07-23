@@ -20,4 +20,4 @@ command = "mdbook-toc"
 renderer = ["html"]
 
 [output.html.redirect]
-"Migration-Guide-to-Version-21.x.html" = "migrate/Migration-Guide-to-Version-21.x.html"
+"Migration-Guide-to-Version-21.x.html" = "migrate/Version-21.x.html"
