@@ -16,6 +16,7 @@ In the mean time, latest versions are available on our [special nuget feed](http
 
 See the screenshots below to configure the Package source in Visual Studio:
 ![In Visual Studio](1/docs/NugetPackageManager.png)
+and make sure to follow the [Migration Guide for v21.*](migrate/Version-21.x.md)
 
 Alternatively you can use command line: `dotnet nuget add source https://nuget.voids.site/v3/index.json`  
 Or set up a `nuget.config` file at the root of your project/solution:
