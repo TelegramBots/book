@@ -23,7 +23,7 @@ jobs:
       with:
         tool: mdbook,cargo-binstall
     - name: Install mdbook extensions
-      run: cargo binstall -y mdbook-mermaid mdbook-alerts
+      run: cargo binstall -y mdbook-mermaid mdbook-alerts mdbook-toc
 
     # - name: Setup mdBook
     #   uses: peaceiris/actions-mdbook@v2

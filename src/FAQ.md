@@ -2,6 +2,8 @@
 
 I recommend you read all of these as you will learn many interesting things. Or you can use Ctrl-F to search for a specific topic.
 
+<!-- toc -->
+
 ### _1. Can you give me documentation/examples links?_
 - Follow [this installation guide](https://telegrambots.github.io/book/#-installation) to install the latest versions of the library.
 - Here is on the [main documentation website](https://telegrambots.github.io/book/).
