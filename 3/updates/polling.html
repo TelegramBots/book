@@ -257,6 +257,7 @@
 <p>Long Polling is done by calling <a href="https://core.telegram.org/bots/api#getupdates">getUpdates</a> actively.</p>
 <p>With our library, this can be done in one of three ways:</p>
 <h2 id="by-setting-botonupdate-andor-botonmessage"><a class="header" href="#by-setting-botonupdate-andor-botonmessage">By setting <code>bot.OnUpdate</code> (and/or <code>bot.OnMessage</code>)</a></h2>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console"><img src="https://img.shields.io/badge/Examples-Console-green?style=flat-square" alt="Console application" /></a></p>
 <p>Setting those events will automatically start a background polling system which will call your events accordingly:</p>
 <ul>
 <li><code>OnMessage</code> for updates about messages (new or edited Message, Channel Post or Business Messages)</li>
@@ -269,8 +270,9 @@
 </p>
 <p>If you don't set OnMessage, the OnUpdate event will be triggered for all updates, including messages.</p>
 </div>
-<h2 id="by-using-the-startreceiving-method"><a class="header" href="#by-using-the-startreceiving-method">By using the <code>StartReceiving</code> method</a></h2>
-<p>This method will start a background polling system which will call your method on incoming updates.</p>
+<h2 id="by-using-the-startreceiving-method-or-receiveasync"><a class="header" href="#by-using-the-startreceiving-method-or-receiveasync">By using the <code>StartReceiving</code> method (or <code>ReceiveAsync</code>)</a></h2>
+<p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced"><img src="https://img.shields.io/badge/Examples-Console.Advanced-green?style=flat-square" alt="Advanced console application" /></a></p>
+<p>Those methods start a polling system which will call your method on incoming updates.</p>
 <p>As arguments, you can pass either lambdas, methods or a class derived from <code>IUpdateHandler</code> that implements the handling of Update and Error.</p>
 <h2 id="by-calling-getupdatesasync-manually-in-a-loop"><a class="header" href="#by-calling-getupdatesasync-manually-in-a-loop">By calling <code>GetUpdatesAsync</code> manually in a loop</a></h2>
 <p>You can specify a timeout so that the call blocks for <strong>up to</strong> X seconds, waiting for an incoming update</p>
