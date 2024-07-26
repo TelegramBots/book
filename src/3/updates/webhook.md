@@ -1,8 +1,6 @@
 # Webhooks
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
-[![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
-[![ASP.NET example with Minimal APIs](https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
 
 With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.
 
@@ -11,6 +9,7 @@ Your application will receive HTTP POST requests with an Update structure in the
 Below, you will find how to configure an **ASP.NET Core Web API** project to make it work with Telegram.Bot, either with Controllers or Minimal APIs
 
 ## ASP.NET Core with Controllers (MVC)
+[![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
 
 First you need to configure your Web App startup code:
 - Locate the line `services.AddControllers();` _(in Program.cs or Startup.cs)_
@@ -35,6 +34,7 @@ public async Task HandleUpdate([FromBody] Update update)
 Good, now skip to [SetWebHookAsync](#setwebhookasync) below
 
 ## ASP.NET Core with Minimal APIs
+[![ASP.NET example with Minimal APIs](https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
 
 First you need to configure your Web App startup code:
 - Locate the line `builder.Build();` _(in Program.cs)_

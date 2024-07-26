@@ -5,6 +5,7 @@ Long Polling is done by calling [getUpdates](https://core.telegram.org/bots/api#
 With our library, this can be done in one of three ways:
 
 ## By setting `bot.OnUpdate` (and/or `bot.OnMessage`)
+[![Console application](https://img.shields.io/badge/Examples-Console-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console)
 
 Setting those events will automatically start a background polling system which will call your events accordingly:
 - `OnMessage` for updates about messages (new or edited Message, Channel Post or Business Messages)
@@ -13,9 +14,10 @@ Setting those events will automatically start a background polling system which 
 > [!NOTE]
 > If you don't set OnMessage, the OnUpdate event will be triggered for all updates, including messages.
 
-## By using the `StartReceiving` method
+## By using the `StartReceiving` method (or `ReceiveAsync`)
+[![Advanced console application](https://img.shields.io/badge/Examples-Console.Advanced-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced)
 
-This method will start a background polling system which will call your method on incoming updates.
+Those methods start a polling system which will call your method on incoming updates.
 
 As arguments, you can pass either lambdas, methods or a class derived from `IUpdateHandler` that implements the handling of Update and Error.
 
