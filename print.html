@@ -4089,8 +4089,14 @@ accompanying credentials to decryption methods.</p>
 
 </style>
 <h1 id="telegram-login-widget"><a class="header" href="#telegram-login-widget">Telegram Login Widget</a></h1>
-<p>Everything related to the <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a> has been moved to a separate repository:
-<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.LoginWidget"><code>Telegram.Bot.Extensions.LoginWidget</code></a></p>
+<p>You can use <code>InlineKeyboardButton.WithLoginUrl</code> to easily initiate a login connection to your website using the user's Telegram account credentials.</p>
+<pre><code class="language-csharp">replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithLoginUrl(
+    "login", new LoginUrl { Url = "https://yourdomain.com/url" }))
+</code></pre>
+<p>You'll need to associate your website domain with your bot by sending <code>/setdomain</code> to <code>@BotFather</code>.</p>
+<p>See official documentation about <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a> for more information.</p>
+<p>Server-side, you can use our separate repository <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.LoginWidget"><code>Telegram.Bot.Extensions.LoginWidget</code></a>
+to validate the user credentials, or to generate a Javascript to show the login widget directly on your website.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
