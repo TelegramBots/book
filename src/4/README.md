@@ -2,6 +2,7 @@
 
 - [Proxy](proxy.md)
 - [Mini Apps](webapps.md)
+- [Business Features](business.md)
 - [Passport](passport/)
   - [Quickstart](passport/quickstart.md)
   - [Files & Documents](passport/files-docs.md)
