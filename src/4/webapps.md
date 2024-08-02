@@ -1,6 +1,6 @@
 # Telegram Mini Apps
 
-[![Mini App bot API](https://img.shields.io/badge/Bot_API_Doc-Mini%20Apps-blue.svg?style=flat-square)](https://core.telegram.org/bots/webapps)
+[![Mini App bot API](https://img.shields.io/badge/Bot_API_Doc-Mini_Apps-blue.svg?style=flat-square)](https://core.telegram.org/bots/webapps)
 
 If standard Telegram Bot features aren't enough to fit your needs,
 you may want to consider building a [Mini App](https://core.telegram.org/bots/webapps) instead.

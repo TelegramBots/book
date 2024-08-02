@@ -22,7 +22,30 @@ Additional notes:
 All methods for dealing with chats _(like sending messages, etc..)_ take a `ChatId` parameter.
 
 For this parameter, you can pass directly a	`long` _(the chat or user ID)_,
-or when sending to a public group/channel, you can pass a `"@username"` string
+or when sending to a public group/channel, you can pass a `"@chatname"` string
+
+### Getting full info about a chat (`GetChatAsync`)
+
+Once a bot has joined a group/channel or has started receiving messages from a user, it can use method `GetChatAsync` to get detailed info about that chat/user.
+
+There are lots of information returned depending on the type of chat, and most are optional and may be unavailable.  
+Here are a few interesting ones:
+* For private chat with a User:
+	- Birthdate
+	- Personal channel
+	- [Business](../4/business.md) information
+	- Bio
+* For groups/channels:
+	- Description
+	- default Permissions _(non-administrator access rights)_
+	- Linked ChatId _(the associated channel/discussion group for this chat)_
+	- IsForum _(This chat group has topics. There is no way to retrieve the list of topics)_
+* Common information for all chats:
+	- Photo _(use `GetInfoAndDownloadFileAsync` and the `photo.BigFileId` to download it)_
+	- Active Usernames _(premium user & public chats can have multiple usernames)_
+	- Available reactions in this chat
+	- Pinned Message _(the most recent one)_
+
 
 ## Receiving chat messages
 
