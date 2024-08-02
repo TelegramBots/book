@@ -1,21 +1,80 @@
-# Getting Updates
+# Working with Updates & Messages
+
+## Getting Updates
 
 There are two mutually exclusive ways of receiving updates for your bot — the long polling using [`getUpdates`] method on one hand and Webhooks on the other. Telegram is queueing updates until the bot receives them either way, but they will not be kept longer than 24 hours.
 
-- [With long polling](polling.md), the client is actively requesting updates from the server using [`getUpdates`] method, but with the expectation the server may not respond immediately. If the server has no new information for the client when the poll is received, instead of sending an empty response, the server holds the request open and waits for response information to become available. Once it does have new information, the server immediately sends a response to the client, completing the request. Upon receipt of the server response, the client often immediately issues another server request.
+- [With long polling](polling.md), the client is actively requesting updates from the server in a blocking way. The call returns if new updates become available or a timeout has expired.
 - [Setting a webhook](webhook.md) means you supplying Telegram with a location in the form of an URL, on which your bot listens for updates. Telegram need to be able to connect and post updates to that URL.
-To be able to handle webhook updates you'll need a server that:
-  - Supports IPv4, IPv6 is currently not supported for webhooks.
-  - Accepts incoming POSTs from subnets 149.154.160.0/20 and 91.108.4.0/22 on port 443, 80, 88, or 8443.
-  - Is able to handle TLS1.2(+) HTTPS-traffic.
-  - Provides a supported, non-wildcard, verified or self-signed certificate.
-  - Uses a CN or SAN that matches the domain you’ve supplied on setup.
-  - Supplies all intermediate certificates to complete a verification chain.
 
-  You can find more useful information on setting webhook in [Marvin's Marvellous Guide to All Things Webhook](https://core.telegram.org/bots/webhooks)
+## Update types 
 
-Each user interaction with your bot results in new
-[Update](https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Update.cs) object. Its fields will be set depending on update type.
+[![Update type](https://img.shields.io/badge/Bot_API_type-Update-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#update)
+
+Each user interaction with your bot results in an Update object.
+It could be about a Message, some changed status, bot-specific queries, etc...  
+You can use `update.Type` to check which kind of update you are dealing with.
+
+However this property is slow and just indicates which field of `update` is set, and the other fields are all null.
+So it is recommended to instead directly test the fields of Update you want if they are non-null, like this:
+```csharp
+switch (update)
+{
+    case { Message: { } msg }: await HandleMessage(msg); break;
+    case { EditedMessage: { } editedMsg }: await HandleEditedMessage(editedMsg); break;
+    case { ChannelPost: { } channelMsg }: await HandleChannelMessage(channelMsg); break;
+    case { CallbackQuery: { } cbQuery }: await HandleCallbackQuery(cbQuery); break;
+    //...
+}
+```
+
+
+## Message types
+
+[![Message type](https://img.shields.io/badge/Bot_API_type-Message-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#message)
+
+If the Update is one of the 6 types of update containing a message _(new or edited? channel? business?)_, the contained `Message` object itself can be of various types.
+
+Like above, you can use `message.Type` to determine the type but it is recommended to directly test the non-null fields of `Message` using `if` or `switch`.
+
+There are a few dozens of message types, grouped in two main categories: **Content** and **Service** messages
+
+### Content messages
+
+These messages represent some actual content that someone posted.
+
+Depending on which field is set, it can be:
+- `Text`: a basic text message _(with its `Entities` for font effects, and `LinkPreviewOptions` for preview info)_
+- `Photo`, `Video`, `Animation` (GIF), `Document` (file), `Audio`, `Voice`, `PaidMedia`: those are media contents which can come with a `Caption` subtext _(and its `CaptionEntities`)_
+- `VideoNote`, `Sticker`, `Dice`, `Game`, `Poll`, `Venue`, `Location`, `Story`
+
+You can use methods `message.ToHtml()` or `message.ToMarkdown()` to convert the text/caption & entities into HTML **(recommended)** or Markdown.
+
+### Service messages
+
+All other message types represent some action/status that happened in the chat instead of actual content.
+
+We are not listing all types here, but it could be for example:
+- members joined/left
+- pinned message
+- chat info/status/topic changed
+- payment/passport/giveaway process update
+- etc...
+
+### Common properties
+
+There are additional properties that gives you information about the context of the message.
+
+Here are a few important properties:
+- `MessageId`: the ID that you will use if you need to reply or call a method acting on this message
+- `Chat`: in which chat the message arrived
+- `From`: which user posted it
+- `Date`: timestamp of the message (in UTC)
+- `ReplyToMessage`: which message this is a reply to
+- [`ForwardOrigin`](../2/forward-copy-delete.md#check-if-a-message-is-a-forward): it is a Forwarded message
+- `MediaGroupId`: albums (group of media) are sent as separate consecutive messages having the same MediaGroupId
+- `MessageThreadId`: the topic ID for Forum/Topic type chats
+
 
 ## Example projects
 

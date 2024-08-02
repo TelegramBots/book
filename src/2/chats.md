@@ -8,7 +8,7 @@ The `chat.Type` can be one of 4 types:
 - `ChatType.Group`:  
   A private chat group with less than 200 users
 - `ChatType.Supergroup`:  
-  An advanced chat group, capable of being public, supporting more than 200 users, with specific user/admin rights, ...
+  An advanced chat group, capable of being public, supporting more than 200 users, with specific user/admin rights
 - `ChatType.Channel`:  
   A broadcast type of publishing feed (only admins can write to it)
 
