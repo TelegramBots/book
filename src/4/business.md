@@ -13,7 +13,7 @@ First, the bot owner need to talk to [@BotFather](https://t.me/BotFather) and go
 
 In the following sections, we will refer to the premium user using your chatbot as "*the business owner*".
 
-<video autoplay loop controls muted poster="https://telegram.org/file/400780400238/1/x875tPT245w.58064/1b426d3eda0a923c03" style="max-width: 600px;" title="" alt="Chatbots for Business">
+<video autoplay loop controls muted poster="https://telegram.org/file/400780400238/1/x875tPT245w.58064/1b426d3eda0a923c03" style="width: 100%; max-width: 600px;" title="" alt="Chatbots for Business">
   <source src="https://telegram.org/file/400780400792/3/Y8CWkKZOVHM.3771962.mp4/044a6d7645581d8bf6" type="video/mp4">
 </video>
 
@@ -49,6 +49,6 @@ To do so, you can call many Bot API methods with the optional _businessConnectio
 This way your bot can send/edit/pin messages, send chat actions (like _"typing"_), manage polls/live location, as if you were the business owner user.
 
 Some notes about messages sent on behalf of the business owner:
-- They will NOT be maked with your bot name from the customer point of view
+- They will NOT be marked with your bot name from the customer point of view
 - They will be marked with your bot name in the business owner private chat (a banner also appears on top of the chat)
 - These features are limited to private chats initiated by customers talking to the business owner.
