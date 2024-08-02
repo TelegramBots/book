@@ -36,7 +36,6 @@
     - [Data Errors](4/passport/errors.md)
     - [RSA Key](4/passport/key.md)
     - [Decryption FAQ](4/passport/faq.md)
-  - [Login Widget](4/login-widget.md)
 - [Frequently Asked Questions](FAQ.md)
 - [Migration guides to newer versions](migrate/README.md)
     - [Migrate to v21.*](migrate/Version-21.x.md)
