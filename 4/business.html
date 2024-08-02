@@ -253,12 +253,47 @@
 }
 
 </style>
-<h1 id="business-features"><a class="header" href="#business-features">Business Features</a></h1>
-<blockquote>
-<p>This chapter is not yet written.</p>
-</blockquote>
-<p>See https://telegram.org/blog/telegram-business<br />
-and https://core.telegram.org/bots/features#bots-for-business</p>
+<h1 id="business-bot-features"><a class="header" href="#business-bot-features">Business Bot Features</a></h1>
+<p><a href="https://core.telegram.org/bots/features#bots-for-business"><img src="https://img.shields.io/badge/Bot_API_Doc-Business_Mode_-blue.svg?style=flat-square" alt="Bot Business Mode" /></a></p>
+<p>Several <a href="https://telegram.org/blog/telegram-business">business features</a> have been added for premium users to Telegram.</p>
+<p>In particular, premium users can now select a bot to act as a <a href="https://telegram.org/blog/telegram-business#chatbots-for-business"><strong>chatbot on their behalf</strong></a>,
+in order to manage/reply to messages from other users <em>(typically, their business customers)</em>.</p>
+<h2 id="botfather-configuration"><a class="header" href="#botfather-configuration">BotFather configuration</a></h2>
+<p>First, the bot owner need to talk to <a href="https://t.me/BotFather">@BotFather</a> and go to the <strong>Bot Settings</strong> to enable <strong>Business Mode</strong></p>
+<p>In the following sections, we will refer to the premium user using your chatbot as "<em>the business owner</em>".</p>
+<video autoplay loop controls muted poster="https://telegram.org/file/400780400238/1/x875tPT245w.58064/1b426d3eda0a923c03" style="max-width: 600px;" title="" alt="Chatbots for Business">
+  <source src="https://telegram.org/file/400780400792/3/Y8CWkKZOVHM.3771962.mp4/044a6d7645581d8bf6" type="video/mp4">
+</video>
+<h2 id="businessconnection-update"><a class="header" href="#businessconnection-update">BusinessConnection update</a></h2>
+<p>Once your chatbot is configured, the business owner has to go to their account settings, under <strong>Telegram Business &gt; Chatbots</strong> and type your bot username.</p>
+<p>At this point, your bot will receive an <code>update.BusinessConnection</code> which contains:</p>
+<ul>
+<li>a unique id <em>(you may want to store this)</em></li>
+<li>details on the User (business owner)</li>
+<li>IsEnabled <em>(false if the business connection got cancelled)</em></li>
+<li>CanReply <em>(if the bot can act on behalf of that user in chats that were active in the last 24 hours)</em></li>
+</ul>
+<p>You can retrieve these info again later using <code>GetBusinessConnectionAsync(id)</code></p>
+<h2 id="businessmessage-updates"><a class="header" href="#businessmessage-updates">BusinessMessage updates</a></h2>
+<p>From now on, your bot will receive updates regarding private messages between users (customers) and the business owner:</p>
+<ul>
+<li><code>update.BusinessMessage</code>: a customer sent a new message to the business owner</li>
+<li><code>update.EditedBusinessMessage</code>: a customer modified one of its message sent to the business owner</li>
+<li><code>update.DeletedBusinessMessages</code>: a customer deleted some messages in private with the business owner</li>
+</ul>
+<p>In these messages/updates, the field <code>BusinessConnectionId</code> will tell you which BusinessConnection this applies to
+<em>(useful for context if your chatbot is used by several business owners)</em></p>
+<h2 id="acting-on-behalf-of-the-business-owner"><a class="header" href="#acting-on-behalf-of-the-business-owner">Acting on behalf of the business owner</a></h2>
+<p>If the business owner enabled "<strong>Reply to message</strong>" during the initial business connection,
+your bot can reply or do some other actions on behalf of their user account.</p>
+<p>To do so, you can call many Bot API methods with the optional <em>businessConnectionId:</em> parameter.</p>
+<p>This way your bot can send/edit/pin messages, send chat actions (like <em>"typing"</em>), manage polls/live location, as if you were the business owner user.</p>
+<p>Some notes about messages sent on behalf of the business owner:</p>
+<ul>
+<li>They will NOT be maked with your bot name from the customer point of view</li>
+<li>They will be marked with your bot name in the business owner private chat (a banner also appears on top of the chat)</li>
+<li>These features are limited to private chats initiated by customers talking to the business owner.</li>
+</ul>
 
                     </main>
 

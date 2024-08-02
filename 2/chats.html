@@ -275,7 +275,37 @@ A broadcast type of publishing feed (only admins can write to it)</li>
 <h2 id="calling-chat-methods"><a class="header" href="#calling-chat-methods">Calling chat methods</a></h2>
 <p>All methods for dealing with chats <em>(like sending messages, etc..)</em> take a <code>ChatId</code> parameter.</p>
 <p>For this parameter, you can pass directly a	<code>long</code> <em>(the chat or user ID)</em>,
-or when sending to a public group/channel, you can pass a <code>"@username"</code> string</p>
+or when sending to a public group/channel, you can pass a <code>"@chatname"</code> string</p>
+<h3 id="getting-full-info-about-a-chat-getchatasync"><a class="header" href="#getting-full-info-about-a-chat-getchatasync">Getting full info about a chat (<code>GetChatAsync</code>)</a></h3>
+<p>Once a bot has joined a group/channel or has started receiving messages from a user, it can use method <code>GetChatAsync</code> to get detailed info about that chat/user.</p>
+<p>There are lots of information returned depending on the type of chat, and most are optional and may be unavailable.<br />
+Here are a few interesting ones:</p>
+<ul>
+<li>For private chat with a User:
+<ul>
+<li>Birthdate</li>
+<li>Personal channel</li>
+<li><a href="../4/business.html">Business</a> information</li>
+<li>Bio</li>
+</ul>
+</li>
+<li>For groups/channels:
+<ul>
+<li>Description</li>
+<li>default Permissions <em>(non-administrator access rights)</em></li>
+<li>Linked ChatId <em>(the associated channel/discussion group for this chat)</em></li>
+<li>IsForum <em>(This chat group has topics. There is no way to retrieve the list of topics)</em></li>
+</ul>
+</li>
+<li>Common information for all chats:
+<ul>
+<li>Photo <em>(use <code>GetInfoAndDownloadFileAsync</code> and the <code>photo.BigFileId</code> to download it)</em></li>
+<li>Active Usernames <em>(premium user &amp; public chats can have multiple usernames)</em></li>
+<li>Available reactions in this chat</li>
+<li>Pinned Message <em>(the most recent one)</em></li>
+</ul>
+</li>
+</ul>
 <h2 id="receiving-chat-messages"><a class="header" href="#receiving-chat-messages">Receiving chat messages</a></h2>
 <p>See chapter <a href="../3/updates/README.html">Getting Updates</a> for how to receive updates &amp; messages.</p>
 <p>For groups or private chats, you would receive an update of type <code>UpdateType.Message</code> (which means only the field <code>update.Message</code> will be set)</p>
