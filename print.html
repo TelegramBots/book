@@ -4874,7 +4874,7 @@ To disable this system and keep the same behavior as previous versions, use <cod
 <p>Notes for advanced users:</p>
 <ul>
 <li>If this happens while uploading files (InputFile streams), the streams will be reset to their start position in order to be sent again</li>
-<li>If your streams are non-seekable <em>(no problem with MemoryStream/FileStream)</em>, the full HTTP request to Bot API will be buffered before sending <em>(so it can lead to a temporary use of memory if you're sending big files)</em></li>
+<li>If your streams are non-seekable <em>(no problem with MemoryStream/FileStream)</em>, the full HTTP request to Bot API will be buffered before the first sending <em>(so it can lead to a temporary use of memory if you're sending big files)</em></li>
 </ul>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><style>
