@@ -159,3 +159,21 @@ Polling will stop when you remove (`-=`) your events, or when you cancel the [gl
 
 You can also use `await bot.DropPendingUpdatesAsync()` before setting those events to ignore past updates.  
 The [Console example project](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console) has been updated to demonstrate these events.
+
+## Automatic retrying API calls in case of "Too Many Requests" (v21.9)
+
+If Telegram servers fail on your API call with this error and ask you to to retry in less than 60 seconds, TelegramBotClient will now automatically wait for the requested delay and retry sending the same request up to 3 times.
+
+This is configurable using Options on the constructor:
+```csharp
+using var cts = new CancellationTokenSource();
+var options = new TelegramBotClientOptions(token) { RetryThreshold = 120, RetryCount = 2 };
+var bot = new TelegramBotClient(options, cancellationToken: cts.Token);
+```
+
+*️⃣ This is a change of behavior compared to previous versions, but probably a welcome one.  
+To disable this system and keep the same behavior as previous versions, use `RetryThreshold = 0`
+
+> Notes for advanced users:
+> - If this happens while uploading files (InputFile streams), the streams will be reset to their start position in order to be sent again
+> - If your streams are non-seekable _(no problem with MemoryStream/FileStream)_, the full HTTP request to Bot API will be buffered before sending _(so it can lead to a temporary use of memory if you're sending big files)_
