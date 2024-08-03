@@ -176,4 +176,4 @@ To disable this system and keep the same behavior as previous versions, use `Ret
 
 > Notes for advanced users:
 > - If this happens while uploading files (InputFile streams), the streams will be reset to their start position in order to be sent again
-> - If your streams are non-seekable _(no problem with MemoryStream/FileStream)_, the full HTTP request to Bot API will be buffered before sending _(so it can lead to a temporary use of memory if you're sending big files)_
+> - If your streams are non-seekable _(no problem with MemoryStream/FileStream)_, the full HTTP request to Bot API will be buffered before the first sending _(so it can lead to a temporary use of memory if you're sending big files)_
