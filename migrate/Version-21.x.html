@@ -382,6 +382,22 @@ But you can still send Request structures via the <code>MakeRequestAsync</code> 
 Polling will stop when you remove (<code>-=</code>) your events, or when you cancel the <a href="#global-cancellation-token-v212">global cancellation token</a></p>
 <p>You can also use <code>await bot.DropPendingUpdatesAsync()</code> before setting those events to ignore past updates.<br />
 The <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console">Console example project</a> has been updated to demonstrate these events.</p>
+<h2 id="automatic-retrying-api-calls-in-case-of-too-many-requests-v219"><a class="header" href="#automatic-retrying-api-calls-in-case-of-too-many-requests-v219">Automatic retrying API calls in case of "Too Many Requests" (v21.9)</a></h2>
+<p>If Telegram servers fail on your API call with this error and ask you to to retry in less than 60 seconds, TelegramBotClient will now automatically wait for the requested delay and retry sending the same request up to 3 times.</p>
+<p>This is configurable using Options on the constructor:</p>
+<pre><code class="language-csharp">using var cts = new CancellationTokenSource();
+var options = new TelegramBotClientOptions(token) { RetryThreshold = 120, RetryCount = 2 };
+var bot = new TelegramBotClient(options, cancellationToken: cts.Token);
+</code></pre>
+<p>*️⃣ This is a change of behavior compared to previous versions, but probably a welcome one.<br />
+To disable this system and keep the same behavior as previous versions, use <code>RetryThreshold = 0</code></p>
+<blockquote>
+<p>Notes for advanced users:</p>
+<ul>
+<li>If this happens while uploading files (InputFile streams), the streams will be reset to their start position in order to be sent again</li>
+<li>If your streams are non-seekable <em>(no problem with MemoryStream/FileStream)</em>, the full HTTP request to Bot API will be buffered before sending <em>(so it can lead to a temporary use of memory if you're sending big files)</em></li>
+</ul>
+</blockquote>
 
                     </main>
 
