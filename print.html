@@ -4539,7 +4539,8 @@ Other cloud providers might also offer similar services.</p>
 <h3 id="18-how-to-receive-chatmember-updates"><a class="header" href="#18-how-to-receive-chatmember-updates"><em>18. How to receive <code>ChatMember</code> updates?</em></a></h3>
 <p>You should specify all update types <strong>including ChatMember</strong> in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhookAsync</code></p>
 <h3 id="19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><a class="header" href="#19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><em>19. How to get rid of past updates when I restart my bot?</em></a></h3>
-<p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhookAsync</code>:<code>dropPendingUpdates</code></p>
+<p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhookAsync</code>:<code>dropPendingUpdates</code>
+Alternatively, you can call <code>await bot.DropPendingUpdatesAsync()</code> before polling or using <a href="3/updates/polling.html#by-setting-botonupdate-andor-botonmessage"><code>bot.OnUpdate</code></a>.</p>
 <h3 id="20-difficulties-to-upload--send-a-filemedia"><a class="header" href="#20-difficulties-to-upload--send-a-filemedia"><em>20. Difficulties to upload &amp; send a file/media?</em></a></h3>
 <ul>
 <li>Make sure you <code>await</code> until the end of the send method before closing the file (a "<code>using</code>" clause would close the file on leaving the current { scope }</li>
