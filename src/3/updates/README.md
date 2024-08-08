@@ -46,7 +46,7 @@ These messages represent some actual content that someone posted.
 Depending on which field is set, it can be:
 - `Text`: a basic text message _(with its `Entities` for font effects, and `LinkPreviewOptions` for preview info)_
 - `Photo`, `Video`, `Animation` (GIF), `Document` (file), `Audio`, `Voice`, `PaidMedia`: those are media contents which can come with a `Caption` subtext _(and its `CaptionEntities`)_
-- `VideoNote`, `Sticker`, `Dice`, `Game`, `Poll`, `Venue`, `Location`, `Story`
+- `VideoNote`, `Sticker`, `Dice`, `Game`, `Poll`, `Venue`, `Location`, `Story`: other kind of messages without a caption
 
 You can use methods `message.ToHtml()` or `message.ToMarkdown()` to convert the text/caption & entities into HTML **(recommended)** or Markdown.
 
@@ -71,8 +71,8 @@ Here are a few important properties:
 - `From`: which user posted it
 - `Date`: timestamp of the message (in UTC)
 - `ReplyToMessage`: which message this is a reply to
-- [`ForwardOrigin`](../2/forward-copy-delete.md#check-if-a-message-is-a-forward): it is a Forwarded message
-- `MediaGroupId`: albums (group of media) are sent as separate consecutive messages having the same MediaGroupId
+- [`ForwardOrigin`](../../2/forward-copy-delete.md#check-if-a-message-is-a-forward): if it is a Forwarded message
+- `MediaGroupId`: albums (group of media) are separate consecutive messages having the same MediaGroupId
 - `MessageThreadId`: the topic ID for Forum/Topic type chats
 
 
