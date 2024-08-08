@@ -84,6 +84,7 @@ You should specify all update types **including ChatMember** in `AllowedUpdates`
 
 ### _19. How to get rid of past updates when I restart my bot?_
 Pass true into `StartReceiving`:`ReceiverOptions`:`DropPendingUpdates` or `SetWebhookAsync`:`dropPendingUpdates`
+Alternatively, you can call `await bot.DropPendingUpdatesAsync()` before polling or using [`bot.OnUpdate`](3/updates/polling.md#by-setting-botonupdate-andor-botonmessage).
 
 ### _20. Difficulties to upload & send a file/media?_
 - Make sure you `await` until the end of the send method before closing the file (a "`using`" clause would close the file on leaving the current { scope }
