@@ -287,7 +287,7 @@ So it is recommended to instead directly test the fields of Update you want if t
 <ul>
 <li><code>Text</code>: a basic text message <em>(with its <code>Entities</code> for font effects, and <code>LinkPreviewOptions</code> for preview info)</em></li>
 <li><code>Photo</code>, <code>Video</code>, <code>Animation</code> (GIF), <code>Document</code> (file), <code>Audio</code>, <code>Voice</code>, <code>PaidMedia</code>: those are media contents which can come with a <code>Caption</code> subtext <em>(and its <code>CaptionEntities</code>)</em></li>
-<li><code>VideoNote</code>, <code>Sticker</code>, <code>Dice</code>, <code>Game</code>, <code>Poll</code>, <code>Venue</code>, <code>Location</code>, <code>Story</code></li>
+<li><code>VideoNote</code>, <code>Sticker</code>, <code>Dice</code>, <code>Game</code>, <code>Poll</code>, <code>Venue</code>, <code>Location</code>, <code>Story</code>: other kind of messages without a caption</li>
 </ul>
 <p>You can use methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text/caption &amp; entities into HTML <strong>(recommended)</strong> or Markdown.</p>
 <h3 id="service-messages"><a class="header" href="#service-messages">Service messages</a></h3>
@@ -309,8 +309,8 @@ So it is recommended to instead directly test the fields of Update you want if t
 <li><code>From</code>: which user posted it</li>
 <li><code>Date</code>: timestamp of the message (in UTC)</li>
 <li><code>ReplyToMessage</code>: which message this is a reply to</li>
-<li><a href="../2/forward-copy-delete.html#check-if-a-message-is-a-forward"><code>ForwardOrigin</code></a>: it is a Forwarded message</li>
-<li><code>MediaGroupId</code>: albums (group of media) are sent as separate consecutive messages having the same MediaGroupId</li>
+<li><a href="../../2/forward-copy-delete.html#check-if-a-message-is-a-forward"><code>ForwardOrigin</code></a>: if it is a Forwarded message</li>
+<li><code>MediaGroupId</code>: albums (group of media) are separate consecutive messages having the same MediaGroupId</li>
 <li><code>MessageThreadId</code>: the topic ID for Forum/Topic type chats</li>
 </ul>
 <h2 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h2>
