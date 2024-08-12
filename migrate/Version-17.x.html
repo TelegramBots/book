@@ -314,7 +314,7 @@ catch (OperationCancelledException exception)
 }
 </code></pre>
 <h2 id="removal-of-events"><a class="header" href="#removal-of-events">Removal of events</a></h2>
-<p>In v17 we removed events and introduced a new way of getting updates with <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling">Telegram.Bot.Extensions.Polling</a> package. You can find an example in <a href="./1/example-bot.html">First Chat Bot</a> article.</p>
+<p>In v17 we removed events and introduced a new way of getting updates with <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Polling">Telegram.Bot.Extensions.Polling</a> package. You can find an example in <a href="../1/example-bot.html">First Chat Bot</a> article.</p>
 <h2 id="removal-of-api-methods-from-itelegrambotclient-interface"><a class="header" href="#removal-of-api-methods-from-itelegrambotclient-interface">Removal of API methods from <code>ITelegramBotClient</code> interface</a></h2>
 <p>This change shouldn't affect most users, the methods are still there, but instead of being implementations of the interface they are now extension methods. It makes the interface leaner and easier to implement for custom clients and for decorators (e.g. rate limiters implemented as decorators). There isn't really a migration path for those who used these for some reason.</p>
 <h2 id="working-with-default-enum-values"><a class="header" href="#working-with-default-enum-values">Working with default enum values</a></h2>
@@ -338,7 +338,7 @@ switch (entity.Type)
 <p>Also some default enums values were removed, e.g. <code>ParseMode.Default</code> since we started using nullable types for every optional value and <code>ParseMode.Default</code> lost it's use. If a message doesn't have any markup you'll receive <code>null</code> in places where <code>ParseMode</code> type was used or if you want to explicitly indicate an absence of markup pass <code>null</code> instead.</p>
 <h2 id="other-breaking-changes"><a class="header" href="#other-breaking-changes">Other breaking changes</a></h2>
 <h3 id="constructor-accepting-iwebproxy"><a class="header" href="#constructor-accepting-iwebproxy">Constructor accepting IWebProxy</a></h3>
-<p>We removed constructor accepting <code>IWebProxy</code>. Now you have to configure HttpClient yourself to use proxy. You can find examples in <a href="./4/proxy.html#http-proxy">Working Behind a Proxy</a> article.</p>
+<p>We removed constructor accepting <code>IWebProxy</code>. Now you have to configure HttpClient yourself to use proxy. You can find examples in <a href="../4/proxy.html#http-proxy">Working Behind a Proxy</a> article.</p>
 <h3 id="inputmediatype"><a class="header" href="#inputmediatype">InputMediaType</a></h3>
 <p>Property <code>Type</code> in <code>IInputMedia</code> was changed to an enum <code>InputMediaType</code> for easier discoverability. So if you relied string values like <code>photo</code>, <code>video</code>, <code>animation</code> and so on now you need to switch to using enums. As a result you'll get autocomplete in IDEs and more predictability of what types of input media there are.</p>
 <h3 id="encryptedpassportelementtype"><a class="header" href="#encryptedpassportelementtype">EncryptedPassportElementType</a></h3>
