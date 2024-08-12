@@ -70,7 +70,7 @@ catch (OperationCancelledException exception)
 
 ## Removal of events
 
-In v17 we removed events and introduced a new way of getting updates with [Telegram.Bot.Extensions.Polling] package. You can find an example in [First Chat Bot](./1/example-bot.md) article.
+In v17 we removed events and introduced a new way of getting updates with [Telegram.Bot.Extensions.Polling] package. You can find an example in [First Chat Bot](../1/example-bot.md) article.
 
 ## Removal of API methods from `ITelegramBotClient` interface
 
@@ -105,7 +105,7 @@ Also some default enums values were removed, e.g. `ParseMode.Default` since we s
 
 ### Constructor accepting IWebProxy
 
-We removed constructor accepting `IWebProxy`. Now you have to configure HttpClient yourself to use proxy. You can find examples in [Working Behind a Proxy](./4/proxy.md#http-proxy) article.
+We removed constructor accepting `IWebProxy`. Now you have to configure HttpClient yourself to use proxy. You can find examples in [Working Behind a Proxy](../4/proxy.md#http-proxy) article.
 
 ### InputMediaType
 

@@ -82,7 +82,7 @@ The library now uses `System.Text.Json` instead of `NewtonsoftJson`.
 
 To make it work in your ASP.NET projects, you should now:
 - Remove package **Microsoft.AspNetCore.Mvc.NewtonsoftJson** from your project dependencies
-- Follow our [Webhook page](3/updates/webhook.md) to configure your web app correctly
+- Follow our [Webhook page](../3/updates/webhook.md) to configure your web app correctly
 
 ## InputPollOption in SendPollAsync
 

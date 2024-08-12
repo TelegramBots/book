@@ -2,7 +2,7 @@
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
 
-With Webhook, your application gets notified automatically by Telegram when new updates arrive for your bot.
+With Webhook, your web application gets notified automatically by Telegram when new updates arrive for your bot.
 
 Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings `Telegram.Bot.JsonBotAPI.Options`.
 
