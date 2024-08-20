@@ -127,11 +127,11 @@ async Task OnUpdate(Update update)
             await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
          break;
       case { Message.SuccessfulPayment: { } successfulPayment }:
-         if (successfulPayment.InvoicePayload is "unlock_X")
-            await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
          System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: User {update.Message.From} " +
             $"paid for {successfulPayment.InvoicePayload}: " +
-            $"{successfulPayment.ProviderPaymentChargeId} {successfulPayment.TelegramPaymentChargeId}");
+            $"{successfulPayment.TelegramPaymentChargeId} {successfulPayment.ProviderPaymentChargeId}");
+         if (successfulPayment.InvoicePayload is "unlock_X")
+            await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
          break;
    };
 }
