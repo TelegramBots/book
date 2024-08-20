@@ -33,11 +33,11 @@ await bot.SendInvoiceAsync(
     chatId: chatId,                         // same as userId for private chat
     title: "Product Title",
     description: "Product Detailed Description",
+    payload: "InternalProductID",           // not sent nor shown to user
+    providerToken: ""                       // empty string for XTR
     currency: "XTR",                        // 3-letters ISO 4217 currency
     prices: [("Price", 500)],               // only one price for XTR
     photoUrl: "https://cdn.pixabay.com/photo/2012/10/26/03/16/painting-63186_1280.jpg",
-    payload: "Internal Product ID",         // not sent nor shown to user
-    providerToken: ""                       // empty string for XTR
 );
 ```
 
@@ -113,23 +113,23 @@ Console.ReadKey();
 
 async Task OnUpdate(Update update)
 {
-    switch (update)
-    {
-        case { Message.Text: "/start" }:
-            await bot.SendInvoiceAsync(update.Message.Chat,
-              "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X", "",
-              "XTR", [("Price", 200)], photoUrl: "https://cdn-icons-png.flaticon.com/512/891/891386.png");
-            break;
-        case { PreCheckoutQuery: { } preCheckoutQuery }:
-            if (preCheckoutQuery is { InvoicePayload: "unlock_X", Currency: "XTR", TotalAmount: 200 })
-                await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
-            else
-                await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
-            break;
-        case { Message.SuccessfulPayment: { } successfulPayment }:
-            if (successfulPayment.InvoicePayload is "unlock_X")
-                await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
-            break;
-    };
+   switch (update)
+   {
+      case { Message.Text: "/start" }:
+         await bot.SendInvoiceAsync(update.Message.Chat,
+            "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X", "",
+            "XTR", [("Price", 200)], photoUrl: "https://cdn-icons-png.flaticon.com/512/891/891386.png");
+         break;
+      case { PreCheckoutQuery: { } preCheckoutQuery }:
+         if (preCheckoutQuery is { InvoicePayload: "unlock_X", Currency: "XTR", TotalAmount: 200 })
+            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
+         else
+            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
+         break;
+      case { Message.SuccessfulPayment: { } successfulPayment }:
+         if (successfulPayment.InvoicePayload is "unlock_X")
+            await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
+         break;
+   };
 }
 ```
