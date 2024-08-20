@@ -4,6 +4,7 @@
 - [Mini Apps](webapps.md)
 - [Business Features](business.md)
 - [Passport](passport/)
+- [Payments API](payments.md)
 
 ## Telegram Login Widget
 

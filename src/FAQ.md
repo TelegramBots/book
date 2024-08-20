@@ -37,7 +37,15 @@ It is only possible with inline callback button _(see above questions)_.
 Use `AnswerCallbackQueryAsync` with some text, and pass parameter `showAlert: true` to display the text as an alert box instead of a short popup.
 
 ### _7. How to fill the input textbox of the user with some text?_
-You can't. The closest you can do is setup a [ReplyKeyboardMarkup](2/reply-markup.md#custom-keyboards) for buttons with pre-made texts under the textbox
+There is not a simple direct method for this, but here is what you can try:
+- With a [Public username link](https://core.telegram.org/api/links#public-username-links): `t.me/username?text=Hello+World`  
+  _(works only if target is a user/bot and not the current chat)_
+- With a [Share link](https://core.telegram.org/api/links#share-links): `tg://msg_url?url=https://example.com&text=Hello+World`  
+  _(user must select a target first)_
+- With a [Bot deep link](https://core.telegram.org/api/links#bot-links): `t.me/botusername?start=param`  
+  _(param is limited to base64 characters, bot will receive `/start param`)_
+- With a [ReplyKeyboardMarkup](2/reply-markup.md#custom-keyboards): buttons under the textbox to send pre-made texts
+- With an [Inline Mode bot](3/inline.md) and `SwitchInlineQuery` inline buttons, you can make the user pre-type the name of your bot followed by some query
 
 ### _8. How to fetch previous messages?_
 You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
@@ -45,7 +53,7 @@ Normally, bots only get messages at the moment they are posted. You could archiv
 
 ### _9. How to fetch a list of all users in chat?_
 You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
-Normally, bots can only get the list of administrators (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)  
+Normally, bots can only get the list of admins (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)  
 Alternatively, you can keep track of users by observing new messages in a chat and saving user info into a database.
 
 ### _10. How to send a private message to some random user?_

@@ -3,7 +3,7 @@
 Important notes:
 - Don't bother about version 20, migrate directly to version 21.*
 - You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-installation).
-- Version 21.8 supports [Bot API 7.8](https://core.telegram.org/bots/api-changelog) _(including [Telegram Stars payments](#payments-with-telegram-stars))_
+- Version 21.8 supports [Bot API 7.8](https://core.telegram.org/bots/api-changelog) _(including [Telegram Stars payments](../4/payments.md))_
 - Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. _([See below](#webhooks-with-systemtextjson))_
 
 ## Renamed parameter _replyToMessageId:_ → _replyParameters:_
@@ -68,9 +68,9 @@ They are to be considered as low-level raw access to Bot API structures for adva
 If you have existing code using them, you can use the `MakeRequestAsync` method to send those requests.
 _(Other methods based on those requests will be removed soon)_
 
-## Payments with Telegram Stars
+## Payments with [Telegram Stars](https://t.me/BotNews/90)
 
-To make a payment in [Telegram Stars](https://t.me/BotNews/90) with SendInvoiceAsync, set the following parameters:
+To make a [payment in Telegram Stars](../4/payments.md) with SendInvoiceAsync, set the following parameters:
 - `providerToken:` `null` or `""`
 - `currency:` `"XTR"`
 - `prices:` with a single price

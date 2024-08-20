@@ -83,11 +83,11 @@ _Note: If you decide to switch back to [Long Polling](polling.md), remember to c
 
 ## Common issues
 
-- You need a supported certificate
-  If your host doesn't provide one or you want to develop on your own machine, consider using [ngrok](https://ngrok.com/):
-Useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a853)
+- You need a [supported certificate](https://core.telegram.org/bots/faq#i-39m-having-problems-with-webhooks)  
+  If your host doesn't provide one, or you want to develop on your own machine, consider using [ngrok](https://ngrok.com/):  
+See this useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a853)
 - You must use HTTPS (TLS 1.2+), IPv4, and ports 443, 80, 88, or 8443
-- [Official webhook guide](https://core.telegram.org/bots/webhooks)
+- The [Official webhook guide](https://core.telegram.org/bots/webhooks) gives a lot of details
 - If your update handler throws an exception or takes too much time to return,
 Telegram will consider it a temporary failure and will RESEND the same update a bit later.  
   You may want to prevent handling the same update.Id twice:
@@ -97,7 +97,7 @@ Telegram will consider it a temporary failure and will RESEND the same update a 
   // your code to handle the Update here.
   ```
 - Most web hostings will recycle your app after some HTTP inactivity (= stop your app and restart it on the next HTTP request)  
-  To prevent issues like this:
+  To prevent issues with this:
   - Search for an Always-On option with your host _(usually not free)_
   - Make sure your web app can be safely stopped (saved state) and restarted later (reloading state)
   - Make sure you don't have critical background code that needs to keep running at all time
