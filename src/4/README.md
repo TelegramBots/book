@@ -1,10 +1,10 @@
 # Advanced topics
 
 - [Proxy](proxy.md)
-- [Mini Apps](webapps.md)
 - [Business Features](business.md)
-- [Passport](passport/)
 - [Payments API](payments.md)
+- [Mini Apps](webapps.md)
+- [Passport](passport/)
 
 ## Telegram Login Widget
 
