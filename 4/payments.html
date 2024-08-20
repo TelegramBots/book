@@ -259,22 +259,22 @@
 <p>Telegram offers a safe, simple and unified payment system for goods and services.</p>
 <p>Due to Google/Apple policies, there is a distinction between:</p>
 <ul>
-<li><strong>Digital Goods &amp; Services</strong>, which can be paid using <a href="https://telegram.org/blog/telegram-stars">Telegram Stars</a> only</li>
+<li><strong>Digital Goods &amp; Services</strong>, which can be paid using <a href="https://telegram.org/blog/telegram-stars">Telegram Stars</a> (XTR) only</li>
 <li><strong>Physical Goods</strong>, which can be paid using real money, and can request more details like a shipping address.</li>
 </ul>
 <p>Both process are similar, so we will demonstrate how to do a Telegram Stars payment (simpler) and give you some info about the difference for Physical Goods.</p>
 <h2 id="important-preliminary-notes"><a class="header" href="#important-preliminary-notes">Important preliminary notes</a></h2>
 <p>For physical goods, before starting, you need to talk to <a href="https://t.me/BotFather">@BotFather</a>, select one of the supported
 <a href="https://core.telegram.org/bots/payments#supported-payment-providers">Payment providers</a>
-(you need to open an account by this provider), and complete the connection procedure
+(you need to open an account on the provider website), and complete the connection procedure
 linking your bot with your provider account.</p>
 <blockquote>
 <p>It is recommended to start with the <a href="https://core.telegram.org/bots/payments#testing-payments-the-39stripe-test-mode-39-provider">Stripe TEST MODE</a>
 provider so you can test your bot with fake card numbers before going live.</p>
 </blockquote>
 <p>Price amounts are expressed as integers with some digits at the end for the "decimal" part.<br />
-For example, in USD currency there are 2 digits for cents, so 145 means $1.45. With Telegram Stars (XTR), there are no extra digits.<br />
-See <a href="https://core.telegram.org/bots/payments/currencies.json">"exp" in this table</a>, to determine the number of decimal digits for your currency.</p>
+For example, in USD currency there are 2 digits for cents, so 12345 means $123.45 ; With Telegram Stars (XTR), there are no extra digits.<br />
+See <a href="https://core.telegram.org/bots/payments/currencies.json">"exp" in this table</a>, to determine the number of decimal digits for each currency.</p>
 <h2 id="sending-an-invoice"><a class="header" href="#sending-an-invoice">Sending an invoice</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendinvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendInvoice-blue.svg?style=flat-square" alt="send invoice method" /></a></p>
 <p>When your bot is ready to issue a payment for the user to complete, it will send an invoice:</p>
@@ -286,24 +286,25 @@ See <a href="https://core.telegram.org/bots/payments/currencies.json">"exp" in t
     prices: [("Price", 500)],               // only one price for XTR
     photoUrl: "https://cdn.pixabay.com/photo/2012/10/26/03/16/painting-63186_1280.jpg",
     payload: "Internal Product ID",         // not sent nor shown to user
-    providerToken: ""                       // empty for XTR
+    providerToken: ""                       // empty string for XTR
 );
 </code></pre>
-<p>Alternatively, you can instead generate an URL for that payment with <code>CreateInvoiceLinkAsync</code>.</p>
-<p>With Physical Goods, you can specify more parameters like:</p>
+<p>Alternatively, you can instead generate an URL for that payment with <a href="https://core.telegram.org/bots/api#createinvoicelink"><code>CreateInvoiceLinkAsync</code></a>.</p>
+<p>With Physical Goods, you can specify <a href="https://core.telegram.org/bots/api#sendinvoice">more parameters</a> like:</p>
 <ul>
 <li>the <code>providerToken</code> obtained by BotFather (something like "1234567:TEST:aBcDeFgHi")</li>
-<li>several price lines explaining the total price</li>
+<li>several price lines detailing the total price</li>
 <li>some suggested tips</li>
 <li>the need for extra information about the user, including a shipping address</li>
 <li>if the price is flexible depending on the shipping address/method</li>
 </ul>
+<p>If your bot supports <a href="../3/inline.html">Inline Mode</a>, you can also <a href="https://core.telegram.org/bots/api#inputinvoicemessagecontent">send invoices as inline results</a> ("via YourBot").</p>
 <h2 id="handling-the-shippingquery-update"><a class="header" href="#handling-the-shippingquery-update">Handling the <code>ShippingQuery</code> Update</a></h2>
 <p><a href="https://core.telegram.org/bots/api#shippingquery"><img src="https://img.shields.io/badge/Bot_API_update-ShippingQuery-blue.svg?style=flat-square" alt="Shipping Query Update" /></a>
 <a href="https://core.telegram.org/bots/api#answershippingquery"><img src="https://img.shields.io/badge/Bot_API_method-answerShippingQuery-blue.svg?style=flat-square" alt="Answer Shipping Query method" /></a></p>
 <p>This update is received only for Physical Goods, if you specified a flexible price.
 Otherwise you can skip to the next section.</p>
-<p><code>update.ShippingQuery</code> contains information like the current shipping address for the user, and can be received again if the user changes the address.</p>
+<p><code>update.ShippingQuery</code> would contain information like the current shipping address for the user, and can be received again if the user changes the address.</p>
 <p>You should check if the address is supported, and reply using <code>bot.AnswerShippingQueryAsync</code> with an error message or a list of shipping options with associated price lines:</p>
 <pre><code class="language-csharp">var shippingOptions = new List&lt;ShippingOption&gt;();
 shippingOptions.Add(new() { Title = "DHL Express", Id = "dhl-express",
@@ -321,13 +322,44 @@ await bot.AnswerShippingQueryAsync(shippingQuery.Id, shippingOptions);
 <pre><code class="language-csharp">if (confirm)
     await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
 else
-    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Can't process your order because &lt;REASON&gt;");
+    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Can't process your order: &lt;REASON&gt;");
 </code></pre>
 <h2 id="handling-the-successfulpayment-message"><a class="header" href="#handling-the-successfulpayment-message">Handling the <code>SuccessfulPayment</code> <u>Message</u></a></h2>
 <p><a href="https://core.telegram.org/bots/api#successfulpayment"><img src="https://img.shields.io/badge/Bot_API_message-SuccessfulPayment-blue.svg?style=flat-square" alt="Successful Payment Message" /></a></p>
 <p>If you confirmed the order in the step above, Telegram requests the payment with the payment provider.</p>
 <p>If the payment is successfully processed, you will receive a private Message of type <code>SuccessfulPayment</code> from the user, and you must then proceed with delivering the goods or services to the user.</p>
-<p>The <code>message.SuccessfulPayment</code> structure contains all the same previous information, plus two payment identifiers from Telegram &amp; from the Payment Provider for traceability of the transaction in case of dispute.</p>
+<p>The <code>message.SuccessfulPayment</code> structure contains all the same previous information, plus two payment identifiers from Telegram &amp; from the Payment Provider.</p>
+<p>You should store these ChargeId strings for traceability of the transaction in case of dispute, or refund <em>(possible with <a href="https://core.telegram.org/bots/api#refundstarpayment">RefundStarPayment</a>)</em>.</p>
+<h2 id="full-example-code-for-telegram-stars-transaction"><a class="header" href="#full-example-code-for-telegram-stars-transaction">Full example code for Telegram Stars transaction</a></h2>
+<pre><code class="language-csharp">using Telegram.Bot;
+using Telegram.Bot.Types;
+
+var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
+bot.OnUpdate += OnUpdate;
+Console.ReadKey();
+
+async Task OnUpdate(Update update)
+{
+    switch (update)
+    {
+        case { Message.Text: "/start" }:
+            await bot.SendInvoiceAsync(update.Message.Chat,
+              "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X", "",
+              "XTR", [("Price", 200)], photoUrl: "https://cdn-icons-png.flaticon.com/512/891/891386.png");
+            break;
+        case { PreCheckoutQuery: { } preCheckoutQuery }:
+            if (preCheckoutQuery is { InvoicePayload: "unlock_X", Currency: "XTR", TotalAmount: 200 })
+                await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
+            else
+                await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
+            break;
+        case { Message.SuccessfulPayment: { } successfulPayment }:
+            if (successfulPayment.InvoicePayload is "unlock_X")
+                await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
+            break;
+    };
+}
+</code></pre>
 
                     </main>
 
