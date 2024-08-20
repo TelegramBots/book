@@ -11,9 +11,9 @@ Due to Google/Apple policies, there is a distinction between:
 
 Both process are similar, so we will demonstrate how to do a Telegram Stars payment (simpler) and give you some info about the difference for Physical Goods.
 
-## Important preliminary notes
+## Important notes for physical goods
 
-For physical goods, before starting, you need to talk to [@BotFather](https://t.me/BotFather), select one of the supported
+Before starting, you need to talk to [@BotFather](https://t.me/BotFather), select one of the supported
 [Payment providers](https://core.telegram.org/bots/payments#supported-payment-providers)
 (you need to open an account on the provider website), and complete the connection procedure
 linking your bot with your provider account.
@@ -129,6 +129,9 @@ async Task OnUpdate(Update update)
       case { Message.SuccessfulPayment: { } successfulPayment }:
          if (successfulPayment.InvoicePayload is "unlock_X")
             await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
+         System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: User {update.Message.From} " +
+            $"paid for {successfulPayment.InvoicePayload}: " +
+            $"{successfulPayment.ProviderPaymentChargeId} {successfulPayment.TelegramPaymentChargeId}");
          break;
    };
 }
