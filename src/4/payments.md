@@ -127,8 +127,8 @@ async Task OnUpdate(Update update)
             await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
          break;
       case { Message.SuccessfulPayment: { } successfulPayment }:
-         System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: User {update.Message.From} " +
-            $"paid for {successfulPayment.InvoicePayload}: " +
+         System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: " +
+            $"User {update.Message.From} paid for {successfulPayment.InvoicePayload}: " +
             $"{successfulPayment.TelegramPaymentChargeId} {successfulPayment.ProviderPaymentChargeId}");
          if (successfulPayment.InvoicePayload is "unlock_X")
             await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
