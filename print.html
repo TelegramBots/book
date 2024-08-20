@@ -4455,8 +4455,8 @@ accompanying credentials to decryption methods.</p>
 <li><strong>Physical Goods</strong>, which can be paid using real money, and can request more details like a shipping address.</li>
 </ul>
 <p>Both process are similar, so we will demonstrate how to do a Telegram Stars payment (simpler) and give you some info about the difference for Physical Goods.</p>
-<h2 id="important-preliminary-notes"><a class="header" href="#important-preliminary-notes">Important preliminary notes</a></h2>
-<p>For physical goods, before starting, you need to talk to <a href="https://t.me/BotFather">@BotFather</a>, select one of the supported
+<h2 id="important-notes-for-physical-goods"><a class="header" href="#important-notes-for-physical-goods">Important notes for physical goods</a></h2>
+<p>Before starting, you need to talk to <a href="https://t.me/BotFather">@BotFather</a>, select one of the supported
 <a href="https://core.telegram.org/bots/payments#supported-payment-providers">Payment providers</a>
 (you need to open an account on the provider website), and complete the connection procedure
 linking your bot with your provider account.</p>
@@ -4548,6 +4548,9 @@ async Task OnUpdate(Update update)
       case { Message.SuccessfulPayment: { } successfulPayment }:
          if (successfulPayment.InvoicePayload is "unlock_X")
             await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
+         System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: User {update.Message.From} " +
+            $"paid for {successfulPayment.InvoicePayload}: " +
+            $"{successfulPayment.ProviderPaymentChargeId} {successfulPayment.TelegramPaymentChargeId}");
          break;
    };
 }
