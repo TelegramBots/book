@@ -1,5 +1,5 @@
 # Telegram Bots Book
-[![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://nuget.voids.site/packages/Telegram.Bot)
+[![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot)
 [![Repository](https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.svg?style=social&label=Stars)](https://github.com/TelegramBots/Telegram.Bot)
 
 **[Telegram.Bot](https://github.com/TelegramBots/Telegram.Bot)** is the most popular .NET client for [Telegram Bot API](https://core.telegram.org/bots/api), allowing [developers to build bots](https://core.telegram.org/bots) for [Telegram](https://www.telegram.org) messaging app.
@@ -12,19 +12,23 @@ Begin with our [_Quickstart_](1/quickstart.md), or choose from the Table Of Cont
 > [!IMPORTANT]
 > _Latest versions of the library are not available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue._
 
-In the mean time, latest versions are available on our [special nuget feed](https://nuget.voids.site/packages/Telegram.Bot): `https://nuget.voids.site/v3/index.json`
+In the mean time, latest versions are available on our [special nuget source](https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot):  
+`https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json`
 
 See the screenshots below to configure the Package source in Visual Studio:
 ![In Visual Studio](1/docs/NugetPackageManager.png)
 and make sure to follow the [Migration Guide for v21.*](migrate/Version-21.x.md) if you have existing bot code.
 
-Alternatively you can use command line: `dotnet nuget add source https://nuget.voids.site/v3/index.json`  
+Alternatively you can use command line:
+```
+dotnet nuget add source "https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json" -n Telegram.Bot
+```
 Or set up a `nuget.config` file at the root of your project/solution:
 ```xml
 <configuration>
   <packageSources>
     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
-    <add key="nuget.voids.site" value="https://nuget.voids.site/v3/index.json" />
+    <add key="Telegram.Bot" value="https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json" />
   </packageSources>
 </configuration>
 ```
@@ -41,7 +45,7 @@ This book is filled with ready-to-use snippets of code, but you can also find fu
 
 |Visit our|URL|
 |--|--|
-|Nuget feed|<https://nuget.voids.site/packages/Telegram.Bot>|
+|Nuget feed|<https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot>|
 |Github repo|<https://github.com/TelegramBots/Telegram.Bot>|
 |Examples repo|<https://github.com/TelegramBots/Telegram.Bot.Examples>|
 |Telegram news channel|<https://t.me/tgbots_dotnet>|
