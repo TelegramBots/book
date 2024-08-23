@@ -254,7 +254,7 @@
 
 </style>
 <h1 id="telegram-bots-book"><a class="header" href="#telegram-bots-book">Telegram Bots Book</a></h1>
-<p><a href="https://nuget.voids.site/packages/Telegram.Bot"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square" alt="NuGet" /></a>
+<p><a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square" alt="NuGet" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot"><img src="https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.svg?style=social&amp;label=Stars" alt="Repository" /></a></p>
 <p><strong><a href="https://github.com/TelegramBots/Telegram.Bot">Telegram.Bot</a></strong> is the most popular .NET client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>, allowing <a href="https://core.telegram.org/bots">developers to build bots</a> for <a href="https://www.telegram.org">Telegram</a> messaging app.</p>
 <p>This book covers all you need to know to create a chatbot in .NET, with many concrete examples written in C#.<br />
@@ -267,16 +267,19 @@ Begin with our <a href="1/quickstart.html"><em>Quickstart</em></a>, or choose fr
 </p>
 <p><em>Latest versions of the library are not available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue.</em></p>
 </div>
-<p>In the mean time, latest versions are available on our <a href="https://nuget.voids.site/packages/Telegram.Bot">special nuget feed</a>: <code>https://nuget.voids.site/v3/index.json</code></p>
+<p>In the mean time, latest versions are available on our <a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot">special nuget source</a>:<br />
+<code>https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json</code></p>
 <p>See the screenshots below to configure the Package source in Visual Studio:
 <img src="1/docs/NugetPackageManager.png" alt="In Visual Studio" />
 and make sure to follow the <a href="migrate/Version-21.x.html">Migration Guide for v21.*</a> if you have existing bot code.</p>
-<p>Alternatively you can use command line: <code>dotnet nuget add source https://nuget.voids.site/v3/index.json</code><br />
-Or set up a <code>nuget.config</code> file at the root of your project/solution:</p>
+<p>Alternatively you can use command line:</p>
+<pre><code>dotnet nuget add source "https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json" -n Telegram.Bot
+</code></pre>
+<p>Or set up a <code>nuget.config</code> file at the root of your project/solution:</p>
 <pre><code class="language-xml">&lt;configuration&gt;
   &lt;packageSources&gt;
     &lt;add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" /&gt;
-    &lt;add key="nuget.voids.site" value="https://nuget.voids.site/v3/index.json" /&gt;
+    &lt;add key="Telegram.Bot" value="https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json" /&gt;
   &lt;/packageSources&gt;
 &lt;/configuration&gt;
 </code></pre>
@@ -290,7 +293,7 @@ Or set up a <code>nuget.config</code> file at the root of your project/solution:
 </ul>
 <h2 id="-more-useful-links"><a class="header" href="#-more-useful-links">🔗 More useful links</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Visit our</th><th>URL</th></tr></thead><tbody>
-<tr><td>Nuget feed</td><td><a href="https://nuget.voids.site/packages/Telegram.Bot">https://nuget.voids.site/packages/Telegram.Bot</a></td></tr>
+<tr><td>Nuget feed</td><td><a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot">https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot</a></td></tr>
 <tr><td>Github repo</td><td><a href="https://github.com/TelegramBots/Telegram.Bot">https://github.com/TelegramBots/Telegram.Bot</a></td></tr>
 <tr><td>Examples repo</td><td><a href="https://github.com/TelegramBots/Telegram.Bot.Examples">https://github.com/TelegramBots/Telegram.Bot.Examples</a></td></tr>
 <tr><td>Telegram news channel</td><td><a href="https://t.me/tgbots_dotnet">https://t.me/tgbots_dotnet</a></td></tr>

@@ -272,7 +272,7 @@
 </div>
 <p>Create a new console project for your bot and add a reference to <code>Telegram.Bot</code> package:</p>
 <pre><code class="language-bash">dotnet new console
-dotnet nuget add source https://nuget.voids.site/v3/index.json
+dotnet nuget add source https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json -n Telegram.Bot
 dotnet add package Telegram.Bot
 </code></pre>
 <p>The code below fetches Bot information based on its bot token by calling the Bot API <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method. Open <code>Program.cs</code> and use the following content:</p>
