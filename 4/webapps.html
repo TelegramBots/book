@@ -254,11 +254,17 @@
 
 </style>
 <h1 id="telegram-mini-apps"><a class="header" href="#telegram-mini-apps">Telegram Mini Apps</a></h1>
-<p><a href="https://core.telegram.org/bots/webapps"><img src="https://img.shields.io/badge/Bot_API_Doc-Mini_Apps-blue.svg?style=flat-square" alt="Mini App bot API" /></a></p>
+<p><a href="https://core.telegram.org/bots/webapps"><img src="https://img.shields.io/badge/Bot_API_Doc-Mini_Apps-blue.svg?style=flat-square" alt="Mini App bot API" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/MiniApp"><img src="https://img.shields.io/badge/Examples-MiniApp-green?style=flat-square" alt="MiniApp example project" /></a></p>
 <p>If standard Telegram Bot features aren't enough to fit your needs,
 you may want to consider building a <a href="https://core.telegram.org/bots/webapps">Mini App</a> instead.</p>
 <p>This take the form of an integrated browser window showing directly web pages from your bot WebApp,
 so you have more control with HTML/JS to display the interface you like.</p>
+ <video autoplay loop controls muted poster="https://telegram.org/file/464001434/100bf/eWprjdgzEbE.100386/644bbea83084f44c8f" style="width: 100%; max-width: 600px;" title="" alt="Bot Revolution">
+  <source src="https://telegram.org/file/464001679/11aa9/KQx_BlPVXRo.4922145.mp4/c65433c8ac11a347a8" type="video/mp4">
+ </video>
+<p>Check our <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/MiniApp">full example project</a> based on Razor pages, and including a clone of the above <a href="https://t.me/DurgerKingBot">@DurgerKingBot</a> and more demo to test features.</p>
+<h2 id="starting-mini-apps"><a class="header" href="#starting-mini-apps">Starting Mini-Apps</a></h2>
 <p>Mini Apps can be launched from various ways:</p>
 <ul>
 <li><a href="../2/reply-markup.html#custom-keyboards">Keyboard Buttons</a>: <code>KeyboardButton.WithWebApp</code></li>
@@ -267,7 +273,16 @@ so you have more control with HTML/JS to display the interface you like.</p>
 <li>Inline-mode results with a "Switch to Mini App" button: <code>AnswerInlineQueryAsync</code> with parameter <code>InlineQueryResultsButton.WebApp</code></li>
 <li>Direct link like https://t.me/botusername/appname?startapp=command</li>
 </ul>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>Your web pages must include this script in the <code>&lt;head&gt;</code> part:</p>
+<pre><code class="language-html">&lt;script src="https://telegram.org/js/telegram-web-app.js"&gt;&lt;/script&gt;
+</code></pre>
+<p>Your Javascript can then access a <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">Telegram.WebApp</a> object supporting many <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">properties and methods</a>, as well as <a href="https://core.telegram.org/bots/webapps#events-available-for-mini-apps">event handlers</a>.</p>
+<p>In particular, you may want to use your Telegram.Bot backend to validate the authenticity of <code>Telegram.WebApp.initData</code>.</p>
+<p>This can be done using our <code>AuthHelpers.ParseValidateData</code> method and the bot token, to make sure the requests come from Telegram and obtain information about Telegram user and context.</p>
+<h2 id="for-more-details"><a class="header" href="#for-more-details">For more details</a></h2>
 <p>To read more about Mini Apps, see <a href="https://core.telegram.org/bots/webapps">https://core.telegram.org/bots/webapps</a></p>
+<p>Visit our example project: <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/MiniApp">https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/MiniApp</a></p>
 
                     </main>
 
