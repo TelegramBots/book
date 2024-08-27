@@ -3,7 +3,7 @@
 Important notes:
 - Don't bother about version 20, migrate directly to version 21.*
 - You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-installation).
-- Version 21.1 supports [Bot API 7.5](https://core.telegram.org/bots/api-changelog#june-18-2024) _(including [Telegram Stars payments](#payments-with-telegram-stars))_
+- Version 21.10 supports [Bot API 7.9](https://core.telegram.org/bots/api#august-14-2024) _(including [Telegram Stars payments](../4/payments.md))_
 - Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. _([See below](#webhooks-with-systemtextjson))_
 
 ## Renamed parameter _replyToMessageId:_ → _replyParameters:_
@@ -66,11 +66,11 @@ Request structures _(types ending with `Request`)_ are NOT the recommended way t
 They are to be considered as low-level raw access to Bot API structures for advanced programmers, and might change/break at any time in the future.
 
 If you have existing code using them, you can use the `MakeRequestAsync` method to send those requests.
-(Other methods based on those requests will be removed soon)
+_(Other methods based on those requests will be removed soon)_
 
-## Payments with Telegram Stars
+## Payments with [Telegram Stars](https://t.me/BotNews/90)
 
-To make a payment in [Telegram Stars](https://t.me/BotNews/90) with SendInvoiceAsync, set the following parameters:
+To make a [payment in Telegram Stars](../4/payments.md) with SendInvoiceAsync, set the following parameters:
 - `providerToken:` `null` or `""`
 - `currency:` `"XTR"`
 - `prices:` with a single price
@@ -82,7 +82,7 @@ The library now uses `System.Text.Json` instead of `NewtonsoftJson`.
 
 To make it work in your ASP.NET projects, you should now:
 - Remove package **Microsoft.AspNetCore.Mvc.NewtonsoftJson** from your project dependencies
-- Follow our [Webhook page](3/updates/webhook.md) to configure your web app correctly
+- Follow our [Webhook page](../3/updates/webhook.md) to configure your web app correctly
 
 ## InputPollOption in SendPollAsync
 
@@ -105,7 +105,8 @@ This way, you won't need to pass a cancellationToken to every method call after 
 
 ## Polling system now catch exceptions in your HandleUpdate code (v21.3)
 
->⚠️ That's a change of behaviour, but most of you will probably welcome this change
+> [!WARNING]  
+> That's a change of behaviour, but most of you will probably welcome this change
 
 If you forgot to wrap your HandleUpdateAsync code in a big `try..catch`, and your code happen to throw an exception,
 this would previously stop the polling completely.
@@ -124,3 +125,55 @@ Now the Polling system will catch your exceptions, pass them to your HandleError
 >    if (source is HandleErrorSource.HandleUpdateError) throw ex;
 >    ...
 >```
+
+## New helpers/extensions to simplify your code (v21.5)
+
+- When replying to a message, you can now simply pass a `Message` for _replyParameters:_ rather than a `Message.MessageId`
+- `Update.AllTypes` is a constant array containing all `UpdateType`s. You can pass it for the _allowedUpdates:_ parameter (`GetUpdatesAsync`/`SetWebhookAsync`)
+- Message has now 2 extensions methods: `.ToHtml()` and `.ToMarkdown()` to convert the message text/caption and their entities into a simple Html or Markdown string.
+- You can also use methods `Markdown.Escape()` and `HtmlText.Escape()` to sanitize reserved characters from strings
+- Reply/Inline Keyboard Markup now have construction methods to simplify building keyboards dynamically:
+```csharp
+var replyMarkup = new InlineKeyboardMarkup()
+    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddNewRow().AddButton("callback").AddButton("caption", "data")
+    .AddNewRow("with", "three", "buttons")
+    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
+```
+- Same for ReplyKeyboardMarkup (and you can use `new ReplyKeyboardMarkup(true)` to resize keyboard)
+
+As [previously announced](#request-structures), the Request-typed methods are gone.
+But you can still send Request structures via the `MakeRequestAsync` method.
+
+## Simplified polling with events (v21.7)
+
+Instead of `StartReceiving`/`ReceiveAsync` system, you can now simply set 2 or 3 events on the botClient:
+- `bot.OnMessage += ...` to receive Message updates
+- `bot.OnUpdate += ...` to receive other updates _(or <ins>all</ins> updates if you don't set `OnMessage`)_
+- `bot.OnError += ...` to handle errors/exceptions during polling or your handlers
+
+Note: Second argument to `OnMessage` event specifies which kind of update it was (_edited_, _channel_ or _business_ message?)
+
+When you assign those events, polling starts automatically, you don't have anything to do.  
+Polling will stop when you remove (`-=`) your events, or when you cancel the [global cancellation token](#global-cancellation-token-v212)
+
+You can also use `await bot.DropPendingUpdatesAsync()` before setting those events to ignore past updates.  
+The [Console example project](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console) has been updated to demonstrate these events.
+
+## Automatic retrying API calls in case of "Too Many Requests" (v21.9)
+
+If Telegram servers fail on your API call with this error and ask you to to retry in less than 60 seconds, TelegramBotClient will now automatically wait for the requested delay and retry sending the same request up to 3 times.
+
+This is configurable using Options on the constructor:
+```csharp
+using var cts = new CancellationTokenSource();
+var options = new TelegramBotClientOptions(token) { RetryThreshold = 120, RetryCount = 2 };
+var bot = new TelegramBotClient(options, cancellationToken: cts.Token);
+```
+
+*️⃣ This is a change of behavior compared to previous versions, but probably a welcome one.  
+To disable this system and keep the same behavior as previous versions, use `RetryThreshold = 0`
+
+> Notes for advanced users:
+> - If this happens while uploading files (InputFile streams), the streams will be reset to their start position in order to be sent again
+> - If your streams are non-seekable _(no problem with MemoryStream/FileStream)_, the full HTTP request to Bot API will be buffered before the first sending _(so it can lead to a temporary use of memory if you're sending big files)_

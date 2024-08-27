@@ -17,24 +17,27 @@ Bot token is a key that required to authorize the bot and send requests to the B
 
 Now that you have a bot, it's time to bring it to life!
 
+> [!NOTE]  
 > We recommend a recent .NET version like .NET 8, but we also support older .NET Framework (4.6.1+), .NET Core (2.0+) or .NET (5.0+)
-ne
 
 Create a new console project for your bot and add a reference to `Telegram.Bot` package:
 
 ```bash
 dotnet new console
-dotnet add package Telegram.Bot --source https://nuget.voids.site/v3/index.json
+dotnet nuget add source https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json -n Telegram.Bot
+dotnet add package Telegram.Bot
 ```
 
-The code below fetches Bot information based on its access token by calling the Bot API [`getMe`] method. Open `Program.cs` and use the following content:
+The code below fetches Bot information based on its bot token by calling the Bot API [`getMe`] method. Open `Program.cs` and use the following content:
 
-> ⚠️ Replace `{YOUR_ACCESS_TOKEN_HERE}` with your access token from the [`@BotFather`].
+> ⚠️ Replace `YOUR_BOT_TOKEN` with your bot token obtained from [`@BotFather`].
 
 ```c#
-{{#include ../../Examples/1/Quickstart.cs:usings}}
+using Telegram.Bot;
 
-{{#include ../../Examples/1/Quickstart.cs:quickstart}}
+var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
+var me = await bot.GetMeAsync();
+Console.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
 ```
 
 Running the program gives you the following output:
@@ -45,7 +48,7 @@ dotnet run
 Hello, World! I am user 1234567 and my name is Awesome Bot.
 ```
 
-Great! This bot is self-aware. To make the bot interact with a user, head to the [next page].
+Great! This bot is self-aware. To make the bot react to user messages, head to the [next page].
 
 <!-- -->
 

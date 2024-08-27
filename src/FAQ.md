@@ -2,12 +2,15 @@
 
 I recommend you read all of these as you will learn many interesting things. Or you can use Ctrl-F to search for a specific topic.
 
+<!-- toc -->
+
 ### _1. Can you give me documentation/examples links?_
-- Follow [this installation guide](README.md#-installation) to install the latest versions of the library.
-- You are on the [main documentation website](https://telegrambots.github.io/book/).
-- Here are [some bot examples](https://github.com/TelegramBots/Telegram.Bot.Examples)
-- Search the [official API documentation](https://core.telegram.org/bots/api) and [official FAQ](https://core.telegram.org/bots/faq).
+- Follow [this installation guide](https://telegrambots.github.io/book/#-installation) to install the latest versions of the library.
+- Here is on the [main documentation website](https://telegrambots.github.io/book/).
+- You can find [more bot example projects](https://github.com/TelegramBots/Telegram.Bot.Examples) here
+- Search the [official API documentation](https://core.telegram.org/bots/api) and [official bots FAQ](https://core.telegram.org/bots/faq).
 - check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.
+
 >If you're C# beginner, you should learn about [async programming](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/).
 
 ### _2. My update handler fails or stops executing at some point_
@@ -20,7 +23,7 @@ Not all messages are text messages, `message.Text` could be null (see also `mess
 So please <ins>use a debugger</ins> to check the content of your variables or structure fields and make sure your code can handle all cases.
 
 ### _4. How to add buttons under a message?_
-Pass an [InlineKeyboardMarkup](https://telegrambots.github.io/book/2/reply-markup.html#inline-keyboards) into the `replyMarkup` parameter when sending the message. You will likely need to create a `List<List<InlineKeyboardButton>>` for rows&columns  
+Pass an [InlineKeyboardMarkup](2/reply-markup.md#inline-keyboards) into the `replyMarkup` parameter when sending the message. You will likely need to create a `List<List<InlineKeyboardButton>>` for rows&columns  
 _See also next question._
 
 ### _5. How to handle a click on such inline buttons?_
@@ -31,33 +34,41 @@ Your code should answer to the query within 10 seconds, using `AnswerCallbackQue
 
 ### _6. How to show a popup text to the user?_
 It is only possible with inline callback button _(see above questions)_.  
-In `AnswerCallbackQueryAsync`, pass parameter `showAlert: true` to display as a popup.
+Use `AnswerCallbackQueryAsync` with some text, and pass parameter `showAlert: true` to display the text as an alert box instead of a short popup.
 
 ### _7. How to fill the input textbox of the user with some text?_
-You can't. The closest you can do is setup a `ReplyKeyboardMarkup` for buttons with pre-made texts under the textbox
+There is not a simple direct method for this, but here is what you can try:
+- With a [Public username link](https://core.telegram.org/api/links#public-username-links): `t.me/username?text=Hello+World`  
+  _(works only if target is a user/bot and not the current chat)_
+- With a [Share link](https://core.telegram.org/api/links#share-links): `tg://msg_url?url=https://example.com&text=Hello+World`  
+  _(user must select a target first)_
+- With a [Bot deep link](https://core.telegram.org/api/links#bot-links): `t.me/botusername?start=param`  
+  _(param is limited to base64 characters, bot will receive `/start param`)_
+- With a [ReplyKeyboardMarkup](2/reply-markup.md#custom-keyboards): buttons under the textbox to send pre-made texts
+- With an [Inline Mode bot](3/inline.md) and `SwitchInlineQuery` inline buttons, you can make the user pre-type the name of your bot followed by some query
 
 ### _8. How to fetch previous messages?_
-You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot).  
+You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
 Normally, bots only get messages at the moment they are posted. You could archive them all in a database for later retrieval.
 
 ### _9. How to fetch a list of all users in chat?_
-You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot).  
-Normally, bots can only get the list of administrators (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)
+You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
+Normally, bots can only get the list of admins (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)  
 Alternatively, you can keep track of users by observing new messages in a chat and saving user info into a database.
 
 ### _10. How to send a private message to some random user?_
 You can't. Bots can only send private messages to users that have already initiated a private chat with your bot.
 
 ### _11. How to detect if a user blocked my bot?_
-You would have received an `update.MyChatMember` with `NewChatMember.Status == ChatMemberStatus.Kicked`
-If you didn't record that info, you can try to `SendChatActionAsync` and see if it raise an exception.
+You would have received an `update.MyChatMember` with `NewChatMember.Status == ChatMemberStatus.Kicked`  
+If you didn't record that info, you can try to `SendChatActionAsync` and see if it raises an exception.
 
 ### _12. How to set a caption to a media group (album)?_
 Set the `media.Caption` (and `media.ParseMode`) on the first media
 
 ### _13. How to write a bot that make questions/answers with users?_
 Either you can code a complex state machine workflow, saving where each user is currently in the discussion.  
-Or you can just use [YourEasyBot](https://github.com/wiz0u/YourEasyBot) which makes sequential bots very simple to write... _(or one of the [other frameworks](https://github.com/TelegramBots/Telegram.Bot/issues/1072) available for Telegram.Bot)_
+Or you can just use [YourEasyBot](https://github.com/wiz0u/YourEasyBot) which makes sequential bots very simple to write... _(or one of the [other frameworks](https://github.com/TelegramBots/Telegram.Bot/wiki) available for Telegram.Bot)_
 
 ### _14. How to make font effects in message?_
 Pass a `ParseMode.Html` _(or `ParseMode.MarkDownV2`)_ to argument `parseMode`. See [formatting options](https://core.telegram.org/bots/api#formatting-options).  
@@ -70,17 +81,18 @@ A credit-card is necessary but you shouldn't get charged if you stay within quot
 Other cloud providers might also offer similar services.
 
 ### _16. Is there some limitation/maximum about feature X?_
-See https://limits.tginfo.me for a list of limitations.
+See <https://limits.tginfo.me> for a list of limitations.
 
 ### _17. How to populate the bot Menu button / commands list?_
 You can either do this via [@BotFather](https://t.me/BotFather) _(static entries)_, or you can use `SetMyCommandsAsync` for more advanced settings  
 ⚠️ This can only be filled with bot commands, starting with a `/` and containing only latin characters `a-z_0-9`
 
 ### _18. How to receive `ChatMember` updates?_
-You should specify all update types including ChatMember in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhookAsync`
+You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhookAsync`
 
 ### _19. How to get rid of past updates when I restart my bot?_
 Pass true into `StartReceiving`:`ReceiverOptions`:`DropPendingUpdates` or `SetWebhookAsync`:`dropPendingUpdates`
+Alternatively, you can call `await bot.DropPendingUpdatesAsync()` before polling or using [`bot.OnUpdate`](3/updates/polling.md#by-setting-botonupdate-andor-botonmessage).
 
 ### _20. Difficulties to upload & send a file/media?_
 - Make sure you `await` until the end of the send method before closing the file (a "`using`" clause would close the file on leaving the current { scope }
@@ -106,7 +118,7 @@ To post to a specific group, there is an alternative solution:
 
 ### _23. How to upgrade my existing code? You keep breaking compatibility!_
 A new lead developer (Wizou) is now in charge of the library and commits to reduce code-breaking changes in the future.  
-Version 21.x of the library have been much improved to facilitate [migration from previous versions](Migration-Guide-to-Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
+Version 21.x of the library have been much improved to facilitate [migration from previous versions](migrate/Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
 
 ### _24. Can I use several apps/instance to manage my bot?_
 You can call API methods (like sending messages) from several instances in parallel  
@@ -114,7 +126,7 @@ You can call API methods (like sending messages) from several instances in paral
 
 ### _25. How do I get the user id from a username?_
 
-You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot).  
+You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
 Alternatively, you could store in database the mapping of `UserId`<->`Username`.  
 Remember that not every user has a username.
 
@@ -123,6 +135,27 @@ Remember that not every user has a username.
 Your bot has to be added as administrator of the channel.
 You will then receive the messages as `update.ChannelPost` or `update.EditedChannelPost`.
 
+### _27. How to sent the same media multiple times_
+The first time, you will send the media with a stream (upload). Next times, you will use its **FileId**:
+```csharp
+var sent = await bot.SendVideoAsync(chatId, stream, ....);
+var fileId = sent.Video.FileId
+
+// next times:
+await bot.SendVideoAsync(chatId2, fileId, ...);
+```
+For photos, use `sent.Photo[^1].FileId`
+
+### _28. Why are my updates being processed sequentially when I'm using webhooks?_
+Telegram servers send updates to your webhook sequentially, one at a time. They will not send the next update until you have acknowledged the current one. To acknowledge an update, you must respond with an HTTP Status Code 200.
+
+Telegram not pushing updates concurrently means that even if you're using webhooks with ASP.NET Core, you won't be able to leverage ASP.NET Core's built-in concurrency features.
+
+For most use cases and lightweight bots, this sequential processing should not pose a problem. However, if your bot handles long-running processes for some or all updates, it may be beneficial to implement an internal queue using [Channels](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels) or a queue implementation such as `Queue<T>` or `ConcurrentQueue<T>`.
+
+
 ### This FAQ doesn't have my question on it
 
-Feel free to [join our Telegram group](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) and ask your question there
+Feel free to [join our Telegram group](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) and ask your question there.
+
+Consider contributing to this FAQ or any other part of the documentation if your question may be of interest for others.

@@ -1,6 +1,6 @@
 # Intermediate
 
-- [Getting Updates](updates/)
+- [Working with Updates & Messages](updates/)
   - [Long Polling](updates/polling.md)
   - [Webhooks](updates/webhook.md)
 - [Inline Mode](inline.md)

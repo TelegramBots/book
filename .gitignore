@@ -1,5 +1,6 @@
 # Executables
 *.exe
+*.pdn
 
 # msBook compiled book
 book

@@ -36,7 +36,8 @@ static RSA GetPrivateKey() {
 }
 ```
 
-> **Note**: You don't necessarily need to have a dependency on the [BouncyCastle package] in your bot project.
+> [!NOTE]  
+> You don't necessarily need to have a dependency on the [BouncyCastle package] in your bot project.
 > The section below offers a better alternative.
 
 ## From RSA Parameters

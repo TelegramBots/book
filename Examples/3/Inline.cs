@@ -10,7 +10,7 @@ namespace BookExamples.Chapter3;
 
 internal class Inline
 {
-    public readonly ITelegramBotClient bot = new TelegramBotClient("{YOUR_ACCESS_TOKEN_HERE}");
+    public readonly ITelegramBotClient bot = new TelegramBotClient("YOUR_BOT_TOKEN");
 // ANCHOR: arrays
 private readonly string[] sites = { "Google", "Github", "Telegram", "Wikipedia" };
 private readonly string[] siteDescriptions =

@@ -126,7 +126,8 @@ using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.j
 }
 ```
 
-> **Warning**: This method is convenient to use but gives you the least amount of control over the operations.
+> [!WARNING]  
+> This method is convenient to use but gives you the least amount of control over the operations.
 
 ### Reverse Side File
 

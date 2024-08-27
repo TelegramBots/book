@@ -7,6 +7,7 @@ Text is a powerful interface for your bot and [`sendMessage`] probably is the mo
 Text messages are easy to send and fast to display on devices with slower networking.
 
 _Don't send boring plain text to users all the time_. Telegram allows you to format the text using HTML or Markdown.
+> [!IMPORTANT]  
 > We highly recommend you use HTML instead of Markdown because Markdown has lots of annoying aspects
 
 ## Send Text Message
