@@ -146,6 +146,13 @@ await bot.SendVideoAsync(chatId2, fileId, ...);
 ```
 For photos, use `sent.Photo[^1].FileId`
 
+### _28. Why are my updates being processed sequentially when I'm using webhooks?_
+Telegram servers send updates to your webhook sequentially, one at a time. They will not send the next update until you have acknowledged the current one. To acknowledge an update, you must respond with an HTTP Status Code 200.
+
+Telegram not pushing updates concurrently means that even if you're using webhooks with ASP.NET Core, you won't be able to leverage ASP.NET Core's built-in concurrency features.
+
+For most use cases and lightweight bots, this sequential processing should not pose a problem. However, if your bot handles long-running processes for some or all updates, it may be beneficial to implement an internal queue using [Channels](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels) or a queue implementation such as `Queue<T>` or `ConcurrentQueue<T>`.
+
 
 ### This FAQ doesn't have my question on it
 
