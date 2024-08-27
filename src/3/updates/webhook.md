@@ -104,3 +104,5 @@ Telegram will consider it a temporary failure and will RESEND the same update a 
   - Have a service like [cron-job.org](https://cron-job.org/) ping your webapp every 5 minutes to keep it active.
     _(host will likely still recycle your app after a few days)_
   - Host your app on a VPS machine rather than a webapp host.
+- Updates are arriving sequentially, is this behaviour correct?
+  - Check question [Question 28 in the FAQ](../../FAQ.md#28-why-are-my-updates-being-processed-sequentially-when-im-using-webhooks).
