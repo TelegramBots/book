@@ -156,4 +156,6 @@ For most use cases and lightweight bots, this sequential processing should not p
 
 ### This FAQ doesn't have my question on it
 
-Feel free to [join our Telegram group](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) and ask your question there
+Feel free to [join our Telegram group](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) and ask your question there.
+
+Consider contributing to this FAQ or any other part of the documentation if your question may be of interest for others.
