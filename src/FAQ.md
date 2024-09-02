@@ -67,7 +67,7 @@ If you didn't record that info, you can try to `SendChatActionAsync` and see if 
 Set the `media.Caption` (and `media.ParseMode`) on the first media
 
 ### _13. How to write a bot that make questions/answers with users?_
-Either you can code a complex state machine workflow, saving where each user is currently in the discussion.  
+Either you can code a complex state machine workflow, saving where each user is currently in the discussion tree.  
 Or you can just use [YourEasyBot](https://github.com/wiz0u/YourEasyBot) which makes sequential bots very simple to write... _(or one of the [other frameworks](https://github.com/TelegramBots/Telegram.Bot/wiki) available for Telegram.Bot)_
 
 ### _14. How to make font effects in message?_
@@ -85,7 +85,7 @@ See <https://limits.tginfo.me> for a list of limitations.
 
 ### _17. How to populate the bot Menu button / commands list?_
 You can either do this via [@BotFather](https://t.me/BotFather) _(static entries)_, or you can use `SetMyCommandsAsync` for more advanced settings  
-⚠️ This can only be filled with bot commands, starting with a `/` and containing only latin characters `a-z_0-9`
+⚠️ This menu can only be filled with bot commands, starting with a `/` and containing only latin characters `a-z_0-9`
 
 ### _18. How to receive `ChatMember` updates?_
 You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhookAsync`
@@ -103,7 +103,7 @@ Alternatively, you can call `await bot.DropPendingUpdatesAsync()` before polling
 Medias in a media group are received as separate consecutive messages having the same `MediaGroupId` property. You should collect them progressively as you receive those messages.  
 There is no way to know how many medias are in the album, so:
 - look for consecutive messages in that chat with same `MediaGroupId` and stop when it's not the same
-- stop after 10 media in the group (maximum)
+- stop after 10 medias in the group (maximum)
 - use a timeout of a few seconds not receiving new messages in that chat to determine the end
 
 ### _22. How to send a custom emoji❓_

@@ -1,4 +1,4 @@
-# Webhooks
+﻿# Webhooks
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
 
@@ -7,6 +7,8 @@ With Webhook, your web application gets notified automatically by Telegram when 
 Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings `Telegram.Bot.JsonBotAPI.Options`.
 
 Below, you will find how to configure an **ASP.NET Core Web API** project to make it work with Telegram.Bot, either with Controllers or Minimal APIs
+
+⚠️ IMPORTANT: This guide describes configuration for versions 21.* of the library _(based on System.Text.Json rather than NewtonsoftJson)_. If you're using older versions, [you should upgrade first](../../migrate/Version-21.x.md)!
 
 ## ASP.NET Core with Controllers (MVC)
 [![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
