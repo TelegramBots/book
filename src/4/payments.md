@@ -84,7 +84,7 @@ This update is received when the user has entered their payment information and 
 You must reply within 10 seconds with:
 ```csharp
 if (confirm)
-    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
+    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id); // success
 else
     await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Can't process your order: <REASON>");
 ```
@@ -122,7 +122,7 @@ async Task OnUpdate(Update update)
          break;
       case { PreCheckoutQuery: { } preCheckoutQuery }:
          if (preCheckoutQuery is { InvoicePayload: "unlock_X", Currency: "XTR", TotalAmount: 200 })
-            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
+            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id); // success
          else
             await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
          break;

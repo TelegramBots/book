@@ -6,7 +6,7 @@ I recommend you read all of these as you will learn many interesting things. Or 
 
 ### _1. Can you give me documentation/examples links?_
 - Follow [this installation guide](https://telegrambots.github.io/book/#-installation) to install the latest versions of the library.
-- Here is on the [main documentation website](https://telegrambots.github.io/book/).
+- Here is the [main documentation website](https://telegrambots.github.io/book/).
 - You can find [more bot example projects](https://github.com/TelegramBots/Telegram.Bot.Examples) here
 - Search the [official API documentation](https://core.telegram.org/bots/api) and [official bots FAQ](https://core.telegram.org/bots/faq).
 - check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.
@@ -128,7 +128,7 @@ You can call API methods (like sending messages) from several instances in paral
 
 You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
 Alternatively, you could store in database the mapping of `UserId`<->`Username`.  
-Remember that not every user has a username.
+Remember that not every user has a username, and it can be changed.
 
 ### _26. How to receive messages from channels?_
 
