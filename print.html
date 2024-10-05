@@ -1887,11 +1887,14 @@ Same for a user leaving the chat, with the <code>message.LeftChatMember</code> s
 </style>
 <h1 id="reply-markup"><a class="header" href="#reply-markup">Reply Markup</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/ReplyMarkup/ReplyMarkupTests.cs"><img src="https://img.shields.io/badge/Examples-Reply_Markup-green.svg?style=flat-square" alt="reply markup tests" /></a></p>
-<p>Telegram provides two types of reply markup: <a href="2/reply-markup.html#custom-keyboards">Custom keyboards</a> and <a href="2/reply-markup.html#inline-keyboards">Inline keyboards</a>.</p>
-<h2 id="custom-keyboards"><a class="header" href="#custom-keyboards">Custom keyboards</a></h2>
-<p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots#keyboards">special keyboard</a> with predefined reply options. Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> object. You can request a contact or location information from the user with <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> or send a poll. Regular button will send predefined text to the chat.</p>
+<p>Telegram provides two types of reply markup: <a href="2/reply-markup.html#custom-reply-keyboards">Custom reply keyboards</a> and <a href="2/reply-markup.html#inline-keyboards">Inline keyboards</a>.</p>
+<h2 id="custom-reply-keyboards"><a class="header" href="#custom-reply-keyboards">Custom reply keyboards</a></h2>
+<blockquote>
+<p>These are buttons visible below the textbox. Pressing such button will make the user send a message</p>
+</blockquote>
+<p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots/features#keyboards">special keyboard</a> with predefined reply options. Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> object. You can request a contact or location information from the user with <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> or send a poll. Regular button will send predefined text to the chat.</p>
 <p>Keyboard is an array of button rows, each represented by an array of <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> objects. <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> supports text and emoji.</p>
-<p>By default, custom keyboards are displayed until a new keyboard is sent by a bot.</p>
+<p>By default, reply keyboards are displayed until a new keyboard is sent by a bot.</p>
 <h3 id="single-row-keyboard-markup"><a class="header" href="#single-row-keyboard-markup">Single-row keyboard markup</a></h3>
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
@@ -1931,6 +1934,9 @@ var sent = await bot.SendTextMessageAsync(chatId, "Who or Where are you?", reply
 await bot.SendTextMessageAsync(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboardRemove());
 </code></pre>
 <h2 id="inline-keyboards"><a class="header" href="#inline-keyboards">Inline keyboards</a></h2>
+<blockquote>
+<p>These are buttons visible below a bot message. Pressing such button will NOT make the user send a message</p>
+</blockquote>
 <p>There are times when you'd prefer to do things without sending any messages to the chat. For example, when your user is changing settings or flipping through search results. In such cases you can use <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline Keyboards</a> that are integrated directly into the messages they belong to.</p>
 <p>Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't result in messages sent to the chat. Instead, inline keyboards support buttons that work behind the scenes: <a href="2/reply-markup.html#callback-buttons">callback buttons</a>, <a href="2/reply-markup.html#url-buttons">URL buttons</a> and <a href="2/reply-markup.html#switch-to-inline-buttons">switch to inline buttons</a>.</p>
 <p>You can have several rows and columns of inline buttons of mixed types.</p>
@@ -3556,7 +3562,7 @@ await bot.AnswerShippingQueryAsync(shippingQuery.Id, shippingOptions);
 <p><code>update.PreCheckoutQuery</code> contains all the requested information for the order, so you can validate that all is fine before actual payment</p>
 <p>You must reply within 10 seconds with:</p>
 <pre><code class="language-csharp">if (confirm)
-    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
+    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id); // success
 else
     await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Can't process your order: &lt;REASON&gt;");
 </code></pre>
@@ -3585,7 +3591,7 @@ async Task OnUpdate(Update update)
          break;
       case { PreCheckoutQuery: { } preCheckoutQuery }:
          if (preCheckoutQuery is { InvoicePayload: "unlock_X", Currency: "XTR", TotalAmount: 200 })
-            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id);
+            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id); // success
          else
             await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
          break;
@@ -4676,7 +4682,7 @@ accompanying credentials to decryption methods.</p>
 <h3 id="1-can-you-give-me-documentationexamples-links"><a class="header" href="#1-can-you-give-me-documentationexamples-links"><em>1. Can you give me documentation/examples links?</em></a></h3>
 <ul>
 <li>Follow <a href="https://telegrambots.github.io/book/#-installation">this installation guide</a> to install the latest versions of the library.</li>
-<li>Here is on the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
+<li>Here is the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
 <li>You can find <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">more bot example projects</a> here</li>
 <li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official bots FAQ</a>.</li>
 <li>check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.</li>
@@ -4783,7 +4789,7 @@ Version 21.x of the library have been much improved to facilitate <a href="migra
 <h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
 <p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
-Remember that not every user has a username.</p>
+Remember that not every user has a username, and it can be changed.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
 <p>Your bot has to be added as administrator of the channel.
 You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>

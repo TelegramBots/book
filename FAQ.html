@@ -288,7 +288,7 @@
 <h3 id="1-can-you-give-me-documentationexamples-links"><a class="header" href="#1-can-you-give-me-documentationexamples-links"><em>1. Can you give me documentation/examples links?</em></a></h3>
 <ul>
 <li>Follow <a href="https://telegrambots.github.io/book/#-installation">this installation guide</a> to install the latest versions of the library.</li>
-<li>Here is on the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
+<li>Here is the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
 <li>You can find <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">more bot example projects</a> here</li>
 <li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official bots FAQ</a>.</li>
 <li>check tooltips in your IDE, or navigate with F12 on API methods and read/expand comments.</li>
@@ -395,7 +395,7 @@ Version 21.x of the library have been much improved to facilitate <a href="migra
 <h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
 <p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
-Remember that not every user has a username.</p>
+Remember that not every user has a username, and it can be changed.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
 <p>Your bot has to be added as administrator of the channel.
 You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>

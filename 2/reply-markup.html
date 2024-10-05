@@ -255,11 +255,14 @@
 </style>
 <h1 id="reply-markup"><a class="header" href="#reply-markup">Reply Markup</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/ReplyMarkup/ReplyMarkupTests.cs"><img src="https://img.shields.io/badge/Examples-Reply_Markup-green.svg?style=flat-square" alt="reply markup tests" /></a></p>
-<p>Telegram provides two types of reply markup: <a href="#custom-keyboards">Custom keyboards</a> and <a href="#inline-keyboards">Inline keyboards</a>.</p>
-<h2 id="custom-keyboards"><a class="header" href="#custom-keyboards">Custom keyboards</a></h2>
-<p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots#keyboards">special keyboard</a> with predefined reply options. Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> object. You can request a contact or location information from the user with <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> or send a poll. Regular button will send predefined text to the chat.</p>
+<p>Telegram provides two types of reply markup: <a href="#custom-reply-keyboards">Custom reply keyboards</a> and <a href="#inline-keyboards">Inline keyboards</a>.</p>
+<h2 id="custom-reply-keyboards"><a class="header" href="#custom-reply-keyboards">Custom reply keyboards</a></h2>
+<blockquote>
+<p>These are buttons visible below the textbox. Pressing such button will make the user send a message</p>
+</blockquote>
+<p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots/features#keyboards">special keyboard</a> with predefined reply options. Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> object. You can request a contact or location information from the user with <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> or send a poll. Regular button will send predefined text to the chat.</p>
 <p>Keyboard is an array of button rows, each represented by an array of <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> objects. <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> supports text and emoji.</p>
-<p>By default, custom keyboards are displayed until a new keyboard is sent by a bot.</p>
+<p>By default, reply keyboards are displayed until a new keyboard is sent by a bot.</p>
 <h3 id="single-row-keyboard-markup"><a class="header" href="#single-row-keyboard-markup">Single-row keyboard markup</a></h3>
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
@@ -299,6 +302,9 @@ var sent = await bot.SendTextMessageAsync(chatId, "Who or Where are you?", reply
 await bot.SendTextMessageAsync(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboardRemove());
 </code></pre>
 <h2 id="inline-keyboards"><a class="header" href="#inline-keyboards">Inline keyboards</a></h2>
+<blockquote>
+<p>These are buttons visible below a bot message. Pressing such button will NOT make the user send a message</p>
+</blockquote>
 <p>There are times when you'd prefer to do things without sending any messages to the chat. For example, when your user is changing settings or flipping through search results. In such cases you can use <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline Keyboards</a> that are integrated directly into the messages they belong to.</p>
 <p>Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't result in messages sent to the chat. Instead, inline keyboards support buttons that work behind the scenes: <a href="#callback-buttons">callback buttons</a>, <a href="#url-buttons">URL buttons</a> and <a href="#switch-to-inline-buttons">switch to inline buttons</a>.</p>
 <p>You can have several rows and columns of inline buttons of mixed types.</p>
