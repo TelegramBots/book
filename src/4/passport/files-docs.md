@@ -143,7 +143,7 @@ using (System.IO.Stream
     decryptedFile = System.IO.File.OpenWrite("/path/to/reverse-side.jpg")
 ) {
     // fetch the encrypted file info and download it to memory
-    encryptedFileInfo = await bot.GetInfoAndDownloadFileAsync(
+    encryptedFileInfo = await bot.GetInfoAndDownloadFile(
         element.ReverseSide.FileId, // file_id of passport file for reverse side
         encryptedContent // stream to copy the encrypted file into
     );
@@ -169,7 +169,7 @@ We also post the selfie photo to a chat.
 
 ```c#
 // fetch the info of the passport file(selfie) residing on Telegram servers
-File encryptedFileInfo = await bot.GetFileAsync(element.Selfie.FileId);
+File encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
@@ -177,7 +177,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -189,7 +189,7 @@ byte[] selfieContent = decrypter.DecryptFile(
 
 // send the photo to a chat
 using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
-    await bot.SendPhotoAsync(
+    await bot.SendPhoto(
         123456,
         stream,
         "selfie with driver's license"
@@ -215,7 +215,7 @@ PassportFile passportFile = element.Translation[0];
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 
 // fetch passport file info
-File encryptedFileInfo = await bot.GetFileAsync(passportFile.FileId);
+File encryptedFileInfo = await bot.GetFile(passportFile.FileId);
 
 // download encrypted file and get its bytes
 byte[] encryptedContent;
@@ -223,7 +223,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFileAsync(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
     encryptedContent = stream.ToArray();
 }
 

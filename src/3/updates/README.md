@@ -66,7 +66,7 @@ We are not listing all types here, but it could be for example:
 There are additional properties that gives you information about the context of the message.
 
 Here are a few important properties:
-- `MessageId`: the ID that you will use if you need to reply or call a method acting on this message
+- `Id`: the ID that you will use if you need to reply or call a method acting on this message
 - `Chat`: in which chat the message arrived
 - `From`: which user posted it
 - `Date`: timestamp of the message (in UTC)

@@ -24,7 +24,7 @@ private readonly string[] siteDescriptions =
 
     public async Task Run(string[] args)
     {
-        var me = await bot.GetMeAsync();
+        var me = await bot.GetMe();
         using var cts = new CancellationTokenSource();
         bot.StartReceiving(HandleUpdateAsync, PollingErrorHandler, null, cts.Token);
 
@@ -78,7 +78,7 @@ async Task OnInlineQueryReceived(ITelegramBotClient bot, InlineQuery inlineQuery
         counter++;
     }
 
-    await bot.AnswerInlineQueryAsync(inlineQuery.Id, results); // answer by sending the inline query result list
+    await bot.AnswerInlineQuery(inlineQuery.Id, results); // answer by sending the inline query result list
 }
 // ANCHOR_END: on-inline-query-received
 

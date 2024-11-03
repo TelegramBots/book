@@ -2,7 +2,7 @@
 
 ## Bot Father
 
-Before you start, you need to talk to [`@BotFather`] on Telegram.
+Before you start, you need to talk to [@BotFather] on Telegram.
 [Create a new bot](https://core.telegram.org/bots/tutorial#obtain-your-bot-token), acquire the bot token and get back here.
 
 [![Bot Father](docs/logo-bot-father.jpg)](https://t.me/botfather)
@@ -30,13 +30,13 @@ dotnet add package Telegram.Bot
 
 The code below fetches Bot information based on its bot token by calling the Bot API [`getMe`] method. Open `Program.cs` and use the following content:
 
-> ⚠️ Replace `YOUR_BOT_TOKEN` with your bot token obtained from [`@BotFather`].
+> ⚠️ Replace `YOUR_BOT_TOKEN` with your bot token obtained from [@BotFather].
 
 ```c#
 using Telegram.Bot;
 
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
-var me = await bot.GetMeAsync();
+var me = await bot.GetMe();
 Console.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
 ```
 
@@ -52,6 +52,6 @@ Great! This bot is self-aware. To make the bot react to user messages, head to t
 
 <!-- -->
 
-[`@BotFather`]: https://t.me/botfather
+[@BotFather]: https://t.me/botfather
 [`getMe`]: https://core.telegram.org/bots/api#getme
 [next page]: example-bot.md

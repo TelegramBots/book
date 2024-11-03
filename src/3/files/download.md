@@ -29,13 +29,13 @@ Downloading a file from Telegram is done in two steps:
 
 The URL from which you can now download the file is `https://api.telegram.org/file/bot<token>/<FilePath>`.
 
-To download file you can use `DownloadFileAsync` function:
+To download file you can use `DownloadFile` function:
 
 ```C#
 {{#include ../../../Examples/3/Files.cs:download-file}}
 ```
 
-For your convenience the library provides you a helper function that does both - `GetInfoAndDownloadFileAsync`:
+For your convenience the library provides you a helper function that does both - `GetInfoAndDownloadFile`:
 
 ```C#
 {{#include ../../../Examples/3/Files.cs:get-and-download-file}}

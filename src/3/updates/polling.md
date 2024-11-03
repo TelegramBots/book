@@ -21,7 +21,7 @@ Those methods start a polling system which will call your method on incoming upd
 
 As arguments, you can pass either lambdas, methods or a class derived from `IUpdateHandler` that implements the handling of Update and Error.
 
-## By calling `GetUpdatesAsync` manually in a loop
+## By calling `GetUpdates` manually in a loop
 
 You can specify a timeout so that the call blocks for **up to** X seconds, waiting for an incoming update
 
@@ -30,7 +30,7 @@ Here is an example implementation:
 int? offset = null;
 while (!cts.IsCancellationRequested)
 {
-    var updates = await bot.GetUpdatesAsync(offset, timeout: 2);
+    var updates = await bot.GetUpdates(offset, timeout: 2);
     foreach (var update in updates)
     {
         offset = update.Id + 1;

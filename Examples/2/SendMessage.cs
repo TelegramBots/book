@@ -14,28 +14,28 @@ internal class SendMessage
     private async Task SendTextMessage()
     {
 // ANCHOR: text-message
-await bot.SendTextMessageAsync(chatId, "Hello, World!");
+await bot.SendMessage(chatId, "Hello, World!");
 // ANCHOR_END: text-message
     }
 
     private async Task SendStickerMessage()
     {
 // ANCHOR: sticker-message
-await bot.SendStickerAsync(chatId, "https://telegrambots.github.io/book/docs/sticker-dali.webp");
+await bot.SendSticker(chatId, "https://telegrambots.github.io/book/docs/sticker-dali.webp");
 // ANCHOR_END: sticker-message
     }
 
     private async Task SendVideoMessage()
     {
 // ANCHOR: video-message
-await bot.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
+await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
 // ANCHOR_END: video-message
     }
 
     private async Task SendMediaGroup()
     {
 // ANCHOR: send-media-group
-var messages = await bot.SendMediaGroupAsync(chatId, new IAlbumInputMedia[]
+var messages = await bot.SendMediaGroup(chatId, new IAlbumInputMedia[]
     {
         new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"),
         new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"),
@@ -46,7 +46,7 @@ var messages = await bot.SendMediaGroupAsync(chatId, new IAlbumInputMedia[]
     private async Task SendAudio()
     {
 // ANCHOR: send-audio
-var message = await bot.SendAudioAsync(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
+var message = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
     //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
     );
 // ANCHOR_END: send-audio
@@ -56,14 +56,14 @@ var message = await bot.SendAudioAsync(chatId, "https://telegrambots.github.io/b
     {
 // ANCHOR: send-voice
 await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
-var message = await bot.SendVoiceAsync(chatId, stream, duration: 36);
+var message = await bot.SendVoice(chatId, stream, duration: 36);
 // ANCHOR_END: send-voice
     }
 
     private async Task SendDocument()
     {
 // ANCHOR: send-document
-await bot.SendDocumentAsync(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
+await bot.SendDocument(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
     caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", parseMode: ParseMode.Html);
 // ANCHOR_END: send-document
     }
@@ -71,7 +71,7 @@ await bot.SendDocumentAsync(chatId, "https://telegrambots.github.io/book/docs/ph
     private async Task SendAnimation()
     {
 // ANCHOR: send-animation
-await bot.SendAnimationAsync(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4",
+await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4",
     caption: "Waves");
 // ANCHOR_END: send-animation
     }
@@ -80,7 +80,7 @@ await bot.SendAnimationAsync(chatId, "https://telegrambots.github.io/book/docs/v
     {
 // ANCHOR: send-poll
 
-var pollMessage = await bot.SendPollAsync("@channel_name",
+var pollMessage = await bot.SendPoll("@channel_name",
     "Did you ever hear the tragedy of Darth Plagueis The Wise?",
     new InputPollOption[]
     {
@@ -90,21 +90,21 @@ var pollMessage = await bot.SendPollAsync("@channel_name",
 // ANCHOR_END: send-poll
 
 // ANCHOR: stop-poll
-Poll poll = await bot.StopPollAsync(pollMessage.Chat, pollMessage.MessageId);
+Poll poll = await bot.StopPoll(pollMessage.Chat, pollMessage.Id);
 // ANCHOR_END: stop-poll
     }
 
     private async Task SendContact()
     {
 // ANCHOR: send-contact
-await bot.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han", lastName: "Solo");
+await bot.SendContact(chatId, phoneNumber: "+1234567890", firstName: "Han", lastName: "Solo");
 // ANCHOR_END: send-contact
     }
 
     private async Task SendvCard()
     {
 // ANCHOR: send-vCard
-await bot.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han",
+await bot.SendContact(chatId, phoneNumber: "+1234567890", firstName: "Han",
     vcard: "BEGIN:VCARD\n" +
            "VERSION:3.0\n" +
            "N:Solo;Han\n" +
@@ -118,7 +118,7 @@ await bot.SendContactAsync(chatId, phoneNumber: "+1234567890", firstName: "Han",
     private async Task SendVenue()
     {
 // ANCHOR: send-venue
-await bot.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
+await bot.SendVenue(chatId, latitude: 50.0840172f, longitude: 14.418288f,
     title: "Man Hanging out", address: "Husova, 110 00 Staré Město, Czechia");
 // ANCHOR_END: send-venue
     }
@@ -126,14 +126,14 @@ await bot.SendVenueAsync(chatId, latitude: 50.0840172f, longitude: 14.418288f,
     private async Task SendLocation()
     {
 // ANCHOR: send-location
-await bot.SendLocationAsync(chatId, latitude: 33.747252f, longitude: -112.633853f);
+await bot.SendLocation(chatId, latitude: 33.747252f, longitude: -112.633853f);
 // ANCHOR_END: send-location
     }
 
     private async Task SendPhoto()
     {
 // ANCHOR: send-photo
-var message = await bot.SendPhotoAsync(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
+var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
     caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", parseMode: ParseMode.Html);
 // ANCHOR_END: send-photo
     }
@@ -141,9 +141,9 @@ var message = await bot.SendPhotoAsync(chatId, "https://telegrambots.github.io/b
     private async Task SendSticker()
     {
 // ANCHOR: send-sticker
-var message1 = await bot.SendStickerAsync(chatId, "https://telegrambots.github.io/book/docs/sticker-fred.webp");
+var message1 = await bot.SendSticker(chatId, "https://telegrambots.github.io/book/docs/sticker-fred.webp");
 
-var message2 = await bot.SendStickerAsync(chatId, message1.Sticker!.FileId);
+var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 // ANCHOR_END: send-sticker
     }
 
@@ -153,10 +153,10 @@ var message2 = await bot.SendStickerAsync(chatId, message1.Sticker!.FileId);
         return;
 
 // ANCHOR: send-text
-var message = await bot.SendTextMessageAsync(chatId, "Trying <b>all the parameters</b> of <code>sendMessage</code> method",
+var message = await bot.SendMessage(chatId, "Trying <b>all the parameters</b> of <code>sendMessage</code> method",
     parseMode: ParseMode.Html,
     protectContent: true,
-    replyParameters: update.Message.MessageId,
+    replyParameters: update.Message.Id,
     replyMarkup: new InlineKeyboardMarkup(
         InlineKeyboardButton.WithUrl("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage")));
 // ANCHOR_END: send-text
@@ -171,9 +171,9 @@ var message = await bot.SendTextMessageAsync(chatId, "Trying <b>all the paramete
 
 // ANCHOR: message-contents
 Console.WriteLine(
-    $"{message.From.FirstName} sent message {message.MessageId} " +
+    $"{message.From.FirstName} sent message {message.Id} " +
     $"to chat {message.Chat.Id} at {message.Date}. " +
-    $"It is a reply to message {message.ReplyToMessage.MessageId} " +
+    $"It is a reply to message {message.ReplyToMessage.Id} " +
     $"and has {message.Entities.Length} message entities.");
 // ANCHOR_END: message-contents
     }
@@ -181,7 +181,7 @@ Console.WriteLine(
     private async Task SendVideo()
     {
 // ANCHOR: send-video
-await bot.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
+await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
     thumbnail: "https://telegrambots.github.io/book/2/docs/thumb-clock.jpg", supportsStreaming: true);
 // ANCHOR_END: send-video
     }
@@ -191,7 +191,7 @@ await bot.SendVideoAsync(chatId, "https://telegrambots.github.io/book/docs/video
 // ANCHOR: send-video-note
 await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
 
-await bot.SendVideoNoteAsync(chatId, stream,
+await bot.SendVideoNote(chatId, stream,
     duration: 47, length: 360); // value of width/height
 // ANCHOR_END: send-video-note
     }

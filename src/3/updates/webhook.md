@@ -8,7 +8,7 @@ Your application will receive HTTP POST requests with an Update structure in the
 
 Below, you will find how to configure an **ASP.NET Core Web API** project to make it work with Telegram.Bot, either with Controllers or Minimal APIs
 
-⚠️ IMPORTANT: This guide describes configuration for versions 21.* of the library _(based on System.Text.Json rather than NewtonsoftJson)_. If you're using older versions, [you should upgrade first](../../migrate/Version-21.x.md)!
+⚠️ IMPORTANT: This guide describes configuration for versions 21.* and later of the library _(based on System.Text.Json rather than NewtonsoftJson)_. If you're using older versions, [you should upgrade first](../../migrate/Version-21.x.md)!
 
 ## ASP.NET Core with Controllers (MVC)
 [![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
@@ -33,7 +33,7 @@ public async Task HandleUpdate([FromBody] Update update)
 }
 ```
 
-Good, now skip to [SetWebHookAsync](#setwebhookasync) below
+Good, now skip to [SetWebHook](#setwebhook) below
 
 ## ASP.NET Core with Minimal APIs
 [![ASP.NET example with Minimal APIs](https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
@@ -56,7 +56,7 @@ async Task HandleUpdate(Update update)
 }
 ```
 
-Good, now skip to [SetWebHookAsync](#setwebhookasync) below
+Good, now skip to [SetWebHook](#setwebhook) below
 
 ## Old ASP.NET 4.x support
 
@@ -72,16 +72,16 @@ public async Task<IHttpActionResult> Post()
 }
 ```
 
-## SetWebHookAsync
+## SetWebHook
 Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:
 ```csharp
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
-await bot.SetWebhookAsync("https://your.public.host:port/bot", allowedUpdates: []);
+await bot.SetWebhook("https://your.public.host:port/bot", allowedUpdates: []);
 ```
 
 You can now deploy your app to your webapp host machine.
 
-_Note: If you decide to switch back to [Long Polling](polling.md), remember to call `bot.DeleteWebhookAsync()`_
+_Note: If you decide to switch back to [Long Polling](polling.md), remember to call `bot.DeleteWebhook()`_
 
 ## Common issues
 

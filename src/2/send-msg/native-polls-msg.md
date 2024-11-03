@@ -24,7 +24,7 @@ You'll get the message with [`Poll`](https://github.com/TelegramBots/Telegram.Bo
 
 [![stopPoll method](https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#stoppoll)
 
-To close a poll you need to know original chat and message ids of the poll that you got from calling `SendPollAsync` method.
+To close a poll you need to know original chat and message ids of the poll that you got from calling `SendPoll` method.
 
 Let's close the poll that we sent in the previous example:
 

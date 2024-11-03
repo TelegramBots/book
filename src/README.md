@@ -9,29 +9,11 @@ Begin with our [_Quickstart_](1/quickstart.md), or choose from the Table Of Cont
 
 ## 🧩 Installation
 
-> [!IMPORTANT]
-> _Latest versions of the library are not available on Nuget․org due to false-positive malware detection. We are working with Nuget/ESET teams to resolve this issue._
+Use Nuget package manager (in your IDE or command line) to install the package from Nuget.
 
-In the mean time, latest versions are available on our [special nuget source](https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot):  
-`https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json`
+🎉 The problem with Nuget.org seems resolved. Our latest library version 22.* is now available on it!
 
-See the screenshots below to configure the Package source in Visual Studio:
-![In Visual Studio](1/docs/NugetPackageManager.png)
-and make sure to follow the [Migration Guide for v21.*](migrate/Version-21.x.md) if you have existing bot code.
-
-Alternatively you can use command line:
-```
-dotnet nuget add source "https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json" -n Telegram.Bot
-```
-Or set up a `nuget.config` file at the root of your project/solution:
-```xml
-<configuration>
-  <packageSources>
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
-    <add key="Telegram.Bot" value="https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json" />
-  </packageSources>
-</configuration>
-```
+Make sure to follow the [Migration Guide for v22.*](migrate/Version-22.x.md) if you have existing bot code.
 
 ## 🪄 More examples
 

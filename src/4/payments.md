@@ -29,7 +29,7 @@ See ["exp" in this table](https://core.telegram.org/bots/payments/currencies.jso
 
 When your bot is ready to issue a payment for the user to complete, it will send an invoice:
 ```csharp
-await bot.SendInvoiceAsync(
+await bot.SendInvoice(
     chatId: chatId,                         // same as userId for private chat
     title: "Product Title",
     description: "Product Detailed Description",
@@ -41,35 +41,34 @@ await bot.SendInvoiceAsync(
 );
 ```
 
-Alternatively, you can instead generate an URL for that payment with [`CreateInvoiceLinkAsync`](https://core.telegram.org/bots/api#createinvoicelink).
+Alternatively, you can instead generate an URL for that payment with [`CreateInvoiceLink`](https://core.telegram.org/bots/api#createinvoicelink),
+or if your bot supports [Inline Mode](../3/inline.md), you can [send invoices as inline results](https://core.telegram.org/bots/api#inputinvoicemessagecontent) ("via YourBot").
 
 With Physical Goods, you can specify [more parameters](https://core.telegram.org/bots/api#sendinvoice) like:
 - the `providerToken` obtained by BotFather (something like "1234567:TEST:aBcDeFgHi")
 - several price lines detailing the total price
 - some suggested tips
 - the need for extra information about the user, including a shipping address
-- if the price is flexible depending on the shipping address/method
-
-If your bot supports [Inline Mode](../3/inline.md), you can also [send invoices as inline results](https://core.telegram.org/bots/api#inputinvoicemessagecontent) ("via YourBot").
+- if the price is **flexible** depending on the shipping address/method
 
 ## Handling the `ShippingQuery` Update
 
 [![Shipping Query Update](https://img.shields.io/badge/Bot_API_update-ShippingQuery-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#shippingquery)
 [![Answer Shipping Query method](https://img.shields.io/badge/Bot_API_method-answerShippingQuery-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#answershippingquery)
 
-This update is received only for Physical Goods, if you specified a flexible price.
+This update is received only for Physical Goods, if you specified a **flexible** price.
 Otherwise you can skip to the next section.
 
 `update.ShippingQuery` would contain information like the current shipping address for the user, and can be received again if the user changes the address.
 
-You should check if the address is supported, and reply using `bot.AnswerShippingQueryAsync` with an error message or a list of shipping options with associated price lines:
+You should check if the address is supported, and reply using `bot.AnswerShippingQuery` with an error message or a list of shipping options with associated price lines:
 ```csharp
 var shippingOptions = new List<ShippingOption>();
 shippingOptions.Add(new() { Title = "DHL Express", Id = "dhl-express",
     Prices = [("Shipping", 1200)] });
 shippingOptions.Add(new() { Title = "FedEx Fragile", Id = "fedex-fragile",
     Prices = [("Packaging", 500), ("Shipping", 1800)] });
-await bot.AnswerShippingQueryAsync(shippingQuery.Id, shippingOptions);
+await bot.AnswerShippingQuery(shippingQuery.Id, shippingOptions);
 ```
 
 ## Handling the `PreCheckoutQuery` Update
@@ -84,9 +83,9 @@ This update is received when the user has entered their payment information and 
 You must reply within 10 seconds with:
 ```csharp
 if (confirm)
-    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id); // success
+    await bot.AnswerPreCheckoutQuery(preCheckoutQuery.Id); // success
 else
-    await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Can't process your order: <REASON>");
+    await bot.AnswerPreCheckoutQuery(preCheckoutQuery.Id, "Can't process your order: <REASON>");
 ```
 
 ## Handling the `SuccessfulPayment` <u>Message</u>
@@ -116,22 +115,22 @@ async Task OnUpdate(Update update)
    switch (update)
    {
       case { Message.Text: "/start" }:
-         await bot.SendInvoiceAsync(update.Message.Chat,
+         await bot.SendInvoice(update.Message.Chat,
             "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X", "",
             "XTR", [("Price", 200)], photoUrl: "https://cdn-icons-png.flaticon.com/512/891/891386.png");
          break;
       case { PreCheckoutQuery: { } preCheckoutQuery }:
          if (preCheckoutQuery is { InvoicePayload: "unlock_X", Currency: "XTR", TotalAmount: 200 })
-            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id); // success
+            await bot.AnswerPreCheckoutQuery(preCheckoutQuery.Id); // success
          else
-            await bot.AnswerPreCheckoutQueryAsync(preCheckoutQuery.Id, "Invalid order");
+            await bot.AnswerPreCheckoutQuery(preCheckoutQuery.Id, "Invalid order");
          break;
       case { Message.SuccessfulPayment: { } successfulPayment }:
          System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: " +
             $"User {update.Message.From} paid for {successfulPayment.InvoicePayload}: " +
             $"{successfulPayment.TelegramPaymentChargeId} {successfulPayment.ProviderPaymentChargeId}");
          if (successfulPayment.InvoicePayload is "unlock_X")
-            await bot.SendTextMessageAsync(update.Message.Chat, "Thank you! Feature X is unlocked");
+            await bot.SendMessage(update.Message.Chat, "Thank you! Feature X is unlocked");
          break;
    };
 }

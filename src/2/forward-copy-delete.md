@@ -16,13 +16,13 @@ They will appear with a "Forwarded from" header.
 
 ```csharp
 // Forward a single message
-await bot.ForwardMessageAsync(targetChatId, sourceChatId, messageId);
+await bot.ForwardMessage(targetChatId, sourceChatId, messageId);
 
 // Forward an incoming message (from the update) onto a target ChatId
-await bot.ForwardMessageAsync(chatId, update.Message.Chat, update.Message.MessageId);
+await bot.ForwardMessage(chatId, update.Message.Chat, update.Message.Id);
 
 // Forward a bunch of messages from a source ChatId to a target ChatId, using a list of their message ids
-await bot.ForwardMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
+await bot.ForwardMessages(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
 ```
 
 ## Copy message(s)
@@ -36,17 +36,17 @@ This will make them look like new messages.
 
 ```csharp
 // Copy a single message
-await bot.CopyMessageAsync(targetChatId, sourceChatId, messageId);
+await bot.CopyMessage(targetChatId, sourceChatId, messageId);
 
 // Copy an incoming message (from the update) onto a target ChatId
-await bot.CopyMessageAsync(targetChatId, update.Message.Chat, update.Message.MessageId);
+await bot.CopyMessage(targetChatId, update.Message.Chat, update.Message.Id);
 
 // Copy a media message and change its caption at the same time
-await bot.CopyMessageAsync(targetChatId, update.Message.Chat, update.Message.MessageId,
+await bot.CopyMessage(targetChatId, update.Message.Chat, update.Message.Id,
     caption: "New <b>caption</b> for this media", parseMode: ParseMode.Html);
 
 // Copy a bunch of messages from a source ChatId to a target ChatId, using a list of their message ids
-await bot.CopyMessagesAsync(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
+await bot.CopyMessages(targetChatId, sourceChatId, new int[] { 123, 124, 125 });
 ```
 
 ## Delete message(s)
@@ -60,13 +60,13 @@ This is particularly useful for cleaning unwanted messages in groups.
 
 ```csharp
 // Delete a single message
-await bot.DeleteMessageAsync(chatId, messageId);
+await bot.DeleteMessage(chatId, messageId);
 
 // Delete an incoming message (from the update)
-await bot.CopyMessageAsync(update.Message.Chat, update.Message.MessageId);
+await bot.DeleteMessage(update.Message.Chat, update.Message.Id);
 
 // Delete a bunch of messages, using a list of their message ids
-await bot.DeleteMessagesAsync(chatId, new int[] { 123, 124, 125 });
+await bot.DeleteMessages(chatId, new int[] { 123, 124, 125 });
 ```
 
 ## Check if a message is a forward

@@ -1,5 +1,6 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 // ANCHOR: usings
@@ -19,7 +20,7 @@ internal class ReplyMarkup
 var replyMarkup = new ReplyKeyboardMarkup(true)
     .AddButtons("Help me", "Call me ☎️");
 
-var sent = await bot.SendTextMessageAsync(chatId, "Choose a response", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: replyMarkup);
 // ANCHOR_END: single-row
     }
 
@@ -30,7 +31,7 @@ var replyMarkup = new ReplyKeyboardMarkup(true)
     .AddButton("Help me")
     .AddNewRow("Call me ☎️", "Write me ✉️");
 
-var sent = await bot.SendTextMessageAsync(chatId, "Choose a response", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: replyMarkup);
 // ANCHOR_END: multiple-row
     }
 
@@ -41,14 +42,14 @@ var replyMarkup = new ReplyKeyboardMarkup()
     .AddButton(KeyboardButton.WithRequestLocation("Share Location"))
     .AddButton(KeyboardButton.WithRequestContact("Share Contact"));
 
-var sent = await bot.SendTextMessageAsync(chatId, "Who or Where are you?", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: replyMarkup);
 // ANCHOR_END: request-info
     }
 
     private async Task RemoveKeyboard()
     {
 // ANCHOR: remove-keyboard
-await bot.SendTextMessageAsync(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboardRemove());
+await bot.SendMessage(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboardRemove());
 // ANCHOR_END: remove-keyboard
     }
 
@@ -62,7 +63,7 @@ var inlineMarkup = new InlineKeyboardMarkup()
     .AddButton("2.1", "21") // second row, first button
     .AddButton("2.2", "22");// second row, second button
 
-var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
     replyMarkup: inlineMarkup);
 // ANCHOR_END: callback-buttons
     }
@@ -73,7 +74,7 @@ var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyb
 var inlineMarkup = new InlineKeyboardMarkup()
     .AddButton(InlineKeyboardButton.WithUrl("Repository Link", "https://github.com/TelegramBots/Telegram.Bot"));
 
-var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
     replyMarkup: inlineMarkup);
 // ANCHOR_END: url-buttons
     }
@@ -85,7 +86,7 @@ var inlineMarkup = new InlineKeyboardMarkup()
     .AddButton(InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"))
     .AddButton(InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"));
 
-var sent = await bot.SendTextMessageAsync(chatId, "A message with an inline keyboard markup",
+var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
     replyMarkup: inlineMarkup);
 // ANCHOR_END: switch-to-inline
     }

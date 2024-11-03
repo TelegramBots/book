@@ -20,8 +20,8 @@ Check our [full example project](https://github.com/TelegramBots/Telegram.Bot.Ex
 Mini Apps can be launched from various ways:
 - [Keyboard Buttons](../2/reply-markup.md#custom-keyboards): `KeyboardButton.WithWebApp`
 - [Inline Buttons](../2/reply-markup.md#inline-keyboards): `InlineKeyboardButton.WithWebApp`
-- Chat menu button (left of user textbox): via @BotFather or `SetChatMenuButtonAsync`
-- Inline-mode results with a "Switch to Mini App" button: `AnswerInlineQueryAsync` with parameter `InlineQueryResultsButton.WebApp`
+- Chat menu button (left of user textbox): via @BotFather or `SetChatMenuButton`
+- Inline-mode results with a "Switch to Mini App" button: `AnswerInlineQuery` with parameter `InlineQueryResultsButton.WebApp`
 - Direct link like https://t.me/botusername/appname?startapp=command
 
 ## Integration

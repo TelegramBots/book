@@ -36,9 +36,24 @@ A [`ReplyKeyboardMarkup`] with two rows of buttons:
 {{#include ../../Examples/2/ReplyMarkup.cs:multiple-row}}
 ```
 
-### Request information
+### Requesting information to be sent to the bot
 
-[`ReplyKeyboardMarkup`] containing buttons for contact and location requests using helper methods `KeyboardButton.WithRequestLocation` and `KeyboardButton.WithRequestContact`:
+Some special keyboard button types can be used to request information from the user and send them to the bot.
+
+Below are some simple examples of what you can do. More options are available in associated class properties.
+- `KeyboardButton.WithRequestLocation("Share your location")`  
+	User's position will be transmitted in a `message.Location`
+- `KeyboardButton.WithRequestContact("Share your info")`  
+	User's phone number will be transmitted in a `message.Contact`
+- `KeyboardButton.WithRequestPoll("Create a poll", PollType.Regular)`  
+	User must create a poll which gets transmitted in a `message.Poll`
+- `KeyboardButton.WithRequestChat("Select a chat", 1234, false)`  
+	User must pick a group (false) or channel (true) which gets transmitted in a `message.ChatShared`
+- `KeyboardButton.WithRequestUsers("Select user(s)", 5678, 1)`  
+	User must pick 1-10 user(s) which get transmitted in a `message.UsersShared`  
+	<p/> 
+- `KeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game")`   
+	Launch a [Mini-App](../4/webapps.md)
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
@@ -69,7 +84,7 @@ You can have several rows and columns of inline buttons of mixed types.
 ### Callback buttons
 
 When a user presses a [callback button], no messages are sent to the chat, and your bot simply receives an `update.CallbackQuery` instead.
-Upon receiving this, your bot should answer to that query within 10 seconds, using `AnswerCallbackQueryAsync` _(or else the button gets momentarily disabled)_
+Upon receiving this, your bot should answer to that query within 10 seconds, using `AnswerCallbackQuery` _(or else the button gets momentarily disabled)_
 
 In this example we use the `AddButton(buttonText, callbackData)` helper, but you can also create such button with `InlineKeyboardButton.WithCallbackData`:
 
@@ -99,6 +114,23 @@ Pressing a [switch to inline button] prompts the user to select a chat, opens it
 {{#include ../../Examples/2/ReplyMarkup.cs:switch-to-inline}}
 ```
 
+### Other inline button types
+
+Some more special inline button types can be used.
+
+Below are some simple examples of what you can do. More options are available in associated class properties.
+- `InlineKeyboardButton.WithCopyText("Copy info", "Text to copy"))`   
+	Store a text in the user clipboard
+- `InlineKeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game"))`   
+	Launch a [Mini-App](../4/webapps.md)
+- `InlineKeyboardButton.WithLoginUrl("Login", new() { Url = "https://www.example.com/telegramAuth" }))`   
+	Authenticate the Telegram user via a website _(Domain must be configured in [@BotFather])_
+- `InlineKeyboardButton.WithCallbackGame("Launch game"))`   
+	Launch an HTML game _(Game must be configured in [@BotFather])_
+- `InlineKeyboardButton.WithPay("Pay 200 XTR"))`   
+	Customize the Pay button caption _(only during a [SendInvoice call](../4/payments.md))_
+
+
 [`ReplyKeyboardMarkup`]: https://core.telegram.org/bots/api/#replykeyboardmarkup
 [`KeyboardButton`]: https://core.telegram.org/bots/api/#keyboardbutton
 [Inline Keyboards]: https://core.telegram.org/bots/features#inline-keyboards
@@ -106,3 +138,4 @@ Pressing a [switch to inline button] prompts the user to select a chat, opens it
 [URL button]: https://core.telegram.org/bots/2-0-intro#url-buttons
 [switch to inline button]: https://core.telegram.org/bots/2-0-intro#switch-to-inline-buttons
 [`ReplyKeyboardRemove`]: https://core.telegram.org/bots/api#replykeyboardremove
+[@BotFather]: https://t.me/botfather

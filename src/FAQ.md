@@ -30,11 +30,11 @@ _See also next question._
 For buttons with callback data, your update handler should handle `update.CallbackQuery`.
 _(Remember that not all updates are about `update.Message`. See question #3)_  
 
-Your code should answer to the query within 10 seconds, using `AnswerCallbackQueryAsync` _(or else the button gets momentarily disabled)_
+Your code should answer to the query within 10 seconds, using `AnswerCallbackQuery` _(or else the button gets momentarily disabled)_
 
 ### _6. How to show a popup text to the user?_
 It is only possible with inline callback button _(see above questions)_.  
-Use `AnswerCallbackQueryAsync` with some text, and pass parameter `showAlert: true` to display the text as an alert box instead of a short popup.
+Use `AnswerCallbackQuery` with some text, and pass parameter `showAlert: true` to display the text as an alert box instead of a short popup.
 
 ### _7. How to fill the input textbox of the user with some text?_
 There is not a simple direct method for this, but here is what you can try:
@@ -53,7 +53,7 @@ Normally, bots only get messages at the moment they are posted. You could archiv
 
 ### _9. How to fetch a list of all users in chat?_
 You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
-Normally, bots can only get the list of admins (`GetChatAdministratorsAsync`) or detail about one specific member (`GetChatMemberAsync`)  
+Normally, bots can only get the list of admins (`GetChatAdministrators`) or detail about one specific member (`GetChatMember`)  
 Alternatively, you can keep track of users by observing new messages in a chat and saving user info into a database.
 
 ### _10. How to send a private message to some random user?_
@@ -61,7 +61,7 @@ You can't. Bots can only send private messages to users that have already initia
 
 ### _11. How to detect if a user blocked my bot?_
 You would have received an `update.MyChatMember` with `NewChatMember.Status == ChatMemberStatus.Kicked`  
-If you didn't record that info, you can try to `SendChatActionAsync` and see if it raises an exception.
+If you didn't record that info, you can try to `SendChatAction` and see if it raises an exception.
 
 ### _12. How to set a caption to a media group (album)?_
 Set the `media.Caption` (and `media.ParseMode`) on the first media
@@ -84,15 +84,15 @@ Other cloud providers might also offer similar services.
 See <https://limits.tginfo.me> for a list of limitations.
 
 ### _17. How to populate the bot Menu button / commands list?_
-You can either do this via [@BotFather](https://t.me/BotFather) _(static entries)_, or you can use `SetMyCommandsAsync` for more advanced settings  
+You can either do this via [@BotFather](https://t.me/BotFather) _(static entries)_, or you can use `SetMyCommands` for more advanced settings  
 ⚠️ This menu can only be filled with bot commands, starting with a `/` and containing only latin characters `a-z_0-9`
 
 ### _18. How to receive `ChatMember` updates?_
-You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhookAsync`
+You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhook`
 
 ### _19. How to get rid of past updates when I restart my bot?_
-Pass true into `StartReceiving`:`ReceiverOptions`:`DropPendingUpdates` or `SetWebhookAsync`:`dropPendingUpdates`
-Alternatively, you can call `await bot.DropPendingUpdatesAsync()` before polling or using [`bot.OnUpdate`](3/updates/polling.md#by-setting-botonupdate-andor-botonmessage).
+Pass true into `StartReceiving`:`ReceiverOptions`:`DropPendingUpdates` or `SetWebhook`:`dropPendingUpdates`
+Alternatively, you can call `await bot.DropPendingUpdates()` before polling or using [`bot.OnUpdate`](3/updates/polling.md#by-setting-botonupdate-andor-botonmessage).
 
 ### _20. Difficulties to upload & send a file/media?_
 - Make sure you `await` until the end of the send method before closing the file (a "`using`" clause would close the file on leaving the current { scope }
@@ -118,7 +118,7 @@ To post to a specific group, there is an alternative solution:
 
 ### _23. How to upgrade my existing code? You keep breaking compatibility!_
 A new lead developer (Wizou) is now in charge of the library and commits to reduce code-breaking changes in the future.  
-Version 21.x of the library have been much improved to facilitate [migration from previous versions](migrate/Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
+Version 21.x of the library and later have been much improved to facilitate [migration from previous versions](migrate/Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
 
 ### _24. Can I use several apps/instance to manage my bot?_
 You can call API methods (like sending messages) from several instances in parallel  
@@ -138,11 +138,11 @@ You will then receive the messages as `update.ChannelPost` or `update.EditedChan
 ### _27. How to sent the same media multiple times_
 The first time, you will send the media with a stream (upload). Next times, you will use its **FileId**:
 ```csharp
-var sent = await bot.SendVideoAsync(chatId, stream, ....);
+var sent = await bot.SendVideo(chatId, stream, ....);
 var fileId = sent.Video.FileId
 
 // next times:
-await bot.SendVideoAsync(chatId2, fileId, ...);
+await bot.SendVideo(chatId2, fileId, ...);
 ```
 For photos, use `sent.Photo[^1].FileId`
 

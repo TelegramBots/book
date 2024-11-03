@@ -16,7 +16,7 @@ internal class Files
         }
 // ANCHOR: get-file
 var fileId = update.Message.Photo.Last().FileId;
-var fileInfo = await bot.GetFileAsync(fileId);
+var fileInfo = await bot.GetFile(fileId);
 var filePath = fileInfo.FilePath;
 // ANCHOR_END: get-file
 
@@ -34,7 +34,7 @@ var filePath = fileInfo.FilePath;
 const string destinationFilePath = "../downloaded.file";
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
-await bot.DownloadFileAsync(filePath, fileStream);
+await bot.DownloadFile(filePath, fileStream);
 // ANCHOR_END: download-file
     }
 
@@ -44,7 +44,7 @@ await bot.DownloadFileAsync(filePath, fileStream);
 const string destinationFilePath = "../downloaded.file";
 
 await using Stream fileStream = System.IO.File.Create(destinationFilePath);
-var file = await bot.GetInfoAndDownloadFileAsync(fileId, fileStream);
+var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
 // ANCHOR_END: get-and-download-file
     }
     }
@@ -53,7 +53,7 @@ var file = await bot.GetInfoAndDownloadFileAsync(fileId, fileStream);
     {
 // ANCHOR: upload-local-file
 await using Stream stream = System.IO.File.OpenRead("../hamlet.pdf");
-var message = await bot.SendDocumentAsync(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
+var message = await bot.SendDocument(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
     caption: "The Tragedy of Hamlet,\nPrince of Denmark");
 // ANCHOR_END: upload-local-file
     }
@@ -67,14 +67,14 @@ var message = await bot.SendDocumentAsync(chatId, document: InputFile.FromStream
 
 // ANCHOR: upload-by-file_id
 var fileId = update.Message.Photo.Last().FileId;
-var message = await bot.SendPhotoAsync(chatId, fileId);
+var message = await bot.SendPhoto(chatId, fileId);
 // ANCHOR_END: upload-by-file_id
     }
 
     private async Task UploadByURL()
     {
 // ANCHOR: upload-by-url
-var message = await bot.SendPhotoAsync(chatId, "https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg");
+var message = await bot.SendPhoto(chatId, "https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg");
 // ANCHOR_END: upload-by-url
     }
 }

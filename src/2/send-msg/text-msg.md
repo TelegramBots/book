@@ -23,7 +23,7 @@ The code snippet below sends a message with multiple parameters that looks like 
 {{#include ../../../Examples/2/SendMessage.cs:send-text}}
 ```
 
-The method `SendTextMessageAsync` of .NET Bot Client maps to [`sendMessage`] on Telegram's Bot API. This method sends a
+The method `SendMessage` of .NET Bot Client maps to [`sendMessage`] on Telegram's Bot API. This method sends a
 text message and returns the message object sent.
 
 `text` is written in [HTML format] and `parseMode` indicates that. You can also write in Markdown or plain text.

@@ -15,7 +15,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 using var cts = new CancellationTokenSource();
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN", cancellationToken: cts.Token);
-var me = await bot.GetMeAsync();
+var me = await bot.GetMe();
 bot.OnError += OnError;
 bot.OnMessage += OnMessage;
 bot.OnUpdate += OnUpdate;
@@ -35,7 +35,7 @@ async Task OnMessage(Message msg, UpdateType type)
 {
     if (msg.Text == "/start")
     {
-        await bot.SendTextMessageAsync(msg.Chat, "Welcome! Pick one direction",
+        await bot.SendMessage(msg.Chat, "Welcome! Pick one direction",
             replyMarkup: new InlineKeyboardMarkup().AddButtons("Left", "Right"));
     }
 }
@@ -45,8 +45,8 @@ async Task OnUpdate(Update update)
 {
     if (update is { CallbackQuery: { } query }) // non-null CallbackQuery
     {
-        await bot.AnswerCallbackQueryAsync(query.Id, $"You picked {query.Data}");
-        await bot.SendTextMessageAsync(query.Message!.Chat, $"User {query.From} clicked on {query.Data}");
+        await bot.AnswerCallbackQuery(query.Id, $"You picked {query.Data}");
+        await bot.SendMessage(query.Message!.Chat, $"User {query.From} clicked on {query.Data}");
     }
 }
 ```

@@ -24,9 +24,9 @@ All methods for dealing with chats _(like sending messages, etc..)_ take a `Chat
 For this parameter, you can pass directly a	`long` _(the chat or user ID)_,
 or when sending to a public group/channel, you can pass a `"@chatname"` string
 
-### Getting full info about a chat (`GetChatAsync`)
+### Getting full info about a chat (`GetChat`)
 
-Once a bot has joined a group/channel or has started receiving messages from a user, it can use method `GetChatAsync` to get detailed info about that chat/user.
+Once a bot has joined a group/channel or has started receiving messages from a user, it can use method `GetChat` to get detailed info about that chat/user.
 
 There are lots of information returned depending on the type of chat, and most are optional and may be unavailable.  
 Here are a few interesting ones:
@@ -41,7 +41,7 @@ Here are a few interesting ones:
 	- Linked ChatId _(the associated channel/discussion group for this chat)_
 	- IsForum _(This chat group has topics. There is no way to retrieve the list of topics)_
 * Common information for all chats:
-	- Photo _(use `GetInfoAndDownloadFileAsync` and the `photo.BigFileId` to download it)_
+	- Photo _(use `GetInfoAndDownloadFile` and the `photo.BigFileId` to download it)_
 	- Active Usernames _(premium user & public chats can have multiple usernames)_
 	- Available reactions in this chat
 	- Pinned Message _(the most recent one)_
@@ -63,7 +63,7 @@ Note: if you use the `bot.OnMessage` event, this is simplified and you can just 
 
 > [!IMPORTANT]  
 > By default, for privacy reasons, bots in groups receive only messages that are targeted at them (reply to their messages, inline messages, or targeted `/commands@botname` with the bot username suffix)  
-> If you want your bot to receive ALL messages in the group, you can either make it admin, or <u>disable</u> the **Bot Settings** : [**Group Privacy** mode](https://core.telegram.org/bots/features#privacy-mode) in @BotFather
+> If you want your bot to receive ALL messages in the group, you can either make it admin, or <u>disable</u> the **Bot Settings** : [**Group Privacy** mode](https://core.telegram.org/bots/features#privacy-mode) in [@BotFather](https://t.me/botfather)
 
 ## Migration to Supergroup
 
@@ -90,12 +90,12 @@ You can send those links as a text message or as an `InlineKeyboardButton.WithUr
 If your bot is administrator on a private (or public) group/channel, it can:
 - read the (fixed) primary link of the chat:
 ```csharp
-var chatFullInfo = await bot.GetChatAsync(chatId); // you should call this only once
+var chatFullInfo = await bot.GetChat(chatId); // you should call this only once
 Console.WriteLine(chatFullInfo.InviteLink);
 ```
 - create new invite links on demand
 ```csharp
-var link = await bot.CreateChatInviteLinkAsync(chatId, "name/reason", ...);
+var link = await bot.CreateChatInviteLink(chatId, "name/reason", ...);
 Console.WriteLine(link.InviteLink);
 ```
 
@@ -112,7 +112,7 @@ However, under various circumstances (bigger groups, hidden member lists, etc..)
 
 The more complex (and more reliable) approach is instead to handle updates of type `UpdateType.ChatMember`:
 
-* First you need to enable this specific update type among the `allowedUpdates` parameter when calling `GetUpdatesAsync`, `SetWebhookAsync` or `StartReceiving`+`ReceiverOptions`.
+* First you need to enable this specific update type among the `allowedUpdates` parameter when calling `GetUpdates`, `SetWebhook` or `StartReceiving`+`ReceiverOptions`.
 * Typically, you would pass `Update.AllTypes` as the allowedUpdates parameter.
 * After that, you will receive an `update.ChatMember` structure for each user changing status with their old & their new status
 * The `OldChatMember`/`NewChatMember` status fields can be one of the derived `ChatMember*` class: `Owner`/`Creator`, `Administrator`, `Member`, `Restricted`, `Left`, `Banned`/`Kicked`)

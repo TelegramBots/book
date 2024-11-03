@@ -27,7 +27,7 @@ At this point, your bot will receive an `update.BusinessConnection` which contai
 - IsEnabled _(false if the business connection got cancelled)_
 - CanReply _(if the bot can act on behalf of that user in chats that were active in the last 24 hours)_
 
-You can retrieve these info again later using `GetBusinessConnectionAsync(id)`
+You can retrieve these info again later using `GetBusinessConnection(id)`
 
 ## BusinessMessage updates
 
