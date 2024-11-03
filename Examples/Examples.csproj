@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="Telegram.Bot" Version="22.0.0" />-->
-    <ProjectReference Include="..\..\Telegram.Bot\src\Telegram.Bot\Telegram.Bot.csproj" />
+    <PackageReference Include="Telegram.Bot" Version="22.0.0" />
   </ItemGroup>
 
   <PropertyGroup>
