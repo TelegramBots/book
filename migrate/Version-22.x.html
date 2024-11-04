@@ -254,6 +254,8 @@
 
 </style>
 <h1 id="migration-guide-for-version-22x"><a class="header" href="#migration-guide-for-version-22x">Migration guide for version 22.x</a></h1>
+<p>If you're migrating from version 19.x, you might want to read our <a href="Version-21.x.html">migration doc for v21</a> first.
+There were a lot of interesting changes in versions v21.x.</p>
 <h2 id="-breaking-changes"><a class="header" href="#-breaking-changes">⚠️ Breaking changes</a></h2>
 <p>We removed the <code>Async</code> suffix from our API method names, and renamed <code>SendTextMessageAsync</code> to <code>SendMessage</code>.<br />
 This was done to match <a href="https://core.telegram.org/bots/api#available-methods">official API documentation</a> and because all our TelegramBotClient methods are asynchronous <em>(no real need to differenciate between async or non-async methods)</em></p>
