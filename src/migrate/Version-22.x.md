@@ -67,3 +67,4 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 - Helper method `GetFileIdType`  
 	It can tell you which type of object/media is referenced by a FileId string
 - Huge rewrite of our serialization code to make it more performant and straightforward.
+- Updated System.Text.Json due to vulnerability [CVE-2024-43485](https://github.com/advisories/GHSA-8g4q-xg66-9fp4)
