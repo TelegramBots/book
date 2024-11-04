@@ -64,15 +64,14 @@ var message = await bot.SendVoice(chatId, stream, duration: 36);
     {
 // ANCHOR: send-document
 await bot.SendDocument(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
-    caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", parseMode: ParseMode.Html);
+    "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", ParseMode.Html);
 // ANCHOR_END: send-document
     }
 
     private async Task SendAnimation()
     {
 // ANCHOR: send-animation
-await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4",
-    caption: "Waves");
+await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4", "Waves");
 // ANCHOR_END: send-animation
     }
 
@@ -134,7 +133,7 @@ await bot.SendLocation(chatId, latitude: 33.747252f, longitude: -112.633853f);
     {
 // ANCHOR: send-photo
 var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
-    caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", parseMode: ParseMode.Html);
+    "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>", ParseMode.Html);
 // ANCHOR_END: send-photo
     }
 
@@ -154,7 +153,7 @@ var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 
 // ANCHOR: send-text
 var message = await bot.SendMessage(chatId, "Trying <b>all the parameters</b> of <code>sendMessage</code> method",
-    parseMode: ParseMode.Html,
+    ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.Id,
     replyMarkup: new InlineKeyboardMarkup(

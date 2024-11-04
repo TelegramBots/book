@@ -34,7 +34,6 @@ await bot.SendInvoice(
     title: "Product Title",
     description: "Product Detailed Description",
     payload: "InternalProductID",           // not sent nor shown to user
-    providerToken: ""                       // empty string for XTR
     currency: "XTR",                        // 3-letters ISO 4217 currency
     prices: [("Price", 500)],               // only one price for XTR
     photoUrl: "https://cdn.pixabay.com/photo/2012/10/26/03/16/painting-63186_1280.jpg",
@@ -116,7 +115,7 @@ async Task OnUpdate(Update update)
    {
       case { Message.Text: "/start" }:
          await bot.SendInvoice(update.Message.Chat,
-            "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X", "",
+            "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X",
             "XTR", [("Price", 200)], photoUrl: "https://cdn-icons-png.flaticon.com/512/891/891386.png");
          break;
       case { PreCheckoutQuery: { } preCheckoutQuery }:
