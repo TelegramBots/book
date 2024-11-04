@@ -255,13 +255,13 @@
 
 </style>
 <h1 id="telegram-bots-book"><a class="header" href="#telegram-bots-book">Telegram Bots Book</a></h1>
-<p><a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square" alt="NuGet" /></a>
+<p><a href="https://www.nuget.org/packages/Telegram.Bot#versions-body-tab"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square" alt="NuGet" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot"><img src="https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.svg?style=social&amp;label=Stars" alt="Repository" /></a></p>
 <p><strong><a href="https://github.com/TelegramBots/Telegram.Bot">Telegram.Bot</a></strong> is the most popular .NET client for <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>, allowing <a href="https://core.telegram.org/bots">developers to build bots</a> for <a href="https://www.telegram.org">Telegram</a> messaging app.</p>
 <p>This book covers all you need to know to create a chatbot in .NET, with many concrete examples written in C#.<br />
 Begin with our <a href="1/quickstart.html"><em>Quickstart</em></a>, or choose from the Table Of Content (left/top), and don't miss our useful <a href="FAQ.html">Frequently Asked Questions</a>.</p>
 <h2 id="-installation"><a class="header" href="#-installation">🧩 Installation</a></h2>
-<p>Use Nuget package manager (in your IDE or command line) to install the package from Nuget.</p>
+<p><a href="https://www.nuget.org/packages/Telegram.Bot">Install the package from Nuget</a> using Nuget package manager <em>(in your IDE or command line)</em>.</p>
 <p>🎉 The problem with Nuget.org seems resolved. Our latest library version 22.* is now available on it!</p>
 <p>Make sure to follow the <a href="migrate/Version-22.x.html">Migration Guide for v22.*</a> if you have existing bot code.</p>
 <h2 id="-more-examples"><a class="header" href="#-more-examples">🪄 More examples</a></h2>
@@ -274,7 +274,7 @@ Begin with our <a href="1/quickstart.html"><em>Quickstart</em></a>, or choose fr
 </ul>
 <h2 id="-more-useful-links"><a class="header" href="#-more-useful-links">🔗 More useful links</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Visit our</th><th>URL</th></tr></thead><tbody>
-<tr><td>Nuget feed</td><td><a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot">https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot</a></td></tr>
+<tr><td>Nuget feed</td><td><a href="https://www.nuget.org/packages/Telegram.Bot">https://www.nuget.org/packages/Telegram.Bot</a></td></tr>
 <tr><td>Github repo</td><td><a href="https://github.com/TelegramBots/Telegram.Bot">https://github.com/TelegramBots/Telegram.Bot</a></td></tr>
 <tr><td>Examples repo</td><td><a href="https://github.com/TelegramBots/Telegram.Bot.Examples">https://github.com/TelegramBots/Telegram.Bot.Examples</a></td></tr>
 <tr><td>Telegram news channel</td><td><a href="https://t.me/tgbots_dotnet">https://t.me/tgbots_dotnet</a></td></tr>
@@ -367,7 +367,6 @@ Begin with our <a href="1/quickstart.html"><em>Quickstart</em></a>, or choose fr
 </div>
 <p>Create a new console project for your bot and add a reference to <code>Telegram.Bot</code> package:</p>
 <pre><code class="language-bash">dotnet new console
-dotnet nuget add source https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json -n Telegram.Bot
 dotnet add package Telegram.Bot
 </code></pre>
 <p>The code below fetches Bot information based on its bot token by calling the Bot API <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method. Open <code>Program.cs</code> and use the following content:</p>
