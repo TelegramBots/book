@@ -1,5 +1,8 @@
 ﻿# Migration guide for version 22.x
 
+If you're migrating from version 19.x, you might want to read our [migration doc for v21](Version-21.x.md) first.
+There were a lot of interesting changes in versions v21.x.
+
 ## ⚠️ Breaking changes
 
 We removed the `Async` suffix from our API method names, and renamed `SendTextMessageAsync` to `SendMessage`.  
