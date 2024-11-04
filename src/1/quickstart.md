@@ -24,7 +24,6 @@ Create a new console project for your bot and add a reference to `Telegram.Bot` 
 
 ```bash
 dotnet new console
-dotnet nuget add source https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json -n Telegram.Bot
 dotnet add package Telegram.Bot
 ```
 

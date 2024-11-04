@@ -1,5 +1,5 @@
 # Telegram Bots Book
-[![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot)
+[![NuGet](https://img.shields.io/nuget/dt/Telegram.Bot.svg?style=flat-square)](https://www.nuget.org/packages/Telegram.Bot#versions-body-tab)
 [![Repository](https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.svg?style=social&label=Stars)](https://github.com/TelegramBots/Telegram.Bot)
 
 **[Telegram.Bot](https://github.com/TelegramBots/Telegram.Bot)** is the most popular .NET client for [Telegram Bot API](https://core.telegram.org/bots/api), allowing [developers to build bots](https://core.telegram.org/bots) for [Telegram](https://www.telegram.org) messaging app.
@@ -9,7 +9,7 @@ Begin with our [_Quickstart_](1/quickstart.md), or choose from the Table Of Cont
 
 ## 🧩 Installation
 
-Use Nuget package manager (in your IDE or command line) to install the package from Nuget.
+[Install the package from Nuget](https://www.nuget.org/packages/Telegram.Bot) using Nuget package manager _(in your IDE or command line)_.
 
 🎉 The problem with Nuget.org seems resolved. Our latest library version 22.* is now available on it!
 
@@ -27,7 +27,7 @@ This book is filled with ready-to-use snippets of code, but you can also find fu
 
 |Visit our|URL|
 |--|--|
-|Nuget feed|<https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot>|
+|Nuget feed|<https://www.nuget.org/packages/Telegram.Bot>|
 |Github repo|<https://github.com/TelegramBots/Telegram.Bot>|
 |Examples repo|<https://github.com/TelegramBots/Telegram.Bot.Examples>|
 |Telegram news channel|<https://t.me/tgbots_dotnet>|
