@@ -274,7 +274,7 @@ Text messages are easy to send and fast to display on devices with slower networ
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
 <pre><code class="language-c#">var message = await bot.SendMessage(chatId, "Trying &lt;b&gt;all the parameters&lt;/b&gt; of &lt;code&gt;sendMessage&lt;/code&gt; method",
-    parseMode: ParseMode.Html,
+    ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.Id,
     replyMarkup: new InlineKeyboardMarkup(

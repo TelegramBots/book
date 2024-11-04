@@ -267,7 +267,7 @@ You will learn more about them later on when we discuss file <a href="../../3/fi
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
 <p>Sending a photo is simple. Here is an example:</p>
 <pre><code class="language-c#">var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
-    caption: "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", parseMode: ParseMode.Html);
+    "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
 </code></pre>
 <p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
 <h3 id="caption"><a class="header" href="#caption">Caption</a></h3>

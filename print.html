@@ -884,7 +884,7 @@ Text messages are easy to send and fast to display on devices with slower networ
 or put the <code>chatId</code> value if you know it.</p>
 </blockquote>
 <pre><code class="language-c#">var message = await bot.SendMessage(chatId, "Trying &lt;b&gt;all the parameters&lt;/b&gt; of &lt;code&gt;sendMessage&lt;/code&gt; method",
-    parseMode: ParseMode.Html,
+    ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.Id,
     replyMarkup: new InlineKeyboardMarkup(
@@ -1003,7 +1003,7 @@ You will learn more about them later on when we discuss file <a href="2/send-msg
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
 <p>Sending a photo is simple. Here is an example:</p>
 <pre><code class="language-c#">var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
-    caption: "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", parseMode: ParseMode.Html);
+    "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-photo_msg.jpg" alt="photo message" /></p>
 <h3 id="caption"><a class="header" href="#caption">Caption</a></h3>
@@ -1416,14 +1416,13 @@ await bot.SendVideoNote(chatId, stream,
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#senddocument"><code>sendDocument</code></a> method to send general files.</p>
 <pre><code class="language-c#">await bot.SendDocument(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
-    caption: "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", parseMode: ParseMode.Html);
+    "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
 </code></pre>
 <h2 id="send-animations"><a class="header" href="#send-animations">Send animations</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendanimation"><img src="https://img.shields.io/badge/Bot_API_method-sendAnimation-blue.svg?style=flat-square" alt="sendAnimation method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AnimationMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Animation_Message-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>Use <a href="https://core.telegram.org/bots/api#sendanimation"><code>sendAnimation</code></a> method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).</p>
-<pre><code class="language-c#">await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4",
-    caption: "Waves");
+<pre><code class="language-c#">await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4", "Waves");
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
@@ -3536,7 +3535,6 @@ See <a href="https://core.telegram.org/bots/payments/currencies.json">"exp" in t
     title: "Product Title",
     description: "Product Detailed Description",
     payload: "InternalProductID",           // not sent nor shown to user
-    providerToken: ""                       // empty string for XTR
     currency: "XTR",                        // 3-letters ISO 4217 currency
     prices: [("Price", 500)],               // only one price for XTR
     photoUrl: "https://cdn.pixabay.com/photo/2012/10/26/03/16/painting-63186_1280.jpg",
@@ -3597,7 +3595,7 @@ async Task OnUpdate(Update update)
    {
       case { Message.Text: "/start" }:
          await bot.SendInvoice(update.Message.Chat,
-            "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X", "",
+            "Unlock feature X", "Will give you access to feature X of this bot", "unlock_X",
             "XTR", [("Price", 200)], photoUrl: "https://cdn-icons-png.flaticon.com/512/891/891386.png");
          break;
       case { PreCheckoutQuery: { } preCheckoutQuery }:
