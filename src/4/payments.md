@@ -60,7 +60,7 @@ Otherwise you can skip to the next section.
 
 `update.ShippingQuery` would contain information like the current shipping address for the user, and can be received again if the user changes the address.
 
-You should check if the address is supported, and reply using `bot.AnswerShippingQuery` with an error message or a list of shipping options with associated price lines:
+You should check if the address is supported, and reply using `bot.AnswerShippingQuery` with an error message or a list of shipping options with associated additional price lines:
 ```csharp
 var shippingOptions = new List<ShippingOption>();
 shippingOptions.Add(new() { Title = "DHL Express", Id = "dhl-express",
@@ -95,7 +95,7 @@ If you confirmed the order in the step above, Telegram requests the payment with
 
 If the payment is successfully processed, you will receive a private Message of type `SuccessfulPayment` from the user, and you must then proceed with delivering the goods or services to the user.
 
-The `message.SuccessfulPayment` structure contains all the same previous information, plus two payment identifiers from Telegram & from the Payment Provider.
+The `message.SuccessfulPayment` structure contains all the same previous information, plus two payment identifiers from Telegram and from the Payment Provider.
 
 You should store these ChargeId strings for traceability of the transaction in case of dispute, or refund _(possible with [RefundStarPayment](https://core.telegram.org/bots/api#refundstarpayment))_.
 
@@ -125,9 +125,9 @@ async Task OnUpdate(Update update)
             await bot.AnswerPreCheckoutQuery(preCheckoutQuery.Id, "Invalid order");
          break;
       case { Message.SuccessfulPayment: { } successfulPayment }:
-         System.IO.File.AppendAllText("payments.log", $"\n{DateTime.Now}: " +
+         System.IO.File.AppendAllText("payments.log", $"{DateTime.Now}: " +
             $"User {update.Message.From} paid for {successfulPayment.InvoicePayload}: " +
-            $"{successfulPayment.TelegramPaymentChargeId} {successfulPayment.ProviderPaymentChargeId}");
+            $"{successfulPayment.TelegramPaymentChargeId} {successfulPayment.ProviderPaymentChargeId}\n");
          if (successfulPayment.InvoicePayload is "unlock_X")
             await bot.SendMessage(update.Message.Chat, "Thank you! Feature X is unlocked");
          break;

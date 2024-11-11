@@ -84,6 +84,9 @@ To make it work in your ASP.NET projects, you should now:
 - Remove package **Microsoft.AspNetCore.Mvc.NewtonsoftJson** from your project dependencies
 - Follow our [Webhook page](../3/updates/webhook.md) to configure your web app correctly
 
+_Note: When deploying a .NET 6+ build via Docker, this introduced a dependency on ASP.NET Core.
+See [this issue](https://github.com/TelegramBots/Telegram.Bot/issues/1432) for methods to update your Dockerfile_
+
 ## InputPollOption in SendPollAsync
 
 SendPollAsync now expect an array of InputPollOption instead of string.

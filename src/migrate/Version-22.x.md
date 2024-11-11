@@ -1,7 +1,7 @@
 ﻿# Migration guide for version 22.x
 
 If you're migrating from version 19.x, you might want to read our [migration doc for v21](Version-21.x.md) first.
-There were a lot of interesting changes in versions v21.x.
+There were lots of interesting changes in versions v21.x.
 
 ## ⚠️ Breaking changes
 
@@ -56,7 +56,7 @@ _(maybe a few more parameter reordering if you didn't use named parameters)_
 **Addendum:** we also renamed method `MakeRequest`Async to `SendRequest`
 _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 
-## What's new in version 22.0.0
+## What's new in version 22.0
 
 - Support for [Bot API 7.11](https://core.telegram.org/bots/api#october-31-2024)
 - Implicit conversions for single-field structures  
