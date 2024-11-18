@@ -3,6 +3,9 @@
 If you're migrating from version 19.x, you might want to read our [migration doc for v21](Version-21.x.md) first.
 There were lots of interesting changes in versions v21.x.
 
+We are back on [Nuget.org](https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab)!  
+And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)
+
 ## ⚠️ Breaking changes
 
 We removed the `Async` suffix from our API method names, and renamed `SendTextMessageAsync` to `SendMessage`.  
@@ -68,3 +71,8 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 	It can tell you which type of object/media is referenced by a FileId string
 - Huge rewrite of our serialization code to make it more performant and straightforward.
 - Updated System.Text.Json due to vulnerability [CVE-2024-43485](https://github.com/advisories/GHSA-8g4q-xg66-9fp4)
+
+## What's new in version 22.1
+
+- Support for [Bot API 8.0](https://core.telegram.org/bots/api-changelog#november-17-2024)
+- new helper `message.MessageLink()` to get the <u>t.me</u> link to that message (Supergroup and Channel only)
