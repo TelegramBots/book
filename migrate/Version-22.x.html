@@ -235,6 +235,8 @@
 <h1 id="migration-guide-for-version-22x"><a class="header" href="#migration-guide-for-version-22x">Migration guide for version 22.x</a></h1>
 <p>If you're migrating from version 19.x, you might want to read our <a href="Version-21.x.html">migration doc for v21</a> first.
 There were lots of interesting changes in versions v21.x.</p>
+<p>We are back on <a href="https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab">Nuget.org</a>!<br />
+And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)</p>
 <h2 id="-breaking-changes"><a class="header" href="#-breaking-changes">⚠️ Breaking changes</a></h2>
 <p>We removed the <code>Async</code> suffix from our API method names, and renamed <code>SendTextMessageAsync</code> to <code>SendMessage</code>.<br />
 This was done to match <a href="https://core.telegram.org/bots/api#available-methods">official API documentation</a> and because all our TelegramBotClient methods are asynchronous <em>(no real need to differenciate between async or non-async methods)</em></p>
@@ -300,6 +302,11 @@ to a Send method and it will use its FileId</li>
 It can tell you which type of object/media is referenced by a FileId string</li>
 <li>Huge rewrite of our serialization code to make it more performant and straightforward.</li>
 <li>Updated System.Text.Json due to vulnerability <a href="https://github.com/advisories/GHSA-8g4q-xg66-9fp4">CVE-2024-43485</a></li>
+</ul>
+<h2 id="whats-new-in-version-221"><a class="header" href="#whats-new-in-version-221">What's new in version 22.1</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#november-17-2024">Bot API 8.0</a></li>
+<li>new helper <code>message.MessageLink()</code> to get the <u>t.me</u> link to that message (Supergroup and Channel only)</li>
 </ul>
 
                     </main>
