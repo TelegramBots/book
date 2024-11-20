@@ -76,3 +76,4 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 
 - Support for [Bot API 8.0](https://core.telegram.org/bots/api-changelog#november-17-2024)
 - new helper `message.MessageLink()` to get the <u>t.me</u> link to that message (Supergroup and Channel only)
+- `ToHtml`/`ToMarkdown`: support for ExpandableBlockquote (v22.1.1)
