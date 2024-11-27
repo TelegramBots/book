@@ -7,7 +7,7 @@ Telegram offers a safe, simple and unified payment system for goods and services
 
 Due to Google/Apple policies, there is a distinction between:
 - **Digital Goods & Services**, which can be paid using [Telegram Stars](https://telegram.org/blog/telegram-stars) (XTR) only
-- **Physical Goods**, which can be paid using real money, and can request more details like a shipping address.
+- **Physical Goods**, which can be paid using regular currencies, and can request more details like a shipping address.
 
 Both process are similar, so we will demonstrate how to do a Telegram Stars payment (simpler) and give you some info about the difference for Physical Goods.
 

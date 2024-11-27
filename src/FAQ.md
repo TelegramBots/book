@@ -88,7 +88,8 @@ You can either do this via [@BotFather](https://t.me/BotFather) _(static entries
 ⚠️ This menu can only be filled with bot commands, starting with a `/` and containing only latin characters `a-z_0-9`
 
 ### _18. How to receive `ChatMember` updates?_
-You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhook`
+You should specify all update types **including ChatMember** in `AllowedUpdates` array on `StartReceiving`:`ReceiverOptions` or `SetWebhook`  
+[More details here](2/chats.md#detecting-new-group-members-and-changed-member-status)
 
 ### _19. How to get rid of past updates when I restart my bot?_
 Pass true into `StartReceiving`:`ReceiverOptions`:`DropPendingUpdates` or `SetWebhook`:`dropPendingUpdates`

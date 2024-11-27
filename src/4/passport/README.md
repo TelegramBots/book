@@ -6,9 +6,8 @@
 
 - [Quickstart](quickstart.md)
 - [Files & Documents](files-docs.md)
-- [Data Errors](errors.md)
+- [Handling Errors](errors.md)
 - [RSA Key](key.md)
-- [Decryption FAQ](faq.md)
 
 ![telegram passport](../docs/photo-tg_passport.gif)
 
