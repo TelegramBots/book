@@ -3490,7 +3490,7 @@ your bot can reply or do some other actions on behalf of their user account.</p>
 <p>Due to Google/Apple policies, there is a distinction between:</p>
 <ul>
 <li><strong>Digital Goods &amp; Services</strong>, which can be paid using <a href="https://telegram.org/blog/telegram-stars">Telegram Stars</a> (XTR) only</li>
-<li><strong>Physical Goods</strong>, which can be paid using real money, and can request more details like a shipping address.</li>
+<li><strong>Physical Goods</strong>, which can be paid using regular currencies, and can request more details like a shipping address.</li>
 </ul>
 <p>Both process are similar, so we will demonstrate how to do a Telegram Stars payment (simpler) and give you some info about the difference for Physical Goods.</p>
 <h2 id="important-notes-for-physical-goods"><a class="header" href="#important-notes-for-physical-goods">Important notes for physical goods</a></h2>
@@ -3763,9 +3763,8 @@ so you have more control with HTML/JS to display the interface you like.</p>
 <ul>
 <li><a href="4/passport/quickstart.html">Quickstart</a></li>
 <li><a href="4/passport/files-docs.html">Files &amp; Documents</a></li>
-<li><a href="4/passport/errors.html">Data Errors</a></li>
+<li><a href="4/passport/errors.html">Handling Errors</a></li>
 <li><a href="4/passport/key.html">RSA Key</a></li>
-<li><a href="4/passport/faq.html">Decryption FAQ</a></li>
 </ul>
 <p><img src="4/passport/../docs/photo-tg_passport.gif" alt="telegram passport" /></p>
 <p><a href="https://telegram.org/blog/passport">Telegram Passport</a> is a unified authorization method for services that require personal identification.
@@ -4305,7 +4304,8 @@ await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 }
 
 </style>
-<h1 id="passport-data-errors"><a class="header" href="#passport-data-errors">Passport Data Errors</a></h1>
+<h1 id="handling-passport-errors"><a class="header" href="#handling-passport-errors">Handling Passport errors</a></h1>
+<h2 id="handling-data-errors"><a class="header" href="#handling-data-errors">Handling Data Errors</a></h2>
 <p><a href="https://core.telegram.org/bots/api#setpassportdataerrors"><img src="https://img.shields.io/badge/Bot_API_method-setPassportDataErrors-blue.svg?style=flat-square" alt="setPassportDataErrors method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/test/IntegrationTests/Passport%20Element%20Errors"><img src="https://img.shields.io/badge/Examples-Passport_Element_Errors-green.svg?style=flat-square" alt="Passport Element Errors tests" /></a></p>
 <p>If the passport data you received contains errors, the bot can use the <a href="https://core.telegram.org/bots/api#setpassportdataerrors">SetPassportDataErrors</a> method to inform the user and request information again. The user will not be able to resend the data, until all errors are fixed.</p>
@@ -4342,6 +4342,21 @@ PassportElementError[] errors =
 };
 
 await bot.SetPassportDataErrors(passportMessage.From.Id, errors);
+</code></pre>
+<h2 id="decryption-error-passportdatadecryptionexception"><a class="header" href="#decryption-error-passportdatadecryptionexception">Decryption error (<code>PassportDataDecryptionException</code>)</a></h2>
+<p>Methods on <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs"><code>IDecrypter</code></a>
+might throw <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/PassportDataDecryptionException.cs"><code>PassportDataDecryptionException</code></a> exception
+if an error happens during decryption.
+The exception message tells you what went wrong but there is not much you can do to resolve it.
+Maybe let your user know the issue and ask for Passport data again.</p>
+<p>It is important to pass each piece of encrypted data, e.g. Id Document, Passport File, etc., with the right
+accompanying credentials to decryption methods.</p>
+<p>Spot the <em>problem in this code</em> decrypting driver's license files:</p>
+<pre><code class="language-c#">byte[] selfieContent = decrypter.DecryptFile(
+    encSelfieContent, // byte array of encrypted selfie file
+    credentials.SecureData.DriverLicense.FrontSide // WRONG! use selfie file credentials
+);
+// throws PassportDataDecryptionException: "Data hash mismatch at position 123."
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
@@ -4551,22 +4566,7 @@ and that's why we use our own <a href="https://github.com/TelegramBots/Telegram.
 }
 
 </style>
-<h1 id="telegram-passport-data-decryption---faq"><a class="header" href="#telegram-passport-data-decryption---faq">Telegram Passport Data Decryption - FAQ</a></h1>
-<h2 id="what-is-passportdatadecryptionexception"><a class="header" href="#what-is-passportdatadecryptionexception">What is <code>PassportDataDecryptionException</code></a></h2>
-<p>Methods on <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs"><code>IDecrypter</code></a> might throw <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/PassportDataDecryptionException.cs"><code>PassportDataDecryptionException</code></a> exception
-if an error happens during decryption.
-The exception message tells you what went wrong but there is not much you can do to resolve it.
-Maybe let your user know the issue and ask for Passport data again.</p>
-<p>It is important to pass each piece of encrypted data, e.g. Id Document, Passport File, etc., with the right
-accompanying credentials to decryption methods.</p>
-<p>Spot the <em>problem in this code</em> decrypting driver's license files:</p>
-<pre><code class="language-c#">byte[] selfieContent = decrypter.DecryptFile(
-    encSelfieContent, // byte array of encrypted selfie file
-    credentials.SecureData.DriverLicense.FrontSide // WRONG! use selfie file credentials
-);
-// throws PassportDataDecryptionException: "Data hash mismatch at position 123."
-</code></pre>
-<!-- ----------- -->
+<h1 id="decryption-faq"><a class="header" href="#decryption-faq">Decryption FAQ</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -4737,7 +4737,8 @@ Other cloud providers might also offer similar services.</p>
 <p>You can either do this via <a href="https://t.me/BotFather">@BotFather</a> <em>(static entries)</em>, or you can use <code>SetMyCommands</code> for more advanced settings<br />
 ⚠️ This menu can only be filled with bot commands, starting with a <code>/</code> and containing only latin characters <code>a-z_0-9</code></p>
 <h3 id="18-how-to-receive-chatmember-updates"><a class="header" href="#18-how-to-receive-chatmember-updates"><em>18. How to receive <code>ChatMember</code> updates?</em></a></h3>
-<p>You should specify all update types <strong>including ChatMember</strong> in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhook</code></p>
+<p>You should specify all update types <strong>including ChatMember</strong> in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhook</code><br />
+<a href="2/chats.html#detecting-new-group-members-and-changed-member-status">More details here</a></p>
 <h3 id="19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><a class="header" href="#19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><em>19. How to get rid of past updates when I restart my bot?</em></a></h3>
 <p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhook</code>:<code>dropPendingUpdates</code>
 Alternatively, you can call <code>await bot.DropPendingUpdates()</code> before polling or using <a href="3/updates/polling.html#by-setting-botonupdate-andor-botonmessage"><code>bot.OnUpdate</code></a>.</p>

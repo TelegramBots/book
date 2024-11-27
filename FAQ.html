@@ -335,7 +335,8 @@ Other cloud providers might also offer similar services.</p>
 <p>You can either do this via <a href="https://t.me/BotFather">@BotFather</a> <em>(static entries)</em>, or you can use <code>SetMyCommands</code> for more advanced settings<br />
 ⚠️ This menu can only be filled with bot commands, starting with a <code>/</code> and containing only latin characters <code>a-z_0-9</code></p>
 <h3 id="18-how-to-receive-chatmember-updates"><a class="header" href="#18-how-to-receive-chatmember-updates"><em>18. How to receive <code>ChatMember</code> updates?</em></a></h3>
-<p>You should specify all update types <strong>including ChatMember</strong> in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhook</code></p>
+<p>You should specify all update types <strong>including ChatMember</strong> in <code>AllowedUpdates</code> array on <code>StartReceiving</code>:<code>ReceiverOptions</code> or <code>SetWebhook</code><br />
+<a href="2/chats.html#detecting-new-group-members-and-changed-member-status">More details here</a></p>
 <h3 id="19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><a class="header" href="#19-how-to-get-rid-of-past-updates-when-i-restart-my-bot"><em>19. How to get rid of past updates when I restart my bot?</em></a></h3>
 <p>Pass true into <code>StartReceiving</code>:<code>ReceiverOptions</code>:<code>DropPendingUpdates</code> or <code>SetWebhook</code>:<code>dropPendingUpdates</code>
 Alternatively, you can call <code>await bot.DropPendingUpdates()</code> before polling or using <a href="3/updates/polling.html#by-setting-botonupdate-andor-botonmessage"><code>bot.OnUpdate</code></a>.</p>
