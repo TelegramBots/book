@@ -2497,7 +2497,7 @@ while (!cts.IsCancellationRequested)
 </style>
 <h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
 <p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a></p>
-<p>With Webhook, your web application gets notified automatically by Telegram when new updates arrive for your bot.</p>
+<p>With Webhook, your web application gets notified <a href="3/updates/webhook.html#updates-are-posted-sequentially-to-your-webapp">sequentially</a>, automatically by Telegram when new updates arrive for your bot.</p>
 <p>Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings <code>Telegram.Bot.JsonBotAPI.Options</code>.</p>
 <p>Below, you will find how to configure an <strong>ASP.NET Core Web API</strong> project to make it work with Telegram.Bot, either with Controllers or Minimal APIs</p>
 <p>⚠️ IMPORTANT: This guide describes configuration for versions 21.* and later of the library <em>(based on System.Text.Json rather than NewtonsoftJson)</em>. If you're using older versions, <a href="3/updates/../../migrate/Version-21.x.html">you should upgrade first</a>!</p>
@@ -2568,14 +2568,6 @@ If your host doesn't provide one, or you want to develop on your own machine, co
 See this useful <a href="https://medium.com/@oktaykopcak/81c8c4a9a853">step-by-step guide</a></li>
 <li>You must use HTTPS (TLS 1.2+), IPv4, and ports 443, 80, 88, or 8443</li>
 <li>The <a href="https://core.telegram.org/bots/webhooks">Official webhook guide</a> gives a lot of details</li>
-<li>If your update handler throws an exception or takes too much time to return,
-Telegram will consider it a temporary failure and will RESEND the same update a bit later.<br />
-You may want to prevent handling the same update.Id twice:
-<pre><code class="language-csharp">if (update.Id &lt;= LastUpdateId) return;
-LastUpdateId = update.Id;
-// your code to handle the Update here.
-</code></pre>
-</li>
 <li>Most web hostings will recycle your app after some HTTP inactivity (= stop your app and restart it on the next HTTP request)<br />
 To prevent issues with this:
 <ul>
@@ -2587,6 +2579,30 @@ To prevent issues with this:
 <li>Host your app on a VPS machine rather than a webapp host.</li>
 </ul>
 </li>
+</ul>
+<h2 id="updates-are-posted-sequentially-to-your-webapp"><a class="header" href="#updates-are-posted-sequentially-to-your-webapp">Updates are posted sequentially to your webapp</a></h2>
+<p>If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> sequential update you didn't acknowledge yet.
+<em>(We're talking about incremental <code>update.Id</code> values here)</em></p>
+<p>As long as your webapp doesn't acknowledge the update with a 200 OK <strong>within a few seconds</strong>, Telegram will keep sending the <strong>same update</strong> to your URL.<br />
+In particular, it will happen if your code is throwing an unhandled exception or taking too long to process an update.</p>
+<p>You may want to prevent handling the same update.Id twice:</p>
+<pre><code class="language-csharp">if (update.Id &lt;= LastUpdateId) return;
+LastUpdateId = update.Id;
+// your code to handle the Update here.
+</code></pre>
+<p>Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.</p>
+<p>If you want to acknowledge the incoming updates quickly but process them asynchronously or in parallel, there are multiple possible approaches:</p>
+<ul>
+<li>write the received update into a <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/channels">Channel</a><br />
+You will need a separate consumer Task to process these updates <em>(see <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">Background Service</a>)</em></li>
+<li>do the same but with a <code>ConcurrentQueue</code> or a <code>Queue</code> (with <code>lock</code>)</li>
+<li>spawn a new sub-Task for each update, using <code>Task.Run</code> for example<br />
+(if your bot is heavily used, make sure you don't overload your server with concurrent tasks)</li>
+</ul>
+<p>If you're gonna process the updates in parallel, you might want to ensure your code:</p>
+<ul>
+<li>is thread-safe or async-safe when accessing common resources</li>
+<li>has no state-consistency issue processing updates in unsequential order</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
