@@ -2,7 +2,7 @@
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
 
-With Webhook, your web application gets notified automatically by Telegram when new updates arrive for your bot.
+With Webhook, your web application gets notified [sequentially](#updates-are-posted-sequentially-to-your-webapp), automatically by Telegram when new updates arrive for your bot.
 
 Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings `Telegram.Bot.JsonBotAPI.Options`.
 
@@ -90,14 +90,6 @@ _Note: If you decide to switch back to [Long Polling](polling.md), remember to c
 See this useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a853)
 - You must use HTTPS (TLS 1.2+), IPv4, and ports 443, 80, 88, or 8443
 - The [Official webhook guide](https://core.telegram.org/bots/webhooks) gives a lot of details
-- If your update handler throws an exception or takes too much time to return,
-Telegram will consider it a temporary failure and will RESEND the same update a bit later.  
-  You may want to prevent handling the same update.Id twice:
-  ```csharp
-  if (update.Id <= LastUpdateId) return;
-  LastUpdateId = update.Id;
-  // your code to handle the Update here.
-  ```
 - Most web hostings will recycle your app after some HTTP inactivity (= stop your app and restart it on the next HTTP request)  
   To prevent issues with this:
   - Search for an Always-On option with your host _(usually not free)_
@@ -106,3 +98,31 @@ Telegram will consider it a temporary failure and will RESEND the same update a 
   - Have a service like [cron-job.org](https://cron-job.org/) ping your webapp every 5 minutes to keep it active.
     _(host will likely still recycle your app after a few days)_
   - Host your app on a VPS machine rather than a webapp host.
+
+## Updates are posted sequentially to your webapp
+
+If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> sequential update you didn't acknowledge yet.
+_(We're talking about incremental `update.Id` values here)_
+
+As long as your webapp doesn't acknowledge the update with a 200 OK **within a few seconds**, Telegram will keep sending the **same update** to your URL.  
+In particular, it will happen if your code is throwing an unhandled exception or taking too long to process an update.
+
+You may want to prevent handling the same update.Id twice:
+  ```csharp
+  if (update.Id <= LastUpdateId) return;
+  LastUpdateId = update.Id;
+  // your code to handle the Update here.
+  ```
+
+Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.
+
+If you want to acknowledge the incoming updates quickly but process them asynchronously or in parallel, there are multiple possible approaches:
+- write the received update into a [Channel](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels)  
+  You will need a separate consumer Task to process these updates _(see [Background Service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services))_
+- do the same but with a `ConcurrentQueue` or a `Queue` (with `lock`)  
+- spawn a new sub-Task for each update, using `Task.Run` for example  
+  (if your bot is heavily used, make sure you don't overload your server with concurrent tasks)
+
+If you're gonna process the updates in parallel, you might want to ensure your code:
+- is thread-safe or async-safe when accessing common resources
+- has no state-consistency issue processing updates in unsequential order
