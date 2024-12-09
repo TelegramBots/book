@@ -39,7 +39,7 @@ Here are a few interesting ones:
 	- Description
 	- default Permissions _(non-administrator access rights)_
 	- Linked ChatId _(the associated channel/discussion group for this chat)_
-	- IsForum _(This chat group has topics. There is no way to retrieve the list of topics)_
+	- IsForum _(This chat group has [topics](#forum--topics))_
 * Common information for all chats:
 	- Photo _(use `GetInfoAndDownloadFile` and the `photo.BigFileId` to download it)_
 	- Active Usernames _(premium user & public chats can have multiple usernames)_
@@ -116,3 +116,19 @@ The more complex (and more reliable) approach is instead to handle updates of ty
 * Typically, you would pass `Update.AllTypes` as the allowedUpdates parameter.
 * After that, you will receive an `update.ChatMember` structure for each user changing status with their old & their new status
 * The `OldChatMember`/`NewChatMember` status fields can be one of the derived `ChatMember*` class: `Owner`/`Creator`, `Administrator`, `Member`, `Restricted`, `Left`, `Banned`/`Kicked`)
+
+### Forum & Topics
+
+Group owners can enable the **Forum** feature on their chat, which allows them to create **[topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups)** for specialized discussions.
+
+Messages in topics are indicated with the `MessageThreadId` property. This property is equal to 1 for the **General** topic, or to the Message ID of the first message in topic.
+
+Bots can [create/edit/close/reopen/delete](https://core.telegram.org/bots/api#createforumtopic) specific topics or the General topic.
+
+**Important:** Bots can't fetch the current list of all topics in the chat.  
+However, your bot can keep track of active topics by listening to these service messages (with `MessageThreadId` set):
+- `MessageType.ForumTopicCreated` and the `message.ForumTopicCreated` structure
+- `MessageType.ForumTopicEdited` and the `message.ForumTopicEdited` structure
+- `MessageType.ForumTopicClosed`
+- `MessageType.ForumTopicReopened`
+- ...

@@ -79,3 +79,9 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 - `ToHtml`/`ToMarkdown`: support for ExpandableBlockquote (v22.1.1)
 - fix savePreparedInlineMessage request (v22.1.2)
 - `TransactionPartnerUser.Gift` type was corrected in Bot API (v22.1.3)
+
+## What's new in version 22.2
+
+- Support for [Bot API 8.1](https://core.telegram.org/bots/api-changelog#december-4-2024)
+- Support for [Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot) / [Blazor](https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot) / [Trimming](https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained)  
+_(this is still experimental and we would enjoy your feedback if you try to use the library in such contexts)_

@@ -36,7 +36,6 @@
     - [Files & Documents](4/passport/files-docs.md)
     - [Data Errors](4/passport/errors.md)
     - [RSA Key](4/passport/key.md)
-    - [Decryption FAQ](4/passport/faq.md)
 - [Frequently Asked Questions](FAQ.md)
 - [Migration guides to newer versions](migrate/README.md)
     - [Migrate to v22.*](migrate/Version-22.x.md)
