@@ -273,7 +273,7 @@ Here are a few interesting ones:</p>
 <li>Description</li>
 <li>default Permissions <em>(non-administrator access rights)</em></li>
 <li>Linked ChatId <em>(the associated channel/discussion group for this chat)</em></li>
-<li>IsForum <em>(This chat group has topics. There is no way to retrieve the list of topics)</em></li>
+<li>IsForum <em>(This chat group has <a href="#forum--topics">topics</a>)</em></li>
 </ul>
 </li>
 <li>Common information for all chats:
@@ -338,6 +338,19 @@ Same for a user leaving the chat, with the <code>message.LeftChatMember</code> s
 <li>Typically, you would pass <code>Update.AllTypes</code> as the allowedUpdates parameter.</li>
 <li>After that, you will receive an <code>update.ChatMember</code> structure for each user changing status with their old &amp; their new status</li>
 <li>The <code>OldChatMember</code>/<code>NewChatMember</code> status fields can be one of the derived <code>ChatMember*</code> class: <code>Owner</code>/<code>Creator</code>, <code>Administrator</code>, <code>Member</code>, <code>Restricted</code>, <code>Left</code>, <code>Banned</code>/<code>Kicked</code>)</li>
+</ul>
+<h3 id="forum--topics"><a class="header" href="#forum--topics">Forum &amp; Topics</a></h3>
+<p>Group owners can enable the <strong>Forum</strong> feature on their chat, which allows them to create <strong><a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups">topics</a></strong> for specialized discussions.</p>
+<p>Messages in topics are indicated with the <code>MessageThreadId</code> property. This property is equal to 1 for the <strong>General</strong> topic, or to the Message ID of the first message in topic.</p>
+<p>Bots can <a href="https://core.telegram.org/bots/api#createforumtopic">create/edit/close/reopen/delete</a> specific topics or the General topic.</p>
+<p><strong>Important:</strong> Bots can't fetch the current list of all topics in the chat.<br />
+However, your bot can keep track of active topics by listening to these service messages (with <code>MessageThreadId</code> set):</p>
+<ul>
+<li><code>MessageType.ForumTopicCreated</code> and the <code>message.ForumTopicCreated</code> structure</li>
+<li><code>MessageType.ForumTopicEdited</code> and the <code>message.ForumTopicEdited</code> structure</li>
+<li><code>MessageType.ForumTopicClosed</code></li>
+<li><code>MessageType.ForumTopicReopened</code></li>
+<li>...</li>
 </ul>
 
                     </main>
