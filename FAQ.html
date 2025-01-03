@@ -261,12 +261,11 @@
 <li><a href="#24-can-i-use-several-appsinstance-to-manage-my-bot">24. Can I use several apps/instance to manage my bot?</a></li>
 <li><a href="#25-how-do-i-get-the-user-id-from-a-username">25. How do I get the user id from a username?</a></li>
 <li><a href="#26-how-to-receive-messages-from-channels">26. How to receive messages from channels?</a></li>
-<li><a href="#27-how-to-sent-the-same-media-multiple-times">27. How to sent the same media multiple times</a></li>
+<li><a href="#27-how-to-send-the-same-media-multiple-times">27. How to send the same media multiple times</a></li>
 <li><a href="#this-faq-doesnt-have-my-question-on-it">This FAQ doesn't have my question on it</a></li>
 </ul>
 <h3 id="1-can-you-give-me-documentationexamples-links"><a class="header" href="#1-can-you-give-me-documentationexamples-links"><em>1. Can you give me documentation/examples links?</em></a></h3>
 <ul>
-<li>Follow <a href="https://telegrambots.github.io/book/#-installation">this installation guide</a> to install the latest versions of the library.</li>
 <li>Here is the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
 <li>You can find <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">more bot example projects</a> here</li>
 <li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official bots FAQ</a>.</li>
@@ -379,15 +378,15 @@ Remember that not every user has a username, and it can be changed.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
 <p>Your bot has to be added as administrator of the channel.
 You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>
-<h3 id="27-how-to-sent-the-same-media-multiple-times"><a class="header" href="#27-how-to-sent-the-same-media-multiple-times"><em>27. How to sent the same media multiple times</em></a></h3>
+<h3 id="27-how-to-send-the-same-media-multiple-times"><a class="header" href="#27-how-to-send-the-same-media-multiple-times"><em>27. How to send the same media multiple times</em></a></h3>
 <p>The first time, you will send the media with a stream (upload). Next times, you will use its <strong>FileId</strong>:</p>
-<pre><code class="language-csharp">var sent = await bot.SendVideo(chatId, stream, ....);
-var fileId = sent.Video.FileId
+<pre><code class="language-csharp">var msg = await bot.SendVideo(chatId, stream, ....);
+var fileId = msg.Video.FileId
 
 // next times:
 await bot.SendVideo(chatId2, fileId, ...);
 </code></pre>
-<p>For photos, use <code>sent.Photo[^1].FileId</code></p>
+<p>For photos, use <code>msg.Photo[^1].FileId</code></p>
 <h3 id="this-faq-doesnt-have-my-question-on-it"><a class="header" href="#this-faq-doesnt-have-my-question-on-it">This FAQ doesn't have my question on it</a></h3>
 <p>Feel free to <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">join our Telegram group</a> and ask your question there</p>
 

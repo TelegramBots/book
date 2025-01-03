@@ -317,6 +317,14 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <li>Support for <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot">Native AOT</a> / <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot">Blazor</a> / <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained">Trimming</a><br />
 <em>(this is still experimental and we would enjoy your feedback if you try to use the library in such contexts)</em></li>
 </ul>
+<h2 id="whats-new-in-version-223"><a class="header" href="#whats-new-in-version-223">What's new in version 22.3</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#january-1-2025">Bot API 8.2</a></li>
+<li>Renamed class <code>Telegram.Bot.Types.File</code> as <code>TGFile</code><br />
+<em>(the name <code>File</code> was annoyingly conflicting with the often-used <code>System.IO.File</code> class)</em></li>
+<li>Added property <code>Token</code> to <code>TelegramBotClient</code><br />
+<em>(you can use it to <code>ParseValidateData</code> MiniApp requests, authenticate WebHook updates, ...)</em></li>
+</ul>
 
                     </main>
 

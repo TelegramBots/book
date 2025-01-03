@@ -257,13 +257,13 @@ var filePath = fileInfo.FilePath;
 <p>To download file you can use <code>DownloadFile</code> function:</p>
 <pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.Create(destinationFilePath);
+await using Stream fileStream = File.Create(destinationFilePath);
 await bot.DownloadFile(filePath, fileStream);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFile</code>:</p>
 <pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.Create(destinationFilePath);
+await using Stream fileStream = File.Create(destinationFilePath);
 var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
 </code></pre>
 

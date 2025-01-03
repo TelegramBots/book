@@ -1140,7 +1140,7 @@ Let's send it differently this time by uploading the file from disk alongside wi
 <blockquote>
 <p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
 </blockquote>
-<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
+<pre><code class="language-c#">await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
 var message = await bot.SendVoice(chatId, stream, duration: 36);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-voice_msg.jpg" alt="voice message" /></p>
@@ -1238,7 +1238,7 @@ We also set a thumbnail image for our video.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
+<pre><code class="language-c#">await using Stream stream = File.OpenRead("/path/to/video-waves.mp4");
 
 await bot.SendVideoNote(chatId, stream,
     duration: 47, length: 360); // value of width/height
@@ -2916,13 +2916,13 @@ var filePath = fileInfo.FilePath;
 <p>To download file you can use <code>DownloadFile</code> function:</p>
 <pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.Create(destinationFilePath);
+await using Stream fileStream = File.Create(destinationFilePath);
 await bot.DownloadFile(filePath, fileStream);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFile</code>:</p>
 <pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.Create(destinationFilePath);
+await using Stream fileStream = File.Create(destinationFilePath);
 var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><style>
@@ -2996,7 +2996,7 @@ var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
 <h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
 <p>To upload local file open stream and call one of the file-sending functions:</p>
-<pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead("../hamlet.pdf");
+<pre><code class="language-C#">await using Stream stream = File.OpenRead("../hamlet.pdf");
 var message = await bot.SendDocument(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
     caption: "The Tragedy of Hamlet,\nPrince of Denmark");
 </code></pre>
@@ -4624,12 +4624,11 @@ and that's why we use our own <a href="https://github.com/TelegramBots/Telegram.
 <li><a href="FAQ.html#24-can-i-use-several-appsinstance-to-manage-my-bot">24. Can I use several apps/instance to manage my bot?</a></li>
 <li><a href="FAQ.html#25-how-do-i-get-the-user-id-from-a-username">25. How do I get the user id from a username?</a></li>
 <li><a href="FAQ.html#26-how-to-receive-messages-from-channels">26. How to receive messages from channels?</a></li>
-<li><a href="FAQ.html#27-how-to-sent-the-same-media-multiple-times">27. How to sent the same media multiple times</a></li>
+<li><a href="FAQ.html#27-how-to-send-the-same-media-multiple-times">27. How to send the same media multiple times</a></li>
 <li><a href="FAQ.html#this-faq-doesnt-have-my-question-on-it">This FAQ doesn't have my question on it</a></li>
 </ul>
 <h3 id="1-can-you-give-me-documentationexamples-links"><a class="header" href="#1-can-you-give-me-documentationexamples-links"><em>1. Can you give me documentation/examples links?</em></a></h3>
 <ul>
-<li>Follow <a href="https://telegrambots.github.io/book/#-installation">this installation guide</a> to install the latest versions of the library.</li>
 <li>Here is the <a href="https://telegrambots.github.io/book/">main documentation website</a>.</li>
 <li>You can find <a href="https://github.com/TelegramBots/Telegram.Bot.Examples">more bot example projects</a> here</li>
 <li>Search the <a href="https://core.telegram.org/bots/api">official API documentation</a> and <a href="https://core.telegram.org/bots/faq">official bots FAQ</a>.</li>
@@ -4742,15 +4741,15 @@ Remember that not every user has a username, and it can be changed.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
 <p>Your bot has to be added as administrator of the channel.
 You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>
-<h3 id="27-how-to-sent-the-same-media-multiple-times"><a class="header" href="#27-how-to-sent-the-same-media-multiple-times"><em>27. How to sent the same media multiple times</em></a></h3>
+<h3 id="27-how-to-send-the-same-media-multiple-times"><a class="header" href="#27-how-to-send-the-same-media-multiple-times"><em>27. How to send the same media multiple times</em></a></h3>
 <p>The first time, you will send the media with a stream (upload). Next times, you will use its <strong>FileId</strong>:</p>
-<pre><code class="language-csharp">var sent = await bot.SendVideo(chatId, stream, ....);
-var fileId = sent.Video.FileId
+<pre><code class="language-csharp">var msg = await bot.SendVideo(chatId, stream, ....);
+var fileId = msg.Video.FileId
 
 // next times:
 await bot.SendVideo(chatId2, fileId, ...);
 </code></pre>
-<p>For photos, use <code>sent.Photo[^1].FileId</code></p>
+<p>For photos, use <code>msg.Photo[^1].FileId</code></p>
 <h3 id="this-faq-doesnt-have-my-question-on-it"><a class="header" href="#this-faq-doesnt-have-my-question-on-it">This FAQ doesn't have my question on it</a></h3>
 <p>Feel free to <a href="https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA">join our Telegram group</a> and ask your question there</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
@@ -4980,6 +4979,14 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <li>Support for <a href="https://core.telegram.org/bots/api-changelog#december-4-2024">Bot API 8.1</a></li>
 <li>Support for <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot">Native AOT</a> / <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot">Blazor</a> / <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained">Trimming</a><br />
 <em>(this is still experimental and we would enjoy your feedback if you try to use the library in such contexts)</em></li>
+</ul>
+<h2 id="whats-new-in-version-223"><a class="header" href="#whats-new-in-version-223">What's new in version 22.3</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#january-1-2025">Bot API 8.2</a></li>
+<li>Renamed class <code>Telegram.Bot.Types.File</code> as <code>TGFile</code><br />
+<em>(the name <code>File</code> was annoyingly conflicting with the often-used <code>System.IO.File</code> class)</em></li>
+<li>Added property <code>Token</code> to <code>TelegramBotClient</code><br />
+<em>(you can use it to <code>ParseValidateData</code> MiniApp requests, authenticate WebHook updates, ...)</em></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {

@@ -258,7 +258,7 @@ We also set a thumbnail image for our video.</p>
 <p>You can send a video note only by uploading the video file or reusing the <code>file_id</code> of another video note.
 Sending video note by its HTTP URL is not supported currently.</p>
 <p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
+<pre><code class="language-c#">await using Stream stream = File.OpenRead("/path/to/video-waves.mp4");
 
 await bot.SendVideoNote(chatId, stream,
     duration: 47, length: 360); // value of width/height

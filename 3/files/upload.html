@@ -236,7 +236,7 @@
 <p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
 <h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
 <p>To upload local file open stream and call one of the file-sending functions:</p>
-<pre><code class="language-C#">await using Stream stream = System.IO.File.OpenRead("../hamlet.pdf");
+<pre><code class="language-C#">await using Stream stream = File.OpenRead("../hamlet.pdf");
 var message = await bot.SendDocument(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
     caption: "The Tragedy of Hamlet,\nPrince of Denmark");
 </code></pre>

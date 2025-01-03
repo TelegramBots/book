@@ -266,7 +266,7 @@ Let's send it differently this time by uploading the file from disk alongside wi
 <blockquote>
 <p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
 </blockquote>
-<pre><code class="language-c#">await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
+<pre><code class="language-c#">await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
 var message = await bot.SendVoice(chatId, stream, duration: 36);
 </code></pre>
 <p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
