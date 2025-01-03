@@ -5,7 +5,6 @@ I recommend you read all of these as you will learn many interesting things. Or 
 <!-- toc -->
 
 ### _1. Can you give me documentation/examples links?_
-- Follow [this installation guide](https://telegrambots.github.io/book/#-installation) to install the latest versions of the library.
 - Here is the [main documentation website](https://telegrambots.github.io/book/).
 - You can find [more bot example projects](https://github.com/TelegramBots/Telegram.Bot.Examples) here
 - Search the [official API documentation](https://core.telegram.org/bots/api) and [official bots FAQ](https://core.telegram.org/bots/faq).
@@ -136,16 +135,16 @@ Remember that not every user has a username, and it can be changed.
 Your bot has to be added as administrator of the channel.
 You will then receive the messages as `update.ChannelPost` or `update.EditedChannelPost`.
 
-### _27. How to sent the same media multiple times_
+### _27. How to send the same media multiple times_
 The first time, you will send the media with a stream (upload). Next times, you will use its **FileId**:
 ```csharp
-var sent = await bot.SendVideo(chatId, stream, ....);
-var fileId = sent.Video.FileId
+var msg = await bot.SendVideo(chatId, stream, ....);
+var fileId = msg.Video.FileId
 
 // next times:
 await bot.SendVideo(chatId2, fileId, ...);
 ```
-For photos, use `sent.Photo[^1].FileId`
+For photos, use `msg.Photo[^1].FileId`
 
 
 ### This FAQ doesn't have my question on it

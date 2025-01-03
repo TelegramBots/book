@@ -55,7 +55,7 @@ var message = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/d
     private async Task SendVoice()
     {
 // ANCHOR: send-voice
-await using Stream stream = System.IO.File.OpenRead("/path/to/voice-nfl_commentary.ogg");
+await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
 var message = await bot.SendVoice(chatId, stream, duration: 36);
 // ANCHOR_END: send-voice
     }
@@ -188,7 +188,7 @@ await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-coun
     private async Task SendVideoNote()
     {
 // ANCHOR: send-video-note
-await using Stream stream = System.IO.File.OpenRead("/path/to/video-waves.mp4");
+await using Stream stream = File.OpenRead("/path/to/video-waves.mp4");
 
 await bot.SendVideoNote(chatId, stream,
     duration: 47, length: 360); // value of width/height

@@ -33,7 +33,7 @@ var filePath = fileInfo.FilePath;
 // ANCHOR: download-file
 const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.Create(destinationFilePath);
+await using Stream fileStream = File.Create(destinationFilePath);
 await bot.DownloadFile(filePath, fileStream);
 // ANCHOR_END: download-file
     }
@@ -43,7 +43,7 @@ await bot.DownloadFile(filePath, fileStream);
 // ANCHOR: get-and-download-file
 const string destinationFilePath = "../downloaded.file";
 
-await using Stream fileStream = System.IO.File.Create(destinationFilePath);
+await using Stream fileStream = File.Create(destinationFilePath);
 var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
 // ANCHOR_END: get-and-download-file
     }
@@ -52,7 +52,7 @@ var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
     private async Task UploadLocalFile()
     {
 // ANCHOR: upload-local-file
-await using Stream stream = System.IO.File.OpenRead("../hamlet.pdf");
+await using Stream stream = File.OpenRead("../hamlet.pdf");
 var message = await bot.SendDocument(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
     caption: "The Tragedy of Hamlet,\nPrince of Denmark");
 // ANCHOR_END: upload-local-file

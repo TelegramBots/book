@@ -84,4 +84,12 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 
 - Support for [Bot API 8.1](https://core.telegram.org/bots/api-changelog#december-4-2024)
 - Support for [Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot) / [Blazor](https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot) / [Trimming](https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained)  
-_(this is still experimental and we would enjoy your feedback if you try to use the library in such contexts)_
+  _(this is still experimental and we would enjoy your feedback if you try to use the library in such contexts)_
+
+## What's new in version 22.3
+
+- Support for [Bot API 8.2](https://core.telegram.org/bots/api#january-1-2025)
+- Renamed class `Telegram.Bot.Types.File` as `TGFile`  
+  _(the name `File` was annoyingly conflicting with the often-used `System.IO.File` class)_
+- Added property `Token` to `TelegramBotClient`  
+  _(you can use it to `ParseValidateData` MiniApp requests, authenticate WebHook updates, ...)_
