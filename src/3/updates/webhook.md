@@ -117,4 +117,4 @@ You may want to prevent handling the same update.Id twice:
 Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.
 
 If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request immediately.  
-For more details, refer to [this section of our documentation](README.md#sequential-vs-parallel-updates).
+For more details, refer to [this section of our documentation](.#sequential-vs-parallel-updates).

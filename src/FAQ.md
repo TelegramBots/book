@@ -124,7 +124,7 @@ Version 21.x of the library and later have been much improved to facilitate [mig
 You can call API methods (like sending messages) from several instances in parallel  
 **BUT** only one instance can call method GetUpdates (or else you will receive _Telegram API Error 409: Conflict: terminated by other getUpdates request_)
 
-To process the updates in parallel, read [this section of our documentation](3/updates/README.md#sequential-vs-parallel-updates).
+To process the updates in parallel, read [this section of our documentation](3/updates/#sequential-vs-parallel-updates).
 
 ### _25. How do I get the user id from a username?_
 
