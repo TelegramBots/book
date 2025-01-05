@@ -116,13 +116,5 @@ You may want to prevent handling the same update.Id twice:
 
 Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.
 
-If you want to acknowledge the incoming updates quickly but process them asynchronously or in parallel, there are multiple possible approaches:
-- write the received update into a [Channel](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels)  
-  You will need a separate consumer Task to process these updates _(see [Background Service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services))_
-- do the same but with a `ConcurrentQueue` or a `Queue` (with `lock`)  
-- spawn a new sub-Task for each update, using `Task.Run` for example  
-  (if your bot is heavily used, make sure you don't overload your server with concurrent tasks)
-
-If you're gonna process the updates in parallel, you might want to ensure your code:
-- is thread-safe or async-safe when accessing common resources
-- has no state-consistency issue processing updates in unsequential order
+If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request immediately.  
+For more details, refer to [this section of our documentation](README.md#sequential-vs-parallel-updates).
