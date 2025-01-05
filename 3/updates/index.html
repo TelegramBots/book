@@ -292,6 +292,23 @@ So it is recommended to instead directly test the fields of Update you want if t
 <li><code>MediaGroupId</code>: albums (group of media) are separate consecutive messages having the same MediaGroupId</li>
 <li><code>MessageThreadId</code>: the topic ID for Forum/Topic type chats</li>
 </ul>
+<h2 id="sequential-vs-parallel-updates"><a class="header" href="#sequential-vs-parallel-updates">Sequential vs parallel updates</a></h2>
+<p>Whether polling in a loop or with webhooks, you will always receive updates in sequential order of increasing <code>update.Id</code>, one after the other.</p>
+<p>If you want to parallelize the handling of updates for improved performance, it is up to your async code.<br />
+There are multiple possible approaches:</p>
+<ul>
+<li>write the received update into a <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/channels">Channel</a><br />
+You will need a separate consumer Task to process these updates <em>(see <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">Background Service</a>)</em></li>
+<li>do the same but with a <code>ConcurrentQueue</code> or a <code>Queue</code> (with <code>lock</code>)</li>
+<li>spawn a new sub-Task for each update, using <code>Task.Run</code> for example<br />
+(if your bot is heavily used, make sure you don't overload your server with concurrent tasks)</li>
+<li>or something as simple as: <code>bot.OnUpdate += async update =&gt; OnUpdate(update);</code></li>
+</ul>
+<p>However if you're gonna process the updates in parallel, you might want to ensure your code:</p>
+<ul>
+<li>is thread-safe or async-safe when accessing common resources</li>
+<li>has no state-consistency issue processing updates in unsequential order</li>
+</ul>
 <h2 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h2>
 <h3 id="long-polling"><a class="header" href="#long-polling">Long polling</a></h3>
 <ul>

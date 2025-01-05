@@ -2318,6 +2318,23 @@ So it is recommended to instead directly test the fields of Update you want if t
 <li><code>MediaGroupId</code>: albums (group of media) are separate consecutive messages having the same MediaGroupId</li>
 <li><code>MessageThreadId</code>: the topic ID for Forum/Topic type chats</li>
 </ul>
+<h2 id="sequential-vs-parallel-updates"><a class="header" href="#sequential-vs-parallel-updates">Sequential vs parallel updates</a></h2>
+<p>Whether polling in a loop or with webhooks, you will always receive updates in sequential order of increasing <code>update.Id</code>, one after the other.</p>
+<p>If you want to parallelize the handling of updates for improved performance, it is up to your async code.<br />
+There are multiple possible approaches:</p>
+<ul>
+<li>write the received update into a <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/channels">Channel</a><br />
+You will need a separate consumer Task to process these updates <em>(see <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">Background Service</a>)</em></li>
+<li>do the same but with a <code>ConcurrentQueue</code> or a <code>Queue</code> (with <code>lock</code>)</li>
+<li>spawn a new sub-Task for each update, using <code>Task.Run</code> for example<br />
+(if your bot is heavily used, make sure you don't overload your server with concurrent tasks)</li>
+<li>or something as simple as: <code>bot.OnUpdate += async update =&gt; OnUpdate(update);</code></li>
+</ul>
+<p>However if you're gonna process the updates in parallel, you might want to ensure your code:</p>
+<ul>
+<li>is thread-safe or async-safe when accessing common resources</li>
+<li>has no state-consistency issue processing updates in unsequential order</li>
+</ul>
 <h2 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h2>
 <h3 id="long-polling"><a class="header" href="#long-polling">Long polling</a></h3>
 <ul>
@@ -2604,19 +2621,8 @@ LastUpdateId = update.Id;
 // your code to handle the Update here.
 </code></pre>
 <p>Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.</p>
-<p>If you want to acknowledge the incoming updates quickly but process them asynchronously or in parallel, there are multiple possible approaches:</p>
-<ul>
-<li>write the received update into a <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/channels">Channel</a><br />
-You will need a separate consumer Task to process these updates <em>(see <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">Background Service</a>)</em></li>
-<li>do the same but with a <code>ConcurrentQueue</code> or a <code>Queue</code> (with <code>lock</code>)</li>
-<li>spawn a new sub-Task for each update, using <code>Task.Run</code> for example<br />
-(if your bot is heavily used, make sure you don't overload your server with concurrent tasks)</li>
-</ul>
-<p>If you're gonna process the updates in parallel, you might want to ensure your code:</p>
-<ul>
-<li>is thread-safe or async-safe when accessing common resources</li>
-<li>has no state-consistency issue processing updates in unsequential order</li>
-</ul>
+<p>If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request immediately.<br />
+For more details, refer to <a href="3/updates/README.html#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -4734,6 +4740,7 @@ Version 21.x of the library and later have been much improved to facilitate <a h
 <h3 id="24-can-i-use-several-appsinstance-to-manage-my-bot"><a class="header" href="#24-can-i-use-several-appsinstance-to-manage-my-bot"><em>24. Can I use several apps/instance to manage my bot?</em></a></h3>
 <p>You can call API methods (like sending messages) from several instances in parallel<br />
 <strong>BUT</strong> only one instance can call method GetUpdates (or else you will receive <em>Telegram API Error 409: Conflict: terminated by other getUpdates request</em>)</p>
+<p>To process the updates in parallel, read <a href="3/updates/README.html#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
 <h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
 <p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
