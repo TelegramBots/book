@@ -371,7 +371,7 @@ Version 21.x of the library and later have been much improved to facilitate <a h
 <h3 id="24-can-i-use-several-appsinstance-to-manage-my-bot"><a class="header" href="#24-can-i-use-several-appsinstance-to-manage-my-bot"><em>24. Can I use several apps/instance to manage my bot?</em></a></h3>
 <p>You can call API methods (like sending messages) from several instances in parallel<br />
 <strong>BUT</strong> only one instance can call method GetUpdates (or else you will receive <em>Telegram API Error 409: Conflict: terminated by other getUpdates request</em>)</p>
-<p>To process the updates in parallel, read <a href="3/updates/README.html#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
+<p>To process the updates in parallel, read <a href="3/updates/#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
 <h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
 <p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
