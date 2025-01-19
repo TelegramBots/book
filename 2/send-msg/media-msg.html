@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Sending Messages - A guide to Telegram.Bot library</title>
+        <title>Sending Media - A guide to Telegram.Bot library</title>
 
 
         <!-- Custom HTML head -->
@@ -232,80 +232,140 @@
 }
 
 </style>
-<h1 id="sending-messages"><a class="header" href="#sending-messages">Sending Messages</a></h1>
-<p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-sendMessage-blue.svg?style=flat-square" alt="send message method" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
-<p>There are many different types of message that a bot can send, but let's start with text messages.</p>
-<h2 id="basic-text-message"><a class="header" href="#basic-text-message">Basic text message</a></h2>
-<pre><code class="language-csharp">await bot.SendMessage(chatId, "Hello, World!");
-</code></pre>
-<p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
-<p>The <code>chatId</code> parameter would typically be the ID of a chat or a user that you obtained on a <a href="../../3/updates/README.html">received message</a>,
-or it can be the @username of a public group/channel.</p>
-<h2 id="advanced-text-message"><a class="header" href="#advanced-text-message">Advanced text message</a></h2>
-<p>You can send messages with more characteristics:</p>
+<h1 id="media-messages"><a class="header" href="#media-messages">Media Messages</a></h1>
+<p>There are different types of media messages that a bot can send (photos, videos, documents...).
+Fortunately, methods for sending such messages are similar (see sections below for examples)</p>
+<p>But let's first see what they have in common.</p>
+<h2 id="providing-the-source-file"><a class="header" href="#providing-the-source-file">Providing the source file</a></h2>
+<p>You can provide the file data in 3 ways:</p>
 <ul>
-<li>text effects <em>(using HTML, Markdown, or text entities)</em></li>
-<li>attached inline buttons</li>
-<li>as a reply to a message</li>
-<li>and more...</li>
+<li>Using the Internet URL to the file (must point to the actual file, not a webpage)</li>
+<li>Uploading the file data as a stream</li>
+<li>Using the <code>FileId</code> of a file that was already sent over Telegram (ex: <code>msg.Video.FileId</code>, <code>msg.Photo[^1].FileId</code>...)</li>
 </ul>
-<div class="mdbook-alerts mdbook-alerts-important">
-<p class="mdbook-alerts-title">
-  <span class="mdbook-alerts-icon"></span>
-  important
-</p>
-<p>We highly recommend you use HTML instead of Markdown because Markdown has lots of annoying aspects</p>
-</div>
-<p>The code snippet below sends a message using various parameters:</p>
-<pre><code class="language-csharp">var message = await bot.SendMessage(chatId, "Trying &lt;b&gt;all the parameters&lt;/b&gt; of &lt;code&gt;sendMessage&lt;/code&gt; method",
-    ParseMode.Html,
-    protectContent: true,
-    replyParameters: update.Message.Id,
-    replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage")));
-</code></pre>
-<p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
-<p>Here <code>text</code> is written in <a href="https://core.telegram.org/bots/api#html-style">HTML format</a> and <code>parseMode</code> indicates that.</p>
-<p>By passing <code>protectContent</code> we prevent the message (and eventual media) to be copiable/forwardable elsewhere.</p>
-<p>It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
-message id for <code>replyParameters</code>.</p>
-<p>You have the option of specifying a <code>replyMarkup</code> when sending messages.
-Reply markups are explained in details later in this book.
-Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself.
-Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
-<h2 id="observing-the-message-that-just-got-sent"><a class="header" href="#observing-the-message-that-just-got-sent">Observing the Message that just got sent</a></h2>
-<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
-<pre><code class="language-csharp">Console.WriteLine(
-    $"{message.From.FirstName} sent message {message.Id} " +
-    $"to chat {message.Chat.Id} at {message.Date}. " +
-    $"It is a reply to message {message.ReplyToMessage.Id} " +
-    $"and has {message.Entities.Length} message entities.");
-</code></pre>
-<p>Output should look similar to this:</p>
-<pre><code class="language-text">Awesome bot sent message 123 to chat 123456789 at 8/21/18 11:25:09 AM. It is a reply to message 122 and has 2 message entities.
-</code></pre>
-<p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
-<p>There are a few things to note:</p>
+<p>Examples in this section show all three.
+You will learn more about them later on when we discuss file <a href="../../3/files/upload.html">upload</a> and <a href="../../3/files/download.html">download</a>.</p>
+<h2 id="providing-the-caption"><a class="header" href="#providing-the-caption">Providing the caption</a></h2>
+<p>Media messages can <em>optionally</em> have a text attached to them (called "Caption").</p>
+<p><a href="README.html">Similar to text message</a>, the caption can have text effects (specifying <code>ParseMode.HTML</code> or <code>Markdown</code>, or manual captionEntities)</p>
+<p>The Message object returned by the Send* method will have:</p>
 <ul>
-<li><code>message.Date</code> is a timestamp in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC format</a> (use <code>message.Date.ToLocalTime()</code> to convert to your local timezone).</li>
-<li><code>message.Text</code>: plain text without effects</li>
-<li><code>message.Entities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be apply to the plain text</li>
-<li><code>message.EntityValues</code>: text parts covered by these entities</li>
+<li><code>message.Caption</code>: caption in plain text without effects</li>
+<li><code>message.CaptionEntities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be apply to the plain text</li>
+<li><code>message.CaptionEntityValues</code>: caption text parts covered by these entities</li>
 </ul>
-<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text &amp; entities back into HTML <strong>(recommended)</strong> or Markdown.</p>
-<h2 id="more-message-types"><a class="header" href="#more-message-types">More message types</a></h2>
-<p>Discover more message types in the <a href="media-msg.html">next pages</a>.</p>
+<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the caption &amp; entities back into HTML <strong>(recommended)</strong> or Markdown.</p>
+<h2 id="photo"><a class="header" href="#photo">Photo</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-sendPhoto-blue.svg?style=flat-square" alt="send photo method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
+<p>Sending a photo is simple. Here is an example:</p>
+<pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
+    "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
+</code></pre>
+<p><img src="../docs/shot-photo_msg.jpg" alt="photo message" /></p>
+<p>Here we sent a caption in HTML format. The user can click on <u><a href="https://pixabay.com">Pixabay</a></u> in the caption to open its URL in the browser.</p>
+<p>The <code>Message</code> returned by the SendPhoto method represents a <em>photo message</em> because <code>message.Photo</code> has a value.
+Its value is an array with each  <a href="https://core.telegram.org/bots/api#photosize">PhotoSize</a> representing the same photo in different resolutions, with the largest dimensions last.</p>
+<h2 id="sticker"><a class="header" href="#sticker">Sticker</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendsticker"><img src="https://img.shields.io/badge/Bot_API_method-sendSticker-blue.svg?style=flat-square" alt="send sticker method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Stickers/StickersTests.cs"><img src="https://img.shields.io/badge/Examples-Sticker_Messages-green.svg?style=flat-square" alt="sticker tests" /></a></p>
+<p>Telegram stickers are fun. They can be static (PNG or <a href="https://developers.google.com/speed/webp/">WebP</a> format), <a href="https://core.telegram.org/stickers">animated or video</a> stickers</p>
+<p>This code sends the same sticker twice. First by passing an URL to a WebP sticker file
+and second by reusing <code>FileId</code> of the same sticker on Telegram servers.</p>
+<pre><code class="language-csharp">var message1 = await bot.SendSticker(chatId, "https://telegrambots.github.io/book/docs/sticker-fred.webp");
+var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
+</code></pre>
+<p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages" /></p>
+<h2 id="video"><a class="header" href="#video">Video</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendvideo"><img src="https://img.shields.io/badge/Bot_API_method-sendVideo-blue.svg?style=flat-square" alt="method sendVideo" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
+<p>You can send video via MP4 files (other formats may not be supported natively by Telegram clients and can be sent as Document)</p>
+<p>Here is a simple example:</p>
+<pre><code class="language-csharp">await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
+</code></pre>
+<p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
+<p>Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
+You can optionally specify the duration and resolution of the video.</p>
+<p>In the example below, we send a video of a 10 minute countdown
+and expect the Telegram clients to stream that long video instead of downloading it completely.
+We also set a thumbnail image for our video.</p>
+<pre><code class="language-csharp">await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
+    thumbnail: "https://telegrambots.github.io/book/2/docs/thumb-clock.jpg", supportsStreaming: true);
+</code></pre>
+<p><img src="../docs/shot-video_thumb1.jpg" alt="video screenshot 1" /></p>
+<p>User should be able to seek through the video without the video being downloaded completely.</p>
+<h2 id="audio"><a class="header" href="#audio">Audio</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
+<p>Here is the code to send an MP3 soundtrack.</p>
+<pre><code class="language-csharp">var message = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
+    //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
+    );
+</code></pre>
+<p>You might be wondering why some parameters are commented out?
+That's because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
+<p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
+<p>The method returns an audio Message with the metadata associated with the audio (ex: <code>msg.Audio.Performer</code>, <code>msg.Audio.Duration</code>...)</p>
+<h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
+<p>A voice message is similar to audio but has OGG format and is not shown in music player.
+Let's send it differently this time by uploading the file from disk.</p>
+<p>To run this example, download the <a href="https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
+<p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
+<blockquote>
+<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
+</blockquote>
+<pre><code class="language-csharp">await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
+var message = await bot.SendVoice(chatId, stream, duration: 36);
+</code></pre>
+<p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
+<p>A voice message is returned from the method. Inspect the <code>message.Voice</code> properties to learn more.</p>
+<h2 id="video-note"><a class="header" href="#video-note">Video Note</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendvideonote"><img src="https://img.shields.io/badge/Bot_API_method-sendVideoNote-blue.svg?style=flat-square" alt="method sendVideoNote" /></a></p>
+<p>Sending video notes is similar to video, but they are shown in circles to the user, usually short (1 minute or less) with identical width and height.</p>
+<p>Note: Sending video note via an URL is not supported currently.</p>
+<p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
+<pre><code class="language-csharp">await using Stream stream = File.OpenRead("/path/to/video-waves.mp4");
+
+await bot.SendVideoNote(chatId, stream,
+    duration: 47, length: 360); // value of width/height
+</code></pre>
+<p><img src="../docs/shot-video_note.jpg" alt="video note screenshot" /></p>
+<h2 id="document-files"><a class="header" href="#document-files">Document (files)</a></h2>
+<p><a href="https://core.telegram.org/bots/api#senddocument"><img src="https://img.shields.io/badge/Bot_API_method-sendDocument-blue.svg?style=flat-square" alt="sendDocument method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests" /></a></p>
+<p>Use <a href="https://core.telegram.org/bots/api#senddocument"><code>SendDocument</code></a> method to send general files.</p>
+<pre><code class="language-csharp">await bot.SendDocument(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
+    "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
+</code></pre>
+<p>Using <code>SendDocument</code> to send a photo or video ensure that the file data is unchanged (not recompressed and metadata are preserved)</p>
+<h2 id="animation-gif-or-gifv"><a class="header" href="#animation-gif-or-gifv">Animation (GIF or gifv)</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendanimation"><img src="https://img.shields.io/badge/Bot_API_method-sendAnimation-blue.svg?style=flat-square" alt="sendAnimation method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AnimationMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Animation_Message-green.svg?style=flat-square" alt="tests" /></a></p>
+<p>Use <a href="https://core.telegram.org/bots/api#sendanimation"><code>SendAnimation</code></a> method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).</p>
+<pre><code class="language-csharp">await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-waves.mp4", "Waves");
+</code></pre>
+<h2 id="media-group-album-of-multiple-media"><a class="header" href="#media-group-album-of-multiple-media">Media group (album of multiple media)</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendmediagroup"><img src="https://img.shields.io/badge/Bot_API_method-sendMediaGroup-blue.svg?style=flat-square" alt="send media group method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AlbumMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Album_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
+<p>Using <a href="https://core.telegram.org/bots/api#sendmediagroup"><code>SendMediaGroup</code></a> method you can send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type.</p>
+<pre><code class="language-csharp">var messages = await bot.SendMediaGroup(chatId, new IAlbumInputMedia[]
+    {
+        new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"),
+        new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"),
+    });
+</code></pre>
+<p>Note that media groups can't have reply markup. The caption must be set an one of the media (usually the first)</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../2/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../2/send-msg/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../2/send-msg/media-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../2/send-msg/native-polls-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -315,11 +375,11 @@ Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><co
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../2/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../2/send-msg/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../2/send-msg/media-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../2/send-msg/native-polls-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
