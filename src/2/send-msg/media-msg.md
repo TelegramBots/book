@@ -185,7 +185,7 @@ await bot.SendAnimation(chatId, "https://telegrambots.github.io/book/docs/video-
 ```
 
 
-# Media group (album of multiple media)
+## Media group (album of multiple media)
 
 [![send media group method](https://img.shields.io/badge/Bot_API_method-sendMediaGroup-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendmediagroup)
 [![tests](https://img.shields.io/badge/Examples-Album_Messages-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AlbumMessageTests.cs)
@@ -201,9 +201,3 @@ var messages = await bot.SendMediaGroup(chatId, new IAlbumInputMedia[]
 ```
 
 Note that media groups can't have reply markup. The caption must be set an one of the media (usually the first)
-
-<!-- -------------- -->
-
-[`Message`]: https://core.telegram.org/bots/api#message
-[`PhotoSize`]: https://core.telegram.org/bots/api#photosize
-[`Sticker`]: https://core.telegram.org/bots/api#sticker
