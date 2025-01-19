@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Audio &amp; Voice - A guide to Telegram.Bot library</title>
+        <title>Sending Media - A guide to Telegram.Bot library</title>
 
 
         <!-- Custom HTML head -->
@@ -22,32 +22,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="shortcut icon" href="../../favicon.png">
-        <link rel="stylesheet" href="../../css/variables.css">
-        <link rel="stylesheet" href="../../css/general.css">
-        <link rel="stylesheet" href="../../css/chrome.css">
-        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../theme/custom.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -99,7 +99,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -133,7 +133,7 @@
                     <h1 class="menu-title">A guide to Telegram.Bot library</h1>
 
                     <div class="right-buttons">
-                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/TelegramBots/book" title="Git repository" aria-label="Git repository">
@@ -232,55 +232,17 @@
 }
 
 </style>
-<h1 id="audio-and-voice-messages"><a class="header" href="#audio-and-voice-messages">Audio and Voice Messages</a></h1>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
-<p>These two types of messages are pretty similar. Audio is MP3-encoded file that can be played in music player.
-A voice file has OGG format and is not shown in music player.</p>
-<h2 id="audio"><a class="header" href="#audio">Audio</a></h2>
-<p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method" /></a></p>
-<p>This is the code to send an MP3 soundtrack. You might be wondering why some parameters are commented out?
-That's because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
-<pre><code class="language-c#">var message = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
-    //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
-    );
-</code></pre>
-<p><img src="../docs/shot-audio_msg.jpg" alt="audio message" /></p>
-<p>And a user can see the audio in Music Player:</p>
-<p><img src="../docs/shot-music_player.jpg" alt="music player" /></p>
-<p>Method returns an audio message. Let's take a look at the value of <code>message.Audio</code> property in JSON format:</p>
-<pre><code class="language-json">{
-  "duration": 91,
-  "mime_type": "audio/mpeg",
-  "title": "Fun Guitar and Ukulele",
-  "performer": "Joel Thomas Hunger",
-  "file_id": "CQADBAADKQADA3oUUKalqDOOcqesAg",
-  "file_size": 1102154
-}
-</code></pre>
-<h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
-<p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
-<p>A voice message is an OGG audio file.
-Let's send it differently this time by uploading the file from disk alongside with an HTTP request.</p>
-<p>To run this example, download the <a href="https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
-<p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
-<blockquote>
-<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
-</blockquote>
-<pre><code class="language-c#">await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
-var message = await bot.SendVoice(chatId, stream, duration: 36);
-</code></pre>
-<p><img src="../docs/shot-voice_msg.jpg" alt="voice message" /></p>
-<p>A voice message is returned from the method. Inspect the <code>message.Voice</code> property to learn more.</p>
+<h1 id="sending-media"><a class="header" href="#sending-media">Sending Media</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../2/send-msg/photo-sticker-msg.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../2/send-msg/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../2/send-msg/video-video_note-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../2/send-msg/native-polls-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -290,11 +252,11 @@ var message = await bot.SendVoice(chatId, stream, duration: 36);
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../2/send-msg/photo-sticker-msg.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../2/send-msg/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../2/send-msg/video-video_note-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../2/send-msg/native-polls-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -309,13 +271,13 @@ var message = await bot.SendVoice(chatId, stream, duration: 36);
         </script>
 
 
-        <script src="../../elasticlunr.min.js"></script>
-        <script src="../../mark.min.js"></script>
-        <script src="../../searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="../../clipboard.min.js"></script>
-        <script src="../../highlight.js"></script>
-        <script src="../../book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 

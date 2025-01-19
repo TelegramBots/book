@@ -233,20 +233,69 @@
 
 </style>
 <h1 id="sending-messages"><a class="header" href="#sending-messages">Sending Messages</a></h1>
-<p>There are many different types of message that a bot can send.
-Fortunately, methods for sending such messages are similar. Take a look at these examples:</p>
-<h2 id="sending-text-message"><a class="header" href="#sending-text-message">Sending text message</a></h2>
+<p><a href="https://core.telegram.org/bots/api#sendmessage"><img src="https://img.shields.io/badge/Bot_API_method-sendMessage-blue.svg?style=flat-square" alt="send message method" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/TextMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Text_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
+<p>There are many different types of message that a bot can send, but let's start with text messages.</p>
+<h2 id="basic-text-message"><a class="header" href="#basic-text-message">Basic text message</a></h2>
+<pre><code class="language-csharp">await bot.SendMessage(chatId, "Hello, World!");
+</code></pre>
 <p><img src="../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
-<pre><code class="language-c#">await bot.SendMessage(chatId, "Hello, World!");
+<p>The <code>chatId</code> parameter would typically be the ID of a chat or a user that you obtained on a <a href="../../3/updates/README.html">received message</a>,
+or it can be the @username of a public group/channel.</p>
+<h2 id="advanced-text-message"><a class="header" href="#advanced-text-message">Advanced text message</a></h2>
+<p>You can send messages with more characteristics:</p>
+<ul>
+<li>text effects <em>(using HTML, Markdown, or text entities)</em></li>
+<li>attached inline buttons</li>
+<li>as a reply to a message</li>
+<li>and more...</li>
+</ul>
+<div class="mdbook-alerts mdbook-alerts-important">
+<p class="mdbook-alerts-title">
+  <span class="mdbook-alerts-icon"></span>
+  important
+</p>
+<p>We highly recommend you use HTML instead of Markdown because Markdown has lots of annoying aspects</p>
+</div>
+<p>The code snippet below sends a message using various parameters:</p>
+<pre><code class="language-csharp">var message = await bot.SendMessage(chatId, "Trying &lt;b&gt;all the parameters&lt;/b&gt; of &lt;code&gt;sendMessage&lt;/code&gt; method",
+    ParseMode.Html,
+    protectContent: true,
+    replyParameters: update.Message.Id,
+    replyMarkup: new InlineKeyboardMarkup(
+        InlineKeyboardButton.WithUrl("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage")));
 </code></pre>
-<h2 id="sending-sticker-message"><a class="header" href="#sending-sticker-message">Sending sticker message</a></h2>
-<p><img src="../docs/shot-sticker.jpg" alt="sticker message screenshot" /></p>
-<pre><code class="language-c#">await bot.SendSticker(chatId, "https://telegrambots.github.io/book/docs/sticker-dali.webp");
+<p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
+<p>Here <code>text</code> is written in <a href="https://core.telegram.org/bots/api#html-style">HTML format</a> and <code>parseMode</code> indicates that.</p>
+<p>By passing <code>protectContent</code> we prevent the message (and eventual media) to be copiable/forwardable elsewhere.</p>
+<p>It's a good idea to make it clear to a user the reason why the bot is sending this message and that's why we pass the user's
+message id for <code>replyParameters</code>.</p>
+<p>You have the option of specifying a <code>replyMarkup</code> when sending messages.
+Reply markups are explained in details later in this book.
+Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself.
+Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
+<h2 id="observing-the-message-that-just-got-sent"><a class="header" href="#observing-the-message-that-just-got-sent">Observing the Message that just got sent</a></h2>
+<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
+<pre><code class="language-csharp">Console.WriteLine(
+    $"{message.From.FirstName} sent message {message.Id} " +
+    $"to chat {message.Chat.Id} at {message.Date}. " +
+    $"It is a reply to message {message.ReplyToMessage.Id} " +
+    $"and has {message.Entities.Length} message entities.");
 </code></pre>
-<h2 id="sending-video-message"><a class="header" href="#sending-video-message">Sending video message</a></h2>
-<p><img src="../docs/shot-video.jpg" alt="video message screenshot" /></p>
-<pre><code class="language-c#">await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
+<p>Output should look similar to this:</p>
+<pre><code class="language-text">Awesome bot sent message 123 to chat 123456789 at 8/21/18 11:25:09 AM. It is a reply to message 122 and has 2 message entities.
 </code></pre>
+<p>Try putting a breakpoint in the code to examine all the properties on a message objects you get.</p>
+<p>There are a few things to note:</p>
+<ul>
+<li><code>message.Date</code> is a timestamp in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC format</a> (use <code>message.Date.ToLocalTime()</code> to convert to your local timezone).</li>
+<li><code>message.Text</code>: plain text without effects</li>
+<li><code>message.Entities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be apply to the plain text</li>
+<li><code>message.EntityValues</code>: text parts covered by these entities</li>
+</ul>
+<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text &amp; entities back into HTML <strong>(recommended)</strong> or Markdown.</p>
+<h2 id="more-message-types"><a class="header" href="#more-message-types">More message types</a></h2>
+<p>Discover more message types in the <a href="media-msg.html">next pages</a>.</p>
 
                     </main>
 
@@ -256,7 +305,7 @@ Fortunately, methods for sending such messages are similar. Take a look at these
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../2/send-msg/text-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../send-msg/media-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -270,7 +319,7 @@ Fortunately, methods for sending such messages are similar. Take a look at these
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../2/send-msg/text-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../send-msg/media-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
