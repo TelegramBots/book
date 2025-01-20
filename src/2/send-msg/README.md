@@ -52,7 +52,7 @@ Clicking that opens [`sendMessage`](https://core.telegram.org/bots/api#sendmessa
 
 ## Observing the Message that just got sent
 
-Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.
+Almost all of the Send* methods return the message you just sent. Let's have a look at this object. Add this statement after the previous code.
 ```csharp
 {{#include ../../../Examples/2/SendMessage.cs:message-contents}}
 ```
@@ -66,10 +66,10 @@ Try putting a breakpoint in the code to examine all the properties on a message 
 There are a few things to note:
 - `message.Date` is a timestamp in [UTC format](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) (use `message.Date.ToLocalTime()` to convert to your local timezone).
 - `message.Text`: plain text without effects
-- `message.Entities`: list of [text effects](https://core.telegram.org/bots/api#messageentity) to be apply to the plain text
+- `message.Entities`: list of [text effects](https://core.telegram.org/bots/api#messageentity) to be applied to the plain text
 - `message.EntityValues`: text parts covered by these entities
 
-You can use our extension methods `message.ToHtml()` or `message.ToMarkdown()` to convert the text & entities back into HTML **(recommended)** or Markdown.
+You can use our extension methods `message.ToHtml()` or `message.ToMarkdown()` to convert the text & entities of a `Message` back into HTML **(recommended)** or Markdown.
 
 ## More message types
 

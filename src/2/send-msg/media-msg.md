@@ -8,7 +8,7 @@ But let's first see what they have in common.
 ## Providing the source file
 
 You can provide the file data in 3 ways:
-- Using the Internet URL to the file (must point to the actual file, not a webpage)
+- Using the Internet URL to the file (must point to the actual file, not an HTML webpage)
 - Uploading the file data as a stream
 - Using the `FileId` of a file that was already sent over Telegram (ex: `msg.Video.FileId`, `msg.Photo[^1].FileId`...)
 
@@ -23,10 +23,10 @@ Media messages can _optionally_ have a text attached to them (called "Caption").
 
 The Message object returned by the Send* method will have:
 - `message.Caption`: caption in plain text without effects
-- `message.CaptionEntities`: list of [text effects](https://core.telegram.org/bots/api#messageentity) to be apply to the plain text
+- `message.CaptionEntities`: list of [text effects](https://core.telegram.org/bots/api#messageentity) to be applied to the plain text
 - `message.CaptionEntityValues`: caption text parts covered by these entities
 
-You can use our extension methods `message.ToHtml()` or `message.ToMarkdown()` to convert the caption & entities back into HTML **(recommended)** or Markdown.
+You can use our extension methods `message.ToHtml()` or `message.ToMarkdown()` to convert the caption & entities of a `Message` back into HTML **(recommended)** or Markdown.
 
 
 ## Photo
@@ -72,10 +72,12 @@ var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 
 You can send video via MP4 files (other formats may not be supported natively by Telegram clients and can be sent as Document)
 
-Here is a simple example:
+Let's send it differently this time by uploading the file from disk.
+To run this example, download the [Video Hawk video](https://telegrambots.github.io/book/docs/video-hawk.mp4) to your disk.
 
 ```csharp
-await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
+await using Stream stream = File.OpenRead("./video-hawk.mp4");
+await bot.SendVideo(chatId, stream);
 ```
 ![video message screenshot](../docs/shot-video.jpg)
 
@@ -104,7 +106,7 @@ User should be able to seek through the video without the video being downloaded
 Here is the code to send an MP3 soundtrack.
 
 ```csharp
-var message = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
+var msg = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
     //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
     );
 ```
@@ -122,22 +124,16 @@ The method returns an audio Message with the metadata associated with the audio 
 [![send voice method](https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#sendvoice)
 
 A voice message is similar to audio but has OGG format and is not shown in music player.
-Let's send it differently this time by uploading the file from disk.
 
-To run this example, download the [NFL Commentary voice file](https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg) to your disk.
-
-A value is passed for `duration` because Telegram can't figure that out from a file's metadata.
-
-> ⚠️ Replace ```/path/to/voice-nfl_commentary.ogg``` with an actual file path.
+Here we pass a value for `duration` because Telegram can't figure that out from a file's metadata.
 
 ```csharp
-await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
-var message = await bot.SendVoice(chatId, stream, duration: 36);
+var msg = await bot.SendVoice(chatId, "https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg", duration: 36);
 ```
 
 ![voice message](../docs/shot-voice_msg.jpg)
 
-A voice message is returned from the method. Inspect the `message.Voice` properties to learn more.
+A voice message is returned from the method. Inspect the `msg.Voice` properties to learn more.
 
 
 ## Video Note
@@ -151,10 +147,8 @@ Note: Sending video note via an URL is not supported currently.
 Download the [Sea Waves video](https://telegrambots.github.io/book/docs/video-waves.mp4) to your disk for this example.
 
 ```csharp
-await using Stream stream = File.OpenRead("/path/to/video-waves.mp4");
-
-await bot.SendVideoNote(chatId, stream,
-    duration: 47, length: 360); // value of width/height
+await using Stream stream = File.OpenRead("path/to/video-waves.mp4");
+await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = width = height
 ```
 ![video note screenshot](../docs/shot-video_note.jpg)
 
@@ -200,4 +194,4 @@ var messages = await bot.SendMediaGroup(chatId, new IAlbumInputMedia[]
     });
 ```
 
-Note that media groups can't have reply markup. The caption must be set an one of the media (usually the first)
+Note that media groups can't have reply markup. The caption must be set on one of the media (usually the first)
