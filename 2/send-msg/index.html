@@ -275,7 +275,7 @@ Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself.
 Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
 <h2 id="observing-the-message-that-just-got-sent"><a class="header" href="#observing-the-message-that-just-got-sent">Observing the Message that just got sent</a></h2>
-<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
+<p>Almost all of the Send* methods return the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
 <pre><code class="language-csharp">Console.WriteLine(
     $"{message.From.FirstName} sent message {message.Id} " +
     $"to chat {message.Chat.Id} at {message.Date}. " +
@@ -290,10 +290,10 @@ Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><co
 <ul>
 <li><code>message.Date</code> is a timestamp in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC format</a> (use <code>message.Date.ToLocalTime()</code> to convert to your local timezone).</li>
 <li><code>message.Text</code>: plain text without effects</li>
-<li><code>message.Entities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be apply to the plain text</li>
+<li><code>message.Entities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be applied to the plain text</li>
 <li><code>message.EntityValues</code>: text parts covered by these entities</li>
 </ul>
-<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text &amp; entities back into HTML <strong>(recommended)</strong> or Markdown.</p>
+<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text &amp; entities of a <code>Message</code> back into HTML <strong>(recommended)</strong> or Markdown.</p>
 <h2 id="more-message-types"><a class="header" href="#more-message-types">More message types</a></h2>
 <p>Discover more message types in the <a href="media-msg.html">next pages</a>.</p>
 

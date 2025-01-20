@@ -797,7 +797,7 @@ Reply markups are explained in details later in this book.
 Here we used an <em>Inline Keyboard Markup</em> with a button that attaches to the message itself.
 Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><code>sendMessage</code></a> method documentation in the browser.</p>
 <h2 id="observing-the-message-that-just-got-sent"><a class="header" href="#observing-the-message-that-just-got-sent">Observing the Message that just got sent</a></h2>
-<p>Almost all of the methods for sending messages return you the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
+<p>Almost all of the Send* methods return the message you just sent. Let's have a look at this object. Add this statement after the previous code.</p>
 <pre><code class="language-csharp">Console.WriteLine(
     $"{message.From.FirstName} sent message {message.Id} " +
     $"to chat {message.Chat.Id} at {message.Date}. " +
@@ -812,10 +812,10 @@ Clicking that opens <a href="https://core.telegram.org/bots/api#sendmessage"><co
 <ul>
 <li><code>message.Date</code> is a timestamp in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC format</a> (use <code>message.Date.ToLocalTime()</code> to convert to your local timezone).</li>
 <li><code>message.Text</code>: plain text without effects</li>
-<li><code>message.Entities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be apply to the plain text</li>
+<li><code>message.Entities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be applied to the plain text</li>
 <li><code>message.EntityValues</code>: text parts covered by these entities</li>
 </ul>
-<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text &amp; entities back into HTML <strong>(recommended)</strong> or Markdown.</p>
+<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the text &amp; entities of a <code>Message</code> back into HTML <strong>(recommended)</strong> or Markdown.</p>
 <h2 id="more-message-types"><a class="header" href="#more-message-types">More message types</a></h2>
 <p>Discover more message types in the <a href="2/send-msg/media-msg.html">next pages</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
@@ -892,7 +892,7 @@ Fortunately, methods for sending such messages are similar (see sections below f
 <h2 id="providing-the-source-file"><a class="header" href="#providing-the-source-file">Providing the source file</a></h2>
 <p>You can provide the file data in 3 ways:</p>
 <ul>
-<li>Using the Internet URL to the file (must point to the actual file, not a webpage)</li>
+<li>Using the Internet URL to the file (must point to the actual file, not an HTML webpage)</li>
 <li>Uploading the file data as a stream</li>
 <li>Using the <code>FileId</code> of a file that was already sent over Telegram (ex: <code>msg.Video.FileId</code>, <code>msg.Photo[^1].FileId</code>...)</li>
 </ul>
@@ -904,10 +904,10 @@ You will learn more about them later on when we discuss file <a href="2/send-msg
 <p>The Message object returned by the Send* method will have:</p>
 <ul>
 <li><code>message.Caption</code>: caption in plain text without effects</li>
-<li><code>message.CaptionEntities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be apply to the plain text</li>
+<li><code>message.CaptionEntities</code>: list of <a href="https://core.telegram.org/bots/api#messageentity">text effects</a> to be applied to the plain text</li>
 <li><code>message.CaptionEntityValues</code>: caption text parts covered by these entities</li>
 </ul>
-<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the caption &amp; entities back into HTML <strong>(recommended)</strong> or Markdown.</p>
+<p>You can use our extension methods <code>message.ToHtml()</code> or <code>message.ToMarkdown()</code> to convert the caption &amp; entities of a <code>Message</code> back into HTML <strong>(recommended)</strong> or Markdown.</p>
 <h2 id="photo"><a class="header" href="#photo">Photo</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendphoto"><img src="https://img.shields.io/badge/Bot_API_method-sendPhoto-blue.svg?style=flat-square" alt="send photo method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingPhotoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Photo_Messages-green.svg?style=flat-square" alt="photo tests" /></a></p>
@@ -933,8 +933,10 @@ var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 <p><a href="https://core.telegram.org/bots/api#sendvideo"><img src="https://img.shields.io/badge/Bot_API_method-sendVideo-blue.svg?style=flat-square" alt="method sendVideo" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>You can send video via MP4 files (other formats may not be supported natively by Telegram clients and can be sent as Document)</p>
-<p>Here is a simple example:</p>
-<pre><code class="language-csharp">await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-hawk.mp4");
+<p>Let's send it differently this time by uploading the file from disk.
+To run this example, download the <a href="https://telegrambots.github.io/book/docs/video-hawk.mp4">Video Hawk video</a> to your disk.</p>
+<pre><code class="language-csharp">await using Stream stream = File.OpenRead("./video-hawk.mp4");
+await bot.SendVideo(chatId, stream);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-video.jpg" alt="video message screenshot" /></p>
 <p>Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
@@ -951,7 +953,7 @@ We also set a thumbnail image for our video.</p>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/AudioMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Audio_Messages-green.svg?style=flat-square" alt="audio tests" /></a></p>
 <p>Here is the code to send an MP3 soundtrack.</p>
-<pre><code class="language-csharp">var message = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
+<pre><code class="language-csharp">var msg = await bot.SendAudio(chatId, "https://telegrambots.github.io/book/docs/audio-guitar.mp3"
     //  , performer: "Joel Thomas Hunger", title: "Fun Guitar and Ukulele", duration: 91    // optional
     );
 </code></pre>
@@ -961,27 +963,19 @@ That's because this MP3 file has metadata on it and Telegram does a good job at 
 <p>The method returns an audio Message with the metadata associated with the audio (ex: <code>msg.Audio.Performer</code>, <code>msg.Audio.Duration</code>...)</p>
 <h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square" alt="send voice method" /></a></p>
-<p>A voice message is similar to audio but has OGG format and is not shown in music player.
-Let's send it differently this time by uploading the file from disk.</p>
-<p>To run this example, download the <a href="https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg">NFL Commentary voice file</a> to your disk.</p>
-<p>A value is passed for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
-<blockquote>
-<p>⚠️ Replace <code>/path/to/voice-nfl_commentary.ogg</code> with an actual file path.</p>
-</blockquote>
-<pre><code class="language-csharp">await using Stream stream = File.OpenRead("/path/to/voice-nfl_commentary.ogg");
-var message = await bot.SendVoice(chatId, stream, duration: 36);
+<p>A voice message is similar to audio but has OGG format and is not shown in music player.</p>
+<p>Here we pass a value for <code>duration</code> because Telegram can't figure that out from a file's metadata.</p>
+<pre><code class="language-csharp">var msg = await bot.SendVoice(chatId, "https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg", duration: 36);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-voice_msg.jpg" alt="voice message" /></p>
-<p>A voice message is returned from the method. Inspect the <code>message.Voice</code> properties to learn more.</p>
+<p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> properties to learn more.</p>
 <h2 id="video-note"><a class="header" href="#video-note">Video Note</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideonote"><img src="https://img.shields.io/badge/Bot_API_method-sendVideoNote-blue.svg?style=flat-square" alt="method sendVideoNote" /></a></p>
 <p>Sending video notes is similar to video, but they are shown in circles to the user, usually short (1 minute or less) with identical width and height.</p>
 <p>Note: Sending video note via an URL is not supported currently.</p>
 <p>Download the <a href="https://telegrambots.github.io/book/docs/video-waves.mp4">Sea Waves video</a> to your disk for this example.</p>
-<pre><code class="language-csharp">await using Stream stream = File.OpenRead("/path/to/video-waves.mp4");
-
-await bot.SendVideoNote(chatId, stream,
-    duration: 47, length: 360); // value of width/height
+<pre><code class="language-csharp">await using Stream stream = File.OpenRead("path/to/video-waves.mp4");
+await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = width = height
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-video_note.jpg" alt="video note screenshot" /></p>
 <h2 id="document-files"><a class="header" href="#document-files">Document (files)</a></h2>
@@ -1008,7 +1002,7 @@ await bot.SendVideoNote(chatId, stream,
         new InputMediaPhoto("https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"),
     });
 </code></pre>
-<p>Note that media groups can't have reply markup. The caption must be set an one of the media (usually the first)</p>
+<p>Note that media groups can't have reply markup. The caption must be set on one of the media (usually the first)</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
