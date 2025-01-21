@@ -240,7 +240,7 @@
 <p>This book covers all you need to know to create a chatbot in .NET, with many concrete examples written in C#.<br />
 Begin with our <a href="1/quickstart.html"><em>Quickstart</em></a>, or choose from the Table Of Content (left/top), and don't miss our useful <a href="FAQ.html">Frequently Asked Questions</a>.</p>
 <h2 id="-installation"><a class="header" href="#-installation">🧩 Installation</a></h2>
-<p><a href="https://www.nuget.org/packages/Telegram.Bot">Install the package from Nuget</a> using Nuget package manager <em>(in your IDE or command line)</em>.</p>
+<p><a href="https://www.nuget.org/packages/Telegram.Bot">Install the package "Telegram.Bot" from Nuget</a> using Nuget package manager <em>(in your IDE or command line)</em>.</p>
 <p>🎉 The problem with Nuget.org seems resolved. Our latest library version 22.* is now available on it!</p>
 <p>Make sure to follow the <a href="migrate/Version-22.x.html">Migration Guide for v22.*</a> if you have existing bot code.</p>
 <h2 id="-more-examples"><a class="header" href="#-more-examples">🪄 More examples</a></h2>
@@ -762,7 +762,7 @@ and which user clicked on it <em>(which could be any user if the message was in 
 <pre><code class="language-csharp">await bot.SendMessage(chatId, "Hello, World!");
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-text_msg.jpg" alt="text message screenshot" /></p>
-<p>The <code>chatId</code> parameter would typically be the ID of a chat or a user that you obtained on a <a href="2/send-msg/../../3/updates/README.html">received message</a>,
+<p>The <code>chatId</code> parameter would typically be the ID of a chat or a user that you obtained on a <a href="2/send-msg/../../3/updates">received message</a>,
 or it can be the @username of a public group/channel.</p>
 <h2 id="advanced-text-message"><a class="header" href="#advanced-text-message">Advanced text message</a></h2>
 <p>You can send messages with more characteristics:</p>
@@ -900,7 +900,7 @@ Fortunately, methods for sending such messages are similar (see sections below f
 You will learn more about them later on when we discuss file <a href="2/send-msg/../../3/files/upload.html">upload</a> and <a href="2/send-msg/../../3/files/download.html">download</a>.</p>
 <h2 id="providing-the-caption"><a class="header" href="#providing-the-caption">Providing the caption</a></h2>
 <p>Media messages can <em>optionally</em> have a text attached to them (called "Caption").</p>
-<p><a href="2/send-msg/README.html">Similar to text message</a>, the caption can have text effects (specifying <code>ParseMode.HTML</code> or <code>Markdown</code>, or manual captionEntities)</p>
+<p><a href="2/send-msg/./">Similar to text message</a>, the caption can have text effects (specifying <code>ParseMode.HTML</code> or <code>Markdown</code>, or manual captionEntities)</p>
 <p>The Message object returned by the Send* method will have:</p>
 <ul>
 <li><code>message.Caption</code>: caption in plain text without effects</li>
@@ -934,7 +934,7 @@ var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests" /></a></p>
 <p>You can send video via MP4 files (other formats may not be supported natively by Telegram clients and can be sent as Document)</p>
 <p>Let's send it differently this time by uploading the file from disk.
-To run this example, download the <a href="https://telegrambots.github.io/book/docs/video-hawk.mp4">Video Hawk video</a> to your disk.</p>
+To run this example, download the <a href="https://telegrambots.github.io/book/docs/video-hawk.mp4">Hawk video</a> to your disk.</p>
 <pre><code class="language-csharp">await using Stream stream = File.OpenRead("./video-hawk.mp4");
 await bot.SendVideo(chatId, stream);
 </code></pre>
@@ -1323,7 +1323,7 @@ Here are a few interesting ones:</p>
 </li>
 </ul>
 <h2 id="receiving-chat-messages"><a class="header" href="#receiving-chat-messages">Receiving chat messages</a></h2>
-<p>See chapter <a href="2/../3/updates/README.html">Getting Updates</a> for how to receive updates &amp; messages.</p>
+<p>See chapter <a href="2/../3/updates">Getting Updates</a> for how to receive updates &amp; messages.</p>
 <p>For groups or private chats, you would receive an update of type <code>UpdateType.Message</code> (which means only the field <code>update.Message</code> will be set)</p>
 <p>For channel messages, you would receive an update with field <code>update.ChannelPost</code>.</p>
 <p>For <a href="2/../4/business">business</a> messages, you would receive an update with field <code>update.BusinessMessage</code>.</p>
@@ -1903,7 +1903,7 @@ So it is recommended to instead directly test the fields of Update you want if t
 <li>members joined/left</li>
 <li>pinned message</li>
 <li>chat info/status/topic changed</li>
-<li><a href="3/updates/../../4/payments.html">payment</a>/<a href="3/updates/../../4/passport/README.html">passport</a>/giveaway process update</li>
+<li><a href="3/updates/../../4/payments.html">payment</a>/<a href="3/updates/../../4/passport">passport</a>/giveaway process update</li>
 <li>etc...</li>
 </ul>
 <h3 id="common-properties"><a class="header" href="#common-properties">Common properties</a></h3>
