@@ -20,7 +20,6 @@
   - [Files](3/files/README.md)
     - [Download](3/files/download.md)
     - [Upload](3/files/upload.md)
-  - [Stickers](3/sticker.md)
 - [Advanced](4/README.md)
   - [Proxy](4/proxy.md)
   - [Business Features](4/business.md)

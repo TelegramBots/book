@@ -7,4 +7,3 @@
 - [Files](files/)
   - [Download](files/download.md)
   - [Upload](files/upload.md)
-- [Stickers](sticker.md)
