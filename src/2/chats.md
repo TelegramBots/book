@@ -49,7 +49,7 @@ Here are a few interesting ones:
 
 ## Receiving chat messages
 
-See chapter [Getting Updates](../3/updates/README.md) for how to receive updates & messages.
+See chapter [Getting Updates](../3/updates) for how to receive updates & messages.
 
 For groups or private chats, you would receive an update of type `UpdateType.Message` (which means only the field `update.Message` will be set)
 

@@ -12,7 +12,7 @@ await bot.SendMessage(chatId, "Hello, World!");
 ```
 ![text message screenshot](../docs/shot-text_msg.jpg)
 
-The `chatId` parameter would typically be the ID of a chat or a user that you obtained on a [received message](../../3/updates/README.md),
+The `chatId` parameter would typically be the ID of a chat or a user that you obtained on a [received message](../../3/updates),
 or it can be the @username of a public group/channel.
 
 ## Advanced text message

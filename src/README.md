@@ -9,7 +9,7 @@ Begin with our [_Quickstart_](1/quickstart.md), or choose from the Table Of Cont
 
 ## 🧩 Installation
 
-[Install the package from Nuget](https://www.nuget.org/packages/Telegram.Bot) using Nuget package manager _(in your IDE or command line)_.
+[Install the package "Telegram.Bot" from Nuget](https://www.nuget.org/packages/Telegram.Bot) using Nuget package manager _(in your IDE or command line)_.
 
 🎉 The problem with Nuget.org seems resolved. Our latest library version 22.* is now available on it!
 

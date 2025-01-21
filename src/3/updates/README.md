@@ -58,7 +58,7 @@ We are not listing all types here, but it could be for example:
 - members joined/left
 - pinned message
 - chat info/status/topic changed
-- [payment](../../4/payments.md)/[passport](../../4/passport/README.md)/giveaway process update
+- [payment](../../4/payments.md)/[passport](../../4/passport)/giveaway process update
 - etc...
 
 ### Common properties

@@ -19,7 +19,7 @@ You will learn more about them later on when we discuss file [upload](../../3/fi
 
 Media messages can _optionally_ have a text attached to them (called "Caption").
 
-[Similar to text message](README.md), the caption can have text effects (specifying `ParseMode.HTML` or `Markdown`, or manual captionEntities)
+[Similar to text message](./), the caption can have text effects (specifying `ParseMode.HTML` or `Markdown`, or manual captionEntities)
 
 The Message object returned by the Send* method will have:
 - `message.Caption`: caption in plain text without effects
@@ -73,7 +73,7 @@ var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 You can send video via MP4 files (other formats may not be supported natively by Telegram clients and can be sent as Document)
 
 Let's send it differently this time by uploading the file from disk.
-To run this example, download the [Video Hawk video](https://telegrambots.github.io/book/docs/video-hawk.mp4) to your disk.
+To run this example, download the [Hawk video](https://telegrambots.github.io/book/docs/video-hawk.mp4) to your disk.
 
 ```csharp
 await using Stream stream = File.OpenRead("./video-hawk.mp4");
