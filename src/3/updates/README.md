@@ -76,12 +76,12 @@ Here are a few important properties:
 - `MessageThreadId`: the topic ID for Forum/Topic type chats
 
 ## Sequential vs parallel updates
-Whether polling in a loop or with webhooks, you will always receive updates in sequential order of increasing `update.Id`, one after the other.
+Whether polling in a loop or with [webhook](webhook.md#updates-are-posted-sequentially-to-your-webapp), you will always receive updates in sequential order of increasing `update.Id`, one after the other.
 
 If you want to parallelize the handling of updates for improved performance, it is up to your async code.  
 There are multiple possible approaches:
-- write the received update into a [Channel](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels)  
-  You will need a separate consumer Task to process these updates _(see [Background Service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services))_
+- write the received update into a threading [Channel](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels)  
+  You will need separate consumer Task(s) to process these updates _(see [Background Service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services))_
 - do the same but with a `ConcurrentQueue` or a `Queue` (with `lock`)  
 - spawn a new sub-Task for each update, using `Task.Run` for example  
   (if your bot is heavily used, make sure you don't overload your server with concurrent tasks)
