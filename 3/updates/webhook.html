@@ -328,7 +328,7 @@ LastUpdateId = update.Id;
 // your code to handle the Update here.
 </code></pre>
 <p>Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.</p>
-<p>If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request immediately.<br />
+<p>If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request by returning from the controller immediately.<br />
 For more details, refer to <a href=".#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
 
                     </main>
