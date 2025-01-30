@@ -80,7 +80,7 @@ Whether polling in a loop or with [webhook](webhook.md#updates-are-posted-sequen
 
 If you want to parallelize the handling of updates for improved performance, it is up to your async code.  
 There are multiple possible approaches:
-- write the received update into a threading [Channel](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels)  
+- write the received update into a [threading Channel](https://learn.microsoft.com/en-us/dotnet/core/extensions/channels)  
   You will need separate consumer Task(s) to process these updates _(see [Background Service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services))_
 - do the same but with a `ConcurrentQueue` or a `Queue` (with `lock`)  
 - spawn a new sub-Task for each update, using `Task.Run` for example  
