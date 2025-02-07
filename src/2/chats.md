@@ -103,8 +103,6 @@ See also [some other methods for managing invite links](https://core.telegram.or
 
 ### Detecting new group members and changed member status
 
-Note: Bots can't detect new <u>channel</u> members
-
 The simpler approach to detecting new members joining a group is to handle service messages of type `MessageType.NewChatMembers`: the field `message.NewChatMembers` will contain an array of the new User details.  
 Same for a user leaving the chat, with the `message.LeftChatMember` service message.
 
