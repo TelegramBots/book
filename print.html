@@ -1365,7 +1365,6 @@ Console.WriteLine(link.InviteLink);
 </code></pre>
 <p>See also <a href="https://core.telegram.org/bots/api#exportchatinvitelink">some other methods for managing invite links</a>.</p>
 <h3 id="detecting-new-group-members-and-changed-member-status"><a class="header" href="#detecting-new-group-members-and-changed-member-status">Detecting new group members and changed member status</a></h3>
-<p>Note: Bots can't detect new <u>channel</u> members</p>
 <p>The simpler approach to detecting new members joining a group is to handle service messages of type <code>MessageType.NewChatMembers</code>: the field <code>message.NewChatMembers</code> will contain an array of the new User details.<br />
 Same for a user leaving the chat, with the <code>message.LeftChatMember</code> service message.</p>
 <p>However, under various circumstances (bigger groups, hidden member lists, etc..), these service messages may not be sent out.</p>
