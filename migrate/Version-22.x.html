@@ -325,7 +325,27 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <li>Added property <code>Token</code> to <code>TelegramBotClient</code><br />
 <em>(you can use it to <code>ParseValidateData</code> MiniApp requests, authenticate WebHook updates, ...)</em></li>
 </ul>
-
+<h2 id="whats-new-in-version-224"><a class="header" href="#whats-new-in-version-224">What's new in version 22.4</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#february-12-2025">Bot API 8.3</a></li>
+<li>Added helpers <code>ChatMember.IsInChat</code> and <code>ChatMember.IsAdmin</code></li>
+<li>Added constructor <code>ChatPermissions(bool)</code> to set all fields to <strong>true</strong> or <strong>false</strong></li>
+<li>Fix a potential issue in <code>.ToHtml()</code> escaping <code>&amp;</code> in URLs</li>
+<li>Renamed helper classes <code>Emoji</code> to <code>DiceEmoji</code> and <code>KnownReactionTypeEmoji</code> to <code>ReactionEmoji</code></li>
+<li>Changed <code>IReplyMarkup</code> to abstract class <code>ReplyMarkup</code> so you can directly pass the following objects for the <code>replyMarkup:</code> parameter:</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>string</code></td><td>single keyboard text button</td></tr>
+<tr><td><code>string[]</code></td><td>keyboard text buttons on one row</td></tr>
+<tr><td><code>string[][]</code></td><td>multiple keyboard text buttons</td></tr>
+<tr><td><code>KeyboardButton</code></td><td>single keyboard button</td></tr>
+<tr><td><code>KeyboardButton[]</code></td><td>multiple keyboard buttons on one row</td></tr>
+<tr><td><code>KeyboardButton[][]</code> or <code>IEnumerable&lt;KeyboardButton&gt;[]</code></td><td>multiple keyboard buttons</td></tr>
+<tr><td><code>InlineKeyboardButton</code></td><td>single inline button</td></tr>
+<tr><td><code>InlineKeyboardButton[]</code></td><td>inline buttons on 1 row</td></tr>
+<tr><td><code>InlineKeyboardButton[][]</code> or <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
+</tbody></table>
+</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
