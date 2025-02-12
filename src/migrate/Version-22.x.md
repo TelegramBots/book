@@ -93,3 +93,23 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
   _(the name `File` was annoyingly conflicting with the often-used `System.IO.File` class)_
 - Added property `Token` to `TelegramBotClient`  
   _(you can use it to `ParseValidateData` MiniApp requests, authenticate WebHook updates, ...)_
+
+## What's new in version 22.4
+- Support for [Bot API 8.3](https://core.telegram.org/bots/api#february-12-2025)
+- Added helpers `ChatMember.IsInChat` and `ChatMember.IsAdmin`
+- Added constructor `ChatPermissions(bool)` to set all fields to **true** or **false**
+- Fix a potential issue in `.ToHtml()` escaping `&` in URLs
+- Renamed helper classes `Emoji` to `DiceEmoji` and `KnownReactionTypeEmoji` to `ReactionEmoji`
+- Changed `IReplyMarkup` to abstract class `ReplyMarkup` so you can directly pass the following objects for the `replyMarkup:` parameter:
+
+| Type | Meaning |
+|------|---------|
+| `string` | single keyboard text button |
+| `string[]` | keyboard text buttons on one row |
+| `string[][]` | multiple keyboard text buttons |
+| `KeyboardButton` | single keyboard button |
+| `KeyboardButton[]` | multiple keyboard buttons on one row |
+| `KeyboardButton[][]` or `IEnumerable<KeyboardButton>[]` | multiple keyboard buttons |
+| `InlineKeyboardButton` | single inline button |
+| `InlineKeyboardButton[]` | inline buttons on 1 row |
+| `InlineKeyboardButton[][]` or `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
