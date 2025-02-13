@@ -113,3 +113,5 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 | `InlineKeyboardButton` | single inline button |
 | `InlineKeyboardButton[]` | inline buttons on 1 row |
 | `InlineKeyboardButton[][]` or `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
+
+`InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons (v22.4.1)

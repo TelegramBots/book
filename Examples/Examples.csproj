@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telegram.Bot" Version="22.3.0" Condition="'$(Configuration)' == 'Release'" />
+    <PackageReference Include="Telegram.Bot" Version="22.4.1" Condition="'$(Configuration)' == 'Release'" />
     <ProjectReference Include="..\..\Telegram.Bot\src\Telegram.Bot\Telegram.Bot.csproj" Condition="'$(Configuration)' == 'Debug'" />
   </ItemGroup>
 

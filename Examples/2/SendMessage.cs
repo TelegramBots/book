@@ -156,8 +156,7 @@ var message = await bot.SendMessage(chatId, "Trying <b>all the parameters</b> of
     ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.Id,
-    replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage")));
+    replyMarkup: new InlineKeyboardButton("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage"));
 // ANCHOR_END: send-text
 
     if (message is not {From: { },

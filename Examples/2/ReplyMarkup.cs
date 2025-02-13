@@ -17,32 +17,29 @@ internal class ReplyMarkup
     private async Task SingleRowMarkup()
     {
 // ANCHOR: single-row
-var replyMarkup = new ReplyKeyboardMarkup(true)
-    .AddButtons("Help me", "Call me ☎️");
-
-var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[] { "Help me", "Call me ☎️" });
 // ANCHOR_END: single-row
     }
 
     private async Task MultipleRowMarkup()
     {
 // ANCHOR: multiple-row
-var replyMarkup = new ReplyKeyboardMarkup(true)
-    .AddButton("Help me")
-    .AddNewRow("Call me ☎️", "Write me ✉️");
-
-var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[][]
+{
+    ["Help me"],
+    ["Call me ☎️", "Write me ✉️"]
+});
 // ANCHOR_END: multiple-row
     }
 
     private async Task RequestInfo()
     {
 // ANCHOR: request-info
-var replyMarkup = new ReplyKeyboardMarkup()
-    .AddButton(KeyboardButton.WithRequestLocation("Share Location"))
-    .AddButton(KeyboardButton.WithRequestContact("Share Contact"));
-
-var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: new KeyboardButton[]
+{
+    KeyboardButton.WithRequestLocation("Share Location"),
+    KeyboardButton.WithRequestContact("Share Contact")
+});
 // ANCHOR_END: request-info
     }
 
@@ -56,38 +53,32 @@ await bot.SendMessage(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboar
     private async Task CallbackButtons()
     {
 // ANCHOR: callback-buttons
-var inlineMarkup = new InlineKeyboardMarkup()
-    .AddButton("1.1", "11") // first row, first button
-    .AddButton("1.2", "12") // first row, second button
-    .AddNewRow()
-    .AddButton("2.1", "21") // second row, first button
-    .AddButton("2.2", "22");// second row, second button
-
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
-    replyMarkup: inlineMarkup);
+    replyMarkup: new InlineKeyboardButton[][]
+    {
+        [("1.1", "11"), ("1.2", "12")], // two buttons on first row
+        [("2.1", "21"), ("2.2", "22")]  // two buttons on second row
+    });
 // ANCHOR_END: callback-buttons
     }
 
     private async Task UrlButtons()
     {
 // ANCHOR: url-buttons
-var inlineMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithUrl("Repository Link", "https://github.com/TelegramBots/Telegram.Bot"));
-
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
-    replyMarkup: inlineMarkup);
+        replyMarkup: new InlineKeyboardButton("Repository Link", "https://github.com/TelegramBots/Telegram.Bot"));
 // ANCHOR_END: url-buttons
     }
 
     private async Task SwitchToInline()
     {
 // ANCHOR: switch-to-inline
-var inlineMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"))
-    .AddButton(InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"));
-
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
-    replyMarkup: inlineMarkup);
+    replyMarkup: new InlineKeyboardButton[]
+    {
+        InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
+        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat")
+    });
 // ANCHOR_END: switch-to-inline
     }
 }

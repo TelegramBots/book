@@ -10,8 +10,8 @@
 
 You can use `InlineKeyboardButton.WithLoginUrl` to easily initiate a login connection to your website using the user's Telegram account credentials.
 ```csharp
-replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithLoginUrl(
-    "login", new LoginUrl { Url = "https://yourdomain.com/url" }))
+replyMarkup: InlineKeyboardButton.WithLoginUrl("login",
+                 new LoginUrl { Url = "https://yourdomain.com/url" })
 ```
 
 You'll need to associate your website domain with your bot by sending `/setdomain` to `@BotFather`.

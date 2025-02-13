@@ -8,7 +8,10 @@ Telegram provides two types of reply markup: [Custom reply keyboards](#custom-re
 
 > These are buttons visible below the textbox. Pressing such button will make the user send a message
 
-Whenever your bot sends a message, it can pass along a [special keyboard](https://core.telegram.org/bots/features#keyboards) with predefined reply options. Regular keyboards are represented by [`ReplyKeyboardMarkup`] object. You can request a contact or location information from the user with [`KeyboardButton`] or send a poll. Regular button will send predefined text to the chat.
+Whenever your bot sends a message, it can pass along a [special keyboard](https://core.telegram.org/bots/features#keyboards) with predefined reply options.
+Regular keyboards are represented by [`KeyboardButton`] and [`ReplyKeyboardMarkup`] objects. 
+When the user click such buttons, it will make him send a message to the chat.
+It can be a simple predefined text, a contact or location information, or even a poll.
 
 Keyboard is an array of button rows, each represented by an array of [`KeyboardButton`] objects. [`KeyboardButton`] supports text and emoji.
 
@@ -24,11 +27,12 @@ A [`ReplyKeyboardMarkup`] with two buttons in a single row:
 {{#include ../../Examples/2/ReplyMarkup.cs:single-row}}
 ```
 
-> We specify `true` on the constructor to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).
+Simple text buttons can be passed directly as strings
+> If using `ReplyKeyboardMarkup`, we would have to specify `true` on the constructor to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).
 
 ### Multi-row keyboard markup
 
-A [`ReplyKeyboardMarkup`] with two rows of buttons:
+For a [`ReplyKeyboardMarkup`] with two rows of buttons, we use an array of arrays:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
@@ -86,7 +90,7 @@ You can have several rows and columns of inline buttons of mixed types.
 When a user presses a [callback button], no messages are sent to the chat, and your bot simply receives an `update.CallbackQuery` instead.
 Upon receiving this, your bot should answer to that query within 10 seconds, using `AnswerCallbackQuery` _(or else the button gets momentarily disabled)_
 
-In this example we use the `AddButton(buttonText, callbackData)` helper, but you can also create such button with `InlineKeyboardButton.WithCallbackData`:
+In this example, the arrays of `InlineKeyboardButton` are constructed from tuples `(title, callbackData)`:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
@@ -94,15 +98,20 @@ In this example we use the `AddButton(buttonText, callbackData)` helper, but you
 {{#include ../../Examples/2/ReplyMarkup.cs:callback-buttons}}
 ```
 
+> Callback data string can be up to 64 bytes. You can construct them explicitly via `InlineKeyboardButton.WithCallbackData`
+
 ### URL buttons
 
-Buttons of this type have a small arrow icon to help the user understand that tapping on a [URL button] will open an external link. In this example we use `InlineKeyboardButton.WithUrl` helper method to create a button with a text and url.
+Buttons of this type have a small arrow icon to help the user understand that tapping on a [URL button] will open an external link.
+In this example we pass a single `InlineKeyboardButton`, and the constructor understand the second argument is an URL rather than callbackData.
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
 
 {{#include ../../Examples/2/ReplyMarkup.cs:url-buttons}}
 ```
+
+> You can also construct URL buttons via `InlineKeyboardButton.WithUrl`
 
 ### Switch to Inline buttons
 
