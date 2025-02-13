@@ -249,7 +249,8 @@ It can be a simple predefined text, a contact or location information, or even a
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[] { "Help me", "Call me ☎️" });
+var sent = await bot.SendMessage(chatId, "Choose a response",
+                                 replyMarkup: new string[] { "Help me", "Call me ☎️" });
 </code></pre>
 <p>Simple text buttons can be passed directly as strings</p>
 <blockquote>
