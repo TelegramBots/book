@@ -17,7 +17,8 @@ internal class ReplyMarkup
     private async Task SingleRowMarkup()
     {
 // ANCHOR: single-row
-var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[] { "Help me", "Call me ☎️" });
+var sent = await bot.SendMessage(chatId, "Choose a response",
+                                 replyMarkup: new string[] { "Help me", "Call me ☎️" });
 // ANCHOR_END: single-row
     }
 
