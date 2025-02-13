@@ -242,8 +242,8 @@
 </ul>
 <h2 id="telegram-login-widget"><a class="header" href="#telegram-login-widget">Telegram Login Widget</a></h2>
 <p>You can use <code>InlineKeyboardButton.WithLoginUrl</code> to easily initiate a login connection to your website using the user's Telegram account credentials.</p>
-<pre><code class="language-csharp">replyMarkup: new InlineKeyboardMarkup(InlineKeyboardButton.WithLoginUrl(
-    "login", new LoginUrl { Url = "https://yourdomain.com/url" }))
+<pre><code class="language-csharp">replyMarkup: InlineKeyboardButton.WithLoginUrl("login",
+                 new LoginUrl { Url = "https://yourdomain.com/url" })
 </code></pre>
 <p>You'll need to associate your website domain with your bot by sending <code>/setdomain</code> to <code>@BotFather</code>.</p>
 <p>See official documentation about <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a> for more information.</p>

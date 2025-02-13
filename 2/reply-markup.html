@@ -239,30 +239,31 @@
 <blockquote>
 <p>These are buttons visible below the textbox. Pressing such button will make the user send a message</p>
 </blockquote>
-<p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots/features#keyboards">special keyboard</a> with predefined reply options. Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> object. You can request a contact or location information from the user with <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> or send a poll. Regular button will send predefined text to the chat.</p>
+<p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots/features#keyboards">special keyboard</a> with predefined reply options.
+Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> and <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> objects.
+When the user click such buttons, it will make him send a message to the chat.
+It can be a simple predefined text, a contact or location information, or even a poll.</p>
 <p>Keyboard is an array of button rows, each represented by an array of <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> objects. <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> supports text and emoji.</p>
 <p>By default, reply keyboards are displayed until a new keyboard is sent by a bot.</p>
 <h3 id="single-row-keyboard-markup"><a class="header" href="#single-row-keyboard-markup">Single-row keyboard markup</a></h3>
 <p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var replyMarkup = new ReplyKeyboardMarkup(true)
-    .AddButtons("Help me", "Call me ☎️");
-
-var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[] { "Help me", "Call me ☎️" });
 </code></pre>
+<p>Simple text buttons can be passed directly as strings</p>
 <blockquote>
-<p>We specify <code>true</code> on the constructor to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).</p>
+<p>If using <code>ReplyKeyboardMarkup</code>, we would have to specify <code>true</code> on the constructor to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).</p>
 </blockquote>
 <h3 id="multi-row-keyboard-markup"><a class="header" href="#multi-row-keyboard-markup">Multi-row keyboard markup</a></h3>
-<p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two rows of buttons:</p>
+<p>For a <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two rows of buttons, we use an array of arrays:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var replyMarkup = new ReplyKeyboardMarkup(true)
-    .AddButton("Help me")
-    .AddNewRow("Call me ☎️", "Write me ✉️");
-
-var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[][]
+{
+    ["Help me"],
+    ["Call me ☎️", "Write me ✉️"]
+});
 </code></pre>
 <h3 id="requesting-information-to-be-sent-to-the-bot"><a class="header" href="#requesting-information-to-be-sent-to-the-bot">Requesting information to be sent to the bot</a></h3>
 <p>Some special keyboard button types can be used to request information from the user and send them to the bot.</p>
@@ -284,11 +285,11 @@ Launch a <a href="../4/webapps.html">Mini-App</a></li>
 </ul>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var replyMarkup = new ReplyKeyboardMarkup()
-    .AddButton(KeyboardButton.WithRequestLocation("Share Location"))
-    .AddButton(KeyboardButton.WithRequestContact("Share Contact"));
-
-var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: replyMarkup);
+var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: new KeyboardButton[]
+{
+    KeyboardButton.WithRequestLocation("Share Location"),
+    KeyboardButton.WithRequestContact("Share Contact")
+});
 </code></pre>
 <h3 id="remove-keyboard"><a class="header" href="#remove-keyboard">Remove keyboard</a></h3>
 <p>To remove keyboard you have to send an instance of <a href="https://core.telegram.org/bots/api#replykeyboardremove"><code>ReplyKeyboardRemove</code></a> object:</p>
@@ -306,39 +307,40 @@ await bot.SendMessage(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboar
 <h3 id="callback-buttons"><a class="header" href="#callback-buttons">Callback buttons</a></h3>
 <p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat, and your bot simply receives an <code>update.CallbackQuery</code> instead.
 Upon receiving this, your bot should answer to that query within 10 seconds, using <code>AnswerCallbackQuery</code> <em>(or else the button gets momentarily disabled)</em></p>
-<p>In this example we use the <code>AddButton(buttonText, callbackData)</code> helper, but you can also create such button with <code>InlineKeyboardButton.WithCallbackData</code>:</p>
+<p>In this example, the arrays of <code>InlineKeyboardButton</code> are constructed from tuples <code>(title, callbackData)</code>:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var inlineMarkup = new InlineKeyboardMarkup()
-    .AddButton("1.1", "11") // first row, first button
-    .AddButton("1.2", "12") // first row, second button
-    .AddNewRow()
-    .AddButton("2.1", "21") // second row, first button
-    .AddButton("2.2", "22");// second row, second button
-
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
-    replyMarkup: inlineMarkup);
+    replyMarkup: new InlineKeyboardButton[][]
+    {
+        [("1.1", "11"), ("1.2", "12")], // two buttons on first row
+        [("2.1", "21"), ("2.2", "22")]  // two buttons on second row
+    });
 </code></pre>
+<blockquote>
+<p>Callback data string can be up to 64 bytes. You can construct them explicitly via <code>InlineKeyboardButton.WithCallbackData</code></p>
+</blockquote>
 <h3 id="url-buttons"><a class="header" href="#url-buttons">URL buttons</a></h3>
-<p>Buttons of this type have a small arrow icon to help the user understand that tapping on a <a href="https://core.telegram.org/bots/2-0-intro#url-buttons">URL button</a> will open an external link. In this example we use <code>InlineKeyboardButton.WithUrl</code> helper method to create a button with a text and url.</p>
+<p>Buttons of this type have a small arrow icon to help the user understand that tapping on a <a href="https://core.telegram.org/bots/2-0-intro#url-buttons">URL button</a> will open an external link.
+In this example we pass a single <code>InlineKeyboardButton</code>, and the constructor understand the second argument is an URL rather than callbackData.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var inlineMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithUrl("Repository Link", "https://github.com/TelegramBots/Telegram.Bot"));
-
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
-    replyMarkup: inlineMarkup);
+        replyMarkup: new InlineKeyboardButton("Repository Link", "https://github.com/TelegramBots/Telegram.Bot"));
 </code></pre>
+<blockquote>
+<p>You can also construct URL buttons via <code>InlineKeyboardButton.WithUrl</code></p>
+</blockquote>
 <h3 id="switch-to-inline-buttons"><a class="header" href="#switch-to-inline-buttons">Switch to Inline buttons</a></h3>
 <p>Pressing a <a href="https://core.telegram.org/bots/2-0-intro#switch-to-inline-buttons">switch to inline button</a> prompts the user to select a chat, opens it and inserts the bot's username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use <code>InlineKeyboardButton.WithSwitchInlineQuery</code> and <code>InlineKeyboardButton.WithSwitchInlineQueryCurrentChat</code> helper methods to create buttons which will insert the bot's username in the chat's input field.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
-var inlineMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"))
-    .AddButton(InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat"));
-
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
-    replyMarkup: inlineMarkup);
+    replyMarkup: new InlineKeyboardButton[]
+    {
+        InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
+        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat")
+    });
 </code></pre>
 <h3 id="other-inline-button-types"><a class="header" href="#other-inline-button-types">Other inline button types</a></h3>
 <p>Some more special inline button types can be used.</p>

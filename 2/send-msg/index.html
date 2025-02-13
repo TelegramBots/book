@@ -262,8 +262,7 @@ or it can be the @username of a public group/channel.</p>
     ParseMode.Html,
     protectContent: true,
     replyParameters: update.Message.Id,
-    replyMarkup: new InlineKeyboardMarkup(
-        InlineKeyboardButton.WithUrl("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage")));
+    replyMarkup: new InlineKeyboardButton("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage"));
 </code></pre>
 <p><img src="../docs/shot-text_msg2.jpg" alt="text message screenshot" /></p>
 <p>Here <code>text</code> is written in <a href="https://core.telegram.org/bots/api#html-style">HTML format</a> and <code>parseMode</code> indicates that.</p>
