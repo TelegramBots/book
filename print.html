@@ -1468,7 +1468,7 @@ It can be a simple predefined text, a contact or location information, or even a
 <p>Keyboard is an array of button rows, each represented by an array of <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> objects. <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> supports text and emoji.</p>
 <p>By default, reply keyboards are displayed until a new keyboard is sent by a bot.</p>
 <h3 id="single-row-keyboard-markup"><a class="header" href="#single-row-keyboard-markup">Single-row keyboard markup</a></h3>
-<p>A <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two buttons in a single row:</p>
+<p>A reply keyboard with two buttons in a single row:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 var sent = await bot.SendMessage(chatId, "Choose a response",
@@ -1479,7 +1479,7 @@ var sent = await bot.SendMessage(chatId, "Choose a response",
 <p>If using <code>ReplyKeyboardMarkup</code>, we would have to specify <code>true</code> on the constructor to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons).</p>
 </blockquote>
 <h3 id="multi-row-keyboard-markup"><a class="header" href="#multi-row-keyboard-markup">Multi-row keyboard markup</a></h3>
-<p>For a <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> with two rows of buttons, we use an array of arrays:</p>
+<p>For a reply keyboard with two rows of buttons, we use an array of arrays:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new string[][]
@@ -1515,7 +1515,7 @@ var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: n
 });
 </code></pre>
 <h3 id="remove-keyboard"><a class="header" href="#remove-keyboard">Remove keyboard</a></h3>
-<p>To remove keyboard you have to send an instance of <a href="https://core.telegram.org/bots/api#replykeyboardremove"><code>ReplyKeyboardRemove</code></a> object:</p>
+<p>To remove the keyboard you have to send an instance of <a href="https://core.telegram.org/bots/api#replykeyboardremove"><code>ReplyKeyboardRemove</code></a> in a new message:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 await bot.SendMessage(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboardRemove());
