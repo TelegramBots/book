@@ -19,7 +19,7 @@ By default, reply keyboards are displayed until a new keyboard is sent by a bot.
 
 ### Single-row keyboard markup
 
-A [`ReplyKeyboardMarkup`] with two buttons in a single row:
+A reply keyboard with two buttons in a single row:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
@@ -32,7 +32,7 @@ Simple text buttons can be passed directly as strings
 
 ### Multi-row keyboard markup
 
-For a [`ReplyKeyboardMarkup`] with two rows of buttons, we use an array of arrays:
+For a reply keyboard with two rows of buttons, we use an array of arrays:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
@@ -67,7 +67,7 @@ Below are some simple examples of what you can do. More options are available in
 
 ### Remove keyboard
 
-To remove keyboard you have to send an instance of [`ReplyKeyboardRemove`] object:
+To remove the keyboard you have to send an instance of [`ReplyKeyboardRemove`] in a new message:
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
