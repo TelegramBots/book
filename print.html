@@ -4536,7 +4536,11 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <tr><td><code>InlineKeyboardButton[][]</code> or <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
 </tbody></table>
 </div>
-<p><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons (v22.4.1)</p>
+<ul>
+<li><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons (v22.4.1)</li>
+<li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor (v22.4.3)<br />
+Example: <code>await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);</code></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
