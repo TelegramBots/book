@@ -114,4 +114,7 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 | `InlineKeyboardButton[]` | inline buttons on 1 row |
 | `InlineKeyboardButton[][]` or `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
 
-`InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons (v22.4.1)
+- `InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons (v22.4.1)
+- `BotCommand` can also now be implicitly constructed from a `(string command, string description)` tuple or new explicit constructor (v22.4.3)  
+  Example: `await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);`
+			
