@@ -109,10 +109,10 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 | `string[][]` | multiple keyboard text buttons |
 | `KeyboardButton` | single keyboard button |
 | `KeyboardButton[]` | multiple keyboard buttons on one row |
-| `KeyboardButton[][]` or `IEnumerable<KeyboardButton>[]` | multiple keyboard buttons |
+| `KeyboardButton[][]` or<br/>`IEnumerable<KeyboardButton>[]` | multiple keyboard buttons |
 | `InlineKeyboardButton` | single inline button |
 | `InlineKeyboardButton[]` | inline buttons on 1 row |
-| `InlineKeyboardButton[][]` or `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
+| `InlineKeyboardButton[][]` or<br/> `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
 
 - `InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons (v22.4.1)
 - `BotCommand` can also now be implicitly constructed from a `(string command, string description)` tuple or new explicit constructor (v22.4.3)  
