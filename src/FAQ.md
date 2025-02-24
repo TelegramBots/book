@@ -43,7 +43,7 @@ There is not a simple direct method for this, but here is what you can try:
   _(user must select a target first)_
 - With a [Bot deep link](https://core.telegram.org/api/links#bot-links): `t.me/botusername?start=param`  
   _(param is limited to base64 characters, bot will receive `/start param`)_
-- With a [ReplyKeyboardMarkup](2/reply-markup.md#custom-keyboards): buttons under the textbox to send pre-made texts
+- With a [ReplyKeyboardMarkup](2/reply-markup.md#custom-reply-keyboards): buttons under the textbox to send pre-made texts
 - With an [Inline Mode bot](3/inline.md) and `SwitchInlineQuery` inline buttons, you can make the user pre-type the name of your bot followed by some query
 
 ### _8. How to fetch previous messages?_
@@ -63,7 +63,7 @@ You would have received an `update.MyChatMember` with `NewChatMember.Status == C
 If you didn't record that info, you can try to `SendChatAction` and see if it raises an exception.
 
 ### _12. How to set a caption to a media group (album)?_
-Set the `media.Caption` (and `media.ParseMode`) on the first media
+Set the `media.Caption` (and `media.ParseMode`) on the first or last media
 
 ### _13. How to write a bot that make questions/answers with users?_
 Either you can code a complex state machine workflow, saving where each user is currently in the discussion tree.  

@@ -76,9 +76,9 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 
 - Support for [Bot API 8.0](https://core.telegram.org/bots/api-changelog#november-17-2024)
 - new helper `message.MessageLink()` to get the <u>t.me</u> link to that message (Supergroup and Channel only)
-- `ToHtml`/`ToMarkdown`: support for ExpandableBlockquote (v22.1.1)
-- fix savePreparedInlineMessage request (v22.1.2)
-- `TransactionPartnerUser.Gift` type was corrected in Bot API (v22.1.3)
+- `ToHtml`/`ToMarkdown`: support for ExpandableBlockquote _(v22.1.1)_
+- fix savePreparedInlineMessage request _(v22.1.2)_
+- `TransactionPartnerUser.Gift` type was corrected in Bot API _(v22.1.3)_
 
 ## What's new in version 22.2
 
@@ -114,7 +114,7 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 | `InlineKeyboardButton[]` | inline buttons on 1 row |
 | `InlineKeyboardButton[][]` or<br/> `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
 
-- `InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons (v22.4.1)
-- `BotCommand` can also now be implicitly constructed from a `(string command, string description)` tuple or new explicit constructor (v22.4.3)  
+- `InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons _(v22.4.1)_
+- `BotCommand` can also now be implicitly constructed from a `(string command, string description)` tuple or new explicit constructor _(v22.4.3)  _
   Example: `await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);`
-			
+- Added helper `DownloadFile(TGFile file, ...)` _(v22.4.4)_

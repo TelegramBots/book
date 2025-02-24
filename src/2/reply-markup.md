@@ -6,7 +6,7 @@ Telegram provides two types of reply markup: [Custom reply keyboards](#custom-re
 
 ## Custom reply keyboards
 
-> These are buttons visible below the textbox. Pressing such button will make the user send a message
+> These are buttons visible below the textbox. Pressing such button will make the user send a message in the chat
 
 Whenever your bot sends a message, it can pass along a [special keyboard](https://core.telegram.org/bots/features#keyboards) with predefined reply options.
 Regular keyboards are represented by [`KeyboardButton`] and [`ReplyKeyboardMarkup`] objects. 
@@ -55,7 +55,6 @@ Below are some simple examples of what you can do. More options are available in
 	User must pick a group (false) or channel (true) which gets transmitted in a `message.ChatShared`
 - `KeyboardButton.WithRequestUsers("Select user(s)", 5678, 1)`  
 	User must pick 1-10 user(s) which get transmitted in a `message.UsersShared`  
-	<p/> 
 - `KeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game")`   
 	Launch a [Mini-App](../4/webapps.md)
 

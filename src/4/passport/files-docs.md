@@ -115,7 +115,7 @@ Method [DownloadAndDecryptPassportFileAsync] does a few things:
 1. Writes the actual content to the destination stream
 
 ```c#
-File encryptedFileInfo;
+TGFile encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
     encryptedFileInfo = await bot.DownloadAndDecryptPassportFileAsync(
@@ -169,7 +169,7 @@ We also post the selfie photo to a chat.
 
 ```c#
 // fetch the info of the passport file(selfie) residing on Telegram servers
-File encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
+TGFile encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
@@ -177,7 +177,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -215,7 +215,7 @@ PassportFile passportFile = element.Translation[0];
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 
 // fetch passport file info
-File encryptedFileInfo = await bot.GetFile(passportFile.FileId);
+TGFile encryptedFileInfo = await bot.GetFile(passportFile.FileId);
 
 // download encrypted file and get its bytes
 byte[] encryptedContent;
@@ -223,7 +223,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo, stream);
     encryptedContent = stream.ToArray();
 }
 

@@ -1,4 +1,4 @@
-# Other Messages
+﻿# Other Messages
 
 There are other kind of message types which are supported by the client. In the following paragraphs we will look how to send contacts, venues or locations.
 
@@ -10,7 +10,7 @@ There are other kind of message types which are supported by the client. In the 
 This is the code to send a contact. Mandatory are the parameters `chatId`, `phoneNumber` and `firstName`.
 
 ```c#
-{{#include ../../../Examples/2/SendMessage.cs:send-contact}}
+await bot.SendContact(chatId, "+1234567890", "Han", "Solo");
 ```
 
 ![send contact](../docs/shot-contact.jpg)
@@ -18,7 +18,15 @@ This is the code to send a contact. Mandatory are the parameters `chatId`, `phon
 If you want to send a contact as vCard you can achieve  this by adding a valid vCard `string` as value for the optional parameter `vCard` as seen in the given example below.
 
 ```c#
-{{#include ../../../Examples/2/SendMessage.cs:send-vCard}}
+await bot.SendContact(chatId, "+1234567890", "Han", vcard: """
+    BEGIN:VCARD
+    VERSION:3.0
+    N:Solo;Han
+    ORG:Scruffy-looking nerf herder
+    TEL;TYPE=voice,work,pref:+1234567890
+    EMAIL:hansolo@mfalcon.com
+    END:VCARD
+    """);
 ```
 
 ![send vcard](../docs/shot-contact_vcard.jpg)
@@ -31,7 +39,8 @@ If you want to send a contact as vCard you can achieve  this by adding a valid v
 The code snippet below sends a venue with a title and a address as given parameters:
 
 ```c#
-{{#include ../../../Examples/2/SendMessage.cs:send-venue}}
+await bot.SendVenue(chatId, latitude: 50.0840172f, longitude: 14.418288f,
+    title: "Man Hanging out", address: "Husova, 110 00 Staré Město, Czechia");
 ```
 
 ![send contact](../docs/shot-venue.jpg)
@@ -46,7 +55,7 @@ The difference between sending a location and a venue is, that the venue require
 The following snippet shows how to send a location with the mandatory parameters:
 
 ```c#
-{{#include ../../../Examples/2/SendMessage.cs:send-location}}
+await bot.SendLocation(chatId, latitude: 33.747252f, longitude: -112.633853f);
 ```
 
 ![send contact](../docs/shot-location.jpg)

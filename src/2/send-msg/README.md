@@ -53,7 +53,11 @@ Clicking that opens [`sendMessage`](https://core.telegram.org/bots/api#sendmessa
 
 Almost all of the Send* methods return the message you just sent. Let's have a look at this object. Add this statement after the previous code.
 ```csharp
-{{#include ../../../Examples/2/SendMessage.cs:message-contents}}
+Console.WriteLine(
+    $"{message.From.FirstName} sent message {message.Id} " +
+    $"to chat {message.Chat.Id} at {message.Date}. " +
+    $"It is a reply to message {message.ReplyToMessage.Id} " +
+    $"and has {message.Entities.Length} message entities.");
 ```
 
 Output should look similar to this:

@@ -11,7 +11,12 @@ Native poll are a special kind of message with question & answers where users ca
 This is the code to send a poll to a chat.
 
 ```c#
-{{#include ../../../Examples/2/SendMessage.cs:send-poll}}
+var pollMessage = await bot.SendPoll("@channel_name",
+    "Did you ever hear the tragedy of Darth Plagueis The Wise?",
+    [
+        "Yes for the hundredth time!",
+        "No, who`s that?"
+    ]);
 ```
 
 ![native poll](../docs/shot-native_poll_msg.jpeg)
@@ -29,7 +34,7 @@ To close a poll you need to know original chat and message ids of the poll that 
 Let's close the poll that we sent in the previous example:
 
 ```c#
-{{#include ../../../Examples/2/SendMessage.cs:stop-poll}}
+Poll poll = await bot.StopPoll(pollMessage.Chat, pollMessage.Id);
 ```
 
 ![closed native poll](../docs/shot-native_poll_closed.jpeg)
