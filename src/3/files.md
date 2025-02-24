@@ -4,8 +4,7 @@ To download a file, you have to know its file identifier: `FileId`.
 You find this property in the [`Animation`], [`Audio`], [`Document`], [`Video`], [`VideoNote`], [`Voice`], [`Sticker`] objects from a message.
 
 For a `Photo`, you get an array `PhotoSize[]` with `FileId` for each resolution variants.
-The last entry contains the best quality: `message.Photo[^1].FileId`
-
+The last entry contains the best quality: `message.Photo[^1].FileId`  
 For `ChatPhoto`, there is a `BigFileId` for best quality, and `SmallFileId` for low resolution.  
 
 ## Methods for downloading a file
@@ -22,7 +21,7 @@ await using var stream = File.Create("../downloaded.mp4");
 await bot.DownloadFile(tgFile, stream);
 ```
 
-For your convenience the library provides you a helper function that does both steps: `GetInfoAndDownloadFile`
+For your convenience, the library provides a helper function that does both steps: `GetInfoAndDownloadFile`
 
 ```csharp
 await using var ms = new MemoryStream();
