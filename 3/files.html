@@ -238,37 +238,37 @@ You find this property in the <a href="https://core.telegram.org/bots/api#animat
 <p>For a <code>Photo</code>, you get an array <code>PhotoSize[]</code> with <code>FileId</code> for each resolution variants.
 The last entry contains the best quality: <code>message.Photo[^1].FileId</code></p>
 <p>For <code>ChatPhoto</code>, there is a <code>BigFileId</code> for best quality, and <code>SmallFileId</code> for low resolution.</p>
-<p>⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
 <h2 id="methods-for-downloading-a-file"><a class="header" href="#methods-for-downloading-a-file">Methods for downloading a file</a></h2>
 <p>Downloading a file from Telegram is done in two steps:</p>
 <ol>
 <li>Get file information with <a href="https://core.telegram.org/bots/api#getfile"><code>GetFile</code></a> method.</li>
 <li>Download the file with the <code>DownloadFile</code> method</li>
 </ol>
-<pre><code class="language-C#">var fileId = update.Message.Video.FileId;
+<pre><code class="language-csharp">var fileId = update.Message.Video.FileId;
 var tgFile = await bot.GetFile(fileId);
 
 await using var stream = File.Create("../downloaded.mp4");
 await bot.DownloadFile(tgFile, stream);
 </code></pre>
 <p>For your convenience the library provides you a helper function that does both steps: <code>GetInfoAndDownloadFile</code></p>
-<pre><code class="language-C#">await using var ms = new MemoryStream();
+<pre><code class="language-csharp">await using var ms = new MemoryStream();
 var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 </code></pre>
 <p>Notes:</p>
 <ul>
+<li>⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></li>
 <li>When downloading into a <code>MemoryStream</code>, remember to reset its <code>Position</code> before processing the content.</li>
 <li>The <code>tgFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
 </ul>
 <h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
-<p>First, read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>
+<p>We recommend you first read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>
 <h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
 <p>To upload a file from your machine, open the stream and call one of the sending methods:</p>
-<pre><code class="language-C#">await using var stream = File.OpenRead("../hamlet.pdf");
+<pre><code class="language-csharp">await using var stream = File.OpenRead("../hamlet.pdf");
 var message = await bot.SendDocument(chatId, stream, "The Tragedy of Hamlet,\nPrince of Denmark");
 </code></pre>
 <p>You can also specify the public filename manually, or use a MemoryStream:</p>
-<pre><code class="language-C#">var buffer = File.ReadAllBytes("../hamlet.pdf");
+<pre><code class="language-csharp">var buffer = File.ReadAllBytes("../hamlet.pdf");
 await using var ms = new MemoryStream(buffer);
 var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"),
                                      "The Tragedy of Hamlet,\nPrince of Denmark");
@@ -276,7 +276,7 @@ var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.p
 <p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
 <h2 id="upload-by-file-identifier"><a class="header" href="#upload-by-file-identifier">Upload by file identifier</a></h2>
 <p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no size limits for files sent this way.</p>
-<pre><code class="language-C#">var fileId = update.Message.Photo[^1].FileId;
+<pre><code class="language-csharp">var fileId = update.Message.Photo[^1].FileId;
 var message = await bot.SendPhoto(chatId, fileId);
 </code></pre>
 <h2 id="upload-by-url"><a class="header" href="#upload-by-url">Upload by URL</a></h2>
