@@ -236,8 +236,8 @@
 <p>To download a file, you have to know its file identifier: <code>FileId</code>.<br />
 You find this property in the <a href="https://core.telegram.org/bots/api#animation"><code>Animation</code></a>, <a href="https://core.telegram.org/bots/api#audio"><code>Audio</code></a>, <a href="https://core.telegram.org/bots/api#document"><code>Document</code></a>, <a href="https://core.telegram.org/bots/api#video"><code>Video</code></a>, <a href="https://core.telegram.org/bots/api#videonote"><code>VideoNote</code></a>, <a href="https://core.telegram.org/bots/api#voice"><code>Voice</code></a>, <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> objects from a message.</p>
 <p>For a <code>Photo</code>, you get an array <code>PhotoSize[]</code> with <code>FileId</code> for each resolution variants.
-The last entry contains the best quality: <code>message.Photo[^1].FileId</code></p>
-<p>For <code>ChatPhoto</code>, there is a <code>BigFileId</code> for best quality, and <code>SmallFileId</code> for low resolution.</p>
+The last entry contains the best quality: <code>message.Photo[^1].FileId</code><br />
+For <code>ChatPhoto</code>, there is a <code>BigFileId</code> for best quality, and <code>SmallFileId</code> for low resolution.</p>
 <h2 id="methods-for-downloading-a-file"><a class="header" href="#methods-for-downloading-a-file">Methods for downloading a file</a></h2>
 <p>Downloading a file from Telegram is done in two steps:</p>
 <ol>
@@ -250,7 +250,7 @@ var tgFile = await bot.GetFile(fileId);
 await using var stream = File.Create("../downloaded.mp4");
 await bot.DownloadFile(tgFile, stream);
 </code></pre>
-<p>For your convenience the library provides you a helper function that does both steps: <code>GetInfoAndDownloadFile</code></p>
+<p>For your convenience, the library provides a helper function that does both steps: <code>GetInfoAndDownloadFile</code></p>
 <pre><code class="language-csharp">await using var ms = new MemoryStream();
 var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 </code></pre>
