@@ -22,4 +22,6 @@ renderer = ["html"]
 
 [output.html.redirect]
 "Migration-Guide-to-Version-21.x.html" = "migrate/Version-21.x.html"
-"3/files/index.html" = "3/files.html"
+"3/files/index.html" = "/3/files.html"
+"3/files/upload.html" = "/3/files.html"
+"3/files/download.html" = "/3/files.html"

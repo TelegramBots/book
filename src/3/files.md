@@ -33,7 +33,7 @@ var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 
 Notes:
 - When downloading into a `MemoryStream`, remember to reset its `Position` before processing the content.
-- The `TGFile.FilePath` returned by `GetFile` can be used to build the web URL accessing the file: `https://api.telegram.org/file/bot<token>/<FilePath>`.
+- The `tgFile.FilePath` returned by `GetFile` can be used to build the web URL accessing the file: `https://api.telegram.org/file/bot<token>/<FilePath>`.
 
 # Uploading files
 
@@ -52,7 +52,8 @@ You can also specify the public filename manually, or use a MemoryStream:
 ```C#
 var buffer = File.ReadAllBytes("../hamlet.pdf");
 await using var ms = new MemoryStream(buffer);
-var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"), "The Tragedy of Hamlet,\nPrince of Denmark");
+var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"),
+                                     "The Tragedy of Hamlet,\nPrince of Denmark");
 ```
 
 Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files. For bigger files, consider using [library WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab)
@@ -71,7 +72,7 @@ var message = await bot.SendPhoto(chatId, fileId);
 Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.
 
 ```csharp
-var message = await bot.SendPhoto(chatId, "https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg");
+var message = await bot.SendPhoto(chatId, "https://picsum.photos/640/480.jpg");
 ```
 
 
