@@ -238,14 +238,12 @@
 <h2 id="send-a-poll"><a class="header" href="#send-a-poll">Send a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
-<pre><code class="language-c#">
-var pollMessage = await bot.SendPoll("@channel_name",
+<pre><code class="language-c#">var pollMessage = await bot.SendPoll("@channel_name",
     "Did you ever hear the tragedy of Darth Plagueis The Wise?",
-    new InputPollOption[]
-    {
+    [
         "Yes for the hundredth time!",
         "No, who`s that?"
-    });
+    ]);
 </code></pre>
 <p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
 <p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>

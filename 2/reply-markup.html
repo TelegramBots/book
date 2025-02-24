@@ -237,7 +237,7 @@
 <p>Telegram provides two types of reply markup: <a href="#custom-reply-keyboards">Custom reply keyboards</a> and <a href="#inline-keyboards">Inline keyboards</a>.</p>
 <h2 id="custom-reply-keyboards"><a class="header" href="#custom-reply-keyboards">Custom reply keyboards</a></h2>
 <blockquote>
-<p>These are buttons visible below the textbox. Pressing such button will make the user send a message</p>
+<p>These are buttons visible below the textbox. Pressing such button will make the user send a message in the chat</p>
 </blockquote>
 <p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots/features#keyboards">special keyboard</a> with predefined reply options.
 Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> and <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> objects.
@@ -279,8 +279,7 @@ User must create a poll which gets transmitted in a <code>message.Poll</code></l
 <li><code>KeyboardButton.WithRequestChat("Select a chat", 1234, false)</code><br />
 User must pick a group (false) or channel (true) which gets transmitted in a <code>message.ChatShared</code></li>
 <li><code>KeyboardButton.WithRequestUsers("Select user(s)", 5678, 1)</code><br />
-User must pick 1-10 user(s) which get transmitted in a <code>message.UsersShared</code>  <p/> 
-</li>
+User must pick 1-10 user(s) which get transmitted in a <code>message.UsersShared</code></li>
 <li><code>KeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game")</code><br />
 Launch a <a href="../4/webapps.html">Mini-App</a></li>
 </ul>

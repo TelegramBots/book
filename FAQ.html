@@ -300,7 +300,7 @@ Use <code>AnswerCallbackQuery</code> with some text, and pass parameter <code>sh
 <em>(user must select a target first)</em></li>
 <li>With a <a href="https://core.telegram.org/api/links#bot-links">Bot deep link</a>: <code>t.me/botusername?start=param</code><br />
 <em>(param is limited to base64 characters, bot will receive <code>/start param</code>)</em></li>
-<li>With a <a href="2/reply-markup.html#custom-keyboards">ReplyKeyboardMarkup</a>: buttons under the textbox to send pre-made texts</li>
+<li>With a <a href="2/reply-markup.html#custom-reply-keyboards">ReplyKeyboardMarkup</a>: buttons under the textbox to send pre-made texts</li>
 <li>With an <a href="3/inline.html">Inline Mode bot</a> and <code>SwitchInlineQuery</code> inline buttons, you can make the user pre-type the name of your bot followed by some query</li>
 </ul>
 <h3 id="8-how-to-fetch-previous-messages"><a class="header" href="#8-how-to-fetch-previous-messages"><em>8. How to fetch previous messages?</em></a></h3>
@@ -316,7 +316,7 @@ Alternatively, you can keep track of users by observing new messages in a chat a
 <p>You would have received an <code>update.MyChatMember</code> with <code>NewChatMember.Status == ChatMemberStatus.Kicked</code><br />
 If you didn't record that info, you can try to <code>SendChatAction</code> and see if it raises an exception.</p>
 <h3 id="12-how-to-set-a-caption-to-a-media-group-album"><a class="header" href="#12-how-to-set-a-caption-to-a-media-group-album"><em>12. How to set a caption to a media group (album)?</em></a></h3>
-<p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first media</p>
+<p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first or last media</p>
 <h3 id="13-how-to-write-a-bot-that-make-questionsanswers-with-users"><a class="header" href="#13-how-to-write-a-bot-that-make-questionsanswers-with-users"><em>13. How to write a bot that make questions/answers with users?</em></a></h3>
 <p>Either you can code a complex state machine workflow, saving where each user is currently in the discussion tree.<br />
 Or you can just use <a href="https://github.com/wiz0u/YourEasyBot">YourEasyBot</a> which makes sequential bots very simple to write... <em>(or one of the <a href="https://github.com/TelegramBots/Telegram.Bot/wiki">other frameworks</a> available for Telegram.Bot)</em></p>

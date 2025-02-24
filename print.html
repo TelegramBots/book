@@ -1075,14 +1075,12 @@ await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = 
 <h2 id="send-a-poll"><a class="header" href="#send-a-poll">Send a poll</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
 <p>This is the code to send a poll to a chat.</p>
-<pre><code class="language-c#">
-var pollMessage = await bot.SendPoll("@channel_name",
+<pre><code class="language-c#">var pollMessage = await bot.SendPoll("@channel_name",
     "Did you ever hear the tragedy of Darth Plagueis The Wise?",
-    new InputPollOption[]
-    {
+    [
         "Yes for the hundredth time!",
         "No, who`s that?"
-    });
+    ]);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
 <p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
@@ -1171,18 +1169,19 @@ var pollMessage = await bot.SendPoll("@channel_name",
 <p><a href="https://core.telegram.org/bots/api#sendcontact"><img src="https://img.shields.io/badge/Bot_API_method-sendContact-blue.svg?style=flat-square" alt="send contact method" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingContactMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Contact-green.svg?style=flat-square" alt="send contacts tests" /></a></p>
 <p>This is the code to send a contact. Mandatory are the parameters <code>chatId</code>, <code>phoneNumber</code> and <code>firstName</code>.</p>
-<pre><code class="language-c#">await bot.SendContact(chatId, phoneNumber: "+1234567890", firstName: "Han", lastName: "Solo");
+<pre><code class="language-c#">await bot.SendContact(chatId, "+1234567890", "Han", "Solo");
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-contact.jpg" alt="send contact" /></p>
 <p>If you want to send a contact as vCard you can achieve  this by adding a valid vCard <code>string</code> as value for the optional parameter <code>vCard</code> as seen in the given example below.</p>
-<pre><code class="language-c#">await bot.SendContact(chatId, phoneNumber: "+1234567890", firstName: "Han",
-    vcard: "BEGIN:VCARD\n" +
-           "VERSION:3.0\n" +
-           "N:Solo;Han\n" +
-           "ORG:Scruffy-looking nerf herder\n" +
-           "TEL;TYPE=voice,work,pref:+1234567890\n" +
-           "EMAIL:hansolo@mfalcon.com\n" +
-           "END:VCARD");
+<pre><code class="language-c#">await bot.SendContact(chatId, "+1234567890", "Han", vcard: """
+    BEGIN:VCARD
+    VERSION:3.0
+    N:Solo;Han
+    ORG:Scruffy-looking nerf herder
+    TEL;TYPE=voice,work,pref:+1234567890
+    EMAIL:hansolo@mfalcon.com
+    END:VCARD
+    """);
 </code></pre>
 <p><img src="2/send-msg/../docs/shot-contact_vcard.jpg" alt="send vcard" /></p>
 <h2 id="venue"><a class="header" href="#venue">Venue</a></h2>
@@ -1459,7 +1458,7 @@ However, your bot can keep track of active topics by listening to these service 
 <p>Telegram provides two types of reply markup: <a href="2/reply-markup.html#custom-reply-keyboards">Custom reply keyboards</a> and <a href="2/reply-markup.html#inline-keyboards">Inline keyboards</a>.</p>
 <h2 id="custom-reply-keyboards"><a class="header" href="#custom-reply-keyboards">Custom reply keyboards</a></h2>
 <blockquote>
-<p>These are buttons visible below the textbox. Pressing such button will make the user send a message</p>
+<p>These are buttons visible below the textbox. Pressing such button will make the user send a message in the chat</p>
 </blockquote>
 <p>Whenever your bot sends a message, it can pass along a <a href="https://core.telegram.org/bots/features#keyboards">special keyboard</a> with predefined reply options.
 Regular keyboards are represented by <a href="https://core.telegram.org/bots/api/#keyboardbutton"><code>KeyboardButton</code></a> and <a href="https://core.telegram.org/bots/api/#replykeyboardmarkup"><code>ReplyKeyboardMarkup</code></a> objects.
@@ -1501,8 +1500,7 @@ User must create a poll which gets transmitted in a <code>message.Poll</code></l
 <li><code>KeyboardButton.WithRequestChat("Select a chat", 1234, false)</code><br />
 User must pick a group (false) or channel (true) which gets transmitted in a <code>message.ChatShared</code></li>
 <li><code>KeyboardButton.WithRequestUsers("Select user(s)", 5678, 1)</code><br />
-User must pick 1-10 user(s) which get transmitted in a <code>message.UsersShared</code>  <p/> 
-</li>
+User must pick 1-10 user(s) which get transmitted in a <code>message.UsersShared</code></li>
 <li><code>KeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game")</code><br />
 Launch a <a href="2/../4/webapps.html">Mini-App</a></li>
 </ul>
@@ -1784,13 +1782,8 @@ by checking if <code>Message.ForwardOrigin</code> is set:</p>
 <li><a href="3/updates/webhook.html">Webhooks</a></li>
 </ul>
 </li>
+<li><a href="3/files.html">Download/Upload Files</a></li>
 <li><a href="3/inline.html">Inline Mode</a></li>
-<li><a href="3/files/">Files</a>
-<ul>
-<li><a href="3/files/download.html">Download</a></li>
-<li><a href="3/files/upload.html">Upload</a></li>
-</ul>
-</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
@@ -2291,6 +2284,123 @@ For more details, refer to <a href="3/updates/.#sequential-vs-parallel-updates">
 }
 
 </style>
+<h1 id="downloading-files"><a class="header" href="#downloading-files">Downloading files</a></h1>
+<p>To download a file, you have to know its file identifier: <code>FileId</code>.<br />
+You find this property in the <a href="https://core.telegram.org/bots/api#animation"><code>Animation</code></a>, <a href="https://core.telegram.org/bots/api#audio"><code>Audio</code></a>, <a href="https://core.telegram.org/bots/api#document"><code>Document</code></a>, <a href="https://core.telegram.org/bots/api#video"><code>Video</code></a>, <a href="https://core.telegram.org/bots/api#videonote"><code>VideoNote</code></a>, <a href="https://core.telegram.org/bots/api#voice"><code>Voice</code></a>, <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> objects from a message.</p>
+<p>For a <code>Photo</code>, you get an array <code>PhotoSize[]</code> with <code>FileId</code> for each resolution variants.
+The last entry contains the best quality: <code>message.Photo[^1].FileId</code></p>
+<p>For <code>ChatPhoto</code>, there is a <code>BigFileId</code> for best quality, and <code>SmallFileId</code> for low resolution.</p>
+<p>⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
+<h2 id="methods-for-downloading-a-file"><a class="header" href="#methods-for-downloading-a-file">Methods for downloading a file</a></h2>
+<p>Downloading a file from Telegram is done in two steps:</p>
+<ol>
+<li>Get file information with <a href="https://core.telegram.org/bots/api#getfile"><code>GetFile</code></a> method.</li>
+<li>Download the file with the <code>DownloadFile</code> method</li>
+</ol>
+<pre><code class="language-C#">var fileId = update.Message.Video.FileId;
+var tgFile = await bot.GetFile(fileId);
+
+await using var stream = File.Create("../downloaded.mp4");
+await bot.DownloadFile(tgFile, stream);
+</code></pre>
+<p>For your convenience the library provides you a helper function that does both steps: <code>GetInfoAndDownloadFile</code></p>
+<pre><code class="language-C#">await using var ms = new MemoryStream();
+var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li>When downloading into a <code>MemoryStream</code>, remember to reset its <code>Position</code> before processing the content.</li>
+<li>The <code>TGFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
+</ul>
+<h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
+<p>First, read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>
+<h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
+<p>To upload a file from your machine, open the stream and call one of the sending methods:</p>
+<pre><code class="language-C#">await using var stream = File.OpenRead("../hamlet.pdf");
+var message = await bot.SendDocument(chatId, stream, "The Tragedy of Hamlet,\nPrince of Denmark");
+</code></pre>
+<p>You can also specify the public filename manually, or use a MemoryStream:</p>
+<pre><code class="language-C#">var buffer = File.ReadAllBytes("../hamlet.pdf");
+await using var ms = new MemoryStream(buffer);
+var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"), "The Tragedy of Hamlet,\nPrince of Denmark");
+</code></pre>
+<p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
+<h2 id="upload-by-file-identifier"><a class="header" href="#upload-by-file-identifier">Upload by file identifier</a></h2>
+<p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no size limits for files sent this way.</p>
+<pre><code class="language-C#">var fileId = update.Message.Photo[^1].FileId;
+var message = await bot.SendPhoto(chatId, fileId);
+</code></pre>
+<h2 id="upload-by-url"><a class="header" href="#upload-by-url">Upload by URL</a></h2>
+<p>Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.</p>
+<pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg");
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><style>
+.mdbook-alerts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-left: 0.25em solid var(--mdbook-alerts-color);
+}
+
+.mdbook-alerts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-alerts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-alerts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-alerts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-alerts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-alerts-icon);
+  mask-image: var(--mdbook-alerts-icon);
+}
+
+.mdbook-alerts-note {
+  --mdbook-alerts-color: rgb(9, 105, 218);
+  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-tip {
+  --mdbook-alerts-color: rgb(26, 127, 55);
+  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-important {
+  --mdbook-alerts-color: rgb(130, 80, 223);
+  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-warning {
+  --mdbook-alerts-color: rgb(154, 103, 0);
+  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-caution {
+  --mdbook-alerts-color: rgb(207, 34, 46);
+  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
+}
+
+</style>
 <h1 id="inline-mode"><a class="header" href="#inline-mode">Inline Mode</a></h1>
 <p><a href="https://core.telegram.org/bots/api#inline-mode"><img src="https://img.shields.io/badge/Bot_API_Doc-Inline%20Mode-blue.svg?style=flat-square" alt="inline mode bot API" /></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/InlineQueries/Program.cs"><img src="https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square" alt="inline queries example" /></a></p>
@@ -2359,264 +2469,6 @@ private readonly string[] siteDescriptions =
 <p><img src="3/docs/shot-setinlinefeedback_command.png" alt="set inline feedback command" /></p>
 <p>Final result:</p>
 <p><img src="3/docs/shot-inline_bot_showcase.png" alt="result" /></p>
-<div style="break-before: page; page-break-before: always;"></div><style>
-.mdbook-alerts {
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-left: 0.25em solid var(--mdbook-alerts-color);
-}
-
-.mdbook-alerts > *:first-child {
-  margin-top: 0;
-}
-
-.mdbook-alerts > *:last-child {
-  margin-bottom: 0;
-}
-
-.mdbook-alerts-title {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  line-height: 1;
-  color: var(--mdbook-alerts-color);
-  text-transform: capitalize;
-}
-
-.mdbook-alerts-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.2em;
-  background-color: currentColor;
-  -webkit-mask: no-repeat center / 100%;
-  mask: no-repeat center / 100%;
-  -webkit-mask-image: var(--mdbook-alerts-icon);
-  mask-image: var(--mdbook-alerts-icon);
-}
-
-.mdbook-alerts-note {
-  --mdbook-alerts-color: rgb(9, 105, 218);
-  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-tip {
-  --mdbook-alerts-color: rgb(26, 127, 55);
-  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-important {
-  --mdbook-alerts-color: rgb(130, 80, 223);
-  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-warning {
-  --mdbook-alerts-color: rgb(154, 103, 0);
-  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-caution {
-  --mdbook-alerts-color: rgb(207, 34, 46);
-  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
-}
-
-</style>
-<h1 id="working-with-files"><a class="header" href="#working-with-files">Working with Files</a></h1>
-<ul>
-<li><a href="3/files/download.html">Download files</a></li>
-<li><a href="3/files/upload.html">Upload files</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><style>
-.mdbook-alerts {
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-left: 0.25em solid var(--mdbook-alerts-color);
-}
-
-.mdbook-alerts > *:first-child {
-  margin-top: 0;
-}
-
-.mdbook-alerts > *:last-child {
-  margin-bottom: 0;
-}
-
-.mdbook-alerts-title {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  line-height: 1;
-  color: var(--mdbook-alerts-color);
-  text-transform: capitalize;
-}
-
-.mdbook-alerts-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.2em;
-  background-color: currentColor;
-  -webkit-mask: no-repeat center / 100%;
-  mask: no-repeat center / 100%;
-  -webkit-mask-image: var(--mdbook-alerts-icon);
-  mask-image: var(--mdbook-alerts-icon);
-}
-
-.mdbook-alerts-note {
-  --mdbook-alerts-color: rgb(9, 105, 218);
-  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-tip {
-  --mdbook-alerts-color: rgb(26, 127, 55);
-  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-important {
-  --mdbook-alerts-color: rgb(130, 80, 223);
-  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-warning {
-  --mdbook-alerts-color: rgb(154, 103, 0);
-  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-caution {
-  --mdbook-alerts-color: rgb(207, 34, 46);
-  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
-}
-
-</style>
-<h1 id="downloading-files"><a class="header" href="#downloading-files">Downloading files</a></h1>
-<p>First, read the <a href="https://core.telegram.org/bots/api#getfile">documentation on <code>getFile</code></a> method.</p>
-<p>To download file you have to know its file identifier - <code>FileId</code>.</p>
-<h2 id="finding-the-file-identifier"><a class="header" href="#finding-the-file-identifier">Finding the file identifier</a></h2>
-<p>Telegram Bot API has several object types, representing file:
-<a href="https://core.telegram.org/bots/api#photosize"><code>PhotoSize</code></a>, <a href="https://core.telegram.org/bots/api#animation"><code>Animation</code></a>, <a href="https://core.telegram.org/bots/api#audio"><code>Audio</code></a>, <a href="https://core.telegram.org/bots/api#document"><code>Document</code></a>, <a href="https://core.telegram.org/bots/api#video"><code>Video</code></a>, <a href="https://core.telegram.org/bots/api#videonote"><code>VideoNote</code></a>, <a href="https://core.telegram.org/bots/api#voice"><code>Voice</code></a>, <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a>.</p>
-<p>The file identifier for each file type can be found in their <code>FileId</code> property (e.g. <code>Message.Audio.FileId</code>).</p>
-<p>The exception is photos, which represented as an array of <a href="https://core.telegram.org/bots/api#photosize"><code>PhotoSize[]</code></a> objects.
-For each photo Telegram sends you a set of <a href="https://core.telegram.org/bots/api#photosize"><code>PhotoSize</code></a> objects - available resolutions, you can choose from.
-Generally, you will want the highest quality - the last <a href="https://core.telegram.org/bots/api#photosize"><code>PhotoSize</code></a> object in the array.
-With LINQ, this boils down to <code>Message.Photo.Last().FileId</code>.</p>
-<h2 id="downloading-a-file"><a class="header" href="#downloading-a-file">Downloading a file</a></h2>
-<p>Downloading a file from Telegram is done in two steps:</p>
-<ol>
-<li>Get file information with <code>getFile</code> method. Resulting <a href="https://core.telegram.org/bots/api#file"><code>File</code></a> object contains <code>FilePath</code> from which we can download the file.</li>
-<li>Downloading the file.</li>
-</ol>
-<pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
-var fileInfo = await bot.GetFile(fileId);
-var filePath = fileInfo.FilePath;
-</code></pre>
-<p>The URL from which you can now download the file is <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</p>
-<p>To download file you can use <code>DownloadFile</code> function:</p>
-<pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
-
-await using Stream fileStream = File.Create(destinationFilePath);
-await bot.DownloadFile(filePath, fileStream);
-</code></pre>
-<p>For your convenience the library provides you a helper function that does both - <code>GetInfoAndDownloadFile</code>:</p>
-<pre><code class="language-C#">const string destinationFilePath = "../downloaded.file";
-
-await using Stream fileStream = File.Create(destinationFilePath);
-var file = await bot.GetInfoAndDownloadFile(fileId, fileStream);
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><style>
-.mdbook-alerts {
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-left: 0.25em solid var(--mdbook-alerts-color);
-}
-
-.mdbook-alerts > *:first-child {
-  margin-top: 0;
-}
-
-.mdbook-alerts > *:last-child {
-  margin-bottom: 0;
-}
-
-.mdbook-alerts-title {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  line-height: 1;
-  color: var(--mdbook-alerts-color);
-  text-transform: capitalize;
-}
-
-.mdbook-alerts-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.2em;
-  background-color: currentColor;
-  -webkit-mask: no-repeat center / 100%;
-  mask: no-repeat center / 100%;
-  -webkit-mask-image: var(--mdbook-alerts-icon);
-  mask-image: var(--mdbook-alerts-icon);
-}
-
-.mdbook-alerts-note {
-  --mdbook-alerts-color: rgb(9, 105, 218);
-  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-tip {
-  --mdbook-alerts-color: rgb(26, 127, 55);
-  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-important {
-  --mdbook-alerts-color: rgb(130, 80, 223);
-  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-warning {
-  --mdbook-alerts-color: rgb(154, 103, 0);
-  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-caution {
-  --mdbook-alerts-color: rgb(207, 34, 46);
-  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
-}
-
-</style>
-<h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
-<p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
-<h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
-<p>To upload local file open stream and call one of the file-sending functions:</p>
-<pre><code class="language-C#">await using Stream stream = File.OpenRead("../hamlet.pdf");
-var message = await bot.SendDocument(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
-    caption: "The Tragedy of Hamlet,\nPrince of Denmark");
-</code></pre>
-<p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files.</p>
-<h2 id="upload-file-by-file-identifier"><a class="header" href="#upload-file-by-file-identifier">Upload file by file identifier</a></h2>
-<p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no limits for files sent this way.</p>
-<pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
-var message = await bot.SendPhoto(chatId, fileId);
-</code></pre>
-<h2 id="upload-by-url"><a class="header" href="#upload-by-url">Upload by URL</a></h2>
-<p>Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.</p>
-<pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg");
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -3228,7 +3080,7 @@ so you have more control with HTML/JS to display the interface you like.</p>
 <h2 id="starting-mini-apps"><a class="header" href="#starting-mini-apps">Starting Mini-Apps</a></h2>
 <p>Mini Apps can be launched from various ways:</p>
 <ul>
-<li><a href="4/../2/reply-markup.html#custom-keyboards">Keyboard Buttons</a>: <code>KeyboardButton.WithWebApp</code></li>
+<li><a href="4/../2/reply-markup.html#custom-reply-keyboards">Keyboard Buttons</a>: <code>KeyboardButton.WithWebApp</code></li>
 <li><a href="4/../2/reply-markup.html#inline-keyboards">Inline Buttons</a>: <code>InlineKeyboardButton.WithWebApp</code></li>
 <li>Chat menu button (left of user textbox): via @BotFather or <code>SetChatMenuButton</code></li>
 <li>Inline-mode results with a "Switch to Mini App" button: <code>AnswerInlineQuery</code> with parameter <code>InlineQueryResultsButton.WebApp</code></li>
@@ -3683,7 +3535,7 @@ Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport
 <li>Decrypts the encrypted file</li>
 <li>Writes the actual content to the destination stream</li>
 </ol>
-<pre><code class="language-c#">File encryptedFileInfo;
+<pre><code class="language-c#">TGFile encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
     encryptedFileInfo = await bot.DownloadAndDecryptPassportFileAsync(
@@ -3731,7 +3583,7 @@ using (System.IO.Stream
 This is essentially the same operation as done above via streams.
 We also post the selfie photo to a chat.</p>
 <pre><code class="language-c#">// fetch the info of the passport file(selfie) residing on Telegram servers
-File encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
+TGFile encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
@@ -3739,7 +3591,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -3770,7 +3622,7 @@ Translations are also encrypted passport files so their decryption is no differe
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 
 // fetch passport file info
-File encryptedFileInfo = await bot.GetFile(passportFile.FileId);
+TGFile encryptedFileInfo = await bot.GetFile(passportFile.FileId);
 
 // download encrypted file and get its bytes
 byte[] encryptedContent;
@@ -3778,7 +3630,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -4189,7 +4041,7 @@ Use <code>AnswerCallbackQuery</code> with some text, and pass parameter <code>sh
 <em>(user must select a target first)</em></li>
 <li>With a <a href="https://core.telegram.org/api/links#bot-links">Bot deep link</a>: <code>t.me/botusername?start=param</code><br />
 <em>(param is limited to base64 characters, bot will receive <code>/start param</code>)</em></li>
-<li>With a <a href="2/reply-markup.html#custom-keyboards">ReplyKeyboardMarkup</a>: buttons under the textbox to send pre-made texts</li>
+<li>With a <a href="2/reply-markup.html#custom-reply-keyboards">ReplyKeyboardMarkup</a>: buttons under the textbox to send pre-made texts</li>
 <li>With an <a href="3/inline.html">Inline Mode bot</a> and <code>SwitchInlineQuery</code> inline buttons, you can make the user pre-type the name of your bot followed by some query</li>
 </ul>
 <h3 id="8-how-to-fetch-previous-messages"><a class="header" href="#8-how-to-fetch-previous-messages"><em>8. How to fetch previous messages?</em></a></h3>
@@ -4205,7 +4057,7 @@ Alternatively, you can keep track of users by observing new messages in a chat a
 <p>You would have received an <code>update.MyChatMember</code> with <code>NewChatMember.Status == ChatMemberStatus.Kicked</code><br />
 If you didn't record that info, you can try to <code>SendChatAction</code> and see if it raises an exception.</p>
 <h3 id="12-how-to-set-a-caption-to-a-media-group-album"><a class="header" href="#12-how-to-set-a-caption-to-a-media-group-album"><em>12. How to set a caption to a media group (album)?</em></a></h3>
-<p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first media</p>
+<p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first or last media</p>
 <h3 id="13-how-to-write-a-bot-that-make-questionsanswers-with-users"><a class="header" href="#13-how-to-write-a-bot-that-make-questionsanswers-with-users"><em>13. How to write a bot that make questions/answers with users?</em></a></h3>
 <p>Either you can code a complex state machine workflow, saving where each user is currently in the discussion tree.<br />
 Or you can just use <a href="https://github.com/wiz0u/YourEasyBot">YourEasyBot</a> which makes sequential bots very simple to write... <em>(or one of the <a href="https://github.com/TelegramBots/Telegram.Bot/wiki">other frameworks</a> available for Telegram.Bot)</em></p>
@@ -4497,9 +4349,9 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <ul>
 <li>Support for <a href="https://core.telegram.org/bots/api-changelog#november-17-2024">Bot API 8.0</a></li>
 <li>new helper <code>message.MessageLink()</code> to get the <u>t.me</u> link to that message (Supergroup and Channel only)</li>
-<li><code>ToHtml</code>/<code>ToMarkdown</code>: support for ExpandableBlockquote (v22.1.1)</li>
-<li>fix savePreparedInlineMessage request (v22.1.2)</li>
-<li><code>TransactionPartnerUser.Gift</code> type was corrected in Bot API (v22.1.3)</li>
+<li><code>ToHtml</code>/<code>ToMarkdown</code>: support for ExpandableBlockquote <em>(v22.1.1)</em></li>
+<li>fix savePreparedInlineMessage request <em>(v22.1.2)</em></li>
+<li><code>TransactionPartnerUser.Gift</code> type was corrected in Bot API <em>(v22.1.3)</em></li>
 </ul>
 <h2 id="whats-new-in-version-222"><a class="header" href="#whats-new-in-version-222">What's new in version 22.2</a></h2>
 <ul>
@@ -4537,9 +4389,10 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 </tbody></table>
 </div>
 <ul>
-<li><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons (v22.4.1)</li>
-<li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor (v22.4.3)<br />
+<li><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons <em>(v22.4.1)</em></li>
+<li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor _(v22.4.3)  _
 Example: <code>await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);</code></li>
+<li>Added helper <code>DownloadFile(TGFile file, ...)</code> <em>(v22.4.4)</em></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {

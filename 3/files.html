@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Upload - A guide to Telegram.Bot library</title>
+        <title>Download/Upload Files - A guide to Telegram.Bot library</title>
 
 
         <!-- Custom HTML head -->
@@ -22,32 +22,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="shortcut icon" href="../../favicon.png">
-        <link rel="stylesheet" href="../../css/variables.css">
-        <link rel="stylesheet" href="../../css/general.css">
-        <link rel="stylesheet" href="../../css/chrome.css">
-        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../theme/custom.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -99,7 +99,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -133,7 +133,7 @@
                     <h1 class="menu-title">A guide to Telegram.Bot library</h1>
 
                     <div class="right-buttons">
-                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/TelegramBots/book" title="Git repository" aria-label="Git repository">
@@ -232,18 +232,50 @@
 }
 
 </style>
-<h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
-<p>First, read the <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>.</p>
-<h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
-<p>To upload local file open stream and call one of the file-sending functions:</p>
-<pre><code class="language-C#">await using Stream stream = File.OpenRead("../hamlet.pdf");
-var message = await bot.SendDocument(chatId, document: InputFile.FromStream(stream, "hamlet.pdf"),
-    caption: "The Tragedy of Hamlet,\nPrince of Denmark");
+<h1 id="downloading-files"><a class="header" href="#downloading-files">Downloading files</a></h1>
+<p>To download a file, you have to know its file identifier: <code>FileId</code>.<br />
+You find this property in the <a href="https://core.telegram.org/bots/api#animation"><code>Animation</code></a>, <a href="https://core.telegram.org/bots/api#audio"><code>Audio</code></a>, <a href="https://core.telegram.org/bots/api#document"><code>Document</code></a>, <a href="https://core.telegram.org/bots/api#video"><code>Video</code></a>, <a href="https://core.telegram.org/bots/api#videonote"><code>VideoNote</code></a>, <a href="https://core.telegram.org/bots/api#voice"><code>Voice</code></a>, <a href="https://core.telegram.org/bots/api#sticker"><code>Sticker</code></a> objects from a message.</p>
+<p>For a <code>Photo</code>, you get an array <code>PhotoSize[]</code> with <code>FileId</code> for each resolution variants.
+The last entry contains the best quality: <code>message.Photo[^1].FileId</code></p>
+<p>For <code>ChatPhoto</code>, there is a <code>BigFileId</code> for best quality, and <code>SmallFileId</code> for low resolution.</p>
+<p>⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
+<h2 id="methods-for-downloading-a-file"><a class="header" href="#methods-for-downloading-a-file">Methods for downloading a file</a></h2>
+<p>Downloading a file from Telegram is done in two steps:</p>
+<ol>
+<li>Get file information with <a href="https://core.telegram.org/bots/api#getfile"><code>GetFile</code></a> method.</li>
+<li>Download the file with the <code>DownloadFile</code> method</li>
+</ol>
+<pre><code class="language-C#">var fileId = update.Message.Video.FileId;
+var tgFile = await bot.GetFile(fileId);
+
+await using var stream = File.Create("../downloaded.mp4");
+await bot.DownloadFile(tgFile, stream);
 </code></pre>
-<p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files.</p>
-<h2 id="upload-file-by-file-identifier"><a class="header" href="#upload-file-by-file-identifier">Upload file by file identifier</a></h2>
-<p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no limits for files sent this way.</p>
-<pre><code class="language-C#">var fileId = update.Message.Photo.Last().FileId;
+<p>For your convenience the library provides you a helper function that does both steps: <code>GetInfoAndDownloadFile</code></p>
+<pre><code class="language-C#">await using var ms = new MemoryStream();
+var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li>When downloading into a <code>MemoryStream</code>, remember to reset its <code>Position</code> before processing the content.</li>
+<li>The <code>TGFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
+</ul>
+<h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
+<p>First, read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>
+<h2 id="upload-local-file"><a class="header" href="#upload-local-file">Upload local file</a></h2>
+<p>To upload a file from your machine, open the stream and call one of the sending methods:</p>
+<pre><code class="language-C#">await using var stream = File.OpenRead("../hamlet.pdf");
+var message = await bot.SendDocument(chatId, stream, "The Tragedy of Hamlet,\nPrince of Denmark");
+</code></pre>
+<p>You can also specify the public filename manually, or use a MemoryStream:</p>
+<pre><code class="language-C#">var buffer = File.ReadAllBytes("../hamlet.pdf");
+await using var ms = new MemoryStream(buffer);
+var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"), "The Tragedy of Hamlet,\nPrince of Denmark");
+</code></pre>
+<p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
+<h2 id="upload-by-file-identifier"><a class="header" href="#upload-by-file-identifier">Upload by file identifier</a></h2>
+<p>If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a <code>FileId</code> property. Simply pass this <code>FileId</code> as a parameter instead of uploading. There are no size limits for files sent this way.</p>
+<pre><code class="language-C#">var fileId = update.Message.Photo[^1].FileId;
 var message = await bot.SendPhoto(chatId, fileId);
 </code></pre>
 <h2 id="upload-by-url"><a class="header" href="#upload-by-url">Upload by URL</a></h2>
@@ -255,11 +287,11 @@ var message = await bot.SendPhoto(chatId, fileId);
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../3/files/download.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../3/updates/webhook.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../4/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../3/inline.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -269,11 +301,11 @@ var message = await bot.SendPhoto(chatId, fileId);
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../3/files/download.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../3/updates/webhook.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../4/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../3/inline.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -288,13 +320,13 @@ var message = await bot.SendPhoto(chatId, fileId);
         </script>
 
 
-        <script src="../../elasticlunr.min.js"></script>
-        <script src="../../mark.min.js"></script>
-        <script src="../../searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="../../clipboard.min.js"></script>
-        <script src="../../highlight.js"></script>
-        <script src="../../book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 

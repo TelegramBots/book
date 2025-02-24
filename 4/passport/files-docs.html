@@ -317,7 +317,7 @@ Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport
 <li>Decrypts the encrypted file</li>
 <li>Writes the actual content to the destination stream</li>
 </ol>
-<pre><code class="language-c#">File encryptedFileInfo;
+<pre><code class="language-c#">TGFile encryptedFileInfo;
 using (System.IO.Stream stream = System.IO.File.OpenWrite("/path/to/front-side.jpg"))
 {
     encryptedFileInfo = await bot.DownloadAndDecryptPassportFileAsync(
@@ -365,7 +365,7 @@ using (System.IO.Stream
 This is essentially the same operation as done above via streams.
 We also post the selfie photo to a chat.</p>
 <pre><code class="language-c#">// fetch the info of the passport file(selfie) residing on Telegram servers
-File encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
+TGFile encryptedFileInfo = await bot.GetFile(element.Selfie.FileId);
 
 // download the encrypted file and get its bytes
 byte[] encryptedContent;
@@ -373,7 +373,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo, stream);
     encryptedContent = stream.ToArray();
 }
 
@@ -404,7 +404,7 @@ Translations are also encrypted passport files so their decryption is no differe
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
 
 // fetch passport file info
-File encryptedFileInfo = await bot.GetFile(passportFile.FileId);
+TGFile encryptedFileInfo = await bot.GetFile(passportFile.FileId);
 
 // download encrypted file and get its bytes
 byte[] encryptedContent;
@@ -412,7 +412,7 @@ using (System.IO.MemoryStream
     stream = new System.IO.MemoryStream(encryptedFileInfo.FileSize)
 )
 {
-    await bot.DownloadFile(encryptedFileInfo.FilePath, stream);
+    await bot.DownloadFile(encryptedFileInfo, stream);
     encryptedContent = stream.ToArray();
 }
 
