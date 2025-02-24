@@ -2310,7 +2310,7 @@ var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 <p>Notes:</p>
 <ul>
 <li>When downloading into a <code>MemoryStream</code>, remember to reset its <code>Position</code> before processing the content.</li>
-<li>The <code>TGFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
+<li>The <code>tgFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
 </ul>
 <h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
 <p>First, read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>
@@ -2322,7 +2322,8 @@ var message = await bot.SendDocument(chatId, stream, "The Tragedy of Hamlet,\nPr
 <p>You can also specify the public filename manually, or use a MemoryStream:</p>
 <pre><code class="language-C#">var buffer = File.ReadAllBytes("../hamlet.pdf");
 await using var ms = new MemoryStream(buffer);
-var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"), "The Tragedy of Hamlet,\nPrince of Denmark");
+var message = await bot.SendDocument(chatId, InputFile.FromStream(ms, "Tragedy.pdf"),
+                                     "The Tragedy of Hamlet,\nPrince of Denmark");
 </code></pre>
 <p>Be aware of limitation for this method - 10 MB max size for photos, 50 MB for other files. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></p>
 <h2 id="upload-by-file-identifier"><a class="header" href="#upload-by-file-identifier">Upload by file identifier</a></h2>
@@ -2332,7 +2333,7 @@ var message = await bot.SendPhoto(chatId, fileId);
 </code></pre>
 <h2 id="upload-by-url"><a class="header" href="#upload-by-url">Upload by URL</a></h2>
 <p>Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.</p>
-<pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg");
+<pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://picsum.photos/640/480.jpg");
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
@@ -4390,7 +4391,7 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 </div>
 <ul>
 <li><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons <em>(v22.4.1)</em></li>
-<li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor _(v22.4.3)  _
+<li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor <em>(v22.4.3)</em><br />
 Example: <code>await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);</code></li>
 <li>Added helper <code>DownloadFile(TGFile file, ...)</code> <em>(v22.4.4)</em></li>
 </ul>
