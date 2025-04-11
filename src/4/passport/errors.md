@@ -3,7 +3,6 @@
 ## Handling Data Errors
 
 [![setPassportDataErrors method](https://img.shields.io/badge/Bot_API_method-setPassportDataErrors-blue.svg?style=flat-square)](https://core.telegram.org/bots/api#setpassportdataerrors)
-[![Passport Element Errors tests](https://img.shields.io/badge/Examples-Passport_Element_Errors-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/test/IntegrationTests/Passport%20Element%20Errors)
 
 If the passport data you received contains errors, the bot can use the [SetPassportDataErrors](https://core.telegram.org/bots/api#setpassportdataerrors) method to inform the user and request information again. The user will not be able to resend the data, until all errors are fixed.
 
@@ -46,9 +45,7 @@ await bot.SetPassportDataErrors(passportMessage.From.Id, errors);
 
 ## Decryption error (`PassportDataDecryptionException`)
 
-Methods on [`IDecrypter`](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs)
-might throw [`PassportDataDecryptionException`](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/PassportDataDecryptionException.cs) exception
-if an error happens during decryption.
+Methods on `Decrypter` might throw `PassportDataDecryptionException` exception if an error happens during decryption.
 The exception message tells you what went wrong but there is not much you can do to resolve it.
 Maybe let your user know the issue and ask for Passport data again.
 

@@ -86,7 +86,7 @@ You can have several rows and columns of inline buttons of mixed types.
 
 ### Callback buttons
 
-When a user presses a [callback button], no messages are sent to the chat, and your bot simply receives an `update.CallbackQuery` instead.
+When a user presses a [callback button], no messages are sent to the chat, and your bot simply receives an `update.CallbackQuery` instead _(containing many information)_.  
 Upon receiving this, your bot should answer to that query within 10 seconds, using `AnswerCallbackQuery` _(or else the button gets momentarily disabled)_
 
 In this example, the arrays of `InlineKeyboardButton` are constructed from tuples `(title, callbackData)`:

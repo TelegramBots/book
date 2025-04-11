@@ -63,11 +63,8 @@ We decrypt credentials using the RSA private key and verify that the same nonce 
 
 ```c#
 RSA key = EncryptionKey.ReadAsRsa();
-IDecrypter decrypter = new Decrypter();
-Credentials credentials = decrypter.DecryptCredentials(
-    passportData.Credentials,
-    key
-);
+var decrypter = new Decrypter();
+var credentials = decrypter.DecryptCredentials(passportData.Credentials, key);
 bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 ```
 
@@ -77,7 +74,7 @@ bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 
 [![method Should_decrypt_document_data](https://img.shields.io/badge/Test_Method-decrypt_Document_Data-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
-In our test case, there is only 1 item in the `message.passport_data.data` array and that's the encrypted element for
+In our test case, there is only 1 item in the `message.PassportData.Data` array and that's the encrypted element for
 the driver's license scope.
 We can get information such as document number and expiry date for the license from that element:
 
@@ -100,14 +97,14 @@ In this section we try to demonstrate different use cases that you might have fo
 
 No matter the method used, the underlying decryption logic is the same.
 It really comes down to your decision on working with _streams_ vs. _byte arrays_.
-[IDecrypter] gives you both options.
+`Decrypter` gives you both options.
 
 ### Front Side File
 
 [![method Should_decrypt_front_side_file](https://img.shields.io/badge/Test_Method-decrypt_Front_Side_File-green.svg?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs)
 
 A pretty handy extension method is used here to stream writing the front side file to disk.
-Method [DownloadAndDecryptPassportFileAsync] does a few things:
+Method `DownloadAndDecryptPassportFileAsync` does a few things:
 
 1. Makes an HTTP request to fetch the encrypted file's info using its _passport file\_id_
 1. Makes an HTTP request to download the encrypted file using its _file\_path_
@@ -205,8 +202,8 @@ A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.
 
 Assuming that the user sends one translation scan only for the license, we receive the translation passport file object in
-`message.passport_data.data[0].translation[0]` and its accompanying file credentials object in
-`credentials.secure_data.driver_license.translation[0]`.
+`message.PassportData.Data[0].Translation[0]` and its accompanying file credentials object in
+`credentials.SecureData.DriverLicense.Translation[0]`.
 
 File gets written to disk as a byte array.
 
@@ -241,5 +238,3 @@ await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 
 [field types in Telegram Passport]: https://core.telegram.org/passport#fields
 [Driver's license Scope Tests]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs
-[IDecrypter]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs
-[DownloadAndDecryptPassportFileAsync]: https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/TelegramBotClientPassportExtensions.cs

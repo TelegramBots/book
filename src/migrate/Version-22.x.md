@@ -1,10 +1,11 @@
-﻿# Migration guide for version 22.x
+﻿
+# Migration guide for version 22.x
 
 If you're migrating from version 19.x, you might want to read our [migration doc for v21](Version-21.x.md) first.
 There were lots of interesting changes in versions v21.x.
 
 We are back on [Nuget.org](https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab)!  
-And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)
+_And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)_
 
 ## ⚠️ Breaking changes
 
@@ -100,21 +101,36 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
 - Added constructor `ChatPermissions(bool)` to set all fields to **true** or **false**
 - Fix a potential issue in `.ToHtml()` escaping `&` in URLs
 - Renamed helper classes `Emoji` to `DiceEmoji` and `KnownReactionTypeEmoji` to `ReactionEmoji`
-- Changed `IReplyMarkup` to abstract class `ReplyMarkup` so you can directly pass the following objects for the `replyMarkup:` parameter:
-
-| Type | Meaning |
-|------|---------|
-| `string` | single keyboard text button |
-| `string[]` | keyboard text buttons on one row |
-| `string[][]` | multiple keyboard text buttons |
-| `KeyboardButton` | single keyboard button |
-| `KeyboardButton[]` | multiple keyboard buttons on one row |
-| `KeyboardButton[][]` or<br/>`IEnumerable<KeyboardButton>[]` | multiple keyboard buttons |
-| `InlineKeyboardButton` | single inline button |
-| `InlineKeyboardButton[]` | inline buttons on 1 row |
-| `InlineKeyboardButton[][]` or<br/> `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
-
-- `InlineKeyboardButton` can also now be implicitly constructed from a `(string text, string callbackOrUrl)` tuple for Callback or Url buttons _(v22.4.1)_
+- Changed `IReplyMarkup` to abstract class `ReplyMarkup` so you can directly pass [text, button or arrays of buttons](../3/inline.html#reply-markup) for the `replyMarkup:` parameter
 - `BotCommand` can also now be implicitly constructed from a `(string command, string description)` tuple or new explicit constructor _(v22.4.3)_  
   Example: `await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);`
 - Added helper `DownloadFile(TGFile file, ...)` _(v22.4.4)_
+
+## What's new in version 22.5
+- Support for [Bot API 9.0](https://core.telegram.org/bots/api#april-11-2025)
+- Removed the `*Async`-suffixed versions of the methods that were marked [Obsolete] since v22.0.  
+  → Follow the steps at the top of this page to adapt your existing code if you haven't already.
+- `Services.ConfigureTelegramBot*` is **no longer necessary** to make your Webhook bot compatible with Telegram updates!  
+  → We've made the library structures compatible with the default JsonCamelCaseNamingPolicy used by ASP.NET Core projects.  
+  In some rare cases _(like [Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot) / [Blazor](https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot) / [Trimming](https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained))_, this call might still be necessary.
+- Removed dependency on ASP.NET Core (Microsoft.AspNetCore.App) from the main library, by moving the `ConfigureTelegramBotMvc()` method to a separate package [Telegram.Bot.AspNetCore](https://github.com/TelegramBots/Telegram.Bot.AspNetCore)  
+  → That dependency caused some issues for users deploying to Docker / Android / WebAssembly  
+  → As explained above, you shouldn't need this method anymore in most cases, but if you do, you can add the [nuget package Telegram.Bot.AspNetCore](https://www.nuget.org/packages/Telegram.Bot.AspNetCore) to your project
+- Merged the Telegram.Bot.Extensions.Passport package into the main library  
+  → It was old and unmaintained, but now its methods and structures supporting [Telegram Passport](https://core.telegram.org/passport#personaldetails) are up-to-date and available directly in Telegram.Bot
+- New `HtmlText` helpers method: `ToPlain`, `PlainLength` and `Truncate` to get
+  the plain text only from HTML text _(remove the &lt;tags&gt;)_, the number of plain text characters, or truncate the HTML to a number of plain text characters _(useful to comply with the 4096/1024 message limit)_
+- Added constructor `ChatAdministratorRights(bool)` to set all fields to **true** or **false** (except IsAnonymous)
+- Added helper property `message.IsServiceMessage` to detect service messages vs content messages
+
+Builds & Releases:
+- Dropped Azure DevOps builds in favor of GitHub Actions  
+  → Our [alternative nuget feed](https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release) will no longer be updated since we are [back on Nuget.org](https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab)
+- "Prerelease" versions are now pushed to Nuget.org as the library is developed, for people who want to test upcoming features early  
+  → You can provide feedback on these versions and help us detect problems before the next stable release
+- Now including **Release Notes** as part of Nuget packages  
+  → You can see them on [nuget.org package page](https://www.nuget.org/packages/Telegram.Bot/#releasenotes-body-tab), or in your IDE's Package Manager, on the Package Detail pane where you select a version.
+
+2 small breaking changes:
+- Merged `AnswerShippingQuery` method overloads. You'll need to add `errorMessage:` in your code to pass that argument and indicate failure.
+- The `Poll.Type` is now an enum `PollType` instead of `string`

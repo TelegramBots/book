@@ -4,84 +4,54 @@
 
 With Webhook, your web application gets notified [sequentially](#updates-are-posted-sequentially-to-your-webapp), automatically by Telegram when new updates arrive for your bot.
 
-Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings `Telegram.Bot.JsonBotAPI.Options`.
+Your application will receive HTTP POST requests with an Update structure in the JSON body.
 
-Below, you will find how to configure an **ASP.NET Core Web API** project to make it work with Telegram.Bot, either with Controllers or Minimal APIs
+> Since version 22.5 of the library, you no longer need to configure the JSON serialization settings for your WebApp in most cases.
+> But if necessary, refer to section **[Configure JSON serialization settings](#configure-json-serialization-settings)** below.
 
-⚠️ IMPORTANT: This guide describes configuration for versions 21.* and later of the library _(based on System.Text.Json rather than NewtonsoftJson)_. If you're using older versions, [you should upgrade first](../../migrate/Version-21.x.md)!
+Here are example codes for handling updates, depending on the types of ASP.NET projects:
 
-## ASP.NET Core with Controllers (MVC)
-[![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
-
-First you need to configure your Web App startup code:
-- Locate the line `services.AddControllers();` _(in Program.cs or Startup.cs)_
-- If you're using .NET 6.0 or more recent, add the line:
+* **ASP.NET Core with Controllers (MVC)** [![ASP.NET example with Controllers](https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers)
     ```csharp
-    services.ConfigureTelegramBotMvc();
+    // Add this action in a controller class (like BotController.cs):
+    [HttpPost]
+    public async Task HandleUpdate([FromBody] Update update)
+    {
+        // put your code to handle one Update here.
+    }
     ```
-- For older .NET versions, add the line:
+* **ASP.NET Core with Minimal APIs** [![ASP.NET example with Minimal APIs](https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
     ```csharp
-    services.ConfigureTelegramBot<Microsoft.AspNetCore.Mvc.JsonOptions>(opt => opt.JsonSerializerOptions);
+    app.MapPost("/bot", (Update update) => HandleUpdate(update));
+    ...
+
+    async Task HandleUpdate(Update update)
+    {
+        // put your code to handle one Update here.
+    }
     ```
-
-Next, in a controller class (like BotController.cs), you need to add an action for the updates. Typically:
-```csharp
-[HttpPost]
-public async Task HandleUpdate([FromBody] Update update)
-{
-    // put your code to handle one Update here.
-}
-```
-
-Good, now skip to [SetWebHook](#setwebhook) below
-
-## ASP.NET Core with Minimal APIs
-[![ASP.NET example with Minimal APIs](https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs)
-
-First you need to configure your Web App startup code:
-- Locate the line `builder.Build();` _(in Program.cs)_
-- Above it, insert the line:
+* **Old ASP.NET 4.x support**
     ```csharp
-    builder.Services.ConfigureTelegramBot<Microsoft.AspNetCore.Http.Json.JsonOptions>(opt => opt.SerializerOptions);
+    public async Task<IHttpActionResult> Post()
+    {
+        Update update;
+        using (var body = await Request.Content.ReadAsStreamAsync())
+            update = System.Text.Json.JsonSerializer.Deserialize<Update>(body, JsonBotAPI.Options);
+        await HandleUpdate(update);
+        return Ok();
+    }
     ```
 
-Next, you need to map an action for the updates. Typically:
-```csharp
-app.MapPost("/bot", (Update update) => HandleUpdate(update));
-...
-
-async Task HandleUpdate(Update update)
-{
-    // put your code to handle one Update here.
-}
-```
-
-Good, now skip to [SetWebHook](#setwebhook) below
-
-## Old ASP.NET 4.x support
-
-For older .NET Framework usage, you may use the following code:
-```csharp
-public async Task<IHttpActionResult> Post()
-{
-    Update update;
-    using (var body = await Request.Content.ReadAsStreamAsync())
-        update = System.Text.Json.JsonSerializer.Deserialize<Update>(body, JsonBotAPI.Options);
-    await HandleUpdate(update);
-    return Ok();
-}
-```
-
-## SetWebHook
-Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:
+Now that your update handler code is ready, you need to instruct Telegram to start sending updates to your URL, by running:
 ```csharp
 var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
 await bot.SetWebhook("https://your.public.host:port/bot", allowedUpdates: []);
 ```
 
-You can now deploy your app to your webapp host machine.
+Great! You can now deploy your app to your webapp host machine.
 
 _Note: If you decide to switch back to [Long Polling](polling.md), remember to call `bot.DeleteWebhook()`_
+
 
 ## Common issues
 
@@ -118,3 +88,30 @@ Initially Telegram will resend the failed update quickly, then with increasing i
 
 If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request by returning from the controller immediately.  
 For more details, refer to [this section of our documentation](.#sequential-vs-parallel-updates).
+
+
+## Configure JSON serialization settings
+
+Telegram updates & requests are sent using JSON payloads with `snake_case` property names.
+Such serialization is normally achieved thanks to `Telegram.Bot.JsonBotAPI.Options` serialization settings.
+
+Since version 22.5, the library should already be compatible with Telegram Webhook without needing extra configuration for your WebApp.
+
+In some rare cases _(like [Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot) / [Blazor](https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot) / [Trimming](https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained))_, this might still be necessary and here is how to configure your project:
+* **ASP.NET Core with Minimal APIs**  
+    Locate the line `builder.Build();` _(in Program.cs)_ and insert this line <u>above</u>:
+    ```csharp
+    builder.Services.ConfigureTelegramBot<Microsoft.AspNetCore.Http.Json.JsonOptions>(opt => opt.SerializerOptions);
+    ```
+* **ASP.NET Core with Controllers** _(recommended method for .NET 6.0+)_  
+    Add the [nuget package](https://www.nuget.org/packages/Telegram.Bot.AspNetCore) `Telegram.Bot.AspNetCore` to your project.  
+    Locate the line `services.AddControllers();` _(in Program.cs or Startup.cs)_ and add this line below:
+    ```csharp
+    services.ConfigureTelegramBotMvc();
+    ```
+* **ASP.NET Core with Controllers** _(any .NET version)_  
+    Locate the line `services.AddControllers();` _(in Program.cs or Startup.cs)_ and add this line below:
+    ```csharp
+    services.ConfigureTelegramBot<Microsoft.AspNetCore.Mvc.JsonOptions>(opt => opt.JsonSerializerOptions);
+    ```
+

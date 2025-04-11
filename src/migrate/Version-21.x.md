@@ -2,7 +2,7 @@
 
 Important notes:
 - Don't bother about version 20, migrate directly to version 21.*
-- You won't find this version on Nuget: [See this guide to install it in your programs](https://telegrambots.github.io/book/index.html#-installation).
+- You won't find this version on Nuget: It was available [on our own nuget package feed](https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot).
 - Version 21.10 supports [Bot API 7.9](https://core.telegram.org/bots/api#august-14-2024) _(including [Telegram Stars payments](../4/payments.md))_
 - Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. _([See below](#webhooks-with-systemtextjson))_
 
