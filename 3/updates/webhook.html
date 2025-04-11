@@ -33,18 +33,19 @@
         <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../../theme/custom.css">
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "../../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc.js"></script>
@@ -54,8 +55,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -69,7 +70,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -82,8 +84,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -119,6 +121,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -235,42 +238,23 @@
 <h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
 <p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a></p>
 <p>With Webhook, your web application gets notified <a href="#updates-are-posted-sequentially-to-your-webapp">sequentially</a>, automatically by Telegram when new updates arrive for your bot.</p>
-<p>Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings <code>Telegram.Bot.JsonBotAPI.Options</code>.</p>
-<p>Below, you will find how to configure an <strong>ASP.NET Core Web API</strong> project to make it work with Telegram.Bot, either with Controllers or Minimal APIs</p>
-<p>⚠️ IMPORTANT: This guide describes configuration for versions 21.* and later of the library <em>(based on System.Text.Json rather than NewtonsoftJson)</em>. If you're using older versions, <a href="../../migrate/Version-21.x.html">you should upgrade first</a>!</p>
-<h2 id="aspnet-core-with-controllers-mvc"><a class="header" href="#aspnet-core-with-controllers-mvc">ASP.NET Core with Controllers (MVC)</a></h2>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers"><img src="https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square" alt="ASP.NET example with Controllers" /></a></p>
-<p>First you need to configure your Web App startup code:</p>
+<p>Your application will receive HTTP POST requests with an Update structure in the JSON body.</p>
+<blockquote>
+<p>Since version 22.5 of the library, you no longer need to configure the JSON serialization settings for your WebApp in most cases.
+But if necessary, refer to section <strong><a href="#configure-json-serialization-settings">Configure JSON serialization settings</a></strong> below.</p>
+</blockquote>
+<p>Here are example codes for handling updates, depending on the types of ASP.NET projects:</p>
 <ul>
-<li>Locate the line <code>services.AddControllers();</code> <em>(in Program.cs or Startup.cs)</em></li>
-<li>If you're using .NET 6.0 or more recent, add the line:
-<pre><code class="language-csharp">services.ConfigureTelegramBotMvc();
-</code></pre>
-</li>
-<li>For older .NET versions, add the line:
-<pre><code class="language-csharp">services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);
-</code></pre>
-</li>
-</ul>
-<p>Next, in a controller class (like BotController.cs), you need to add an action for the updates. Typically:</p>
-<pre><code class="language-csharp">[HttpPost]
+<li><strong>ASP.NET Core with Controllers (MVC)</strong> <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers"><img src="https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square" alt="ASP.NET example with Controllers" /></a>
+<pre><code class="language-csharp">// Add this action in a controller class (like BotController.cs):
+[HttpPost]
 public async Task HandleUpdate([FromBody] Update update)
 {
     // put your code to handle one Update here.
 }
 </code></pre>
-<p>Good, now skip to <a href="#setwebhook">SetWebHook</a> below</p>
-<h2 id="aspnet-core-with-minimal-apis"><a class="header" href="#aspnet-core-with-minimal-apis">ASP.NET Core with Minimal APIs</a></h2>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square" alt="ASP.NET example with Minimal APIs" /></a></p>
-<p>First you need to configure your Web App startup code:</p>
-<ul>
-<li>Locate the line <code>builder.Build();</code> <em>(in Program.cs)</em></li>
-<li>Above it, insert the line:
-<pre><code class="language-csharp">builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);
-</code></pre>
 </li>
-</ul>
-<p>Next, you need to map an action for the updates. Typically:</p>
+<li><strong>ASP.NET Core with Minimal APIs</strong> <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square" alt="ASP.NET example with Minimal APIs" /></a>
 <pre><code class="language-csharp">app.MapPost("/bot", (Update update) =&gt; HandleUpdate(update));
 ...
 
@@ -279,9 +263,8 @@ async Task HandleUpdate(Update update)
     // put your code to handle one Update here.
 }
 </code></pre>
-<p>Good, now skip to <a href="#setwebhook">SetWebHook</a> below</p>
-<h2 id="old-aspnet-4x-support"><a class="header" href="#old-aspnet-4x-support">Old ASP.NET 4.x support</a></h2>
-<p>For older .NET Framework usage, you may use the following code:</p>
+</li>
+<li><strong>Old ASP.NET 4.x support</strong>
 <pre><code class="language-csharp">public async Task&lt;IHttpActionResult&gt; Post()
 {
     Update update;
@@ -291,12 +274,13 @@ async Task HandleUpdate(Update update)
     return Ok();
 }
 </code></pre>
-<h2 id="setwebhook"><a class="header" href="#setwebhook">SetWebHook</a></h2>
-<p>Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:</p>
+</li>
+</ul>
+<p>Now that your update handler code is ready, you need to instruct Telegram to start sending updates to your URL, by running:</p>
 <pre><code class="language-csharp">var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
 await bot.SetWebhook("https://your.public.host:port/bot", allowedUpdates: []);
 </code></pre>
-<p>You can now deploy your app to your webapp host machine.</p>
+<p>Great! You can now deploy your app to your webapp host machine.</p>
 <p><em>Note: If you decide to switch back to <a href="polling.html">Long Polling</a>, remember to call <code>bot.DeleteWebhook()</code></em></p>
 <h2 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h2>
 <ul>
@@ -330,6 +314,29 @@ LastUpdateId = update.Id;
 <p>Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.</p>
 <p>If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request by returning from the controller immediately.<br />
 For more details, refer to <a href=".#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
+<h2 id="configure-json-serialization-settings"><a class="header" href="#configure-json-serialization-settings">Configure JSON serialization settings</a></h2>
+<p>Telegram updates &amp; requests are sent using JSON payloads with <code>snake_case</code> property names.
+Such serialization is normally achieved thanks to <code>Telegram.Bot.JsonBotAPI.Options</code> serialization settings.</p>
+<p>Since version 22.5, the library should already be compatible with Telegram Webhook without needing extra configuration for your WebApp.</p>
+<p>In some rare cases <em>(like <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot">Native AOT</a> / <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot">Blazor</a> / <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained">Trimming</a>)</em>, this might still be necessary and here is how to configure your project:</p>
+<ul>
+<li><strong>ASP.NET Core with Minimal APIs</strong><br />
+Locate the line <code>builder.Build();</code> <em>(in Program.cs)</em> and insert this line <u>above</u>:
+<pre><code class="language-csharp">builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);
+</code></pre>
+</li>
+<li><strong>ASP.NET Core with Controllers</strong> <em>(recommended method for .NET 6.0+)</em><br />
+Add the <a href="https://www.nuget.org/packages/Telegram.Bot.AspNetCore">nuget package</a> <code>Telegram.Bot.AspNetCore</code> to your project.<br />
+Locate the line <code>services.AddControllers();</code> <em>(in Program.cs or Startup.cs)</em> and add this line below:
+<pre><code class="language-csharp">services.ConfigureTelegramBotMvc();
+</code></pre>
+</li>
+<li><strong>ASP.NET Core with Controllers</strong> <em>(any .NET version)</em><br />
+Locate the line <code>services.AddControllers();</code> <em>(in Program.cs or Startup.cs)</em> and add this line below:
+<pre><code class="language-csharp">services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);
+</code></pre>
+</li>
+</ul>
 
                     </main>
 

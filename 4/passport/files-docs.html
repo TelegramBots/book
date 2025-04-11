@@ -33,18 +33,19 @@
         <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../../theme/custom.css">
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "../../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc.js"></script>
@@ -54,8 +55,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -69,7 +70,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -82,8 +84,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -119,6 +121,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -279,17 +282,14 @@ Also, test methods here expect a selfie photo and a file for translation scan.</
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decrypt_Credentials-green.svg?style=flat-square" alt="method Should_decrypt_credentials" /></a></p>
 <p>We decrypt credentials using the RSA private key and verify that the same nonce is used.</p>
 <pre><code class="language-c#">RSA key = EncryptionKey.ReadAsRsa();
-IDecrypter decrypter = new Decrypter();
-Credentials credentials = decrypter.DecryptCredentials(
-    passportData.Credentials,
-    key
-);
+var decrypter = new Decrypter();
+var credentials = decrypter.DecryptCredentials(passportData.Credentials, key);
 bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 </code></pre>
 <h2 id="id-document-data"><a class="header" href="#id-document-data">ID Document Data</a></h2>
 <p><a href="https://core.telegram.org/passport#iddocumentdata"><img src="https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square" alt="IdDocumentData type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-decrypt_Document_Data-green.svg?style=flat-square" alt="method Should_decrypt_document_data" /></a></p>
-<p>In our test case, there is only 1 item in the <code>message.passport_data.data</code> array and that's the encrypted element for
+<p>In our test case, there is only 1 item in the <code>message.PassportData.Data</code> array and that's the encrypted element for
 the driver's license scope.
 We can get information such as document number and expiry date for the license from that element:</p>
 <pre><code class="language-c#">IdDocumentData licenseDoc = decrypter.DecryptData&lt;IdDocumentData&gt;(
@@ -306,11 +306,11 @@ the actual JPEG file content.
 In this section we try to demonstrate different use cases that you might have for such files.</p>
 <p>No matter the method used, the underlying decryption logic is the same.
 It really comes down to your decision on working with <em>streams</em> vs. <em>byte arrays</em>.
-<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">IDecrypter</a> gives you both options.</p>
+<code>Decrypter</code> gives you both options.</p>
 <h3 id="front-side-file"><a class="header" href="#front-side-file">Front Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-decrypt_Front_Side_File-green.svg?style=flat-square" alt="method Should_decrypt_front_side_file" /></a></p>
 <p>A pretty handy extension method is used here to stream writing the front side file to disk.
-Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/TelegramBotClientPassportExtensions.cs">DownloadAndDecryptPassportFileAsync</a> does a few things:</p>
+Method <code>DownloadAndDecryptPassportFileAsync</code> does a few things:</p>
 <ol>
 <li>Makes an HTTP request to fetch the encrypted file's info using its <em>passport file_id</em></li>
 <li>Makes an HTTP request to download the encrypted file using its <em>file_path</em></li>
@@ -397,8 +397,8 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
 <p>A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.</p>
 <p>Assuming that the user sends one translation scan only for the license, we receive the translation passport file object in
-<code>message.passport_data.data[0].translation[0]</code> and its accompanying file credentials object in
-<code>credentials.secure_data.driver_license.translation[0]</code>.</p>
+<code>message.PassportData.Data[0].Translation[0]</code> and its accompanying file credentials object in
+<code>credentials.SecureData.DriverLicense.Translation[0]</code>.</p>
 <p>File gets written to disk as a byte array.</p>
 <pre><code class="language-c#">PassportFile passportFile = element.Translation[0];
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
@@ -431,7 +431,7 @@ await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../4/passport/quickstart.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../4/passport/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -445,7 +445,7 @@ await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../4/passport/quickstart.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../4/passport/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 

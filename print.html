@@ -34,18 +34,19 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme/custom.css">
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -55,8 +56,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -70,7 +71,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -83,8 +85,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -120,6 +122,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -1526,7 +1529,7 @@ await bot.SendMessage(chatId, "Removing keyboard", replyMarkup: new ReplyKeyboar
 <p>Unlike custom reply keyboards, pressing buttons on inline keyboards doesn't result in messages sent to the chat. Instead, inline keyboards support buttons that work behind the scenes: <a href="2/reply-markup.html#callback-buttons">callback buttons</a>, <a href="2/reply-markup.html#url-buttons">URL buttons</a> and <a href="2/reply-markup.html#switch-to-inline-buttons">switch to inline buttons</a>.</p>
 <p>You can have several rows and columns of inline buttons of mixed types.</p>
 <h3 id="callback-buttons"><a class="header" href="#callback-buttons">Callback buttons</a></h3>
-<p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat, and your bot simply receives an <code>update.CallbackQuery</code> instead.
+<p>When a user presses a <a href="https://core.telegram.org/bots/2-0-intro#callback-buttons">callback button</a>, no messages are sent to the chat, and your bot simply receives an <code>update.CallbackQuery</code> instead <em>(containing many information)</em>.<br />
 Upon receiving this, your bot should answer to that query within 10 seconds, using <code>AnswerCallbackQuery</code> <em>(or else the button gets momentarily disabled)</em></p>
 <p>In this example, the arrays of <code>InlineKeyboardButton</code> are constructed from tuples <code>(title, callbackData)</code>:</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
@@ -1784,6 +1787,7 @@ by checking if <code>Message.ForwardOrigin</code> is set:</p>
 </li>
 <li><a href="3/files.html">Download/Upload Files</a></li>
 <li><a href="3/inline.html">Inline Mode</a></li>
+<li><a href="3/helpers.html">Library helpers</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
@@ -2122,42 +2126,23 @@ while (!cts.IsCancellationRequested)
 <h1 id="webhooks"><a class="header" href="#webhooks">Webhooks</a></h1>
 <p><a href="https://core.telegram.org/bots/webhooks"><img src="https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square" alt="Webhook guide" /></a></p>
 <p>With Webhook, your web application gets notified <a href="3/updates/webhook.html#updates-are-posted-sequentially-to-your-webapp">sequentially</a>, automatically by Telegram when new updates arrive for your bot.</p>
-<p>Your application will receive HTTP POST requests with an Update structure in the body, using specific JSON serialization settings <code>Telegram.Bot.JsonBotAPI.Options</code>.</p>
-<p>Below, you will find how to configure an <strong>ASP.NET Core Web API</strong> project to make it work with Telegram.Bot, either with Controllers or Minimal APIs</p>
-<p>⚠️ IMPORTANT: This guide describes configuration for versions 21.* and later of the library <em>(based on System.Text.Json rather than NewtonsoftJson)</em>. If you're using older versions, <a href="3/updates/../../migrate/Version-21.x.html">you should upgrade first</a>!</p>
-<h2 id="aspnet-core-with-controllers-mvc"><a class="header" href="#aspnet-core-with-controllers-mvc">ASP.NET Core with Controllers (MVC)</a></h2>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers"><img src="https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square" alt="ASP.NET example with Controllers" /></a></p>
-<p>First you need to configure your Web App startup code:</p>
+<p>Your application will receive HTTP POST requests with an Update structure in the JSON body.</p>
+<blockquote>
+<p>Since version 22.5 of the library, you no longer need to configure the JSON serialization settings for your WebApp in most cases.
+But if necessary, refer to section <strong><a href="3/updates/webhook.html#configure-json-serialization-settings">Configure JSON serialization settings</a></strong> below.</p>
+</blockquote>
+<p>Here are example codes for handling updates, depending on the types of ASP.NET projects:</p>
 <ul>
-<li>Locate the line <code>services.AddControllers();</code> <em>(in Program.cs or Startup.cs)</em></li>
-<li>If you're using .NET 6.0 or more recent, add the line:
-<pre><code class="language-csharp">services.ConfigureTelegramBotMvc();
-</code></pre>
-</li>
-<li>For older .NET versions, add the line:
-<pre><code class="language-csharp">services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);
-</code></pre>
-</li>
-</ul>
-<p>Next, in a controller class (like BotController.cs), you need to add an action for the updates. Typically:</p>
-<pre><code class="language-csharp">[HttpPost]
+<li><strong>ASP.NET Core with Controllers (MVC)</strong> <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.Controllers"><img src="https://img.shields.io/badge/Examples-Webhook.Controllers-green?style=flat-square" alt="ASP.NET example with Controllers" /></a>
+<pre><code class="language-csharp">// Add this action in a controller class (like BotController.cs):
+[HttpPost]
 public async Task HandleUpdate([FromBody] Update update)
 {
     // put your code to handle one Update here.
 }
 </code></pre>
-<p>Good, now skip to <a href="3/updates/webhook.html#setwebhook">SetWebHook</a> below</p>
-<h2 id="aspnet-core-with-minimal-apis"><a class="header" href="#aspnet-core-with-minimal-apis">ASP.NET Core with Minimal APIs</a></h2>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square" alt="ASP.NET example with Minimal APIs" /></a></p>
-<p>First you need to configure your Web App startup code:</p>
-<ul>
-<li>Locate the line <code>builder.Build();</code> <em>(in Program.cs)</em></li>
-<li>Above it, insert the line:
-<pre><code class="language-csharp">builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);
-</code></pre>
 </li>
-</ul>
-<p>Next, you need to map an action for the updates. Typically:</p>
+<li><strong>ASP.NET Core with Minimal APIs</strong> <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Webhook.MinimalAPIs"><img src="https://img.shields.io/badge/Examples-Webhook.MinimalAPIs-green?style=flat-square" alt="ASP.NET example with Minimal APIs" /></a>
 <pre><code class="language-csharp">app.MapPost("/bot", (Update update) =&gt; HandleUpdate(update));
 ...
 
@@ -2166,9 +2151,8 @@ async Task HandleUpdate(Update update)
     // put your code to handle one Update here.
 }
 </code></pre>
-<p>Good, now skip to <a href="3/updates/webhook.html#setwebhook">SetWebHook</a> below</p>
-<h2 id="old-aspnet-4x-support"><a class="header" href="#old-aspnet-4x-support">Old ASP.NET 4.x support</a></h2>
-<p>For older .NET Framework usage, you may use the following code:</p>
+</li>
+<li><strong>Old ASP.NET 4.x support</strong>
 <pre><code class="language-csharp">public async Task&lt;IHttpActionResult&gt; Post()
 {
     Update update;
@@ -2178,12 +2162,13 @@ async Task HandleUpdate(Update update)
     return Ok();
 }
 </code></pre>
-<h2 id="setwebhook"><a class="header" href="#setwebhook">SetWebHook</a></h2>
-<p>Your update handler code is ready, now you need to instruct Telegram to send updates to your URL, by running:</p>
+</li>
+</ul>
+<p>Now that your update handler code is ready, you need to instruct Telegram to start sending updates to your URL, by running:</p>
 <pre><code class="language-csharp">var bot = new TelegramBotClient("YOUR_BOT_TOKEN");
 await bot.SetWebhook("https://your.public.host:port/bot", allowedUpdates: []);
 </code></pre>
-<p>You can now deploy your app to your webapp host machine.</p>
+<p>Great! You can now deploy your app to your webapp host machine.</p>
 <p><em>Note: If you decide to switch back to <a href="3/updates/polling.html">Long Polling</a>, remember to call <code>bot.DeleteWebhook()</code></em></p>
 <h2 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h2>
 <ul>
@@ -2217,6 +2202,29 @@ LastUpdateId = update.Id;
 <p>Initially Telegram will resend the failed update quickly, then with increasing intervals up to a few minutes. So if your webapp wasn't working for some time, you may have to wait a bit to receive a POST request with the next update.</p>
 <p>If you need to process the incoming updates faster, in parallel, you will want to delegate their handling separately and acknowledge the POST request by returning from the controller immediately.<br />
 For more details, refer to <a href="3/updates/.#sequential-vs-parallel-updates">this section of our documentation</a>.</p>
+<h2 id="configure-json-serialization-settings"><a class="header" href="#configure-json-serialization-settings">Configure JSON serialization settings</a></h2>
+<p>Telegram updates &amp; requests are sent using JSON payloads with <code>snake_case</code> property names.
+Such serialization is normally achieved thanks to <code>Telegram.Bot.JsonBotAPI.Options</code> serialization settings.</p>
+<p>Since version 22.5, the library should already be compatible with Telegram Webhook without needing extra configuration for your WebApp.</p>
+<p>In some rare cases <em>(like <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot">Native AOT</a> / <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot">Blazor</a> / <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained">Trimming</a>)</em>, this might still be necessary and here is how to configure your project:</p>
+<ul>
+<li><strong>ASP.NET Core with Minimal APIs</strong><br />
+Locate the line <code>builder.Build();</code> <em>(in Program.cs)</em> and insert this line <u>above</u>:
+<pre><code class="language-csharp">builder.Services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Http.Json.JsonOptions&gt;(opt =&gt; opt.SerializerOptions);
+</code></pre>
+</li>
+<li><strong>ASP.NET Core with Controllers</strong> <em>(recommended method for .NET 6.0+)</em><br />
+Add the <a href="https://www.nuget.org/packages/Telegram.Bot.AspNetCore">nuget package</a> <code>Telegram.Bot.AspNetCore</code> to your project.<br />
+Locate the line <code>services.AddControllers();</code> <em>(in Program.cs or Startup.cs)</em> and add this line below:
+<pre><code class="language-csharp">services.ConfigureTelegramBotMvc();
+</code></pre>
+</li>
+<li><strong>ASP.NET Core with Controllers</strong> <em>(any .NET version)</em><br />
+Locate the line <code>services.AddControllers();</code> <em>(in Program.cs or Startup.cs)</em> and add this line below:
+<pre><code class="language-csharp">services.ConfigureTelegramBot&lt;Microsoft.AspNetCore.Mvc.JsonOptions&gt;(opt =&gt; opt.JsonSerializerOptions);
+</code></pre>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -2470,6 +2478,162 @@ private readonly string[] siteDescriptions =
 <p><img src="3/docs/shot-setinlinefeedback_command.png" alt="set inline feedback command" /></p>
 <p>Final result:</p>
 <p><img src="3/docs/shot-inline_bot_showcase.png" alt="result" /></p>
+<div style="break-before: page; page-break-before: always;"></div><style>
+.mdbook-alerts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-left: 0.25em solid var(--mdbook-alerts-color);
+}
+
+.mdbook-alerts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-alerts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-alerts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-alerts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-alerts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-alerts-icon);
+  mask-image: var(--mdbook-alerts-icon);
+}
+
+.mdbook-alerts-note {
+  --mdbook-alerts-color: rgb(9, 105, 218);
+  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-tip {
+  --mdbook-alerts-color: rgb(26, 127, 55);
+  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-important {
+  --mdbook-alerts-color: rgb(130, 80, 223);
+  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-warning {
+  --mdbook-alerts-color: rgb(154, 103, 0);
+  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
+}
+
+.mdbook-alerts-caution {
+  --mdbook-alerts-color: rgb(207, 34, 46);
+  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
+  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
+}
+
+</style>
+<h1 id="list-of-helpers-in-the-library"><a class="header" href="#list-of-helpers-in-the-library">List of helpers in the library</a></h1>
+<p>Our library is mainly a bridge between your application and Telegram Bot API.<br />
+However, to simplify your life, we also provide a set of additional helpers methods and services, listed below.</p>
+<blockquote>
+<p>For more advanced features, you can look at <a href="https://github.com/TelegramBots/Telegram.Bot/wiki">high-level bot frameworks</a> constructed around our library</p>
+</blockquote>
+<h2 id="message-and-format-helpers"><a class="header" href="#message-and-format-helpers">Message and format helpers</a></h2>
+<ul>
+<li><code>message.MessageLink()</code>: Returns the <a href="3/t.me">t.me/...</a> link to this message, or <code>null</code> if the message was not in a Supergroup or Channel</li>
+<li><code>message.IsServiceMessage</code>: Detect service messages vs content messages</li>
+<li><code>message.ToMarkdown()</code> to convert the message to Markdown format</li>
+<li><code>message.ToHtml()</code> to convert the message to HTML format</li>
+<li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
+<li><code>HtmlText.Escape()</code> to escape reserved HTML characters in a string</li>
+<li><code>HtmlText.ToPlain()</code> to convert HTML string to plain text <em>(removing tags)</em></li>
+<li><code>HtmlText.PlainText()</code> to get the number of characters of plain text from HTML</li>
+<li><code>HtmlText.Truncate()</code> to truncate HTML string to a number of plain-text characters <em>(while still preserving the formatting)</em></li>
+</ul>
+<h2 id="easier-information"><a class="header" href="#easier-information">Easier information</a></h2>
+<ul>
+<li><code>chat.ToString()</code> &amp; <code>user.ToString()</code> to easily print/log information about the chat/user</li>
+<li><code>ChatMember</code> has properties <code>IsAdmin</code> and <code>IsInChat</code> to simplify testing if the user is an admin or currently inside the chat</li>
+</ul>
+<h2 id="updates"><a class="header" href="#updates">Updates</a></h2>
+<ul>
+<li><code>bot.DropPendingUpdates()</code> to clear the pending updates queue</li>
+<li><code>Update.AllTypes</code> is a constant array containing all <code>UpdateType</code>s, usable with <code>GetUpdates</code>/<code>SetWebhook</code></li>
+<li><code>bot.OnMessage</code> / <code>bot.OnUpdate</code> events to easily subscribe to messages or updates
+<em>(these automatically start a background task to poll for updates)</em></li>
+</ul>
+<h2 id="telegram-files"><a class="header" href="#telegram-files">Telegram files</a></h2>
+<ul>
+<li><code>bot.GetInfoAndDownloadFile</code> to get file information and download it in a single call</li>
+<li><code>TelegramBotClient.GetFileIdType(fileId)</code> to determine the type of object stored behind a FileId <em>(photo, video, etc)</em></li>
+</ul>
+<h2 id="simplified-constructors-and-implicit-conversions"><a class="header" href="#simplified-constructors-and-implicit-conversions">Simplified constructors and implicit conversions</a></h2>
+<p>We've added easier ways to construct various instances from other types, especially when passing arguments to methods:</p>
+<ul>
+<li><code>ChatPermissions(bool)</code> and <code>ChatAdministratorRights(bool)</code> constructors to set all Can* fields to the specified value</li>
+<li><code>ReactionType</code> from an emoji (string) or a customEmojiId (long)</li>
+<li><code>ReplyParameters</code> from a messageId (int), or a <code>Message</code> class, so you can pass these directly for the <code>replyParameters:</code> argument</li>
+<li><code>LinkPreviewOptions</code> from a <code>bool</code> where <code>true</code> means to disable the preview</li>
+<li><code>LabeledPrice</code> from tuple <code>(string label, long amount)</code></li>
+<li><code>BotCommand</code> from tuple <code>(string command, string description)</code></li>
+<li><code>BotCommandScope</code> has several static methods to construct scopes</li>
+<li><code>InputFile</code> from a fileId or URL (string) or a <code>Stream</code> or a received media file</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="language-csharp">await bot.RestrictChatMember(chatId, userId, new ChatPermissions(true)); // unmute
+await bot.SetMessageReaction(msg.Chat, msg.Id, ["👍"]);
+await bot.SendMessage(msg.Chat, "Visit t.me/tgbots_dotnet", replyParameters: msg, linkPreviewOptions: true);
+await bot.SendInvoice(chatId, "Product", "Description", "ProductID", "XTR", [("Price", 500)]);
+await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")], BotCommandScope.AllPrivateChats());
+await bot.SendPhoto(msg.Chat, "https://picsum.photos/310/200.jpg");
+await bot.SendVideo(msg.Chat, msg.Video, "Sending your video back");
+</code></pre>
+<h2 id="reply-markup-1"><a class="header" href="#reply-markup-1">Reply Markup</a></h2>
+<p>Keyboards can be easily constructed by passing directly the following type of objects for the <code>replyMarkup:</code> parameter:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>string</code></td><td>single keyboard text button</td></tr>
+<tr><td><code>string[]</code></td><td>keyboard text buttons on one row</td></tr>
+<tr><td><code>string[][]</code></td><td>multiple keyboard text buttons</td></tr>
+<tr><td><code>KeyboardButton</code></td><td>single keyboard button</td></tr>
+<tr><td><code>KeyboardButton[]</code></td><td>multiple keyboard buttons on one row</td></tr>
+<tr><td><code>KeyboardButton[][]</code> or<br/><code>IEnumerable&lt;KeyboardButton&gt;[]</code></td><td>multiple keyboard buttons</td></tr>
+<tr><td><code>InlineKeyboardButton</code></td><td>single inline button</td></tr>
+<tr><td><code>InlineKeyboardButton[]</code></td><td>inline buttons on 1 row</td></tr>
+<tr><td><code>InlineKeyboardButton[][]</code> or<br/> <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
+</tbody></table>
+</div>
+<p>Additionally, <code>InlineKeyboardButton</code> can be implicitly constructed from a tuple <code>(string text, string callbackOrUrl)</code> for Callback or Url buttons</p>
+<pre><code class="language-csharp">await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: InlineKeyboardButton.WithUrl("Click here", "https://telegrambots.github.io/book/"));
+await bot.SendMessage(botOwnerId, $"Annoying user: {msg.From}", replyMarkup: new InlineKeyboardButton[]
+    { ("Ban him", $"BAN {msg.From.Id}"), ("Mute him", $"MUTE {msg.From.Id}") });
+await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: new string[] { "MENU", "INFO", "LANGUAGE" });
+</code></pre>
+<h3 id="constructing-dynamically"><a class="header" href="#constructing-dynamically">Constructing dynamically</a></h3>
+<p><code>ReplyKeyboardMarkup</code> &amp; <code>InlineKeyboardMarkup</code> have methods to help you construct keyboards dynamically:</p>
+<pre><code class="language-csharp">var replyMarkup = new InlineKeyboardMarkup()
+    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddNewRow().AddButton("callback").AddButton("caption", "data")
+    .AddNewRow("with", "three", "buttons")
+    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
+</code></pre>
+<p>And you can use <code>new ReplyKeyboardMarkup(true)</code> to resize the reply keyboard.</p>
+<h2 id="mini-app-and-login-widget-validation"><a class="header" href="#mini-app-and-login-widget-validation">Mini-App and Login widget validation</a></h2>
+<ul>
+<li><code>AuthHelpers.ParseValidateData</code> should be used to confirm the authenticity of data received along Telegram's Mini-Apps or the Login Widget javascript requests</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -2923,7 +3087,7 @@ See <a href="https://core.telegram.org/bots/payments/currencies.json">"exp" in t
     payload: "InternalProductID",           // not sent nor shown to user
     currency: "XTR",                        // 3-letters ISO 4217 currency
     prices: [("Price", 500)],               // only one price for XTR
-    photoUrl: "https://cdn.pixabay.com/photo/2012/10/26/03/16/painting-63186_1280.jpg",
+    photoUrl: "https://cdn.pixabay.com/photo/2012/10/26/03/16/painting-63186_1280.jpg"
 );
 </code></pre>
 <p>Alternatively, you can instead generate an URL for that payment with <a href="https://core.telegram.org/bots/api#createinvoicelink"><code>CreateInvoiceLink</code></a>,
@@ -3083,7 +3247,8 @@ so you have more control with HTML/JS to display the interface you like.</p>
 <ul>
 <li><a href="4/../2/reply-markup.html#custom-reply-keyboards">Keyboard Buttons</a>: <code>KeyboardButton.WithWebApp</code></li>
 <li><a href="4/../2/reply-markup.html#inline-keyboards">Inline Buttons</a>: <code>InlineKeyboardButton.WithWebApp</code></li>
-<li>Chat menu button (left of user textbox): via @BotFather or <code>SetChatMenuButton</code></li>
+<li>Open App button: configured via @BotFather &gt; Bot Settings &gt; Configure Mini App</li>
+<li>Chat menu buton (left of user textbox): configured via <code>SetChatMenuButton</code></li>
 <li>Inline-mode results with a "Switch to Mini App" button: <code>AnswerInlineQuery</code> with parameter <code>InlineQueryResultsButton.WebApp</code></li>
 <li>Direct link like https://t.me/botusername/appname?startapp=command</li>
 </ul>
@@ -3165,104 +3330,18 @@ so you have more control with HTML/JS to display the interface you like.</p>
 
 </style>
 <h1 id="telegram-passport"><a class="header" href="#telegram-passport">Telegram Passport</a></h1>
-<p><a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget package" /></a>
-<a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/dt/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget downloads" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/github/stars/TelegramBots/Telegram.Bot.Extensions.Passport.svg?style=social&amp;label=Stars" alt="repository" /></a></p>
-<ul>
-<li><a href="4/passport/quickstart.html">Quickstart</a></li>
-<li><a href="4/passport/files-docs.html">Files &amp; Documents</a></li>
-<li><a href="4/passport/errors.html">Handling Errors</a></li>
-<li><a href="4/passport/key.html">RSA Key</a></li>
-</ul>
-<p><img src="4/passport/../docs/photo-tg_passport.gif" alt="telegram passport" /></p>
+<p><a href="https://core.telegram.org/passport"><img src="https://img.shields.io/badge/Telegram-Passport_Manual-blue.svg?style=flat-square" alt="Passport Documentation" /></a>
+<a href="https://core.telegram.org/passport/example"><img src="https://img.shields.io/badge/Telegram-Test_Passport-violet.svg?style=flat-square" alt="Passport Test page" /></a>
+<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/TestMergeInTB/src/Quickstart"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="Passport Quickstart example" /></a></p>
 <p><a href="https://telegram.org/blog/passport">Telegram Passport</a> is a unified authorization method for services that require personal identification.
-As a bot developer, you can use it to receive confidential user data in an end-to-end encrypted fashion.
-There are several Know Your Customer(KYC) solutions that have already added support for Telegram Passport.</p>
-<p>This guide is targeted at bot developers and assumes the audience is already familiar with:</p>
-<ul>
-<li><a href="https://telegram.org/blog/passport">Telegram Passport</a></li>
-<li><a href="https://core.telegram.org/passport/example">Telegram Passport Example</a></li>
-<li><a href="https://core.telegram.org/passport">Telegram Passport Manual</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><style>
-.mdbook-alerts {
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-left: 0.25em solid var(--mdbook-alerts-color);
-}
-
-.mdbook-alerts > *:first-child {
-  margin-top: 0;
-}
-
-.mdbook-alerts > *:last-child {
-  margin-bottom: 0;
-}
-
-.mdbook-alerts-title {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  line-height: 1;
-  color: var(--mdbook-alerts-color);
-  text-transform: capitalize;
-}
-
-.mdbook-alerts-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.2em;
-  background-color: currentColor;
-  -webkit-mask: no-repeat center / 100%;
-  mask: no-repeat center / 100%;
-  -webkit-mask-image: var(--mdbook-alerts-icon);
-  mask-image: var(--mdbook-alerts-icon);
-}
-
-.mdbook-alerts-note {
-  --mdbook-alerts-color: rgb(9, 105, 218);
-  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-tip {
-  --mdbook-alerts-color: rgb(26, 127, 55);
-  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-important {
-  --mdbook-alerts-color: rgb(130, 80, 223);
-  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-warning {
-  --mdbook-alerts-color: rgb(154, 103, 0);
-  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-caution {
-  --mdbook-alerts-color: rgb(207, 34, 46);
-  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
-}
-
-</style>
-<h1 id="telegram-passport---quickstart"><a class="header" href="#telegram-passport---quickstart">Telegram Passport - Quickstart</a></h1>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs"><img src="https://img.shields.io/badge/Examples-Passport_Quickstart-green.svg?style=flat-square" alt="passport quickstart example" /></a></p>
+As a bot developer, you can use it to receive confidential user data in an end-to-end encrypted fashion.<br />
+There are several Know Your Customer (KYC) solutions that have already added support for Telegram Passport.</p>
+<p>This guide is targeted at bot developers and presents our library support for Telegram Passport.
+Click the badges above for more documentation.</p>
+<h1 id="quickstart-1"><a class="header" href="#quickstart-1">Quickstart</a></h1>
 <p>This guide teaches the basics of working with Telegram Passport.
-See the complete version of the code at <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/src/Quickstart">Quickstart project</a>.
+See the complete version of the code at <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/TestMergeInTB/src/Quickstart">Quickstart project</a>.
 Code snippets on this page are in the context of that project.</p>
-<h2 id="package"><a class="header" href="#package">Package</a></h2>
-<p><a href="https://www.nuget.org/packages/Telegram.Bot.Extensions.Passport"><img src="https://img.shields.io/nuget/v/Telegram.Bot.Extensions.Passport.svg?style=flat-square" alt="nuget package" /></a></p>
-<p>You need to add <code>Telegram.Bot.Extensions.Passport</code> extension package to your project
-in addition to the core package (<code>Telegram.Bot</code>).</p>
-<p>⭐️ Star the <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport">Telegram.Bot.Extensions.Passport project</a> on GitHub 👍</p>
-<pre><code class="language-bash">dotnet add package Telegram.Bot.Extensions.Passport
-</code></pre>
 <h2 id="encryption-keys"><a class="header" href="#encryption-keys">Encryption Keys</a></h2>
 <p>You don't really need to generate any RSA key. Use our sample keys for this demo.
 Send the public key to <a href="https://t.me/BotFather">@BotFather</a> using <code>/setpublickey</code> command:</p>
@@ -3287,22 +3366,23 @@ and sends that to the user.</p>
 <p>A passport authorization request means that the bot should ask the user to open a <code>tg://resolve</code> URI in the browser
 with specific parameters in its query string.
 You can alternatively have a button in an HTML page on your website for that.</p>
-<p>Type <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Request/AuthorizationRequestParameters.cs">AuthorizationRequestParameters</a>  helps you in creating such an URI.</p>
+<p>Type <code>AuthorizationRequestParameters</code> helps you in creating such an URI.</p>
 <pre><code class="language-c#">AuthorizationRequestParameters authReq = new AuthorizationRequestParameters(
     botId: 123456, // bot user ID
     publicKey: "...", // public key in PEM format. same as the key above.
     nonce: "unique nonce for this request",
-    scope: new PassportScope(new[] { // a PassportScope object
-        new PassportScopeElementOne("address"),
-        new PassportScopeElementOne("phone_number")
-    })
-);
+    scope: new PassportScope { // a PassportScope object
+        Data = [
+            new PassportScopeElementOne(EncryptedPassportElementType.Address),
+            new PassportScopeElementOne(EncryptedPassportElementType.PhoneNumber)
+        ]
+    });
 </code></pre>
-<p>In <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">SendAuthorizationRequestAsync</a> method, we ask for <code>address</code> and <code>phone_number</code> scopes.
+<p>In <code>SendAuthorizationRequestAsync</code> method, we ask for <code>address</code> and <code>phone_number</code> scopes.
 Then, we generate the query string and ask user to open the link.</p>
 <p>You might be wondering what is the magic in here?</p>
-<p><a href="https://telegrambots.github.io/Telegram.Bot.Extensions.Passport/redirect.html">https://telegrambots.github.io/Telegram.Bot.Extensions.Passport/redirect.html</a></p>
-<p>This web page redirects user to <code>tg://resolve</code> URI, appending whatever query string was passed to it.</p>
+<p>Our webpage <a href="https://telegrambots.github.io/Telegram.Bot.Extensions.Passport/redirect.html">https://telegrambots.github.io/Telegram.Bot.Extensions.Passport/redirect.html</a><br />
+redirects the user to <code>tg://resolve</code> URI, appending whatever query string was passed to it.</p>
 <blockquote>
 <p>If a user is using an Android device, the URI will start with <code>tg:</code> instead of the default <code>tg://</code>.</p>
 </blockquote>
@@ -3327,22 +3407,19 @@ Finally, it sends the result of both encryptions to Telegram servers.</p>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type" /></a></p>
 <p>Your bot now receives a new message update with the encrypted Passport data. The user is also notified in the chat:</p>
 <p><img src="4/passport/../docs/shot-passport_update.jpg" alt="Passport update" /></p>
-<p>Let's decrypt that gibberish to get the information. That's what <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/Program.cs">DecryptPassportDataAsync</a> method does.</p>
+<p>Let's decrypt that gibberish to get the information. That's what <code>DecryptPassportDataAsync</code> method does.</p>
 <h4 id="step-1-credentials"><a class="header" href="#step-1-credentials">Step 1: Credentials</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type" /></a>
 <a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a></p>
-<p>You can't just access the encrypted data in the <code>message.passport_data.data</code> array.
-Required parameters for their decryption are in the <code>message.passport_data.credentials</code> object.
+<p>You can't just access the encrypted data in the <code>message.PassportData.Data</code> array.
+Required parameters for their decryption are in the <code>message.PassportData.Credentials</code> object.
 But that credentials object is encrypted using bot's public key!</p>
 <p>We first take the bot's <em>private key</em> this time and decrypt the credentials.</p>
 <blockquote>
-<p>There are more details about importing a key in PEM format on the <a href="4/passport/key.html">RSA Key page</a>.</p>
+<p>Note: We are loading the RSA key from PEM format thanks to the method <code>RSA.ImportFromPem</code> (.NET 5+).</p>
 </blockquote>
-<pre><code class="language-c#">IDecrypter decrypter = new Decrypter();
-Credentials credentials = decrypter.DecryptCredentials(
-    message.PassportData.Credentials, // EncryptedCredentials object
-    GetRsaPrivateKey() // private key as an RSA object
-);
+<pre><code class="language-c#">var decrypter = new Decrypter();
+var credentials = decrypter.DecryptCredentials(message.PassportData.Credentials, GetRsaPrivateKey());
 </code></pre>
 <h4 id="step-2-nonce"><a class="header" href="#step-2-nonce">Step 2: Nonce</a></h4>
 <p><a href="https://core.telegram.org/passport#credentials"><img src="https://img.shields.io/badge/Passport_API_type-Credentials-blue.svg?style=flat-square" alt="Credentials type" /></a>
@@ -3357,18 +3434,13 @@ Read more about <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonc
 <a href="https://core.telegram.org/passport#securevalue"><img src="https://img.shields.io/badge/Passport_API_type-SecureValue-blue.svg?style=flat-square" alt="SecureValue type" /></a>
 <a href="https://core.telegram.org/passport#datacredentials"><img src="https://img.shields.io/badge/Passport_API_type-DataCredentials-blue.svg?style=flat-square" alt="DataCredentials type" /></a></p>
 <p>It's finally time to see the user's address.
-We are looking for an encrypted element with type of <em>address</em> in <code>message.passport_data.data</code> array.
-Also, decryption parameters for that are in <code>credentials.secure_data.address.data</code>.
+We are looking for an encrypted element with type of <em>address</em> in <code>message.PassportData.Data</code> array.
+Also, decryption parameters for that are in <code>Credentials.SecureData.Address.Data</code>.
 Here is how the decryption magic happens:</p>
-<pre><code class="language-c#">EncryptedPassportElement addressElement = message.PassportData.Data.Single(
-    el =&gt; el.Type == PassportEnums.Scope.Address
-);
-ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
-    encryptedData: addressElement.Data,
-    dataCredentials: credentials.SecureData.Address.Data
-);
+<pre><code class="language-c#">var addressElement = message.PassportData.Data.Single(el =&gt; el.Type == PassportEnums.Scope.Address);
+var address = decrypter.DecryptData&lt;ResidentialAddress&gt;(addressElement.Data, credentials.SecureData.Address.Data);
 </code></pre>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">DecryptData</a> method does 3 tasks here:</p>
+<p><code>DecryptData</code> method does 3 tasks here:</p>
 <ol>
 <li>Decrypts the data into a JSON-serialized string</li>
 <li>Verifies that the data hashes match</li>
@@ -3379,11 +3451,10 @@ ResidentialAddress address = decrypter.DecryptData&lt;ResidentialAddress&gt;(
 <p>Values for phone number and email address are not end-to-end encrypted in Telegram Passport and
 Telegram stores these values after being verified.</p>
 <p>There is no need for decryption at this point.
-Just find the element with the type of <em>phone_number</em> in the <code>message.passport_data.data</code> array.</p>
+Just find the element with the type of <em>phone_number</em> in the <code>message.PassportData.Data</code> array.</p>
 <h3 id="information-demo"><a class="header" href="#information-demo">Information Demo</a></h3>
 <p>At the end, bot sends some of the information received to the user for demo purposes.</p>
 <p><img src="4/passport/../docs/shot-passport_quickstart.jpg" alt="info demo" /></p>
-<!-- ----------- -->
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -3498,17 +3569,14 @@ Also, test methods here expect a selfie photo and a file for translation scan.</
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-Decrypt_Credentials-green.svg?style=flat-square" alt="method Should_decrypt_credentials" /></a></p>
 <p>We decrypt credentials using the RSA private key and verify that the same nonce is used.</p>
 <pre><code class="language-c#">RSA key = EncryptionKey.ReadAsRsa();
-IDecrypter decrypter = new Decrypter();
-Credentials credentials = decrypter.DecryptCredentials(
-    passportData.Credentials,
-    key
-);
+var decrypter = new Decrypter();
+var credentials = decrypter.DecryptCredentials(passportData.Credentials, key);
 bool isSameNonce = credentials.Nonce == "Test nonce for driver's license";
 </code></pre>
 <h2 id="id-document-data"><a class="header" href="#id-document-data">ID Document Data</a></h2>
 <p><a href="https://core.telegram.org/passport#iddocumentdata"><img src="https://img.shields.io/badge/Passport_API_type-IdDocumentData-blue.svg?style=flat-square" alt="IdDocumentData type" /></a></p>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-decrypt_Document_Data-green.svg?style=flat-square" alt="method Should_decrypt_document_data" /></a></p>
-<p>In our test case, there is only 1 item in the <code>message.passport_data.data</code> array and that's the encrypted element for
+<p>In our test case, there is only 1 item in the <code>message.PassportData.Data</code> array and that's the encrypted element for
 the driver's license scope.
 We can get information such as document number and expiry date for the license from that element:</p>
 <pre><code class="language-c#">IdDocumentData licenseDoc = decrypter.DecryptData&lt;IdDocumentData&gt;(
@@ -3525,11 +3593,11 @@ the actual JPEG file content.
 In this section we try to demonstrate different use cases that you might have for such files.</p>
 <p>No matter the method used, the underlying decryption logic is the same.
 It really comes down to your decision on working with <em>streams</em> vs. <em>byte arrays</em>.
-<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">IDecrypter</a> gives you both options.</p>
+<code>Decrypter</code> gives you both options.</p>
 <h3 id="front-side-file"><a class="header" href="#front-side-file">Front Side File</a></h3>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Test_Method-decrypt_Front_Side_File-green.svg?style=flat-square" alt="method Should_decrypt_front_side_file" /></a></p>
 <p>A pretty handy extension method is used here to stream writing the front side file to disk.
-Method <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/TelegramBotClientPassportExtensions.cs">DownloadAndDecryptPassportFileAsync</a> does a few things:</p>
+Method <code>DownloadAndDecryptPassportFileAsync</code> does a few things:</p>
 <ol>
 <li>Makes an HTTP request to fetch the encrypted file's info using its <em>passport file_id</em></li>
 <li>Makes an HTTP request to download the encrypted file using its <em>file_path</em></li>
@@ -3616,8 +3684,8 @@ using (System.IO.Stream stream = new System.IO.MemoryStream(selfieContent)) {
 <p>A bot can request certified English translations of a document.
 Translations are also encrypted passport files so their decryption is no different from others passport files.</p>
 <p>Assuming that the user sends one translation scan only for the license, we receive the translation passport file object in
-<code>message.passport_data.data[0].translation[0]</code> and its accompanying file credentials object in
-<code>credentials.secure_data.driver_license.translation[0]</code>.</p>
+<code>message.PassportData.Data[0].Translation[0]</code> and its accompanying file credentials object in
+<code>credentials.SecureData.DriverLicense.Translation[0]</code>.</p>
 <p>File gets written to disk as a byte array.</p>
 <pre><code class="language-c#">PassportFile passportFile = element.Translation[0];
 FileCredentials fileCreds = credentials.SecureData.DriverLicense.Translation[0];
@@ -3714,8 +3782,7 @@ await System.IO.File.WriteAllBytesAsync("/path/to/translation.jpg", content);
 </style>
 <h1 id="handling-passport-errors"><a class="header" href="#handling-passport-errors">Handling Passport errors</a></h1>
 <h2 id="handling-data-errors"><a class="header" href="#handling-data-errors">Handling Data Errors</a></h2>
-<p><a href="https://core.telegram.org/bots/api#setpassportdataerrors"><img src="https://img.shields.io/badge/Bot_API_method-setPassportDataErrors-blue.svg?style=flat-square" alt="setPassportDataErrors method" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/test/IntegrationTests/Passport%20Element%20Errors"><img src="https://img.shields.io/badge/Examples-Passport_Element_Errors-green.svg?style=flat-square" alt="Passport Element Errors tests" /></a></p>
+<p><a href="https://core.telegram.org/bots/api#setpassportdataerrors"><img src="https://img.shields.io/badge/Bot_API_method-setPassportDataErrors-blue.svg?style=flat-square" alt="setPassportDataErrors method" /></a></p>
 <p>If the passport data you received contains errors, the bot can use the <a href="https://core.telegram.org/bots/api#setpassportdataerrors">SetPassportDataErrors</a> method to inform the user and request information again. The user will not be able to resend the data, until all errors are fixed.</p>
 <p>Here is an example call using decrypted <a href="4/passport/files-docs.html#credentials">credentials</a>:</p>
 <pre><code class="language-csharp">//using Telegram.Bot.Types.Passport;
@@ -3752,9 +3819,7 @@ PassportElementError[] errors =
 await bot.SetPassportDataErrors(passportMessage.From.Id, errors);
 </code></pre>
 <h2 id="decryption-error-passportdatadecryptionexception"><a class="header" href="#decryption-error-passportdatadecryptionexception">Decryption error (<code>PassportDataDecryptionException</code>)</a></h2>
-<p>Methods on <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs"><code>IDecrypter</code></a>
-might throw <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/PassportDataDecryptionException.cs"><code>PassportDataDecryptionException</code></a> exception
-if an error happens during decryption.
+<p>Methods on <code>Decrypter</code> might throw <code>PassportDataDecryptionException</code> exception if an error happens during decryption.
 The exception message tells you what went wrong but there is not much you can do to resolve it.
 Maybe let your user know the issue and ask for Passport data again.</p>
 <p>It is important to pass each piece of encrypted data, e.g. Id Document, Passport File, etc., with the right
@@ -3766,147 +3831,6 @@ accompanying credentials to decryption methods.</p>
 );
 // throws PassportDataDecryptionException: "Data hash mismatch at position 123."
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><style>
-.mdbook-alerts {
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-left: 0.25em solid var(--mdbook-alerts-color);
-}
-
-.mdbook-alerts > *:first-child {
-  margin-top: 0;
-}
-
-.mdbook-alerts > *:last-child {
-  margin-bottom: 0;
-}
-
-.mdbook-alerts-title {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  line-height: 1;
-  color: var(--mdbook-alerts-color);
-  text-transform: capitalize;
-}
-
-.mdbook-alerts-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.2em;
-  background-color: currentColor;
-  -webkit-mask: no-repeat center / 100%;
-  mask: no-repeat center / 100%;
-  -webkit-mask-image: var(--mdbook-alerts-icon);
-  mask-image: var(--mdbook-alerts-icon);
-}
-
-.mdbook-alerts-note {
-  --mdbook-alerts-color: rgb(9, 105, 218);
-  /* https://icon-sets.iconify.design/material-symbols/info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11q-.425 0-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-tip {
-  --mdbook-alerts-color: rgb(26, 127, 55);
-  /* https://icon-sets.iconify.design/material-symbols/lightbulb-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-3-3q-.425 0-.712-.288T8 18q0-.425.288-.712T9 17h6q.425 0 .713.288T16 18q0 .425-.288.713T15 19zm-.75-3q-1.725-1.025-2.738-2.75T4.5 9.5q0-3.125 2.188-5.312T12 2q3.125 0 5.313 2.188T19.5 9.5q0 2.025-1.012 3.75T15.75 16zm.6-2h6.3q1.125-.8 1.738-1.975T17.5 9.5q0-2.3-1.6-3.9T12 4Q9.7 4 8.1 5.6T6.5 9.5q0 1.35.613 2.525T8.85 14M12 14"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-important {
-  --mdbook-alerts-color: rgb(130, 80, 223);
-  /* https://icon-sets.iconify.design/material-symbols/chat-info-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 7q.425 0 .713-.288T13 6q0-.425-.288-.712T12 5q-.425 0-.712.288T11 6q0 .425.288.713T12 7m0 8q.425 0 .713-.288T13 14v-4q0-.425-.288-.712T12 9q-.425 0-.712.288T11 10v4q0 .425.288.713T12 15m-6 3l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-warning {
-  --mdbook-alerts-color: rgb(154, 103, 0);
-  /* https://icon-sets.iconify.design/material-symbols/warning-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363q-.125-.225-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3q.25 0 .488.125t.387.375l9.25 16q.15.25.138.513t-.138.487q-.125.225-.35.363t-.5.137zm1.725-2h15.1L12 6zM12 18q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18m0-3q.425 0 .713-.288T13 14v-3q0-.425-.288-.712T12 10q-.425 0-.712.288T11 11v3q0 .425.288.713T12 15m0-2.5"%2F%3E%3C%2Fsvg%3E');
-}
-
-.mdbook-alerts-caution {
-  --mdbook-alerts-color: rgb(207, 34, 46);
-  /* https://icon-sets.iconify.design/material-symbols/brightness-alert-outline-rounded/ */
-  --mdbook-alerts-icon: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.712T12 15q-.425 0-.712.288T11 16q0 .425.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v4q0 .425.288.713T12 13m-3.35 7H6q-.825 0-1.412-.587T4 18v-2.65L2.075 13.4q-.275-.3-.425-.662T1.5 12q0-.375.15-.737t.425-.663L4 8.65V6q0-.825.588-1.412T6 4h2.65l1.95-1.925q.3-.275.663-.425T12 1.5q.375 0 .738.15t.662.425L15.35 4H18q.825 0 1.413.588T20 6v2.65l1.925 1.95q.275.3.425.663t.15.737q0 .375-.15.738t-.425.662L20 15.35V18q0 .825-.587 1.413T18 20h-2.65l-1.95 1.925q-.3.275-.662.425T12 22.5q-.375 0-.737-.15t-.663-.425zm.85-2l2.5 2.5l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18zm2.5-6"%2F%3E%3C%2Fsvg%3E');
-}
-
-</style>
-<h1 id="import-rsa-key"><a class="header" href="#import-rsa-key">Import RSA Key</a></h1>
-<p>In order to decrypt the credentials you need to provide the private RSA key to <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs">DecryptCredentials</a> method.
-If you have the RSA key in <a href="https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail">PEM format</a>, you cannot simply instantiate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa?redirectedfrom=MSDN&amp;view=netstandard-2.0">RSA .NET object</a> from it.
-Here we discuss two ways of importing your PEM private key.</p>
-<h2 id="from-pem-format"><a class="header" href="#from-pem-format">From PEM Format</a></h2>
-<p>This is the easier option and recommended <strong>for development time only</strong>.
-We can generate an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa?redirectedfrom=MSDN&amp;view=netstandard-2.0">RSA .NET object</a> from an RSA Key in PEM format using the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a>.</p>
-<pre><code class="language-bash">dotnet add package BouncyCastle
-</code></pre>
-<p><a href="http://www.bouncycastle.org/csharp/index.html"><img src="4/passport/../docs/photo-bouncy_castle.gif" alt="bouncy castle c# logo" /></a></p>
-<p>Code snippet here shows the conversion from a PEM file to the needed RSA object.</p>
-<pre><code class="language-c#">// using System.IO;
-// using System.Security.Cryptography;
-// using Org.BouncyCastle.Crypto;
-// using Org.BouncyCastle.Crypto.Parameters;
-// using Org.BouncyCastle.OpenSsl;
-// using Org.BouncyCastle.Security;
-
-static RSA GetPrivateKey() {
-    string privateKeyPem = File.ReadAllText("/path/to/private-key.pem");
-    PemReader pemReader = new PemReader(new StringReader(privateKeyPem));
-    AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair) pemReader.ReadObject();
-    RSAParameters rsaParameters = DotNetUtilities
-        .ToRSAParameters(keyPair.Private as RsaPrivateCrtKeyParameters);
-    RSA rsa = RSA.Create(rsaParameters);
-    return rsa;
-}
-</code></pre>
-<div class="mdbook-alerts mdbook-alerts-note">
-<p class="mdbook-alerts-title">
-  <span class="mdbook-alerts-icon"></span>
-  note
-</p>
-<p>You don't necessarily need to have a dependency on the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a> in your bot project.
-The section below offers a better alternative.</p>
-</div>
-<h2 id="from-rsa-parameters"><a class="header" href="#from-rsa-parameters">From RSA Parameters</a></h2>
-<p>We recommend to JSON-serialize <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0">RSAParameters</a> of your key and create an RSA object using its values without any
-dependency on the <a href="https://www.nuget.org/packages/BouncyCastle/">BouncyCastle package</a> in production deployment.</p>
-<p>Copy <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyUtility.cs">EncryptionKeyUtility</a> and <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyParameters.cs">EncryptionKeyParameters</a> files from our Quickstart project.
-Those help with serialization.</p>
-<p>You still need to <strong>use BouncyCastle only once</strong> to read the RSA key in PEM format and serialize its parameters:</p>
-<pre><code class="language-c#">// ONLY ONCE: read the RSA private key and serialize its parameters to JSON
-static void WriteRsaParametersToJson() {
-    string privateKeyPem = System.IO.File.ReadAllText("/path/to/private-key.pem");
-    string json = EncryptionKeyUtility.SerializeRsaParameters(privateKeyPem);
-    System.IO.File.WriteAllText("/path/to/private-key-params.json", json);
-}
-
-// Now, read the JSON file and create an RSA instance
-static RSA GetRsaKey() {
-    string json = System.IO.File.ReadAllText("/path/to/private-key-params.json");
-    return EncryptionKeyUtility.GetRsaKeyFromJson(json);
-}
-</code></pre>
-<p>Content of <code>private-key-params.json</code> will look similar to this:</p>
-<pre><code class="language-json">{
-  "E": "AQAB",
-  "M": "0VElW...Fw==",
-  "P": "56Mdiw...i7FSwDaM=",
-  "Q": "51UN2sd...J44NTf0=",
-  "D": "nrXEeOl2Ky...JIQ==",
-  "DP": "KZYZWbsy.../lk60=",
-  "DQ": "Y25KgzPj...AdBd0=",
-  "IQ": "0153...N6Y="
-}
-</code></pre>
-<p>It's worth mentioning that <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyParameters.cs">EncryptionKeyParameters</a> is just a copy of <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0">RSAParameters</a> struct.
-There are inconsistencies in serialization of <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsaparameters?view=netstandard-2.0">RSAParameters</a> type on different .NET platforms
-and that's why we use our own <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Quickstart/EncryptionKeyParameters.cs">EncryptionKeyParameters</a> type for serialization.</p>
-<blockquote>
-<p>For instance, compare <code>RSAParameters</code> implementations on <a href="https://referencesource.microsoft.com/#mscorlib/system/security/cryptography/rsa.cs,21">.NET Framework</a> and <a href="https://github.com/dotnet/corefx/blob/master/src/System.Security.Cryptography.Algorithms/src/System/Security/Cryptography/RSAParameters.cs">.NET Core</a>.</p>
-</blockquote>
-<!-- ----------- -->
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -4279,7 +4203,7 @@ await bot.SendVideo(chatId2, fileId, ...);
 <p>If you're migrating from version 19.x, you might want to read our <a href="migrate/Version-21.x.html">migration doc for v21</a> first.
 There were lots of interesting changes in versions v21.x.</p>
 <p>We are back on <a href="https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab">Nuget.org</a>!<br />
-And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)</p>
+<em>And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)</em></p>
 <h2 id="-breaking-changes"><a class="header" href="#-breaking-changes">⚠️ Breaking changes</a></h2>
 <p>We removed the <code>Async</code> suffix from our API method names, and renamed <code>SendTextMessageAsync</code> to <code>SendMessage</code>.<br />
 This was done to match <a href="https://core.telegram.org/bots/api#available-methods">official API documentation</a> and because all our TelegramBotClient methods are asynchronous <em>(no real need to differenciate between async or non-async methods)</em></p>
@@ -4375,25 +4299,42 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <li>Added constructor <code>ChatPermissions(bool)</code> to set all fields to <strong>true</strong> or <strong>false</strong></li>
 <li>Fix a potential issue in <code>.ToHtml()</code> escaping <code>&amp;</code> in URLs</li>
 <li>Renamed helper classes <code>Emoji</code> to <code>DiceEmoji</code> and <code>KnownReactionTypeEmoji</code> to <code>ReactionEmoji</code></li>
-<li>Changed <code>IReplyMarkup</code> to abstract class <code>ReplyMarkup</code> so you can directly pass the following objects for the <code>replyMarkup:</code> parameter:</li>
-</ul>
-<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>string</code></td><td>single keyboard text button</td></tr>
-<tr><td><code>string[]</code></td><td>keyboard text buttons on one row</td></tr>
-<tr><td><code>string[][]</code></td><td>multiple keyboard text buttons</td></tr>
-<tr><td><code>KeyboardButton</code></td><td>single keyboard button</td></tr>
-<tr><td><code>KeyboardButton[]</code></td><td>multiple keyboard buttons on one row</td></tr>
-<tr><td><code>KeyboardButton[][]</code> or<br/><code>IEnumerable&lt;KeyboardButton&gt;[]</code></td><td>multiple keyboard buttons</td></tr>
-<tr><td><code>InlineKeyboardButton</code></td><td>single inline button</td></tr>
-<tr><td><code>InlineKeyboardButton[]</code></td><td>inline buttons on 1 row</td></tr>
-<tr><td><code>InlineKeyboardButton[][]</code> or<br/> <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
-</tbody></table>
-</div>
-<ul>
-<li><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons <em>(v22.4.1)</em></li>
+<li>Changed <code>IReplyMarkup</code> to abstract class <code>ReplyMarkup</code> so you can directly pass <a href="migrate/../3/inline.html#reply-markup">text, button or arrays of buttons</a> for the <code>replyMarkup:</code> parameter</li>
 <li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor <em>(v22.4.3)</em><br />
 Example: <code>await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);</code></li>
 <li>Added helper <code>DownloadFile(TGFile file, ...)</code> <em>(v22.4.4)</em></li>
+</ul>
+<h2 id="whats-new-in-version-225"><a class="header" href="#whats-new-in-version-225">What's new in version 22.5</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#april-11-2025">Bot API 9.0</a></li>
+<li>Removed the <code>*Async</code>-suffixed versions of the methods that were marked [Obsolete] since v22.0.<br />
+→ Follow the steps at the top of this page to adapt your existing code if you haven't already.</li>
+<li><code>Services.ConfigureTelegramBot*</code> is <strong>no longer necessary</strong> to make your Webhook bot compatible with Telegram updates!<br />
+→ We've made the library structures compatible with the default JsonCamelCaseNamingPolicy used by ASP.NET Core projects.<br />
+In some rare cases <em>(like <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot">Native AOT</a> / <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot">Blazor</a> / <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained">Trimming</a>)</em>, this call might still be necessary.</li>
+<li>Removed dependency on ASP.NET Core (Microsoft.AspNetCore.App) from the main library, by moving the <code>ConfigureTelegramBotMvc()</code> method to a separate package <a href="https://github.com/TelegramBots/Telegram.Bot.AspNetCore">Telegram.Bot.AspNetCore</a><br />
+→ That dependency caused some issues for users deploying to Docker / Android / WebAssembly<br />
+→ As explained above, you shouldn't need this method anymore in most cases, but if you do, you can add the <a href="https://www.nuget.org/packages/Telegram.Bot.AspNetCore">nuget package Telegram.Bot.AspNetCore</a> to your project</li>
+<li>Merged the Telegram.Bot.Extensions.Passport package into the main library<br />
+→ It was old and unmaintained, but now its methods and structures supporting <a href="https://core.telegram.org/passport#personaldetails">Telegram Passport</a> are up-to-date and available directly in Telegram.Bot</li>
+<li>New <code>HtmlText</code> helpers method: <code>ToPlain</code>, <code>PlainLength</code> and <code>Truncate</code> to get
+the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the number of plain text characters, or truncate the HTML to a number of plain text characters <em>(useful to comply with the 4096/1024 message limit)</em></li>
+<li>Added constructor <code>ChatAdministratorRights(bool)</code> to set all fields to <strong>true</strong> or <strong>false</strong> (except IsAnonymous)</li>
+<li>Added helper property <code>message.IsServiceMessage</code> to detect service messages vs content messages</li>
+</ul>
+<p>Builds &amp; Releases:</p>
+<ul>
+<li>Dropped Azure DevOps builds in favor of GitHub Actions<br />
+→ Our <a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release">alternative nuget feed</a> will no longer be updated since we are <a href="https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab">back on Nuget.org</a></li>
+<li>"Prerelease" versions are now pushed to Nuget.org as the library is developed, for people who want to test upcoming features early<br />
+→ You can provide feedback on these versions and help us detect problems before the next stable release</li>
+<li>Now including <strong>Release Notes</strong> as part of Nuget packages<br />
+→ You can see them on <a href="https://www.nuget.org/packages/Telegram.Bot/#releasenotes-body-tab">nuget.org package page</a>, or in your IDE's Package Manager, on the Package Detail pane where you select a version.</li>
+</ul>
+<p>2 small breaking changes:</p>
+<ul>
+<li>Merged <code>AnswerShippingQuery</code> method overloads. You'll need to add <code>errorMessage:</code> in your code to pass that argument and indicate failure.</li>
+<li>The <code>Poll.Type</code> is now an enum <code>PollType</code> instead of <code>string</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
@@ -4466,7 +4407,7 @@ Example: <code>await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy"
 <p>Important notes:</p>
 <ul>
 <li>Don't bother about version 20, migrate directly to version 21.*</li>
-<li>You won't find this version on Nuget: <a href="https://telegrambots.github.io/book/index.html#-installation">See this guide to install it in your programs</a>.</li>
+<li>You won't find this version on Nuget: It was available <a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release/NuGet/Telegram.Bot">on our own nuget package feed</a>.</li>
 <li>Version 21.10 supports <a href="https://core.telegram.org/bots/api#august-14-2024">Bot API 7.9</a> <em>(including <a href="migrate/../4/payments.html">Telegram Stars payments</a>)</em></li>
 <li>Library is now based on System.Text.Json and doesn't depend on NewtonsoftJson anymore. <em>(<a href="migrate/Version-21.x.html#webhooks-with-systemtextjson">See below</a>)</em></li>
 </ul>

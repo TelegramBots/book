@@ -33,18 +33,19 @@
         <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../../theme/custom.css">
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "../../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc.js"></script>
@@ -54,8 +55,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -69,7 +70,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -82,8 +84,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -119,6 +121,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -234,8 +237,7 @@
 </style>
 <h1 id="handling-passport-errors"><a class="header" href="#handling-passport-errors">Handling Passport errors</a></h1>
 <h2 id="handling-data-errors"><a class="header" href="#handling-data-errors">Handling Data Errors</a></h2>
-<p><a href="https://core.telegram.org/bots/api#setpassportdataerrors"><img src="https://img.shields.io/badge/Bot_API_method-setPassportDataErrors-blue.svg?style=flat-square" alt="setPassportDataErrors method" /></a>
-<a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/tree/master/test/IntegrationTests/Passport%20Element%20Errors"><img src="https://img.shields.io/badge/Examples-Passport_Element_Errors-green.svg?style=flat-square" alt="Passport Element Errors tests" /></a></p>
+<p><a href="https://core.telegram.org/bots/api#setpassportdataerrors"><img src="https://img.shields.io/badge/Bot_API_method-setPassportDataErrors-blue.svg?style=flat-square" alt="setPassportDataErrors method" /></a></p>
 <p>If the passport data you received contains errors, the bot can use the <a href="https://core.telegram.org/bots/api#setpassportdataerrors">SetPassportDataErrors</a> method to inform the user and request information again. The user will not be able to resend the data, until all errors are fixed.</p>
 <p>Here is an example call using decrypted <a href="files-docs.html#credentials">credentials</a>:</p>
 <pre><code class="language-csharp">//using Telegram.Bot.Types.Passport;
@@ -272,9 +274,7 @@ PassportElementError[] errors =
 await bot.SetPassportDataErrors(passportMessage.From.Id, errors);
 </code></pre>
 <h2 id="decryption-error-passportdatadecryptionexception"><a class="header" href="#decryption-error-passportdatadecryptionexception">Decryption error (<code>PassportDataDecryptionException</code>)</a></h2>
-<p>Methods on <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/IDecrypter.cs"><code>IDecrypter</code></a>
-might throw <a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/src/Telegram.Bot.Extensions.Passport/Decryption/PassportDataDecryptionException.cs"><code>PassportDataDecryptionException</code></a> exception
-if an error happens during decryption.
+<p>Methods on <code>Decrypter</code> might throw <code>PassportDataDecryptionException</code> exception if an error happens during decryption.
 The exception message tells you what went wrong but there is not much you can do to resolve it.
 Maybe let your user know the issue and ask for Passport data again.</p>
 <p>It is important to pass each piece of encrypted data, e.g. Id Document, Passport File, etc., with the right
@@ -295,7 +295,7 @@ accompanying credentials to decryption methods.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../4/passport/key.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../FAQ.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -309,7 +309,7 @@ accompanying credentials to decryption methods.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../4/passport/key.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../FAQ.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

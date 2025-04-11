@@ -33,18 +33,19 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../theme/custom.css">
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc.js"></script>
@@ -54,8 +55,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -69,7 +70,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -82,8 +84,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -119,6 +121,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -236,7 +239,7 @@
 <p>If you're migrating from version 19.x, you might want to read our <a href="Version-21.x.html">migration doc for v21</a> first.
 There were lots of interesting changes in versions v21.x.</p>
 <p>We are back on <a href="https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab">Nuget.org</a>!<br />
-And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)</p>
+<em>And our old nuget feed nuget.voids.site is no more, so please remove this line from your nuget.config file, or from your IDE settings (Package sources)</em></p>
 <h2 id="-breaking-changes"><a class="header" href="#-breaking-changes">⚠️ Breaking changes</a></h2>
 <p>We removed the <code>Async</code> suffix from our API method names, and renamed <code>SendTextMessageAsync</code> to <code>SendMessage</code>.<br />
 This was done to match <a href="https://core.telegram.org/bots/api#available-methods">official API documentation</a> and because all our TelegramBotClient methods are asynchronous <em>(no real need to differenciate between async or non-async methods)</em></p>
@@ -332,25 +335,42 @@ It can tell you which type of object/media is referenced by a FileId string</li>
 <li>Added constructor <code>ChatPermissions(bool)</code> to set all fields to <strong>true</strong> or <strong>false</strong></li>
 <li>Fix a potential issue in <code>.ToHtml()</code> escaping <code>&amp;</code> in URLs</li>
 <li>Renamed helper classes <code>Emoji</code> to <code>DiceEmoji</code> and <code>KnownReactionTypeEmoji</code> to <code>ReactionEmoji</code></li>
-<li>Changed <code>IReplyMarkup</code> to abstract class <code>ReplyMarkup</code> so you can directly pass the following objects for the <code>replyMarkup:</code> parameter:</li>
-</ul>
-<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>string</code></td><td>single keyboard text button</td></tr>
-<tr><td><code>string[]</code></td><td>keyboard text buttons on one row</td></tr>
-<tr><td><code>string[][]</code></td><td>multiple keyboard text buttons</td></tr>
-<tr><td><code>KeyboardButton</code></td><td>single keyboard button</td></tr>
-<tr><td><code>KeyboardButton[]</code></td><td>multiple keyboard buttons on one row</td></tr>
-<tr><td><code>KeyboardButton[][]</code> or<br/><code>IEnumerable&lt;KeyboardButton&gt;[]</code></td><td>multiple keyboard buttons</td></tr>
-<tr><td><code>InlineKeyboardButton</code></td><td>single inline button</td></tr>
-<tr><td><code>InlineKeyboardButton[]</code></td><td>inline buttons on 1 row</td></tr>
-<tr><td><code>InlineKeyboardButton[][]</code> or<br/> <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
-</tbody></table>
-</div>
-<ul>
-<li><code>InlineKeyboardButton</code> can also now be implicitly constructed from a <code>(string text, string callbackOrUrl)</code> tuple for Callback or Url buttons <em>(v22.4.1)</em></li>
+<li>Changed <code>IReplyMarkup</code> to abstract class <code>ReplyMarkup</code> so you can directly pass <a href="../3/inline.html#reply-markup">text, button or arrays of buttons</a> for the <code>replyMarkup:</code> parameter</li>
 <li><code>BotCommand</code> can also now be implicitly constructed from a <code>(string command, string description)</code> tuple or new explicit constructor <em>(v22.4.3)</em><br />
 Example: <code>await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")]);</code></li>
 <li>Added helper <code>DownloadFile(TGFile file, ...)</code> <em>(v22.4.4)</em></li>
+</ul>
+<h2 id="whats-new-in-version-225"><a class="header" href="#whats-new-in-version-225">What's new in version 22.5</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#april-11-2025">Bot API 9.0</a></li>
+<li>Removed the <code>*Async</code>-suffixed versions of the methods that were marked [Obsolete] since v22.0.<br />
+→ Follow the steps at the top of this page to adapt your existing code if you haven't already.</li>
+<li><code>Services.ConfigureTelegramBot*</code> is <strong>no longer necessary</strong> to make your Webhook bot compatible with Telegram updates!<br />
+→ We've made the library structures compatible with the default JsonCamelCaseNamingPolicy used by ASP.NET Core projects.<br />
+In some rare cases <em>(like <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot">Native AOT</a> / <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-build-tools-and-aot">Blazor</a> / <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained">Trimming</a>)</em>, this call might still be necessary.</li>
+<li>Removed dependency on ASP.NET Core (Microsoft.AspNetCore.App) from the main library, by moving the <code>ConfigureTelegramBotMvc()</code> method to a separate package <a href="https://github.com/TelegramBots/Telegram.Bot.AspNetCore">Telegram.Bot.AspNetCore</a><br />
+→ That dependency caused some issues for users deploying to Docker / Android / WebAssembly<br />
+→ As explained above, you shouldn't need this method anymore in most cases, but if you do, you can add the <a href="https://www.nuget.org/packages/Telegram.Bot.AspNetCore">nuget package Telegram.Bot.AspNetCore</a> to your project</li>
+<li>Merged the Telegram.Bot.Extensions.Passport package into the main library<br />
+→ It was old and unmaintained, but now its methods and structures supporting <a href="https://core.telegram.org/passport#personaldetails">Telegram Passport</a> are up-to-date and available directly in Telegram.Bot</li>
+<li>New <code>HtmlText</code> helpers method: <code>ToPlain</code>, <code>PlainLength</code> and <code>Truncate</code> to get
+the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the number of plain text characters, or truncate the HTML to a number of plain text characters <em>(useful to comply with the 4096/1024 message limit)</em></li>
+<li>Added constructor <code>ChatAdministratorRights(bool)</code> to set all fields to <strong>true</strong> or <strong>false</strong> (except IsAnonymous)</li>
+<li>Added helper property <code>message.IsServiceMessage</code> to detect service messages vs content messages</li>
+</ul>
+<p>Builds &amp; Releases:</p>
+<ul>
+<li>Dropped Azure DevOps builds in favor of GitHub Actions<br />
+→ Our <a href="https://dev.azure.com/tgbots/Telegram.Bot/_artifacts/feed/release">alternative nuget feed</a> will no longer be updated since we are <a href="https://www.nuget.org/packages/Telegram.Bot/#versions-body-tab">back on Nuget.org</a></li>
+<li>"Prerelease" versions are now pushed to Nuget.org as the library is developed, for people who want to test upcoming features early<br />
+→ You can provide feedback on these versions and help us detect problems before the next stable release</li>
+<li>Now including <strong>Release Notes</strong> as part of Nuget packages<br />
+→ You can see them on <a href="https://www.nuget.org/packages/Telegram.Bot/#releasenotes-body-tab">nuget.org package page</a>, or in your IDE's Package Manager, on the Package Detail pane where you select a version.</li>
+</ul>
+<p>2 small breaking changes:</p>
+<ul>
+<li>Merged <code>AnswerShippingQuery</code> method overloads. You'll need to add <code>errorMessage:</code> in your code to pass that argument and indicate failure.</li>
+<li>The <code>Poll.Type</code> is now an enum <code>PollType</code> instead of <code>string</code></li>
 </ul>
 
                     </main>
