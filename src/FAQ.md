@@ -62,8 +62,10 @@ You can't. Bots can only send private messages to users that have already initia
 You would have received an `update.MyChatMember` with `NewChatMember.Status == ChatMemberStatus.Kicked`  
 If you didn't record that info, you can try to `SendChatAction` and see if it raises an exception.
 
-### _12. How to set a caption to a media group (album)?_
+### _12. How to set a caption and ReplyMarkup to a media group (album)?_
 Set the `media.Caption` (and `media.ParseMode`) on the first or last media
+
+Media groups can't have Reply Markup unfortunately.
 
 ### _13. How to write a bot that make questions/answers with users?_
 Either you can code a complex state machine workflow, saving where each user is currently in the discussion tree.  
@@ -100,11 +102,9 @@ Alternatively, you can call `await bot.DropPendingUpdates()` before polling or u
 - If you send a media group, make sure you specify different filenames on `InputFile.FromStream`
 
 ### _21. How to fetch all medias from an album/media group ?_
-Medias in a media group are received as separate consecutive messages having the same `MediaGroupId` property. You should collect them progressively as you receive those messages.  
-There is no way to know how many medias are in the album, so:
-- look for consecutive messages in that chat with same `MediaGroupId` and stop when it's not the same
-- stop after 10 medias in the group (maximum)
-- use a timeout of a few seconds not receiving new messages in that chat to determine the end
+When receiving a media group, you need to collect the series of separate messages in a chat having the same `MediaGroupId` property.  
+There is no way to know how many medias/messages the album is composed of.
+[Read more here](2/send-msg/media-msg.md#receiving-a-media-group-album)
 
 ### _22. How to send a custom emoji❓_
 ⚠️ It costs about ~$5,000 !! 😱

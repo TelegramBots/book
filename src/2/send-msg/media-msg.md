@@ -195,3 +195,13 @@ var messages = await bot.SendMediaGroup(chatId, new IAlbumInputMedia[]
 ```
 
 Note that media groups can't have reply markup. The caption must be set on one of the media (usually the first)
+
+### Receiving a media group (album)
+
+When your bot [receives updates](../../3/updates/README.md) for a media group, it will appear as separate messages _(one per media, usually consecutive)_ having the same `MediaGroupId` property.
+
+You should collect them progressively as you receive those messages.  
+There is no way to know how many medias are in the album, so here are some techniques:
+- look for consecutive messages in that chat with same `MediaGroupId` and stop when it's not the same
+- stop after 10 medias in the group (maximum)
+- use a timeout of a few seconds not receiving new messages in that chat to determine the end
