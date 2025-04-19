@@ -1005,6 +1005,15 @@ await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = 
     });
 </code></pre>
 <p>Note that media groups can't have reply markup. The caption must be set on one of the media (usually the first)</p>
+<h3 id="receiving-a-media-group-album"><a class="header" href="#receiving-a-media-group-album">Receiving a media group (album)</a></h3>
+<p>When your bot <a href="2/send-msg/../../3/updates/README.html">receives updates</a> for a media group, it will appear as separate messages <em>(one per media, usually consecutive)</em> having the same <code>MediaGroupId</code> property.</p>
+<p>You should collect them progressively as you receive those messages.<br />
+There is no way to know how many medias are in the album, so here are some techniques:</p>
+<ul>
+<li>look for consecutive messages in that chat with same <code>MediaGroupId</code> and stop when it's not the same</li>
+<li>stop after 10 medias in the group (maximum)</li>
+<li>use a timeout of a few seconds not receiving new messages in that chat to determine the end</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
@@ -3912,7 +3921,7 @@ accompanying credentials to decryption methods.</p>
 <li><a href="FAQ.html#9-how-to-fetch-a-list-of-all-users-in-chat">9. How to fetch a list of all users in chat?</a></li>
 <li><a href="FAQ.html#10-how-to-send-a-private-message-to-some-random-user">10. How to send a private message to some random user?</a></li>
 <li><a href="FAQ.html#11-how-to-detect-if-a-user-blocked-my-bot">11. How to detect if a user blocked my bot?</a></li>
-<li><a href="FAQ.html#12-how-to-set-a-caption-to-a-media-group-album">12. How to set a caption to a media group (album)?</a></li>
+<li><a href="FAQ.html#12-how-to-set-a-caption-and-replymarkup-to-a-media-group-album">12. How to set a caption and ReplyMarkup to a media group (album)?</a></li>
 <li><a href="FAQ.html#13-how-to-write-a-bot-that-make-questionsanswers-with-users">13. How to write a bot that make questions/answers with users?</a></li>
 <li><a href="FAQ.html#14-how-to-make-font-effects-in-message">14. How to make font effects in message?</a></li>
 <li><a href="FAQ.html#15-where-can-i-host-my-bot-online-for-cheapfree">15. Where can I host my bot online for cheap/free?</a></li>
@@ -3981,8 +3990,9 @@ Alternatively, you can keep track of users by observing new messages in a chat a
 <h3 id="11-how-to-detect-if-a-user-blocked-my-bot"><a class="header" href="#11-how-to-detect-if-a-user-blocked-my-bot"><em>11. How to detect if a user blocked my bot?</em></a></h3>
 <p>You would have received an <code>update.MyChatMember</code> with <code>NewChatMember.Status == ChatMemberStatus.Kicked</code><br />
 If you didn't record that info, you can try to <code>SendChatAction</code> and see if it raises an exception.</p>
-<h3 id="12-how-to-set-a-caption-to-a-media-group-album"><a class="header" href="#12-how-to-set-a-caption-to-a-media-group-album"><em>12. How to set a caption to a media group (album)?</em></a></h3>
+<h3 id="12-how-to-set-a-caption-and-replymarkup-to-a-media-group-album"><a class="header" href="#12-how-to-set-a-caption-and-replymarkup-to-a-media-group-album"><em>12. How to set a caption and ReplyMarkup to a media group (album)?</em></a></h3>
 <p>Set the <code>media.Caption</code> (and <code>media.ParseMode</code>) on the first or last media</p>
+<p>Media groups can't have Reply Markup unfortunately.</p>
 <h3 id="13-how-to-write-a-bot-that-make-questionsanswers-with-users"><a class="header" href="#13-how-to-write-a-bot-that-make-questionsanswers-with-users"><em>13. How to write a bot that make questions/answers with users?</em></a></h3>
 <p>Either you can code a complex state machine workflow, saving where each user is currently in the discussion tree.<br />
 Or you can just use <a href="https://github.com/wiz0u/YourEasyBot">YourEasyBot</a> which makes sequential bots very simple to write... <em>(or one of the <a href="https://github.com/TelegramBots/Telegram.Bot/wiki">other frameworks</a> available for Telegram.Bot)</em></p>
@@ -4012,13 +4022,9 @@ Alternatively, you can call <code>await bot.DropPendingUpdates()</code> before p
 <li>If you send a media group, make sure you specify different filenames on <code>InputFile.FromStream</code></li>
 </ul>
 <h3 id="21-how-to-fetch-all-medias-from-an-albummedia-group-"><a class="header" href="#21-how-to-fetch-all-medias-from-an-albummedia-group-"><em>21. How to fetch all medias from an album/media group ?</em></a></h3>
-<p>Medias in a media group are received as separate consecutive messages having the same <code>MediaGroupId</code> property. You should collect them progressively as you receive those messages.<br />
-There is no way to know how many medias are in the album, so:</p>
-<ul>
-<li>look for consecutive messages in that chat with same <code>MediaGroupId</code> and stop when it's not the same</li>
-<li>stop after 10 medias in the group (maximum)</li>
-<li>use a timeout of a few seconds not receiving new messages in that chat to determine the end</li>
-</ul>
+<p>When receiving a media group, you need to collect the series of separate messages in a chat having the same <code>MediaGroupId</code> property.<br />
+There is no way to know how many medias/messages the album is composed of.
+<a href="2/send-msg/media-msg.html#receiving-a-media-group-album">Read more here</a></p>
 <h3 id="22-how-to-send-a-custom-emoji"><a class="header" href="#22-how-to-send-a-custom-emoji"><em>22. How to send a custom emoji❓</em></a></h3>
 <p>⚠️ It costs about ~$5,000 !! 😱</p>
 <ul>

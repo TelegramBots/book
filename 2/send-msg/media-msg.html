@@ -353,6 +353,15 @@ await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = 
     });
 </code></pre>
 <p>Note that media groups can't have reply markup. The caption must be set on one of the media (usually the first)</p>
+<h3 id="receiving-a-media-group-album"><a class="header" href="#receiving-a-media-group-album">Receiving a media group (album)</a></h3>
+<p>When your bot <a href="../../3/updates/README.html">receives updates</a> for a media group, it will appear as separate messages <em>(one per media, usually consecutive)</em> having the same <code>MediaGroupId</code> property.</p>
+<p>You should collect them progressively as you receive those messages.<br />
+There is no way to know how many medias are in the album, so here are some techniques:</p>
+<ul>
+<li>look for consecutive messages in that chat with same <code>MediaGroupId</code> and stop when it's not the same</li>
+<li>stop after 10 medias in the group (maximum)</li>
+<li>use a timeout of a few seconds not receiving new messages in that chat to determine the end</li>
+</ul>
 
                     </main>
 
