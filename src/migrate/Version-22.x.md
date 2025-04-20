@@ -122,6 +122,7 @@ _(if you use this [non-recommended](Version-21.x.md#request-structures) method)_
   the plain text only from HTML text _(remove the &lt;tags&gt;)_, the number of plain text characters, or truncate the HTML to a number of plain text characters _(useful to comply with the 4096/1024 message limit)_
 - Added constructor `ChatAdministratorRights(bool)` to set all fields to **true** or **false** (except IsAnonymous)
 - Added helper property `message.IsServiceMessage` to detect service messages vs content messages
+- Added helper property `ChatMemberRestricted.IsMuted` to detect if restriction is muting the user _(v22.5.1)_
 
 Builds & Releases:
 - Dropped Azure DevOps builds in favor of GitHub Actions  
