@@ -4327,6 +4327,7 @@ In some rare cases <em>(like <a href="https://learn.microsoft.com/en-us/dotnet/c
 the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the number of plain text characters, or truncate the HTML to a number of plain text characters <em>(useful to comply with the 4096/1024 message limit)</em></li>
 <li>Added constructor <code>ChatAdministratorRights(bool)</code> to set all fields to <strong>true</strong> or <strong>false</strong> (except IsAnonymous)</li>
 <li>Added helper property <code>message.IsServiceMessage</code> to detect service messages vs content messages</li>
+<li>Added helper property <code>ChatMemberRestricted.IsMuted</code> to detect if restriction is muting the user <em>(v22.5.1)</em></li>
 </ul>
 <p>Builds &amp; Releases:</p>
 <ul>
