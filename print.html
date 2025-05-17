@@ -1387,7 +1387,7 @@ Same for a user leaving the chat, with the <code>message.LeftChatMember</code> s
 </ul>
 <h3 id="forum--topics"><a class="header" href="#forum--topics">Forum &amp; Topics</a></h3>
 <p>Group owners can enable the <strong>Forum</strong> feature on their chat, which allows them to create <strong><a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups">topics</a></strong> for specialized discussions.</p>
-<p>Messages in topics are indicated with the <code>MessageThreadId</code> property. This property is equal to 1 for the <strong>General</strong> topic, or to the Message ID of the first message in topic.</p>
+<p>Messages in topics are indicated with the <code>MessageThreadId</code> property (or the <code>messageThreadId:</code> argument when sending). This value is equal to 1 for the <strong>General</strong> topic, or to the Message ID of the first message in topic.</p>
 <p>Bots can <a href="https://core.telegram.org/bots/api#createforumtopic">create/edit/close/reopen/delete</a> specific topics or the General topic.</p>
 <p><strong>Important:</strong> Bots can't fetch the current list of all topics in the chat.<br />
 However, your bot can keep track of active topics by listening to these service messages (with <code>MessageThreadId</code> set):</p>
