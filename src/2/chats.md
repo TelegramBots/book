@@ -119,7 +119,7 @@ The more complex (and more reliable) approach is instead to handle updates of ty
 
 Group owners can enable the **Forum** feature on their chat, which allows them to create **[topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups)** for specialized discussions.
 
-Messages in topics are indicated with the `MessageThreadId` property. This property is equal to 1 for the **General** topic, or to the Message ID of the first message in topic.
+Messages in topics are indicated with the `MessageThreadId` property (or the `messageThreadId:` argument when sending). This value is equal to 1 for the **General** topic, or to the Message ID of the first message in topic.
 
 Bots can [create/edit/close/reopen/delete](https://core.telegram.org/bots/api#createforumtopic) specific topics or the General topic.
 
