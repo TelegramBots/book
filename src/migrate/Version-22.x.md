@@ -135,3 +135,11 @@ Builds & Releases:
 2 small breaking changes:
 - Merged `AnswerShippingQuery` method overloads. You'll need to add `errorMessage:` in your code to pass that argument and indicate failure.
 - The `Poll.Type` is now an enum `PollType` instead of `string`
+
+## What's new in version 22.6
+- Support for [Bot API 9.1](https://core.telegram.org/bots/api#july-3-2025)
+- `ReplyParameters(Message)` supports null
+- Fix `MessageLink()` for non-topics group
+- `TransferGift`: fix type for newOwnerChatId
+- Sealed some internal types for performance
+- faster `IsServiceMessage`
