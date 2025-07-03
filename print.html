@@ -52,6 +52,17 @@
         <script src="toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -129,7 +140,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -4342,6 +4353,15 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <ul>
 <li>Merged <code>AnswerShippingQuery</code> method overloads. You'll need to add <code>errorMessage:</code> in your code to pass that argument and indicate failure.</li>
 <li>The <code>Poll.Type</code> is now an enum <code>PollType</code> instead of <code>string</code></li>
+</ul>
+<h2 id="whats-new-in-version-226"><a class="header" href="#whats-new-in-version-226">What's new in version 22.6</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#july-3-2025">Bot API 9.1</a></li>
+<li><code>ReplyParameters(Message)</code> supports null</li>
+<li>Fix <code>MessageLink()</code> for non-topics group</li>
+<li><code>TransferGift</code>: fix type for newOwnerChatId</li>
+<li>Sealed some internal types for performance</li>
+<li>faster <code>IsServiceMessage</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
