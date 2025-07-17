@@ -20,6 +20,7 @@ However, to simplify your life, we also provide a set of additional helpers meth
 ## Easier information
 - `chat.ToString()` & `user.ToString()` to easily print/log information about the chat/user
 - `ChatMember` has properties `IsAdmin` and `IsInChat` to simplify testing if the user is an admin or currently inside the chat
+- `ChatMemberRestricted` has a property `IsMuted` to quickly determine if the user cannot send any type of message
 
 ## Updates
 - `bot.DropPendingUpdates()` to clear the pending updates queue
