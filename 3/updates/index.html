@@ -316,11 +316,12 @@ So it is recommended to instead directly test the fields of Update you want if t
 <li><code>MessageThreadId</code>: the topic ID for Forum/Topic type chats</li>
 </ul>
 <h2 id="sequential-vs-parallel-updates"><a class="header" href="#sequential-vs-parallel-updates">Sequential vs parallel updates</a></h2>
-<p>Whether polling in a loop or with <a href="webhook.html#updates-are-posted-sequentially-to-your-webapp">webhook</a>, you will always receive updates in sequential order of increasing <code>update.Id</code>, one after the other.</p>
+<p>Whether polling in a loop or with <a href="webhook.html#updates-are-posted-sequentially-to-your-webapp">webhook</a>,
+you will usually receive updates in sequential order of increasing <code>update.Id</code>, one after the other.</p>
 <p>If you want to parallelize the handling of updates for improved performance, it is up to your async code.<br />
 There are multiple possible approaches:</p>
 <ul>
-<li>write the received update into a <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/channels">threading Channel</a><br />
+<li>write the received update into a <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/channels">Threading Channel</a><br />
 You will need separate consumer Task(s) to process these updates <em>(see <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">Background Service</a>)</em></li>
 <li>do the same but with a <code>ConcurrentQueue</code> or a <code>Queue</code> (with <code>lock</code>)</li>
 <li>spawn a new sub-Task for each update, using <code>Task.Run</code> for example<br />
