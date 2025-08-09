@@ -2,7 +2,9 @@
 
 [![Webhook guide](https://img.shields.io/badge/Bot_API-Webhook%20guide-blue.svg?style=flat-square)](https://core.telegram.org/bots/webhooks)
 
-With Webhook, your web application gets notified [sequentially](#updates-are-posted-sequentially-to-your-webapp), automatically by Telegram when new updates arrive for your bot.
+With Webhook, your web application gets notified
+[one by one](#updates-are-posted-one-by-one-to-your-webapp),
+automatically by Telegram when new updates arrive for your bot.
 
 Your application will receive HTTP POST requests with an Update structure in the JSON body.
 
@@ -69,15 +71,19 @@ See this useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a85
     _(host will likely still recycle your app after a few days)_
   - Host your app on a VPS machine rather than a webapp host.
 
-## Updates are posted sequentially to your webapp
+## Updates are posted one by one to your webapp
 
-If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> sequential update you didn't acknowledge yet.
-_(We're talking about incremental `update.Id` values here)_
+> [!NOTE]  
+> For high-load/busy webhook bots, Bot API may send multiple updates in parallel to your endpoint,
+in which case you may need a more advanced system to collect & reorder them by ID to ensure correct processing order.
 
-As long as your webapp doesn't acknowledge the update with a 200 OK **within a few seconds**, Telegram will keep sending the **same update** to your URL.  
-In particular, it will happen if your code is throwing an unhandled exception or taking too long to process an update.
+If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
+_(based on incremental `update.Id` values)_
 
-You may want to prevent handling the same update.Id twice:
+As long as your webapp doesn't acknowledge the update with a 200 OK **within a few seconds**, Telegram will keep resending the **same update** to your endpoint.  
+In particular, this will happen if your code is throwing an unhandled exception or taking too long to process an update.
+
+A simple way to prevent handling the same update.Id twice is:
   ```csharp
   if (update.Id <= LastUpdateId) return;
   LastUpdateId = update.Id;
