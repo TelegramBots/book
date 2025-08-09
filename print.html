@@ -2222,6 +2222,8 @@ To prevent issues with this:
 </li>
 </ul>
 <h2 id="updates-are-posted-one-by-one-to-your-webapp"><a class="header" href="#updates-are-posted-one-by-one-to-your-webapp">Updates are posted one by one to your webapp</a></h2>
+<p>If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
+<em>(based on incremental <code>update.Id</code> values)</em></p>
 <div class="mdbook-alerts mdbook-alerts-note">
 <p class="mdbook-alerts-title">
   <span class="mdbook-alerts-icon"></span>
@@ -2230,8 +2232,6 @@ To prevent issues with this:
 <p>For high-load/busy webhook bots, Bot API may send multiple updates in parallel to your endpoint,
 in which case you may need a more advanced system to collect &amp; reorder them by ID to ensure correct processing order.</p>
 </div>
-<p>If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
-<em>(based on incremental <code>update.Id</code> values)</em></p>
 <p>As long as your webapp doesn't acknowledge the update with a 200 OK <strong>within a few seconds</strong>, Telegram will keep resending the <strong>same update</strong> to your endpoint.<br />
 In particular, this will happen if your code is throwing an unhandled exception or taking too long to process an update.</p>
 <p>A simple way to prevent handling the same update.Id twice is:</p>
