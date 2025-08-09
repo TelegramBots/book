@@ -75,7 +75,7 @@ See this useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a85
 
 > [!NOTE]  
 > For high-load/busy webhook bots, Bot API may send multiple updates in parallel to your endpoint,
-in which case you may need a more advanced system to collect & reorder them by ID to ensure correct processing order.
+> in which case you may need a more advanced system to collect & reorder them by ID to ensure correct processing order.
 
 If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
 _(based on incremental `update.Id` values)_
