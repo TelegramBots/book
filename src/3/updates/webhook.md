@@ -73,12 +73,12 @@ See this useful [step-by-step guide](https://medium.com/@oktaykopcak/81c8c4a9a85
 
 ## Updates are posted one by one to your webapp
 
+If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
+_(based on incremental `update.Id` values)_
+
 > [!NOTE]  
 > For high-load/busy webhook bots, Bot API may send multiple updates in parallel to your endpoint,
 > in which case you may need a more advanced system to collect & reorder them by ID to ensure correct processing order.
-
-If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
-_(based on incremental `update.Id` values)_
 
 As long as your webapp doesn't acknowledge the update with a 200 OK **within a few seconds**, Telegram will keep resending the **same update** to your endpoint.  
 In particular, this will happen if your code is throwing an unhandled exception or taking too long to process an update.
