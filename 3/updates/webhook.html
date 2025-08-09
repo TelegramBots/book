@@ -329,9 +329,9 @@ To prevent issues with this:
   <span class="mdbook-alerts-icon"></span>
   note
 </p>
-<p>For high-load/busy webhook bots, Bot API may send multiple updates in parallel to your endpoint,</p>
+<p>For high-load/busy webhook bots, Bot API may send multiple updates in parallel to your endpoint,
+in which case you may need a more advanced system to collect &amp; reorder them by ID to ensure correct processing order.</p>
 </div>
-<p>in which case you may need a more advanced system to collect &amp; reorder them by ID to ensure correct processing order.</p>
 <p>If there are new pending updates, Telegram servers will send a POST request to your Webhook URL with the <u>next</u> update you didn't acknowledge yet.
 <em>(based on incremental <code>update.Id</code> values)</em></p>
 <p>As long as your webapp doesn't acknowledge the update with a 200 OK <strong>within a few seconds</strong>, Telegram will keep resending the <strong>same update</strong> to your endpoint.<br />
