@@ -9,17 +9,18 @@ However, to simplify your life, we also provide a set of additional helpers meth
 
 - `message.MessageLink()`: Returns the <a href="t.me">t.me/...</a> link to this message, or `null` if the message was not in a Supergroup or Channel
 - `message.IsServiceMessage`: Detect service messages vs content messages
-- `message.ToMarkdown()` to convert the message to Markdown format
-- `message.ToHtml()` to convert the message to HTML format
+- `message.ToMarkdown()` to convert the message to Markdown format _(Not recommended)_
+- `message.ToHtml()` to convert the message to HTML format _(Recommended)_
 - `Markdown.Escape()` to escape reserved Markdown characters in a string
 - `HtmlText.Escape()` to escape reserved HTML characters in a string
 - `HtmlText.ToPlain()` to convert HTML string to plain text _(removing tags)_
-- `HtmlText.PlainText()` to get the number of characters of plain text from HTML
+- `HtmlText.PlainLength()` to get the number of characters of plain text from HTML
 - `HtmlText.Truncate()` to truncate HTML string to a number of plain-text characters _(while still preserving the formatting)_
 
 ## Easier information
 - `chat.ToString()` & `user.ToString()` to easily print/log information about the chat/user
 - `ChatMember` has properties `IsAdmin` and `IsInChat` to simplify testing if the user is an admin or currently inside the chat
+- `ChatMember` has property `ExpireDate` _(generic equivalent for `UntilDate` subclass properties)_
 - `ChatMemberRestricted` has a property `IsMuted` to quickly determine if the user cannot send any type of message
 
 ## Updates
@@ -41,7 +42,7 @@ We've added easier ways to construct various instances from other types, especia
 - `LabeledPrice` from tuple `(string label, long amount)`
 - `BotCommand` from tuple `(string command, string description)`
 - `BotCommandScope` has several static methods to construct scopes
-- `InputFile` from a fileId or URL (string) or a `Stream` or a received media file
+- `InputFile` from a `string` (fileId or URL), or a `Stream`, or a received media file, or `null`
 
 Examples:
 ```csharp
