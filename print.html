@@ -2595,18 +2595,19 @@ However, to simplify your life, we also provide a set of additional helpers meth
 <ul>
 <li><code>message.MessageLink()</code>: Returns the <a href="3/t.me">t.me/...</a> link to this message, or <code>null</code> if the message was not in a Supergroup or Channel</li>
 <li><code>message.IsServiceMessage</code>: Detect service messages vs content messages</li>
-<li><code>message.ToMarkdown()</code> to convert the message to Markdown format</li>
-<li><code>message.ToHtml()</code> to convert the message to HTML format</li>
+<li><code>message.ToMarkdown()</code> to convert the message to Markdown format <em>(Not recommended)</em></li>
+<li><code>message.ToHtml()</code> to convert the message to HTML format <em>(Recommended)</em></li>
 <li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
 <li><code>HtmlText.Escape()</code> to escape reserved HTML characters in a string</li>
 <li><code>HtmlText.ToPlain()</code> to convert HTML string to plain text <em>(removing tags)</em></li>
-<li><code>HtmlText.PlainText()</code> to get the number of characters of plain text from HTML</li>
+<li><code>HtmlText.PlainLength()</code> to get the number of characters of plain text from HTML</li>
 <li><code>HtmlText.Truncate()</code> to truncate HTML string to a number of plain-text characters <em>(while still preserving the formatting)</em></li>
 </ul>
 <h2 id="easier-information"><a class="header" href="#easier-information">Easier information</a></h2>
 <ul>
 <li><code>chat.ToString()</code> &amp; <code>user.ToString()</code> to easily print/log information about the chat/user</li>
 <li><code>ChatMember</code> has properties <code>IsAdmin</code> and <code>IsInChat</code> to simplify testing if the user is an admin or currently inside the chat</li>
+<li><code>ChatMember</code> has property <code>ExpireDate</code> <em>(generic equivalent for <code>UntilDate</code> subclass properties)</em></li>
 <li><code>ChatMemberRestricted</code> has a property <code>IsMuted</code> to quickly determine if the user cannot send any type of message</li>
 </ul>
 <h2 id="updates"><a class="header" href="#updates">Updates</a></h2>
@@ -2631,7 +2632,7 @@ However, to simplify your life, we also provide a set of additional helpers meth
 <li><code>LabeledPrice</code> from tuple <code>(string label, long amount)</code></li>
 <li><code>BotCommand</code> from tuple <code>(string command, string description)</code></li>
 <li><code>BotCommandScope</code> has several static methods to construct scopes</li>
-<li><code>InputFile</code> from a fileId or URL (string) or a <code>Stream</code> or a received media file</li>
+<li><code>InputFile</code> from a <code>string</code> (fileId or URL), or a <code>Stream</code>, or a received media file, or <code>null</code></li>
 </ul>
 <p>Examples:</p>
 <pre><code class="language-csharp">await bot.RestrictChatMember(chatId, userId, new ChatPermissions(true)); // unmute
