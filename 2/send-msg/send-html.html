@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Native Polls - A guide to Telegram.Bot library</title>
+        <title>SendHtml helper - A guide to Telegram.Bot library</title>
 
 
         <!-- Custom HTML head -->
@@ -255,43 +255,157 @@
 }
 
 </style>
-<h1 id="native-poll-messages"><a class="header" href="#native-poll-messages">Native Poll Messages</a></h1>
-<p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Polls/AnonymousPollTests.cs"><img src="https://img.shields.io/badge/Examples-Native_Polls-green.svg?style=flat-square" alt="native poll tests" /></a></p>
-<p>Native poll are a special kind of message with question &amp; answers where users can vote. Options can be set to allow multiple answers, vote anonymously, or be a quizz with a correct choice and explanation.</p>
-<h2 id="send-a-poll"><a class="header" href="#send-a-poll">Send a poll</a></h2>
-<p><a href="https://core.telegram.org/bots/api#sendpoll"><img src="https://img.shields.io/badge/Bot_API_method-sendPoll-blue.svg?style=flat-square" alt="sendPoll method" /></a></p>
-<p>This is the code to send a poll to a chat.</p>
-<pre><code class="language-c#">var pollMessage = await bot.SendPoll("@channel_name",
-    "Did you ever hear the tragedy of Darth Plagueis The Wise?",
-    [
-        "Yes for the hundredth time!",
-        "No, who`s that?"
-    ]);
+<h1 id="sendhtml-helper-method"><a class="header" href="#sendhtml-helper-method">SendHtml helper method</a></h1>
+<p>SendHtml is an all-in-one helper method to send various type of messages in a very simple way.<br />
+It's using HTML-formatted text, with extra tags to support the sending of medias and <a href="#sending-keyboards">attached keyboard</a>.</p>
+<p>Look at the examples below to see how easy it is to use:</p>
+<h3 id="sending-a-simple-html-text-message"><a class="header" href="#sending-a-simple-html-text-message">Sending a simple HTML text message</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Try the new &lt;code&gt;SendHtml&lt;/code&gt; method...
+    It is &lt;tg-spoiler&gt;awesome!!&lt;/tg-spoiler&gt;
+    """);
 </code></pre>
-<p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll" /></p>
-<p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
-<p>You'll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
-<h2 id="stop-a-poll"><a class="header" href="#stop-a-poll">Stop a poll</a></h2>
-<p><a href="https://core.telegram.org/bots/api#stoppoll"><img src="https://img.shields.io/badge/Bot_API_method-stopPoll-blue.svg?style=flat-square" alt="stopPoll method" /></a></p>
-<p>To close a poll you need to know original chat and message ids of the poll that you got from calling <code>SendPoll</code> method.</p>
-<p>Let's close the poll that we sent in the previous example:</p>
-<pre><code class="language-c#">Poll poll = await bot.StopPoll(pollMessage.Chat, pollMessage.Id);
+<h3 id="sending-a-photo-with-caption"><a class="header" href="#sending-a-photo-with-caption">Sending a photo with caption</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg"&gt;
+    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;
+    """);
 </code></pre>
-<p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll" /></p>
-<p>You can add an inline keyboard when you close a poll.</p>
-<p>As a result of the request you'll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
-<p>If you'll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you'll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
-<p>Also if you'll try to close an already closed poll you'll get <code>ApiRequestException</code> with message <code>Bad Request: poll has already been closed</code>.</p>
+<h3 id="sending-a-photo-with-spoiler"><a class="header" href="#sending-a-photo-with-spoiler">Sending a photo with spoiler</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler&gt;
+    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;
+    """);
+</code></pre>
+<h3 id="sending-with-caption-above-the-photo"><a class="header" href="#sending-with-caption-above-the-photo">Sending with caption above the photo</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;
+    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler&gt;
+    """);
+</code></pre>
+<p>The position of text before or after <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code> determines if the caption should appear above or below the medias.</p>
+<h3 id="sending-a-video"><a class="header" href="#sending-a-video">Sending a video</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;video src="https://telegrambots.github.io/book/docs/video-countdown.mp4"&gt;
+    """);
+</code></pre>
+<h3 id="sending-a-video-with-fileid-instead-of-url-and-spoiler"><a class="header" href="#sending-a-video-with-fileid-instead-of-url-and-spoiler">Sending a video with FileID instead of URL <em>(and spoiler)</em></a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, $"""
+    &lt;video src="{previousMsg.Video.FileID}" spoiler&gt;
+    We use a FileID as the video src
+    """);
+</code></pre>
+<h3 id="sending-an-album-with-2-photos"><a class="header" href="#sending-an-album-with-2-photos">Sending an album with 2 photos</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;img src="https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"&gt;
+    &lt;img src="https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"&gt;
+    Album caption (attached to the last photo)
+    """);
+</code></pre>
+<h3 id="sending-an-album-with-caption-attached-to-first-media"><a class="header" href="#sending-an-album-with-caption-attached-to-first-media">Sending an album with caption attached to first media</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;img src="https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"&gt;
+    Album caption (attached to the first photo)
+    &lt;img src="https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"&gt;
+    """);
+</code></pre>
+<h3 id="sending-an-album-with-caption-above-the-medias"><a class="header" href="#sending-an-album-with-caption-above-the-medias">Sending an album with caption above the medias</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Album caption above the photos
+    &lt;img src="https://cdn.pixabay.com/photo/2017/06/20/19/22/fuchs-2424369_640.jpg"&gt;
+    &lt;img src="https://cdn.pixabay.com/photo/2017/04/11/21/34/giraffe-2222908_640.jpg"&gt;
+    """);
+</code></pre>
+<h3 id="sending-an-album-of-files-with-caption-on-each-file"><a class="header" href="#sending-an-album-of-files-with-caption-on-each-file">Sending an album of files with caption on each file</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;file src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"&gt;
+    Caption of 1st file
+    &lt;file src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"&gt;
+    Caption of 2nd file
+    """);
+</code></pre>
+<h3 id="sending-an-album-of-audio-files"><a class="header" href="#sending-an-album-of-audio-files">Sending an album of audio files</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;file src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/Test_ogg_mp3_48kbps.wav/Test_ogg_mp3_48kbps.wav.mp3"&gt;
+    &lt;file src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/Test_ogg_mp3_48kbps.wav/Test_ogg_mp3_48kbps.wav.mp3"&gt;
+    Listen to these audio files
+    """);
+</code></pre>
+<h2 id="sending-keyboards"><a class="header" href="#sending-keyboards">Sending keyboards</a></h2>
+<h3 id="text-message-with-one-inline-button"><a class="header" href="#text-message-with-one-inline-button">Text message with one Inline button</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Simple message &lt;u&gt;with a button&lt;/u&gt;
+    &lt;keyboard&gt;
+    &lt;button text="URL button" url="example.com"&gt;
+    &lt;/keyboard&gt;
+    """);
+</code></pre>
+<h3 id="photo-with-two-callback-buttons"><a class="header" href="#photo-with-two-callback-buttons">Photo with two callback buttons</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg"&gt;
+    Do you like this photo?
+    &lt;keyboard&gt;
+    &lt;button text="Yes" callback="ara-yes"&gt;
+    &lt;button text="No" callback="ara-no"&gt;
+    &lt;/keyboard&gt;
+    """);
+</code></pre>
+<h3 id="multi-row-keyboard-and-various-types-of-inline-buttons"><a class="header" href="#multi-row-keyboard-and-various-types-of-inline-buttons">Multi-row keyboard and various types of inline buttons</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Inline keyboard example
+    &lt;keyboard&gt;
+    &lt;button text="URL button" url="https://github.com/TelegramBots/Telegram.Bot"&gt;
+    &lt;button text="Callback btn" callback="data"&gt;
+    &lt;row&gt;
+    &lt;button text="Copy btn" copy="Some Text"&gt;
+    &lt;button text="Switch inline" switch_inline="query" target="user,bot"&gt;
+    &lt;/row&gt;
+    &lt;/keyboard&gt;
+    """);
+</code></pre>
+<p><em>Note: Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</em></p>
+<h3 id="using-reply-buttons"><a class="header" href="#using-reply-buttons">Using Reply buttons</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Reply keyboard example
+    &lt;keyboard reply&gt;
+    &lt;button text="Yes"&gt;
+    &lt;button text="No"&gt;
+    &lt;button text="Maybe"&gt;
+    &lt;row&gt;
+    &lt;button text="Send my contact" request_contact&gt;
+    &lt;button text="Send my location" request_location&gt;
+    &lt;button text="Send a poll" request_poll="any"&gt;
+    &lt;/keyboard&gt;
+    """);
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li>Closing tag <code>&lt;/row&gt;</code> is optional.</li>
+<li>Button type <code>request_poll_=".."</code> supports values: <code>any</code>, <code>quiz</code>, <code>regular</code></li>
+<li>Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats_</li>
+</ul>
+<h3 id="removing-the-reply-keyboard"><a class="header" href="#removing-the-reply-keyboard">Removing the Reply keyboard</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Thank you
+    &lt;keyboard reply_remove&gt;&lt;/keyboard&gt;
+    """);
+</code></pre>
+<h3 id="force-the-user-to-reply-to-this-message"><a class="header" href="#force-the-user-to-reply-to-this-message">Force the user to reply to this message</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Please give your name in reply to this message
+    &lt;keyboard reply_force="Type your name here"&gt;&lt;/keyboard&gt;
+    """);
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../2/send-msg/send-html.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../2/send-msg/media-msg.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../2/send-msg/other-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../2/send-msg/native-polls-msg.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -301,11 +415,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../2/send-msg/send-html.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../2/send-msg/media-msg.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../2/send-msg/other-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../2/send-msg/native-polls-msg.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

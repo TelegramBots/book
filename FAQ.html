@@ -395,7 +395,8 @@ Version 21.x of the library and later have been much improved to facilitate <a h
 <h3 id="25-how-do-i-get-the-user-id-from-a-username"><a class="header" href="#25-how-do-i-get-the-user-id-from-a-username"><em>25. How do I get the user id from a username?</em></a></h3>
 <p>You can't with Bot API but it's possible with <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">WTelegramBot</a>.<br />
 Alternatively, you could store in database the mapping of <code>UserId</code>&lt;-&gt;<code>Username</code>.<br />
-Remember that not every user has a username, and it can be changed.</p>
+Remember that not every user has a username, and it can be changed.<br />
+Also, your bot still won't be able to contact a user first.</p>
 <h3 id="26-how-to-receive-messages-from-channels"><a class="header" href="#26-how-to-receive-messages-from-channels"><em>26. How to receive messages from channels?</em></a></h3>
 <p>Your bot has to be added as administrator of the channel.
 You will then receive the messages as <code>update.ChannelPost</code> or <code>update.EditedChannelPost</code>.</p>
