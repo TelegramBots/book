@@ -7,6 +7,7 @@
 - [Beginner](2/README.md)
   - [Sending Messages](2/send-msg/README.md)
     - [Sending Media](2/send-msg/media-msg.md)
+    - [SendHtml helper](2/send-msg/send-html.md)
     - [Native Polls](2/send-msg/native-polls-msg.md)
     - [Other Messages](2/send-msg/other-msg.md)
   - [Dealing with chats](2/chats.md)

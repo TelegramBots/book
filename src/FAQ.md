@@ -130,7 +130,8 @@ To process the updates in parallel, read [this section of our documentation](3/u
 
 You can't with Bot API but it's possible with [WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab).  
 Alternatively, you could store in database the mapping of `UserId`<->`Username`.  
-Remember that not every user has a username, and it can be changed.
+Remember that not every user has a username, and it can be changed.  
+Also, your bot still won't be able to contact a user first.
 
 ### _26. How to receive messages from channels?_
 
