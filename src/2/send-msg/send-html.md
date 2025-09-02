@@ -112,6 +112,10 @@ var msg = await bot.SendHtml(chatId, """
     """, streams: [stream0, stream1]);
 ```
 
+Pass a stream list in method argument `streams:`, then reference them in html `src="..."` as `stream://N` or `stream:N` or just `N`
+
+N being the indice in the streams list (starting with 0), or the filename for `FileStream`s
+
 ## Customizing the preview for text messages
 ```csharp
 var msg = await bot.SendHtml(chatId, """
