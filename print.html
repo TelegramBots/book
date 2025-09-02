@@ -1186,6 +1186,8 @@ var msg = await bot.SendHtml(chatId, """
     &lt;img src="stream://0"&gt;
     """, streams: [stream0, stream1]);
 </code></pre>
+<p>Pass a stream list in method argument <code>streams:</code>, then reference them in html <code>src="..."</code> as <code>stream://N</code> or <code>stream:N</code> or just <code>N</code></p>
+<p>N being the indice in the streams list (starting with 0), or the filename for <code>FileStream</code>s</p>
 <h2 id="customizing-the-preview-for-text-messages"><a class="header" href="#customizing-the-preview-for-text-messages">Customizing the preview for text messages</a></h2>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     https://github.com/TelegramBots/book
