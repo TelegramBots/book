@@ -258,6 +258,7 @@
 <h1 id="sendhtml-helper-method"><a class="header" href="#sendhtml-helper-method">SendHtml helper method</a></h1>
 <p>SendHtml is an all-in-one helper method to send various type of messages in a very simple way.<br />
 It's using HTML-formatted text, with extra tags to support the sending of medias and <a href="#sending-keyboards">attached keyboard</a>.</p>
+<p><em>Note: method is only available for .NET 6+</em></p>
 <p>Look at the examples below to see how easy it is to use:</p>
 <h3 id="sending-a-simple-html-text-message"><a class="header" href="#sending-a-simple-html-text-message">Sending a simple HTML text message</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
@@ -331,6 +332,32 @@ It's using HTML-formatted text, with extra tags to support the sending of medias
     Listen to these audio files
     """);
 </code></pre>
+<h3 id="sending-an-album-with-uploaded-streams"><a class="header" href="#sending-an-album-with-uploaded-streams">Sending an album with uploaded streams</a></h3>
+<pre><code class="language-csharp">await using var stream0 = File.OpenRead(@"C:\Pictures\banner.png");
+await using var stream1 = File.OpenRead(@"C:\Pictures\image.jpg");
+var msg = await bot.SendHtml(chatId, """
+    &lt;img src="image.jpg"&gt;
+    &lt;img src="stream://0"&gt;
+    """, streams: [stream0, stream1]);
+</code></pre>
+<h2 id="customizing-the-preview-for-text-messages"><a class="header" href="#customizing-the-preview-for-text-messages">Customizing the preview for text messages</a></h2>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    https://github.com/TelegramBots/book
+    &lt;preview disabled&gt;
+    """);
+
+var msg2 = await bot.SendHtml(chatId, """
+    Hello, world
+    &lt;preview url="https://github.com/TelegramBots/book" small above&gt;
+    """);
+</code></pre>
+<p>Tag <code>&lt;preview&gt;</code> supports the following optional attributes <em>(in this order)</em>:</p>
+<ul>
+<li><code>disable</code> or <code>disabled</code> <em>(no preview even if text contains links)</em></li>
+<li><code>url="https://..."</code> <em>(force preview for this URL not present in the text)</em></li>
+<li><code>small</code> or <code>large</code> <em>(size of the preview image)</em></li>
+<li><code>above</code></li>
+</ul>
 <h2 id="sending-keyboards"><a class="header" href="#sending-keyboards">Sending keyboards</a></h2>
 <h3 id="text-message-with-one-inline-button"><a class="header" href="#text-message-with-one-inline-button">Text message with one Inline button</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
@@ -382,7 +409,7 @@ It's using HTML-formatted text, with extra tags to support the sending of medias
 <ul>
 <li>Closing tag <code>&lt;/row&gt;</code> is optional.</li>
 <li>Button type <code>request_poll_=".."</code> supports values: <code>any</code>, <code>quiz</code>, <code>regular</code></li>
-<li>Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats_</li>
+<li>Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</li>
 </ul>
 <h3 id="removing-the-reply-keyboard"><a class="header" href="#removing-the-reply-keyboard">Removing the Reply keyboard</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
