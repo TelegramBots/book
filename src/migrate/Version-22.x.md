@@ -143,3 +143,10 @@ Builds & Releases:
 - `TransferGift`: fix type for newOwnerChatId
 - Sealed some internal types for performance
 - faster `IsServiceMessage`
+
+## What's new in version 22.7
+- Support for [Bot API 9.2](https://core.telegram.org/bots/api-changelog#august-15-2025)
+- Added `ChatMember.ExpireDate` helper (= generic `UntilDate`)
+- implicit `InputFile(string)` `InputFileId(string)` now allows `null` string (and return null)
+- **New all-in-one helper method `SendHtml`** (which supports `<img> <video> <file> <preview> <keyboard>` tags)  
+👉 see [SendHtml documentation](../2/send-msg/send-html.md) for more details

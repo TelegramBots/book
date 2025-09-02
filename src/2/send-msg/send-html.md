@@ -3,6 +3,8 @@
 SendHtml is an all-in-one helper method to send various type of messages in a very simple way.  
 It's using HTML-formatted text, with extra tags to support the sending of medias and [attached keyboard](#sending-keyboards).
 
+_Note: method is only available for .NET 6+_
+
 Look at the examples below to see how easy it is to use:
 
 ### Sending a simple HTML text message
@@ -100,6 +102,34 @@ var msg = await bot.SendHtml(chatId, """
     """);
 ```
 
+### Sending an album with uploaded streams
+```csharp
+await using var stream0 = File.OpenRead(@"C:\Pictures\banner.png");
+await using var stream1 = File.OpenRead(@"C:\Pictures\image.jpg");
+var msg = await bot.SendHtml(chatId, """
+    <img src="image.jpg">
+    <img src="stream://0">
+    """, streams: [stream0, stream1]);
+```
+
+## Customizing the preview for text messages
+```csharp
+var msg = await bot.SendHtml(chatId, """
+    https://github.com/TelegramBots/book
+    <preview disabled>
+    """);
+
+var msg2 = await bot.SendHtml(chatId, """
+    Hello, world
+    <preview url="https://github.com/TelegramBots/book" small above>
+    """);
+```
+Tag `<preview>` supports the following optional attributes _(in this order)_:
+- `disable` or `disabled` _(no preview even if text contains links)_
+- `url="https://..."` _(force preview for this URL not present in the text)_
+- `small` or `large` _(size of the preview image)_
+- `above`
+
 ## Sending keyboards
 
 ### Text message with one Inline button
@@ -159,7 +189,7 @@ var msg = await bot.SendHtml(chatId, """
 Notes:
 - Closing tag `</row>` is optional.
 - Button type `request_poll_=".."` supports values: `any`, `quiz`, `regular`
-- Button type `app="<AppURL>"` works only in private chats_
+- Button type `app="<AppURL>"` works only in private chats
 
 ### Removing the Reply keyboard
 ```csharp
