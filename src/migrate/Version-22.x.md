@@ -150,3 +150,5 @@ Builds & Releases:
 - implicit `InputFile(string)` `InputFileId(string)` now allows `null` string (and return null)
 - **New all-in-one helper method `SendHtml`** (which supports `<img> <video> <file> <preview> <keyboard>` tags)  
 👉 see [SendHtml documentation](../2/send-msg/send-html.md) for more details
+- Changed type `int` -> `long` for fields `TopicId`, `StarCount`, `Amount`
+- Changed `messageThreadId` arg position on `SendPaidMedia`

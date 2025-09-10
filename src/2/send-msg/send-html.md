@@ -1,7 +1,7 @@
 ﻿# SendHtml helper method
 
 SendHtml is an all-in-one helper method to send various type of messages in a very simple way.  
-It's using HTML-formatted text, with extra tags to support the sending of medias and [attached keyboard](#sending-keyboards).
+It's using [HTML-formatted text](https://core.telegram.org/bots/api#html-style), with extra tags to support the sending of medias and [attached keyboard](#sending-keyboards).
 
 _Note: method is only available for .NET 6+_
 
@@ -136,6 +136,8 @@ Tag `<preview>` supports the following optional attributes _(in this order)_:
 
 ## Sending keyboards
 
+Note: the `<keyboard>..</keyboard>` section must be at the end of the message
+
 ### Text message with one Inline button
 ```csharp
 var msg = await bot.SendHtml(chatId, """
@@ -172,7 +174,7 @@ var msg = await bot.SendHtml(chatId, """
     </keyboard>
     """);
 ```
-_Note: Button type `app="<AppURL>"` works only in private chats_
+Note: Button type `app="<AppURL>"` works only in private chats
 
 ### Using Reply buttons
 ```csharp
