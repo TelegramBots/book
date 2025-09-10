@@ -1103,7 +1103,7 @@ There is no way to know how many medias are in the album, so here are some techn
 </style>
 <h1 id="sendhtml-helper-method"><a class="header" href="#sendhtml-helper-method">SendHtml helper method</a></h1>
 <p>SendHtml is an all-in-one helper method to send various type of messages in a very simple way.<br />
-It's using HTML-formatted text, with extra tags to support the sending of medias and <a href="2/send-msg/send-html.html#sending-keyboards">attached keyboard</a>.</p>
+It's using <a href="https://core.telegram.org/bots/api#html-style">HTML-formatted text</a>, with extra tags to support the sending of medias and <a href="2/send-msg/send-html.html#sending-keyboards">attached keyboard</a>.</p>
 <p><em>Note: method is only available for .NET 6+</em></p>
 <p>Look at the examples below to see how easy it is to use:</p>
 <h3 id="sending-a-simple-html-text-message"><a class="header" href="#sending-a-simple-html-text-message">Sending a simple HTML text message</a></h3>
@@ -1207,6 +1207,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <li><code>above</code></li>
 </ul>
 <h2 id="sending-keyboards"><a class="header" href="#sending-keyboards">Sending keyboards</a></h2>
+<p>Note: the <code>&lt;keyboard&gt;..&lt;/keyboard&gt;</code> section must be at the end of the message</p>
 <h3 id="text-message-with-one-inline-button"><a class="header" href="#text-message-with-one-inline-button">Text message with one Inline button</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Simple message &lt;u&gt;with a button&lt;/u&gt;
@@ -1238,7 +1239,7 @@ var msg2 = await bot.SendHtml(chatId, """
     &lt;/keyboard&gt;
     """);
 </code></pre>
-<p><em>Note: Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</em></p>
+<p>Note: Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</p>
 <h3 id="using-reply-buttons"><a class="header" href="#using-reply-buttons">Using Reply buttons</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Reply keyboard example
@@ -4630,6 +4631,8 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <li>implicit <code>InputFile(string)</code> <code>InputFileId(string)</code> now allows <code>null</code> string (and return null)</li>
 <li><strong>New all-in-one helper method <code>SendHtml</code></strong> (which supports <code>&lt;img&gt; &lt;video&gt; &lt;file&gt; &lt;preview&gt; &lt;keyboard&gt;</code> tags)<br />
 👉 see <a href="migrate/../2/send-msg/send-html.html">SendHtml documentation</a> for more details</li>
+<li>Changed type <code>int</code> -&gt; <code>long</code> for fields <code>TopicId</code>, <code>StarCount</code>, <code>Amount</code></li>
+<li>Changed <code>messageThreadId</code> arg position on <code>SendPaidMedia</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {

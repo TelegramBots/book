@@ -257,7 +257,7 @@
 </style>
 <h1 id="sendhtml-helper-method"><a class="header" href="#sendhtml-helper-method">SendHtml helper method</a></h1>
 <p>SendHtml is an all-in-one helper method to send various type of messages in a very simple way.<br />
-It's using HTML-formatted text, with extra tags to support the sending of medias and <a href="#sending-keyboards">attached keyboard</a>.</p>
+It's using <a href="https://core.telegram.org/bots/api#html-style">HTML-formatted text</a>, with extra tags to support the sending of medias and <a href="#sending-keyboards">attached keyboard</a>.</p>
 <p><em>Note: method is only available for .NET 6+</em></p>
 <p>Look at the examples below to see how easy it is to use:</p>
 <h3 id="sending-a-simple-html-text-message"><a class="header" href="#sending-a-simple-html-text-message">Sending a simple HTML text message</a></h3>
@@ -361,6 +361,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <li><code>above</code></li>
 </ul>
 <h2 id="sending-keyboards"><a class="header" href="#sending-keyboards">Sending keyboards</a></h2>
+<p>Note: the <code>&lt;keyboard&gt;..&lt;/keyboard&gt;</code> section must be at the end of the message</p>
 <h3 id="text-message-with-one-inline-button"><a class="header" href="#text-message-with-one-inline-button">Text message with one Inline button</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Simple message &lt;u&gt;with a button&lt;/u&gt;
@@ -392,7 +393,7 @@ var msg2 = await bot.SendHtml(chatId, """
     &lt;/keyboard&gt;
     """);
 </code></pre>
-<p><em>Note: Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</em></p>
+<p>Note: Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</p>
 <h3 id="using-reply-buttons"><a class="header" href="#using-reply-buttons">Using Reply buttons</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Reply keyboard example
