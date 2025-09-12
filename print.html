@@ -1202,7 +1202,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <p>Tag <code>&lt;preview&gt;</code> supports the following optional attributes <em>(in this order)</em>:</p>
 <ul>
 <li><code>disable</code> or <code>disabled</code> <em>(no preview even if text contains links)</em></li>
-<li><code>url="https://..."</code> <em>(force preview for this URL not present in the text)</em></li>
+<li><code>url="..."</code> <em>(force preview for this URL, even if not present in the message text)</em></li>
 <li><code>small</code> or <code>large</code> <em>(size of the preview image)</em></li>
 <li><code>above</code></li>
 </ul>
@@ -1278,6 +1278,7 @@ Invalid values like <code>target=""</code>, <code>target="*"</code>, <code>targe
     &lt;keyboard reply_force="Type your name here"&gt;&lt;/keyboard&gt;
     """);
 </code></pre>
+<p>Note: The <code>&lt;keyboard&gt;</code> tag <u>must</u> be closed with <code>&lt;/keyboard&gt;</code>, not with simple <code> /&gt;</code></p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
