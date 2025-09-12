@@ -174,7 +174,11 @@ var msg = await bot.SendHtml(chatId, """
     </keyboard>
     """);
 ```
-Note: Button type `app="<AppURL>"` works only in private chats
+Notes:
+- Button type `switch_inline` supports this set of `target=` values: `user`, `bot`, `group`, `channel`  
+  Omitting the `target=` directly types the inline query in the current chat  
+  Invalid values like `target=""`, `target="*"`, `target="any"` will target all kinds of chat
+- Button type `app="<AppURL>"` works only in private chats
 
 ### Using Reply buttons
 ```csharp
