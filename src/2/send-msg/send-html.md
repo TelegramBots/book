@@ -130,7 +130,7 @@ var msg2 = await bot.SendHtml(chatId, """
 ```
 Tag `<preview>` supports the following optional attributes _(in this order)_:
 - `disable` or `disabled` _(no preview even if text contains links)_
-- `url="https://..."` _(force preview for this URL not present in the text)_
+- `url="..."` _(force preview for this URL, even if not present in the message text)_
 - `small` or `large` _(size of the preview image)_
 - `above`
 
@@ -216,3 +216,4 @@ var msg = await bot.SendHtml(chatId, """
     <keyboard reply_force="Type your name here"></keyboard>
     """);
 ```
+Note: The `<keyboard>` tag <u>must</u> be closed with `</keyboard>`, not with simple ` />`
