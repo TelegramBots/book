@@ -15,8 +15,8 @@ However, to simplify your life, we also provide a set of additional helpers meth
 - `HtmlText.Escape()` to escape reserved HTML characters in a string
 - `HtmlText.ToPlain()` to convert HTML string to plain text _(removing tags)_
 - `HtmlText.PlainLength()` to get the number of characters of plain text from HTML
-- `HtmlText.Truncate()` to truncate HTML string to a number of plain-text characters _(while still preserving the formatting)_
-- `bot.SendHtml()` to [send HTML-formatted messages](../2//send-msg/send-html.md), with support for sending photos/videos and keyboards from one string
+- `HtmlText.Truncate()` to truncate HTML string to a number of plain-text characters _(while preserving the formatting)_
+- `bot.SendHtml()` to [send HTML-formatted messages](../2/send-msg/send-html.md), with support for sending photos/videos and keyboards from one string
 
 ## Easier information
 - `chat.ToString()` & `user.ToString()` to easily print/log information about the chat/user

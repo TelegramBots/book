@@ -216,4 +216,4 @@ var msg = await bot.SendHtml(chatId, """
     <keyboard reply_force="Type your name here"></keyboard>
     """);
 ```
-Note: The `<keyboard>` tag <u>must</u> be closed with `</keyboard>`, not with simple ` />`
+Note: The `<keyboard>` tag <u>must</u> be closed with `</keyboard>` (not with simple ` />`) as the last closing tag
