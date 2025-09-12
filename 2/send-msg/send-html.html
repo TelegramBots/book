@@ -393,7 +393,13 @@ var msg2 = await bot.SendHtml(chatId, """
     &lt;/keyboard&gt;
     """);
 </code></pre>
-<p>Note: Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</p>
+<p>Notes:</p>
+<ul>
+<li>Button type <code>switch_inline</code> supports this set of <code>target=</code> values: <code>user</code>, <code>bot</code>, <code>group</code>, <code>channel</code><br />
+Omitting the <code>target=</code> directly types the inline query in the current chat<br />
+Invalid values like <code>target=""</code>, <code>target="*"</code>, <code>target="any"</code> will target all kinds of chat</li>
+<li>Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</li>
+</ul>
 <h3 id="using-reply-buttons"><a class="header" href="#using-reply-buttons">Using Reply buttons</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Reply keyboard example
