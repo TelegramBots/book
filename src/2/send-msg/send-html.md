@@ -134,6 +134,8 @@ Tag `<preview>` supports the following optional attributes _(in this order)_:
 - `small` or `large` _(size of the preview image)_
 - `above`
 
+Note: the `<preview>` tag must appear after the text of the message, and only if no media is specified
+
 ## Sending keyboards
 
 Note: the `<keyboard>..</keyboard>` section must be at the end of the message

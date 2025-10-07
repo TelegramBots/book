@@ -69,8 +69,8 @@ Note: if you use the `bot.OnMessage` event, this is simplified and you can just 
 
 When you create a private chat group in Telegram, it is usually a `ChatType.Group`.
 
-If you change settings (like admin rights or making it public), or if members reach 200,
-the Group may be migrated into a Supergroup.
+If members count reach 200, or if you change some settings _(like making it public, enabling newcomers history, or custom admin rights)_,
+the group may be migrated into a **supergroup**.
 
 In such case, the Supergroup is like a separate chat with a different ID. 
 The old Group will have a service message `MigrateToChatId` with the new supergroup ID.

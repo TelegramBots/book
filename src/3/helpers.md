@@ -40,6 +40,7 @@ We've added easier ways to construct various instances from other types, especia
 - `ReactionType` from an emoji (string) or a customEmojiId (long)
 - `ReplyParameters` from a messageId (int), or a `Message` class, so you can pass these directly for the `replyParameters:` argument
 - `LinkPreviewOptions` from a `bool` where `true` means to disable the preview
+- `LinkPreviewOptions` from a `string` URL to show preview for this link
 - `LabeledPrice` from tuple `(string label, long amount)`
 - `BotCommand` from tuple `(string command, string description)`
 - `BotCommandScope` has several static methods to construct scopes
@@ -63,14 +64,14 @@ Keyboards can be easily constructed by passing directly the following type of ob
 | Type | Meaning |
 |------|---------|
 | `string` | single keyboard text button |
-| `string[]` | keyboard text buttons on one row |
-| `string[][]` | multiple keyboard text buttons |
+| `string[]` or `List<string>` | keyboard text buttons on one row |
+| `string[][]` or `List<List<string>>` | multiple keyboard text buttons |
 | `KeyboardButton` | single keyboard button |
-| `KeyboardButton[]` | multiple keyboard buttons on one row |
-| `KeyboardButton[][]` or<br/>`IEnumerable<KeyboardButton>[]` | multiple keyboard buttons |
+| `KeyboardButton[]` or<br/>`List<KeyboardButton>` | multiple keyboard buttons on one row |
+| `KeyboardButton[][]` or<br/>`List<List<KeyboardButton>>` or<br/>`IEnumerable<KeyboardButton>[]` | multiple keyboard buttons |
 | `InlineKeyboardButton` | single inline button |
-| `InlineKeyboardButton[]` | inline buttons on 1 row |
-| `InlineKeyboardButton[][]` or<br/> `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
+| `InlineKeyboardButton[]` or<br/>`List<InlineKeyboardButton>` | inline buttons on 1 row |
+| `InlineKeyboardButton[][]` or<br/>`List<List<InlineKeyboardButton>>` or<br/> `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
 
 Additionally, `InlineKeyboardButton` can be implicitly constructed from a tuple `(string text, string callbackOrUrl)` for Callback or Url buttons
 ```csharp
