@@ -300,6 +300,7 @@ However, to simplify your life, we also provide a set of additional helpers meth
 <li><code>ReactionType</code> from an emoji (string) or a customEmojiId (long)</li>
 <li><code>ReplyParameters</code> from a messageId (int), or a <code>Message</code> class, so you can pass these directly for the <code>replyParameters:</code> argument</li>
 <li><code>LinkPreviewOptions</code> from a <code>bool</code> where <code>true</code> means to disable the preview</li>
+<li><code>LinkPreviewOptions</code> from a <code>string</code> URL to show preview for this link</li>
 <li><code>LabeledPrice</code> from tuple <code>(string label, long amount)</code></li>
 <li><code>BotCommand</code> from tuple <code>(string command, string description)</code></li>
 <li><code>BotCommandScope</code> has several static methods to construct scopes</li>
@@ -318,14 +319,14 @@ await bot.SendVideo(msg.Chat, msg.Video, "Sending your video back");
 <p>Keyboards can be easily constructed by passing directly the following type of objects for the <code>replyMarkup:</code> parameter:</p>
 <div class="table-wrapper"><table><thead><tr><th>Type</th><th>Meaning</th></tr></thead><tbody>
 <tr><td><code>string</code></td><td>single keyboard text button</td></tr>
-<tr><td><code>string[]</code></td><td>keyboard text buttons on one row</td></tr>
-<tr><td><code>string[][]</code></td><td>multiple keyboard text buttons</td></tr>
+<tr><td><code>string[]</code> or <code>List&lt;string&gt;</code></td><td>keyboard text buttons on one row</td></tr>
+<tr><td><code>string[][]</code> or <code>List&lt;List&lt;string&gt;&gt;</code></td><td>multiple keyboard text buttons</td></tr>
 <tr><td><code>KeyboardButton</code></td><td>single keyboard button</td></tr>
-<tr><td><code>KeyboardButton[]</code></td><td>multiple keyboard buttons on one row</td></tr>
-<tr><td><code>KeyboardButton[][]</code> or<br/><code>IEnumerable&lt;KeyboardButton&gt;[]</code></td><td>multiple keyboard buttons</td></tr>
+<tr><td><code>KeyboardButton[]</code> or<br/><code>List&lt;KeyboardButton&gt;</code></td><td>multiple keyboard buttons on one row</td></tr>
+<tr><td><code>KeyboardButton[][]</code> or<br/><code>List&lt;List&lt;KeyboardButton&gt;&gt;</code> or<br/><code>IEnumerable&lt;KeyboardButton&gt;[]</code></td><td>multiple keyboard buttons</td></tr>
 <tr><td><code>InlineKeyboardButton</code></td><td>single inline button</td></tr>
-<tr><td><code>InlineKeyboardButton[]</code></td><td>inline buttons on 1 row</td></tr>
-<tr><td><code>InlineKeyboardButton[][]</code> or<br/> <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
+<tr><td><code>InlineKeyboardButton[]</code> or<br/><code>List&lt;InlineKeyboardButton&gt;</code></td><td>inline buttons on 1 row</td></tr>
+<tr><td><code>InlineKeyboardButton[][]</code> or<br/><code>List&lt;List&lt;InlineKeyboardButton&gt;&gt;</code> or<br/> <code>IEnumerable&lt;InlineKeyboardButton&gt;[]</code></td><td>multiple inline buttons</td></tr>
 </tbody></table>
 </div>
 <p>Additionally, <code>InlineKeyboardButton</code> can be implicitly constructed from a tuple <code>(string text, string callbackOrUrl)</code> for Callback or Url buttons</p>

@@ -325,8 +325,8 @@ If you want your bot to receive ALL messages in the group, you can either make i
 </div>
 <h2 id="migration-to-supergroup"><a class="header" href="#migration-to-supergroup">Migration to Supergroup</a></h2>
 <p>When you create a private chat group in Telegram, it is usually a <code>ChatType.Group</code>.</p>
-<p>If you change settings (like admin rights or making it public), or if members reach 200,
-the Group may be migrated into a Supergroup.</p>
+<p>If members count reach 200, or if you change some settings <em>(like making it public, enabling newcomers history, or custom admin rights)</em>,
+the group may be migrated into a <strong>supergroup</strong>.</p>
 <p>In such case, the Supergroup is like a separate chat with a different ID.
 The old Group will have a service message <code>MigrateToChatId</code> with the new supergroup ID.
 The new Supergroup will have a service message <code>MigrateFromChatId</code> with the old group ID.</p>
