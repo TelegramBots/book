@@ -152,3 +152,12 @@ Builds & Releases:
 👉 see [SendHtml documentation](../2/send-msg/send-html.md) for more details
 - Changed type `int` -> `long` for fields `TopicId`, `StarCount`, `Amount`
 - Changed `messageThreadId` arg position on `SendPaidMedia`
+
+## What's new in version 22.7.3
+- Implicit `LinkPreviewOptions` from an URL string
+- Implicit conversion from `List<>` and `List<List<>>` to reply markup
+- Fix **SendHtml** with `switch_inline="query"` buttons
+- Fix **EditMessageText/Caption** optional arg order (similar to Send methods)
+- Clarify polling methods descriptions.
+- Removed IUpdateReceiver/DefaultUpdateReceiver classes (loop code moved directly into Polling)
+- Obsoleted AsyncEnumerableReceivers
