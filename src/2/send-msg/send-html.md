@@ -19,7 +19,7 @@ var msg = await bot.SendHtml(chatId, """
 ```csharp
 var msg = await bot.SendHtml(chatId, """
     <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg">
-    <b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>
+    <b>Ara bird</b>. <i>Source</i>: <a href="https://pixabay.com">Pixabay</a>
     """);
 ```
 
@@ -27,15 +27,15 @@ var msg = await bot.SendHtml(chatId, """
 ```csharp
 var msg = await bot.SendHtml(chatId, """
     <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler>
-    <b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>
+    <b>Ara bird</b>. <i>Source</i>: <a href="https://pixabay.com">Pixabay</a>
     """);
 ```
 
 ### Sending with caption above the photo
 ```csharp
 var msg = await bot.SendHtml(chatId, """
-    <b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>
-    <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler>
+    <b>Ara bird</b>. <i>Source</i>: <a href="https://pixabay.com">Pixabay</a>
+    <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg">
     """);
 ```
 
@@ -51,7 +51,7 @@ var msg = await bot.SendHtml(chatId, """
 ### Sending a video with FileID instead of URL _(and spoiler)_
 ```csharp
 var msg = await bot.SendHtml(chatId, $"""
-    <video src="{previousMsg.Video.FileID}" spoiler>
+    <video src="{previousMsg.Video.FileId}" spoiler>
     We use a FileID as the video src
     """);
 ```
@@ -119,13 +119,13 @@ N being the indice in the streams list (starting with 0), or the filename for `F
 ## Customizing the preview for text messages
 ```csharp
 var msg = await bot.SendHtml(chatId, """
-    https://github.com/TelegramBots/book
+    no preview: https://github.com/TelegramBots/Telegram.Bot.Examples
     <preview disabled>
     """);
 
 var msg2 = await bot.SendHtml(chatId, """
-    Hello, world
-    <preview url="https://github.com/TelegramBots/book" small above>
+    Preview URL is not even in message text
+    <preview url="https://github.com/TelegramBots/Telegram.Bot.Examples" small above>
     """);
 ```
 Tag `<preview>` supports the following optional attributes _(in this order)_:
@@ -203,14 +203,6 @@ Notes:
 - Button type `request_poll_=".."` supports values: `any`, `quiz`, `regular`
 - Button type `app="<AppURL>"` works only in private chats
 
-### Removing the Reply keyboard
-```csharp
-var msg = await bot.SendHtml(chatId, """
-    Thank you
-    <keyboard reply_remove></keyboard>
-    """);
-```
-
 ### Force the user to reply to this message
 ```csharp
 var msg = await bot.SendHtml(chatId, """
@@ -218,4 +210,12 @@ var msg = await bot.SendHtml(chatId, """
     <keyboard reply_force="Type your name here"></keyboard>
     """);
 ```
-Note: The `<keyboard>` tag <u>must</u> be closed with `</keyboard>` (not with simple ` />`) as the last closing tag
+
+### Removing the Reply keyboard
+```csharp
+var msg = await bot.SendHtml(chatId, """
+    Thank you
+    <keyboard reply_remove></keyboard>
+    """);
+```
+Note: The `<keyboard>` tag <u>must</u> be closed with `</keyboard>` as the last closing tag (not with a simple ` />`)
