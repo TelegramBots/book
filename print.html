@@ -1115,19 +1115,19 @@ It's using <a href="https://core.telegram.org/bots/api#html-style">HTML-formatte
 <h3 id="sending-a-photo-with-caption"><a class="header" href="#sending-a-photo-with-caption">Sending a photo with caption</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg"&gt;
-    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;
+    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
     """);
 </code></pre>
 <h3 id="sending-a-photo-with-spoiler"><a class="header" href="#sending-a-photo-with-spoiler">Sending a photo with spoiler</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler&gt;
-    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;
+    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
     """);
 </code></pre>
 <h3 id="sending-with-caption-above-the-photo"><a class="header" href="#sending-with-caption-above-the-photo">Sending with caption above the photo</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
-    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;
-    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler&gt;
+    &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
+    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg"&gt;
     """);
 </code></pre>
 <p>The position of text before or after <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code> determines if the caption should appear above or below the medias.</p>
@@ -1138,7 +1138,7 @@ It's using <a href="https://core.telegram.org/bots/api#html-style">HTML-formatte
 </code></pre>
 <h3 id="sending-a-video-with-fileid-instead-of-url-and-spoiler"><a class="header" href="#sending-a-video-with-fileid-instead-of-url-and-spoiler">Sending a video with FileID instead of URL <em>(and spoiler)</em></a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, $"""
-    &lt;video src="{previousMsg.Video.FileID}" spoiler&gt;
+    &lt;video src="{previousMsg.Video.FileId}" spoiler&gt;
     We use a FileID as the video src
     """);
 </code></pre>
@@ -1190,13 +1190,13 @@ var msg = await bot.SendHtml(chatId, """
 <p>N being the indice in the streams list (starting with 0), or the filename for <code>FileStream</code>s</p>
 <h2 id="customizing-the-preview-for-text-messages"><a class="header" href="#customizing-the-preview-for-text-messages">Customizing the preview for text messages</a></h2>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
-    https://github.com/TelegramBots/book
+    no preview: https://github.com/TelegramBots/Telegram.Bot.Examples
     &lt;preview disabled&gt;
     """);
 
 var msg2 = await bot.SendHtml(chatId, """
-    Hello, world
-    &lt;preview url="https://github.com/TelegramBots/book" small above&gt;
+    Preview URL is not even in message text
+    &lt;preview url="https://github.com/TelegramBots/Telegram.Bot.Examples" small above&gt;
     """);
 </code></pre>
 <p>Tag <code>&lt;preview&gt;</code> supports the following optional attributes <em>(in this order)</em>:</p>
@@ -1267,19 +1267,19 @@ Invalid values like <code>target=""</code>, <code>target="*"</code>, <code>targe
 <li>Button type <code>request_poll_=".."</code> supports values: <code>any</code>, <code>quiz</code>, <code>regular</code></li>
 <li>Button type <code>app="&lt;AppURL&gt;"</code> works only in private chats</li>
 </ul>
-<h3 id="removing-the-reply-keyboard"><a class="header" href="#removing-the-reply-keyboard">Removing the Reply keyboard</a></h3>
-<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
-    Thank you
-    &lt;keyboard reply_remove&gt;&lt;/keyboard&gt;
-    """);
-</code></pre>
 <h3 id="force-the-user-to-reply-to-this-message"><a class="header" href="#force-the-user-to-reply-to-this-message">Force the user to reply to this message</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Please give your name in reply to this message
     &lt;keyboard reply_force="Type your name here"&gt;&lt;/keyboard&gt;
     """);
 </code></pre>
-<p>Note: The <code>&lt;keyboard&gt;</code> tag <u>must</u> be closed with <code>&lt;/keyboard&gt;</code> (not with simple <code> /&gt;</code>) as the last closing tag</p>
+<h3 id="removing-the-reply-keyboard"><a class="header" href="#removing-the-reply-keyboard">Removing the Reply keyboard</a></h3>
+<pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
+    Thank you
+    &lt;keyboard reply_remove&gt;&lt;/keyboard&gt;
+    """);
+</code></pre>
+<p>Note: The <code>&lt;keyboard&gt;</code> tag <u>must</u> be closed with <code>&lt;/keyboard&gt;</code> as the last closing tag (not with a simple <code> /&gt;</code>)</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-alerts {
   padding: 8px 16px;
