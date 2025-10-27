@@ -3,6 +3,9 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
+#pragma warning disable IDE0079
+#pragma warning disable CA1861
+
 // ANCHOR: usings
 // using Telegram.Bot.Types.ReplyMarkups;
 // ANCHOR_END: usings
@@ -18,7 +21,7 @@ internal class ReplyMarkup
     {
 // ANCHOR: single-row
 var sent = await bot.SendMessage(chatId, "Choose a response",
-                                 replyMarkup: new string[] { "Help me", "Call me ☎️" });
+                                 replyMarkup: new[] { "Help me", "Call me ☎️" });
 // ANCHOR_END: single-row
     }
 
