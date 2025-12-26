@@ -2,7 +2,6 @@
 authors = ["Poulad Ashrafpour", "Aleksey Usatov", "Wizou", "karb0f0s", "Miha Zupan"]
 src = "src"
 title = "A guide to Telegram.Bot library"
-site-url = "https://telegrambots.github.io/book/"
 language = "en"
 
 [output.html]
