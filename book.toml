@@ -8,12 +8,11 @@ language = "en"
 git-repository-url = "https://github.com/TelegramBots/book"
 site-url = "/book/"
 additional-css = ["theme/custom.css"]
+admonitions = true
 
 [output.html.fold]
 enable = true
 level = 1
-
-[preprocessor.alerts]
 
 [preprocessor.toc]
 command = "mdbook-toc"

@@ -21,7 +21,7 @@ jobs:
     - name: Install mdbook and cargo-binstall binaries
       uses: taiki-e/install-action@v2
       with:
-        tool: mdbook@0.5.1, cargo-binstall
+        tool: mdbook, cargo-binstall
     - name: Install mdbook extensions
       run: cargo binstall -y mdbook-mermaid mdbook-alerts mdbook-toc
 
