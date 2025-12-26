@@ -163,3 +163,15 @@ Builds & Releases:
 - Clarify polling methods descriptions.
 - Removed IUpdateReceiver/DefaultUpdateReceiver classes (loop code moved directly into Polling)
 - Obsoleted AsyncEnumerableReceivers
+
+## What's new in version 22.7.4
+- Added `ReplyMarkup.RemoveKeyboard`/`ForceReply`
+- Implicit `ReplyMarkup` conversion for \(text, callback/url\) tuple\(s\)
+
+## What's new in version 22.7.6
+- `SendHtml` now returns `Message[]`
+- Support `&amp;` `&lt;` `&gt;` `&quot;` in SendHtml and HtmlText.Escape
+- Also generating `&quot;` in msg.ToHtml()
+- Fix ChatId operator `==` : **true** if both chatId are null, **true** for different casing username (@‍channel == @‍CHANNEL)
+- Override ToString for `InputFile*` classes : FileId, Url, "stream://.."
+- Added ApiResponse to JsonBotSerializerContext (trimmed apps)

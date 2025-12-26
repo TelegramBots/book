@@ -11,8 +11,6 @@ Begin with our [_Quickstart_](1/quickstart.md), or choose from the Table Of Cont
 
 [Install the package "Telegram.Bot" from Nuget](https://www.nuget.org/packages/Telegram.Bot) using Nuget package manager _(in your IDE or command line)_.
 
-🎉 The problem with Nuget.org seems resolved. Our latest library version 22.* is now available on it!
-
 Make sure to follow the [Migration Guide for v22.*](migrate/Version-22.x.md) if you have existing bot code.
 
 ## 🪄 More examples
@@ -33,4 +31,10 @@ This book is filled with ready-to-use snippets of code, but you can also find fu
 |Telegram news channel|<https://t.me/tgbots_dotnet>|
 |Telegram support group|<https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA>|
 |Team page|<https://github.com/orgs/TelegramBots/people>|
+|Recover the list of all past<br/>users messaging your bot|<https://telegramservices.azurewebsites.net/>|
 
+## 📖 Continue reading
+
+Click on the right arrow (or keyboard arrow key) to go to the next page and read our [quickstart guide](1/quickstart.md).
+
+You can also click on the Table of content menu (left/top) to access a specific chapter.

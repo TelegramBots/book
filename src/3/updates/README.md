@@ -41,7 +41,7 @@ There are a few dozens of message types, grouped in two main categories: **Conte
 
 ### Content messages
 
-These messages represent some actual content that someone posted.
+These messages represent actual content that someone posted.
 
 Depending on which field is set, it can be:
 - `Text`: a basic text message _(with its `Entities` for font effects, and `LinkPreviewOptions` for preview info)_
@@ -55,7 +55,7 @@ You can use methods `message.ToHtml()` or `message.ToMarkdown()` to convert the 
 All other message types represent some action/status that happened in the chat instead of actual content.
 
 We are not listing all types here, but it could be for example:
-- members joined/left
+- [members joined/left](../../2/chats.md#detecting-new-group-members-and-changed-member-status)
 - pinned message
 - chat info/status/topic changed
 - [payment](../../4/payments.md)/[passport](../../4/passport)/giveaway process update
@@ -72,7 +72,7 @@ Here are a few important properties:
 - `Date`: timestamp of the message (in UTC)
 - `ReplyToMessage`: which message this is a reply to
 - [`ForwardOrigin`](../../2/forward-copy-delete.md#check-if-a-message-is-a-forward): if it is a Forwarded message
-- `MediaGroupId`: albums (group of media) are separate consecutive messages having the same MediaGroupId
+- `MediaGroupId`: albums (group of media) are [separate consecutive messages](../../2/send-msg/media-msg.md#receiving-a-media-group-album) having the same MediaGroupId
 - `MessageThreadId`: the topic ID for Forum/Topic type chats
 
 ## Sequential vs parallel updates
