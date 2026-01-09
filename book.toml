@@ -16,6 +16,7 @@ level = 1
 
 [preprocessor.toc]
 command = "mdbook-toc"
+max-level = 1
 renderer = ["html"]
 
 [output.html.redirect]
