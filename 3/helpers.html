@@ -45,7 +45,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-813e57c6.js";
+            window.path_to_searchindex_js = "../searchindex-bb818959.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-fdb55793.js"></script>
@@ -196,13 +196,13 @@
 <ul>
 <li><code>message.MessageLink()</code>: Returns the <a href="t.me">t.me/…</a> link to this message, or <code>null</code> if the message was not in a Supergroup or Channel</li>
 <li><code>message.IsServiceMessage</code>: Detect service messages vs content messages</li>
-<li><code>message.ToMarkdown()</code> to convert the message to Markdown format <em>(Not recommended)</em></li>
 <li><code>message.ToHtml()</code> to convert the message to HTML format <em>(Recommended)</em></li>
-<li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
+<li><code>message.ToMarkdown()</code> to convert the message to Markdown format <em>(Not recommended)</em></li>
 <li><code>HtmlText.Escape()</code> to escape reserved HTML characters in a string</li>
 <li><code>HtmlText.ToPlain()</code> to convert HTML string to plain text <em>(removing tags)</em></li>
 <li><code>HtmlText.PlainLength()</code> to get the number of characters of plain text from HTML</li>
 <li><code>HtmlText.Truncate()</code> to truncate HTML string to a number of plain-text characters <em>(while preserving the formatting)</em></li>
+<li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
 <li><code>bot.SendHtml()</code> to <a href="../2/send-msg/send-html.html">send HTML-formatted messages</a>, with support for sending photos/videos and keyboards from one string</li>
 </ul>
 <h2 id="easier-information"><a class="header" href="#easier-information">Easier information</a></h2>

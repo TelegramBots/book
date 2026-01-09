@@ -46,7 +46,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-813e57c6.js";
+            window.path_to_searchindex_js = "searchindex-bb818959.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fdb55793.js"></script>
@@ -1466,13 +1466,13 @@ private readonly string[] siteDescriptions =
 <ul>
 <li><code>message.MessageLink()</code>: Returns the <a href="3/t.me">t.me/…</a> link to this message, or <code>null</code> if the message was not in a Supergroup or Channel</li>
 <li><code>message.IsServiceMessage</code>: Detect service messages vs content messages</li>
-<li><code>message.ToMarkdown()</code> to convert the message to Markdown format <em>(Not recommended)</em></li>
 <li><code>message.ToHtml()</code> to convert the message to HTML format <em>(Recommended)</em></li>
-<li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
+<li><code>message.ToMarkdown()</code> to convert the message to Markdown format <em>(Not recommended)</em></li>
 <li><code>HtmlText.Escape()</code> to escape reserved HTML characters in a string</li>
 <li><code>HtmlText.ToPlain()</code> to convert HTML string to plain text <em>(removing tags)</em></li>
 <li><code>HtmlText.PlainLength()</code> to get the number of characters of plain text from HTML</li>
 <li><code>HtmlText.Truncate()</code> to truncate HTML string to a number of plain-text characters <em>(while preserving the formatting)</em></li>
+<li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
 <li><code>bot.SendHtml()</code> to <a href="#sendhtml-helper-method">send HTML-formatted messages</a>, with support for sending photos/videos and keyboards from one string</li>
 </ul>
 <h2 id="easier-information"><a class="header" href="#easier-information">Easier information</a></h2>
@@ -2502,6 +2502,13 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <li>Fix ChatId operator <code>==</code> : <strong>true</strong> if both chatId are null, <strong>true</strong> for different casing username (@‍channel == @‍CHANNEL)</li>
 <li>Override ToString for <code>InputFile*</code> classes : FileId, Url, “stream://..”</li>
 <li>Added ApiResponse to JsonBotSerializerContext (trimmed apps)</li>
+</ul>
+<h2 id="whats-new-in-version-228"><a class="header" href="#whats-new-in-version-228">What’s new in version 22.8</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api#december-31-2025">Bot API 9.3</a></li>
+<li>Helper method <code>EditHtml</code> to edit message and media group via an HTML string</li>
+<li><code>HtmlText.Truncate</code> helpers ignores invalid &amp; sequences</li>
+<li>Removed AsyncEnumerableReceivers classes</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="migration-guide-for-version-21x"><a class="header" href="#migration-guide-for-version-21x">Migration guide for version 21.x</a></h1>
