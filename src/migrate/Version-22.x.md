@@ -175,3 +175,9 @@ Builds & Releases:
 - Fix ChatId operator `==` : **true** if both chatId are null, **true** for different casing username (@‍channel == @‍CHANNEL)
 - Override ToString for `InputFile*` classes : FileId, Url, "stream://.."
 - Added ApiResponse to JsonBotSerializerContext (trimmed apps)
+
+## What's new in version 22.8
+- Support for [Bot API 9.3](https://core.telegram.org/bots/api#december-31-2025)
+- Helper method `EditHtml` to edit message and media group via an HTML string
+- `HtmlText.Truncate` helpers ignores invalid & sequences
+- Removed AsyncEnumerableReceivers classes

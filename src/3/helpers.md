@@ -9,13 +9,13 @@ However, to simplify your life, we also provide a set of additional helpers meth
 
 - `message.MessageLink()`: Returns the <a href="t.me">t.me/...</a> link to this message, or `null` if the message was not in a Supergroup or Channel
 - `message.IsServiceMessage`: Detect service messages vs content messages
-- `message.ToMarkdown()` to convert the message to Markdown format _(Not recommended)_
 - `message.ToHtml()` to convert the message to HTML format _(Recommended)_
-- `Markdown.Escape()` to escape reserved Markdown characters in a string
+- `message.ToMarkdown()` to convert the message to Markdown format _(Not recommended)_
 - `HtmlText.Escape()` to escape reserved HTML characters in a string
 - `HtmlText.ToPlain()` to convert HTML string to plain text _(removing tags)_
 - `HtmlText.PlainLength()` to get the number of characters of plain text from HTML
 - `HtmlText.Truncate()` to truncate HTML string to a number of plain-text characters _(while preserving the formatting)_
+- `Markdown.Escape()` to escape reserved Markdown characters in a string
 - `bot.SendHtml()` to [send HTML-formatted messages](../2/send-msg/send-html.md), with support for sending photos/videos and keyboards from one string
 
 ## Easier information
