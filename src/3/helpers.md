@@ -17,6 +17,7 @@ However, to simplify your life, we also provide a set of additional helpers meth
 - `HtmlText.Truncate()` to truncate HTML string to a number of plain-text characters _(while preserving the formatting)_
 - `Markdown.Escape()` to escape reserved Markdown characters in a string
 - `bot.SendHtml()` to [send HTML-formatted messages](../2/send-msg/send-html.md), with support for sending photos/videos and keyboards from one string
+- `bot.EditHtml()` to edit message and media group [via an HTML string](../2/send-msg/send-html.md)
 
 ## Easier information
 - `chat.ToString()` & `user.ToString()` to easily print/log information about the chat/user
