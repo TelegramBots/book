@@ -45,7 +45,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-bb818959.js";
+            window.path_to_searchindex_js = "../../searchindex-d9e2e0aa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-fdb55793.js"></script>
@@ -363,6 +363,13 @@ var msg2 = await bot.SendHtml(chatId, """
     """);
 </code></pre>
 <p>Note: The <code>&lt;keyboard&gt;</code> tag <u>must</u> be closed with <code>&lt;/keyboard&gt;</code> as the last closing tag (not with a simple <code> /&gt;</code>)</p>
+<h1 id="edithtml-helper-method"><a class="header" href="#edithtml-helper-method">EditHtml helper method</a></h1>
+<p>Similarly to <code>SendHtml</code>, the <code>EditHtml</code> method allows to modify existing message and media groups <em>(multiple messages)</em> using the same system of HTML-formatted string.</p>
+<pre><code class="language-csharp">var msg = await bot.EditHtml(chatId, msg.Id, """
+    &lt;img src="https://cdn.pixabay.com/photo/2018/08/21/08/38/parrot-3620776_1280.jpg"&gt;
+    Changed the image for Ara with both wings. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
+    """);
+</code></pre>
 
                     </main>
 
