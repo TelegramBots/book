@@ -1,7 +1,8 @@
 [book]
-authors = ["Poulad Ashrafpour", "Aleksey Usatov", "Wizou", "karb0f0s", "Miha Zupan"]
-src = "src"
 title = "A guide to Telegram.Bot library"
+authors = ["Poulad Ashrafpour", "Aleksey Usatov", "Wizou", "karb0f0s", "Miha Zupan"]
+description = "Comprehensive documentation to using the Telegram.Bot library and Bot API for building .NET bots for Telegram"
+src = "src"
 language = "en"
 
 [output.html]
