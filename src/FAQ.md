@@ -107,14 +107,12 @@ There is no way to know how many medias/messages the album is composed of.
 [Read more here](2/send-msg/media-msg.md#receiving-a-media-group-album)
 
 ### _22. How to send a custom emoji❓_
-⚠️ It costs about ~$2,000 !! 😱
-- First you need to buy a reserved username on [Fragment](https://fragment.com/).
-- Then you need to pay an [additional upgrade fee](https://fragment.com/about#assigning-collectible-usernames-to-telegram) of 1K TON to apply that username to your bot.  
-- Finally, your bot can now post custom emojis using specific [HTML](https://core.telegram.org/bots/api#html-style) or [Markdown](https://core.telegram.org/bots/api#markdownv2-style) syntax (or entity).
+There are 3 solutions for a bot to send custom emojis:
+1. If the bot owner has Telegram Premium, the bot can send custom emojis in private and in groups
+2. To send custom emojis anywhere, you need to buy a username on [Fragment](https://fragment.com/), and assign it to your bot _(via an [additional upgrade fee](https://fragment.com/about#assigning-collectible-usernames-to-telegram) of 1K TON, [~$2,000](https://www.google.com/search?q=1000+TON+to+USD))_
+3. To send custom emojis in a specific group, you can also have premium members boost your group to level 4. You can then assign a custom emoji pack to your group that your members AND bots can use freely in group messages.
 
-To post to a specific group, there is an alternative solution:
-- Have premium members boost your group to Level 4.
-- Then you can assign a custom emoji pack to your group that your members AND bots can use freely in group messages.
+To write custom emojis in your bot message, use [specific HTML](https://core.telegram.org/bots/api#html-style) or [Markdown](https://core.telegram.org/bots/api#markdownv2-style) syntax _(or entity)_.
 
 ### _23. How to upgrade my existing code? You keep breaking compatibility!_
 A new lead developer (Wizou) is now in charge of the library and commits to reduce code-breaking changes in the future.  
