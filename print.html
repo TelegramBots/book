@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-735bd602.js";
+            window.path_to_searchindex_js = "searchindex-40deb4e7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2921e612.js"></script>
@@ -746,8 +746,8 @@ var msg2 = await bot.SendHtml(chatId, """
     """);
 </code></pre>
 <p>Note: The <code>&lt;keyboard&gt;</code> tag <u>must</u> be closed with <code>&lt;/keyboard&gt;</code> as the last closing tag (not with a simple <code> /&gt;</code>)</p>
-<h1 id="edithtml-helper-method"><a class="header" href="#edithtml-helper-method">EditHtml helper method</a></h1>
-<p>Similarly to <code>SendHtml</code>, the <code>EditHtml</code> method allows to modify existing message and media groups <em>(multiple messages)</em> using the same system of HTML-formatted string.</p>
+<h1 id="edithtml--edithtmlinline-helper-methods"><a class="header" href="#edithtml--edithtmlinline-helper-methods">EditHtml / EditHtmlInline helper methods</a></h1>
+<p>Similarly to <code>SendHtml</code>, the <code>EditHtml</code> (or <code>EditHtmlInline</code>) method allows to modify existing message and media groups <em>(multiple messages)</em> using the same system of HTML-formatted string.</p>
 <pre><code class="language-csharp">var msg = await bot.EditHtml(chatId, msg.Id, """
     &lt;img src="https://cdn.pixabay.com/photo/2018/08/21/08/38/parrot-3620776_1280.jpg"&gt;
     Changed the image for Ara with both wings. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
@@ -1484,6 +1484,7 @@ private readonly string[] siteDescriptions =
 <li><code>Markdown.Escape()</code> to escape reserved Markdown characters in a string</li>
 <li><code>bot.SendHtml()</code> to <a href="#sendhtml-helper-method">send HTML-formatted messages</a>, with support for sending photos/videos and keyboards from one string</li>
 <li><code>bot.EditHtml()</code> to edit message and media group <a href="#sendhtml-helper-method">via an HTML string</a></li>
+<li><code>bot.EditHtmlInline()</code> same as above to edit an inline message (inline results)</li>
 </ul>
 <h2 id="easier-information"><a class="header" href="#easier-information">Easier information</a></h2>
 <ul>
@@ -2512,7 +2513,7 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <h2 id="whats-new-in-version-228"><a class="header" href="#whats-new-in-version-228">What’s new in version 22.8</a></h2>
 <ul>
 <li>Support for <a href="https://core.telegram.org/bots/api#december-31-2025">Bot API 9.3</a></li>
-<li>Helper method <code>EditHtml</code> to edit message and media group via an HTML string</li>
+<li>Helper methods <code>EditHtml</code>/<code>EditHtmlInline</code> to edit message and media group via an HTML string</li>
 <li><code>HtmlText.Truncate</code> helpers ignores invalid &amp; sequences</li>
 <li>Removed AsyncEnumerableReceivers classes</li>
 </ul>
