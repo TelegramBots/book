@@ -220,9 +220,9 @@ var msg = await bot.SendHtml(chatId, """
 ```
 Note: The `<keyboard>` tag <u>must</u> be closed with `</keyboard>` as the last closing tag (not with a simple ` />`)
 
-# EditHtml helper method
+# EditHtml / EditHtmlInline helper methods
 
-Similarly to `SendHtml`, the `EditHtml` method allows to modify existing message and media groups _(multiple messages)_ using the same system of HTML-formatted string.
+Similarly to `SendHtml`, the `EditHtml` (or `EditHtmlInline`) method allows to modify existing message and media groups _(multiple messages)_ using the same system of HTML-formatted string.
 ```csharp
 var msg = await bot.EditHtml(chatId, msg.Id, """
     <img src="https://cdn.pixabay.com/photo/2018/08/21/08/38/parrot-3620776_1280.jpg">
