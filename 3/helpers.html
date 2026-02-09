@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-40deb4e7.js";
+            window.path_to_searchindex_js = "../searchindex-867c4343.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2921e612.js"></script>
@@ -231,6 +231,7 @@
 <h2 id="simplified-constructors-and-implicit-conversions"><a class="header" href="#simplified-constructors-and-implicit-conversions">Simplified constructors and implicit conversions</a></h2>
 <p>We’ve added easier ways to construct various instances from other types, especially when passing arguments to methods:</p>
 <ul>
+<li><code>ChatId</code> from a <code>Chat</code> or a <code>User</code> class, so you can pass these directly for the <code>chatId:</code> argument</li>
 <li><code>ChatPermissions(bool)</code> and <code>ChatAdministratorRights(bool)</code> constructors to set all Can* fields to the specified value</li>
 <li><code>ReactionType</code> from an emoji (string) or a customEmojiId (long)</li>
 <li><code>ReplyParameters</code> from a messageId (int), or a <code>Message</code> class, so you can pass these directly for the <code>replyParameters:</code> argument</li>
