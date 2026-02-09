@@ -38,6 +38,7 @@ _(these automatically start a background task to poll for updates)_
 
 ## Simplified constructors and implicit conversions
 We've added easier ways to construct various instances from other types, especially when passing arguments to methods:
+- `ChatId` from a `Chat` or a `User` class, so you can pass these directly for the `chatId:` argument
 - `ChatPermissions(bool)` and `ChatAdministratorRights(bool)` constructors to set all Can* fields to the specified value
 - `ReactionType` from an emoji (string) or a customEmojiId (long)
 - `ReplyParameters` from a messageId (int), or a `Message` class, so you can pass these directly for the `replyParameters:` argument

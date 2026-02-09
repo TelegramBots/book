@@ -181,3 +181,8 @@ Builds & Releases:
 - Helper methods `EditHtml`/`EditHtmlInline` to edit message and media group via an HTML string
 - `HtmlText.Truncate` helpers ignores invalid & sequences
 - Removed AsyncEnumerableReceivers classes
+
+## What's new in version 22.9
+- Support for [Bot API 9.4](https://core.telegram.org/bots/api-changelog#february-9-2026)
+- Implicit construction of `ChatId` from `User`
+- fix type (int -> long) for `Rating` & `Amount` fields
