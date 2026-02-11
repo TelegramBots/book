@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f7b2082a.js";
+            window.path_to_searchindex_js = "searchindex-f133a3f9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-50ccb01f.js"></script>
@@ -1042,14 +1042,14 @@ var sent = await bot.SendMessage(chatId, "A message with an inline keyboard mark
 <li><code>InlineKeyboardButton.WithPay("Pay 200 XTR"))</code><br>Customize the Pay button caption <em>(only during a <a href="#bot-payments-api--telegram-stars">SendInvoice call</a>)</em></li>
 </ul>
 <h2 id="button-styles"><a class="header" href="#button-styles">Button styles</a></h2>
-<p>Since Bot API 9.4, you can set a color and an emoji for your buttons.<br>This applies to both custom reply keyboards and inline keyboards.</p>
+<p>Since Bot API 9.4, you can set a color and a custom emoji icon for your buttons.<br>This applies to both custom reply keyboards and inline keyboards.</p>
 <ul>
-<li>Color can be set via the KeyboardButton <code>Style</code> property, among 3 available options: <code>Danger</code> (<span style="background-color: firebrick">red</span>), <code>Success</code> (<span style="background-color: green">green</span>), <code>Primary</code> (<span style="background-color: steelblue">blue</span>)</li>
+<li>Color can be set via the KeyboardButton <code>Style</code> property, among 3 available options:<br><code>Danger</code> (<span style="background-color: firebrick">red</span>), <code>Success</code> (<span style="background-color: green">green</span>), <code>Primary</code> (<span style="background-color: steelblue">blue</span>)</li>
 <li>Custom emoji can be set via the <code>IconCustomEmojiId</code> property, but is subject to <a href="#22-how-to-send-a-custom-emoji">some requirements</a>.</li>
 </ul>
 <pre><code class="language-c#">var sent = await bot.SendMessage(chatId, "A button with style and custom emoji",
-        replyMarkup: new InlineKeyboardButton("Styled button", "callbackDataOrUrl")
-            { Style = KeyboardButtonStyle.Primary, IconCustomEmojiId = "5373141891321699086" });
+            replyMarkup: new InlineKeyboardButton("Styled button", "CallbackData or Url")
+                { Style = KeyboardButtonStyle.Primary, IconCustomEmojiId = "5373141891321699086" });
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="forward-copy-or-delete-messages"><a class="header" href="#forward-copy-or-delete-messages">Forward, Copy or Delete messages</a></h1>
