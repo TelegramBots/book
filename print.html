@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ed71891c.js";
+            window.path_to_searchindex_js = "searchindex-e8cfec90.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-50ccb01f.js"></script>
@@ -1496,6 +1496,7 @@ private readonly string[] siteDescriptions =
 <li><code>bot.SendHtml()</code> to <a href="#sendhtml-helper-method">send HTML-formatted messages</a>, with support for sending photos/videos and keyboards from one string</li>
 <li><code>bot.EditHtml()</code> to edit message and media group <a href="#sendhtml-helper-method">via an HTML string</a></li>
 <li><code>bot.EditHtmlInline()</code> same as above to edit an inline message (inline results)</li>
+<li><code>message.ToHtml(media, preview, keyboard)</code> to convert the message to SendHtml format, possibly including media, preview link and inline buttons tags</li>
 </ul>
 <h2 id="easier-information"><a class="header" href="#easier-information">Easier information</a></h2>
 <ul>
@@ -2340,7 +2341,7 @@ Alternatively, you can call <code>await bot.DropPendingUpdates()</code> before p
 <p>When receiving a media group, you need to collect the series of separate messages in a chat having the same <code>MediaGroupId</code> property.<br>There is no way to know how many medias/messages the album is composed of.
 <a href="#receiving-a-media-group-album">Read more here</a></p>
 <h3 id="22-how-to-send-a-custom-emoji"><a class="header" href="#22-how-to-send-a-custom-emoji"><em>22. How to send a custom emoji❓</em></a></h3>
-<p>There are 3 solutions for a bot to send custom emojis:</p>
+<p>There are 3 solutions for a bot to send custom emojis (or use on buttons):</p>
 <ol>
 <li>If the bot owner has Telegram Premium, the bot can send custom emojis in private and in groups</li>
 <li>To send custom emojis anywhere, you need to buy a username on <a href="https://fragment.com/">Fragment</a>, and assign it to your bot <em>(via an <a href="https://fragment.com/about#assigning-collectible-usernames-to-telegram">additional upgrade fee</a> of 1K TON, <a href="https://www.google.com/search?q=1000+TON+to+USD">~$2,000</a>)</em></li>
