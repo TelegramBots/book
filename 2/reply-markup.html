@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Reply Markup - A guide to Telegram.Bot library</title>
+        <title>Reply Markup (buttons) - A guide to Telegram.Bot .NET library</title>
 
 
         <!-- Custom HTML head -->
@@ -47,10 +47,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-867c4343.js";
+            window.path_to_searchindex_js = "../searchindex-f7b2082a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2921e612.js"></script>
+        <script src="../toc-50ccb01f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -149,7 +149,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">A guide to Telegram.Bot library</h1>
+                    <h1 class="menu-title">A guide to Telegram.Bot .NET library</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -192,6 +192,7 @@
                         <h1 id="reply-markup"><a class="header" href="#reply-markup">Reply Markup</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/ReplyMarkup/ReplyMarkupTests.cs"><img src="https://img.shields.io/badge/Examples-Reply_Markup-green.svg?style=flat-square" alt="reply markup tests"></a></p>
 <p>Telegram provides two types of reply markup: <a href="#custom-reply-keyboards">Custom reply keyboards</a> and <a href="#inline-keyboards">Inline keyboards</a>.</p>
+<p>Since Bot API 9.4, keyboard buttons can have <a href="#button-styles">colors and custom emoji</a>.</p>
 <h2 id="custom-reply-keyboards"><a class="header" href="#custom-reply-keyboards">Custom reply keyboards</a></h2>
 <blockquote>
 <p>These are buttons visible below the textbox. Pressing such button will make the user send a message in the chat</p>
@@ -302,6 +303,16 @@ var sent = await bot.SendMessage(chatId, "A message with an inline keyboard mark
 <li><code>InlineKeyboardButton.WithCallbackGame("Launch game"))</code><br>Launch an HTML game <em>(Game must be configured in <a href="https://t.me/botfather">@BotFather</a>)</em></li>
 <li><code>InlineKeyboardButton.WithPay("Pay 200 XTR"))</code><br>Customize the Pay button caption <em>(only during a <a href="../4/payments.html">SendInvoice call</a>)</em></li>
 </ul>
+<h2 id="button-styles"><a class="header" href="#button-styles">Button styles</a></h2>
+<p>Since Bot API 9.4, you can set a color and an emoji for your buttons.<br>This applies to both custom reply keyboards and inline keyboards.</p>
+<ul>
+<li>Color can be set via the KeyboardButton <code>Style</code> property, among 3 available options: <code>Danger</code> (<span style="background-color: firebrick">red</span>), <code>Success</code> (<span style="background-color: green">green</span>), <code>Primary</code> (<span style="background-color: steelblue">blue</span>)</li>
+<li>Custom emoji can be set via the <code>IconCustomEmojiId</code> property, but is subject to <a href="../FAQ.html#22-how-to-send-a-custom-emoji">some requirements</a>.</li>
+</ul>
+<pre><code class="language-c#">var sent = await bot.SendMessage(chatId, "A button with style and custom emoji",
+        replyMarkup: new InlineKeyboardButton("Styled button", "callbackDataOrUrl")
+            { Style = KeyboardButtonStyle.Primary, IconCustomEmojiId = "5373141891321699086" });
+</code></pre>
 
                     </main>
 
