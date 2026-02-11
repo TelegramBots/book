@@ -142,10 +142,11 @@ Below are some simple examples of what you can do. More options are available in
 
 ## Button styles
 
-Since Bot API 9.4, you can set a color and an emoji for your buttons.  
+Since Bot API 9.4, you can set a color and a custom emoji icon for your buttons.  
 This applies to both custom reply keyboards and inline keyboards.
 
-- Color can be set via the KeyboardButton `Style` property, among 3 available options: `Danger` (<span style="background-color: firebrick">red</span>), `Success` (<span style="background-color: green">green</span>), `Primary` (<span style="background-color: steelblue">blue</span>)  
+- Color can be set via the KeyboardButton `Style` property, among 3 available options:  
+  `Danger` (<span style="background-color: firebrick">red</span>), `Success` (<span style="background-color: green">green</span>), `Primary` (<span style="background-color: steelblue">blue</span>)  
 - Custom emoji can be set via the `IconCustomEmojiId` property, but is subject to [some requirements](../FAQ.md#22-how-to-send-a-custom-emoji).
 
 ```c#

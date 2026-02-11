@@ -90,8 +90,8 @@ var sent = await bot.SendMessage(chatId, "A message with an inline keyboard mark
     {
 // ANCHOR: buttons-style
 var sent = await bot.SendMessage(chatId, "A button with style and custom emoji",
-        replyMarkup: new InlineKeyboardButton("Styled button", "callbackDataOrUrl")
-            { Style = KeyboardButtonStyle.Primary, IconCustomEmojiId = "5373141891321699086" });
+            replyMarkup: new InlineKeyboardButton("Styled button", "CallbackData or Url")
+                { Style = KeyboardButtonStyle.Primary, IconCustomEmojiId = "5373141891321699086" });
 // ANCHOR_END: buttons-style
     }
 }
