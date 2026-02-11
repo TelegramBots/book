@@ -114,9 +114,10 @@ There are 3 solutions for a bot to send custom emojis:
 
 To write custom emojis in your bot message, use [specific HTML](https://core.telegram.org/bots/api#html-style) or [Markdown](https://core.telegram.org/bots/api#markdownv2-style) syntax _(or entity)_.
 
-### _23. How to upgrade my existing code? You keep breaking compatibility!_
-A new lead developer (Wizou) is now in charge of the library and commits to reduce code-breaking changes in the future.  
-Version 21.x of the library and later have been much improved to facilitate [migration from previous versions](migrate/Version-21.x.md) of the library, and include a lot of helpers/implicit operators to simplify your code.
+### _23. How to change button/text color or background?_
+It's not possible to change the colors of text. Only links and code monospace may appear differently depending on the client.  
+You can however use one of 3 colors for buttons by changing the Style property during construction: `new InlineKeyboardButton("Green button", "dataOrUrl") { Style = KeyboardButtonStyle.Success }`
+
 
 ### _24. Can I use several apps/instance to manage my bot?_
 You can call API methods (like sending messages) from several instances in parallel  

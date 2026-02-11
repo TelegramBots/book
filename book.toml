@@ -1,5 +1,5 @@
 [book]
-title = "A guide to Telegram.Bot library"
+title = "A guide to Telegram.Bot .NET library"
 authors = ["Poulad Ashrafpour", "Aleksey Usatov", "Wizou", "karb0f0s", "Miha Zupan"]
 description = "Comprehensive documentation to using the Telegram.Bot library and Bot API for building .NET bots for Telegram"
 src = "src"

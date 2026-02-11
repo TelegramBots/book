@@ -11,7 +11,7 @@
     - [Native Polls](2/send-msg/native-polls-msg.md)
     - [Other Messages](2/send-msg/other-msg.md)
   - [Dealing with chats](2/chats.md)
-  - [Reply Markup](2/reply-markup.md)
+  - [Reply Markup (buttons)](2/reply-markup.md)
   - [Forward, Copy or Delete](2/forward-copy-delete.md)
 - [Intermediate](3/README.md)
   - [Working with Updates](3/updates/README.md)

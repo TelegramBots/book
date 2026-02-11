@@ -4,6 +4,8 @@
 
 Telegram provides two types of reply markup: [Custom reply keyboards](#custom-reply-keyboards) and [Inline keyboards](#inline-keyboards).
 
+Since Bot API 9.4, keyboard buttons can have [colors and custom emoji](#button-styles).
+
 ## Custom reply keyboards
 
 > These are buttons visible below the textbox. Pressing such button will make the user send a message in the chat
@@ -138,6 +140,17 @@ Below are some simple examples of what you can do. More options are available in
 - `InlineKeyboardButton.WithPay("Pay 200 XTR"))`   
 	Customize the Pay button caption _(only during a [SendInvoice call](../4/payments.md))_
 
+## Button styles
+
+Since Bot API 9.4, you can set a color and an emoji for your buttons.  
+This applies to both custom reply keyboards and inline keyboards.
+
+- Color can be set via the KeyboardButton `Style` property, among 3 available options: `Danger` (<span style="background-color: firebrick">red</span>), `Success` (<span style="background-color: green">green</span>), `Primary` (<span style="background-color: steelblue">blue</span>)  
+- Custom emoji can be set via the `IconCustomEmojiId` property, but is subject to [some requirements](../FAQ.md#22-how-to-send-a-custom-emoji).
+
+```c#
+{{#include ../../Examples/2/ReplyMarkup.cs:buttons-style}}
+```
 
 [`ReplyKeyboardMarkup`]: https://core.telegram.org/bots/api/#replykeyboardmarkup
 [`KeyboardButton`]: https://core.telegram.org/bots/api/#keyboardbutton
