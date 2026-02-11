@@ -107,7 +107,7 @@ There is no way to know how many medias/messages the album is composed of.
 [Read more here](2/send-msg/media-msg.md#receiving-a-media-group-album)
 
 ### _22. How to send a custom emoji❓_
-There are 3 solutions for a bot to send custom emojis:
+There are 3 solutions for a bot to send custom emojis (or use on buttons):
 1. If the bot owner has Telegram Premium, the bot can send custom emojis in private and in groups
 2. To send custom emojis anywhere, you need to buy a username on [Fragment](https://fragment.com/), and assign it to your bot _(via an [additional upgrade fee](https://fragment.com/about#assigning-collectible-usernames-to-telegram) of 1K TON, [~$2,000](https://www.google.com/search?q=1000+TON+to+USD))_
 3. To send custom emojis in a specific group, you can also have premium members boost your group to level 4. You can then assign a custom emoji pack to your group that your members AND bots can use freely in group messages.
