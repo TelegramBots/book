@@ -41,7 +41,7 @@ var msg = await bot.SendHtml(chatId, """
 
 The position of text before or after `<img>` and `<video>` determines if the caption should appear above or below the medias.
 
-### Sending a video
+### Sending a video _(or animation)_
 ```csharp
 var msg = await bot.SendHtml(chatId, """
     <video src="https://telegrambots.github.io/book/docs/video-countdown.mp4">
