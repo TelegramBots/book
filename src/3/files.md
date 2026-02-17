@@ -31,7 +31,8 @@ var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 Notes:
 - ⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using [library WTelegramBot](https://www.nuget.org/packages/WTelegramBot#readme-body-tab)
 - When downloading into a `MemoryStream`, remember to reset its `Position` before processing the content.
-- The `tgFile.FilePath` returned by `GetFile` can be used to build the web URL accessing the file: `https://api.telegram.org/file/bot<token>/<FilePath>`.
+- The `tgFile.FilePath` returned by `GetFile` can be used to build the web URL accessing the file: `https://api.telegram.org/file/bot<TOKEN>/<FilePath>`.  
+  _(don't give this URL publicly! your TOKEN must remain secret!)_
 
 # Uploading files
 
