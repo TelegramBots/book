@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e3df78d2.js";
+            window.path_to_searchindex_js = "searchindex-e0520bbd.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-50ccb01f.js"></script>
@@ -232,7 +232,7 @@
 <p>Before you start, you need to talk to <a href="https://t.me/botfather">@BotFather</a> on Telegram.
 <a href="https://core.telegram.org/bots/tutorial#obtain-your-bot-token">Create a new bot</a>, acquire the bot token and get back here.</p>
 <p><a href="https://t.me/botfather"><img src="1/docs/logo-bot-father.jpg" alt="Bot Father"></a></p>
-<p>Bot token is a key that required to authorize the bot and send requests to the Bot API. Keep your token secure and store it safely, it can be used to control your bot. It should look like this:</p>
+<p>Bot token is a key that required to authorize the bot and send requests to the Bot API. <u><strong>Keep your token secure and store it safely</strong></u>, it can be used to control your bot. It should look like this:</p>
 <pre><code class="language-text">1234567:4TT8bAc8GHUspu3ERYn-KGcvsvGB9u_n4ddy
 </code></pre>
 <h2 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h2>
@@ -264,7 +264,7 @@ Hello, World! I am user 1234567 and my name is Awesome Bot.
 <!-- -->
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="your-first-chat-bot"><a class="header" href="#your-first-chat-bot">Your First Chat Bot</a></h1>
-<p>On the <a href="#quickstart">previous page</a> we got a bot token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
+<p>On the <a href="#quickstart">previous page</a> we got a secret bot token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users’ messages and replies to them like in this screenshot:</p>
 <p><img src="1/docs/shot-example_bot.jpg" alt="Example Image"></p>
 <p>Copy the following code to <code>Program.cs</code>.</p>
@@ -1382,7 +1382,7 @@ var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 <ul>
 <li>⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></li>
 <li>When downloading into a <code>MemoryStream</code>, remember to reset its <code>Position</code> before processing the content.</li>
-<li>The <code>tgFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
+<li>The <code>tgFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;TOKEN&gt;/&lt;FilePath&gt;</code>.<br><em>(don’t give this URL publicly! your TOKEN must remain secret!)</em></li>
 </ul>
 <h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
 <p>We recommend you first read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>

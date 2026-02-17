@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e3df78d2.js";
+            window.path_to_searchindex_js = "../searchindex-e0520bbd.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-50ccb01f.js"></script>
@@ -213,7 +213,7 @@ var tgFile = await bot.GetInfoAndDownloadFile(fileId, ms);
 <ul>
 <li>⚠️ Bot API can download files up to 20 MB only. For bigger files, consider using <a href="https://www.nuget.org/packages/WTelegramBot#readme-body-tab">library WTelegramBot</a></li>
 <li>When downloading into a <code>MemoryStream</code>, remember to reset its <code>Position</code> before processing the content.</li>
-<li>The <code>tgFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;FilePath&gt;</code>.</li>
+<li>The <code>tgFile.FilePath</code> returned by <code>GetFile</code> can be used to build the web URL accessing the file: <code>https://api.telegram.org/file/bot&lt;TOKEN&gt;/&lt;FilePath&gt;</code>.<br><em>(don’t give this URL publicly! your TOKEN must remain secret!)</em></li>
 </ul>
 <h1 id="uploading-files"><a class="header" href="#uploading-files">Uploading files</a></h1>
 <p>We recommend you first read the official <a href="https://core.telegram.org/bots/api#sending-files">documentation on sending files</a>, it contains important information.</p>
