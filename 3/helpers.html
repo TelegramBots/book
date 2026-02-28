@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e0520bbd.js";
+            window.path_to_searchindex_js = "../searchindex-c3447272.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-50ccb01f.js"></script>
@@ -242,6 +242,7 @@
 <li><code>BotCommand</code> from tuple <code>(string command, string description)</code></li>
 <li><code>BotCommandScope</code> has several static methods to construct scopes</li>
 <li><code>InputFile</code> from a <code>string</code> (fileId or URL), or a <code>Stream</code>, or a received media file, or <code>null</code></li>
+<li><code>InputPollOption</code> from a <code>string</code></li>
 </ul>
 <p>Examples:</p>
 <pre><code class="language-csharp">await bot.RestrictChatMember(chatId, userId, new ChatPermissions(true)); // unmute
@@ -251,6 +252,7 @@ await bot.SendInvoice(chatId, "Product", "Description", "ProductID", "XTR", [("P
 await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")], BotCommandScope.AllPrivateChats());
 await bot.SendPhoto(msg.Chat, "https://picsum.photos/310/200.jpg");
 await bot.SendVideo(msg.Chat, msg.Video, "Sending your video back");
+await bot.SendPoll(chatId, "question", ["answer1", "answer2"]);
 </code></pre>
 <h2 id="reply-markup"><a class="header" href="#reply-markup">Reply Markup</a></h2>
 <p>Keyboards can be easily constructed by passing directly the following type of objects for the <code>replyMarkup:</code> parameter:</p>
