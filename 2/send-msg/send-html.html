@@ -47,7 +47,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-c3447272.js";
+            window.path_to_searchindex_js = "../../searchindex-fd832c91.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-50ccb01f.js"></script>
@@ -372,6 +372,16 @@ var msg2 = await bot.SendHtml(chatId, """
     Changed the image for Ara with both wings. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
     """);
 </code></pre>
+<h1 id="convert-a-message-back-to-html"><a class="header" href="#convert-a-message-back-to-html">Convert a message back to HTML</a></h1>
+<p>Our extension method <code>message.ToHtml()</code> can convert the text/caption &amp; entities of a <code>Message</code> back to an HTML-formatted string, which makes it easier to store a formatted message in a database or file.</p>
+<p>The extension method accepts 3 optional <code>bool</code> arguments:</p>
+<ul>
+<li><code>withMedia</code> to include the <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code> or <code>&lt;file&gt;</code> tag for the media contained in the message (if any)</li>
+<li><code>withPreview</code> to include <code>&lt;preview&gt;</code> tag for the attached link preview (if any)</li>
+<li><code>withKeyboard</code> to include a <code>&lt;keyboard&gt;</code> section for the attached inline keyboard (if any)</li>
+</ul>
+<p>Remember that these special tags are only supported by <code>SendHtml</code> and <code>EditHtml</code> methods, and won’t work with classic <code>SendMessage</code>/<code>ParseMode.Html</code>.</p>
+<p>You can also concatenate the result of several <code>ToHtml()</code> (without preview/keyboard tags) in order to (re)compose a full media album, ready to be sent with <code>SendHtml</code>.</p>
 
                     </main>
 
