@@ -229,3 +229,15 @@ var msg = await bot.EditHtml(chatId, msg.Id, """
     Changed the image for Ara with both wings. <i>Source</i>: <a href="https://pixabay.com">Pixabay</a>
     """);
 ```
+
+# Convert a message back to HTML
+Our extension method `message.ToHtml()` can convert the text/caption & entities of a `Message` back to an HTML-formatted string, which makes it easier to store a formatted message in a database or file.
+
+The extension method accepts 3 optional `bool` arguments:
+- `withMedia` to include the `<img>`, `<video>` or `<file>` tag for the media contained in the message (if any)
+- `withPreview` to include `<preview>` tag for the attached link preview (if any)
+- `withKeyboard` to include a `<keyboard>` section for the attached inline keyboard (if any)
+
+Remember that these special tags are only supported by `SendHtml` and `EditHtml` methods, and won't work with classic `SendMessage`/`ParseMode.Html`.
+
+You can also concatenate the result of several `ToHtml()` (without preview/keyboard tags) in order to (re)compose a full media album, ready to be sent with `SendHtml`.
