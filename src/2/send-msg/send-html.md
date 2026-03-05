@@ -145,10 +145,11 @@ Note: the `<keyboard>..</keyboard>` section must be at the end of the message
 var msg = await bot.SendHtml(chatId, """
     Simple message <u>with a button</u>
     <keyboard>
-    <button text="URL button" url="example.com">
+    <button text="URL button" url="example.com" icon="4987927696177628011">
     </keyboard>
     """);
 ```
+Note: the `icon=` at the end sets a custom emoji ID to be used ([see requirements](../../FAQ.md#22-how-to-send-a-custom-emoji))
 
 ### Photo with two callback buttons
 ```csharp
@@ -156,11 +157,13 @@ var msg = await bot.SendHtml(chatId, """
     <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg">
     Do you like this photo?
     <keyboard>
-    <button text="Yes" callback="ara-yes">
-    <button text="No" callback="ara-no">
+    <button text="Yes" callback="ara-yes" style="success">
+    <button text="No" callback="ara-no" style="danger">
     </keyboard>
     """);
 ```
+Note: the `style=` at the end sets a button color among:
+  <span style="background-color: firebrick">danger</span>, <span style="background-color: green">success</span>, <span style="background-color: steelblue">primary</span>
 
 ### Multi-row keyboard and various types of inline buttons
 ```csharp
