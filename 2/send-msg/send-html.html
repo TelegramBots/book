@@ -47,7 +47,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-fd832c91.js";
+            window.path_to_searchindex_js = "../../searchindex-d49b6162.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-50ccb01f.js"></script>
@@ -300,20 +300,23 @@ var msg2 = await bot.SendHtml(chatId, """
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Simple message &lt;u&gt;with a button&lt;/u&gt;
     &lt;keyboard&gt;
-    &lt;button text="URL button" url="example.com"&gt;
+    &lt;button text="URL button" url="example.com" icon="4987927696177628011"&gt;
     &lt;/keyboard&gt;
     """);
 </code></pre>
+<p>Note: the <code>icon=</code> at the end sets a custom emoji ID to be used (<a href="../../FAQ.html#22-how-to-send-a-custom-emoji">see requirements</a>)</p>
 <h3 id="photo-with-two-callback-buttons"><a class="header" href="#photo-with-two-callback-buttons">Photo with two callback buttons</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg"&gt;
     Do you like this photo?
     &lt;keyboard&gt;
-    &lt;button text="Yes" callback="ara-yes"&gt;
-    &lt;button text="No" callback="ara-no"&gt;
+    &lt;button text="Yes" callback="ara-yes" style="success"&gt;
+    &lt;button text="No" callback="ara-no" style="danger"&gt;
     &lt;/keyboard&gt;
     """);
 </code></pre>
+<p>Note: the <code>style=</code> at the end sets a button color among:
+<span style="background-color: firebrick">danger</span>, <span style="background-color: green">success</span>, <span style="background-color: steelblue">primary</span></p>
 <h3 id="multi-row-keyboard-and-various-types-of-inline-buttons"><a class="header" href="#multi-row-keyboard-and-various-types-of-inline-buttons">Multi-row keyboard and various types of inline buttons</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
     Inline keyboard example
