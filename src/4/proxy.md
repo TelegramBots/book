@@ -1,14 +1,21 @@
 # Working Behind a Proxy
 
-`TelegramBotClient` allows you to use a proxy for Bot API connections. This guide covers using three different proxy solutions.
+> [!NOTE]  
+> If you're using .NET 5.0 or later, you can just set the environment variable `HTTPS_PROXY` to start using a proxy. [More details »](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.defaultproxy?view=net-5.0)
+
+`TelegramBotClient` constructor allows you to pass a custom `HttpClient` to be used for Bot API connections, and which can be configured for using a proxy.
+
+This guide covers using three different proxy solutions.
 
 - [HTTP Proxy](#http-proxy)
 - [SOCKS5 Proxy](#socks5-proxy)
 - [SOCKS5 Proxy over Tor (Testing Only)](#socks5-proxy-over-tor)
 
-![Telegram Network](docs/tg-network.gif)
+MTProxy (MTProto tg://proxy) are not supported for Bot API requests.
 
-> If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.
+> If you are in a country, such as Iran or Russia, where HTTP and SOCKS proxy connections to Telegram servers may be blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.
+
+![Telegram Network](docs/tg-network.gif)
 
 ## HTTP Proxy
 
