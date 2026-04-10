@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e04cedb8.js";
+            window.path_to_searchindex_js = "searchindex-d1d8b756.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-50ccb01f.js"></script>
@@ -1615,16 +1615,22 @@ await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: new string[] {
 to validate the user credentials, or to generate a Javascript to show the login widget directly on your website.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="working-behind-a-proxy"><a class="header" href="#working-behind-a-proxy">Working Behind a Proxy</a></h1>
-<p><code>TelegramBotClient</code> allows you to use a proxy for Bot API connections. This guide covers using three different proxy solutions.</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>If you’re using .NET 5.0 or later, you can just set the environment variable <code>HTTPS_PROXY</code> to start using a proxy. <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.defaultproxy?view=net-5.0">More details »</a></p>
+</blockquote>
+<p><code>TelegramBotClient</code> constructor allows you to pass a custom <code>HttpClient</code> to be used for Bot API connections, and which can be configured for using a proxy.</p>
+<p>This guide covers using three different proxy solutions.</p>
 <ul>
 <li><a href="#http-proxy">HTTP Proxy</a></li>
 <li><a href="#socks5-proxy">SOCKS5 Proxy</a></li>
 <li><a href="#socks5-proxy-over-tor">SOCKS5 Proxy over Tor (Testing Only)</a></li>
 </ul>
-<p><img src="4/docs/tg-network.gif" alt="Telegram Network"></p>
+<p>MTProxy (MTProto tg://proxy) are not supported for Bot API requests.</p>
 <blockquote>
-<p>If you are in a country, such as Iran, where HTTP and SOCKS proxy connections to Telegram servers are blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
+<p>If you are in a country, such as Iran or Russia, where HTTP and SOCKS proxy connections to Telegram servers may be blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
+<p><img src="4/docs/tg-network.gif" alt="Telegram Network"></p>
 <h2 id="http-proxy"><a class="header" href="#http-proxy">HTTP Proxy</a></h2>
 <p>You can configure <code>HttpClient</code> with <code>WebProxy</code> and pass it to the Bot client.</p>
 <pre><code class="language-csharp">// using System.Net;
