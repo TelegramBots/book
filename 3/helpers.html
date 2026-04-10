@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d49b6162.js";
+            window.path_to_searchindex_js = "../searchindex-e04cedb8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-50ccb01f.js"></script>
@@ -274,19 +274,19 @@ await bot.SendPoll(chatId, "question", ["answer1", "answer2"]);
 </tbody>
 </table>
 </div>
-<p>Additionally, <code>InlineKeyboardButton</code> can be implicitly constructed from a tuple <code>(string text, string callbackOrUrl)</code> for Callback or Url buttons</p>
-<pre><code class="language-csharp">await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: InlineKeyboardButton.WithUrl("Click here", "https://telegrambots.github.io/book/"));
+<p>Additionally, <code>InlineKeyboardButton</code> can be implicitly constructed from a tuple <code>(string text, string callbackOrUrl)</code> for Callback or Url buttons, with optional button style &amp; icon</p>
+<pre><code class="language-csharp">await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: ("Click here", "https://telegrambots.github.io/book/", KeyboardButtonStyle.Success, "5447410659077661506"));
 await bot.SendMessage(botOwnerId, $"Annoying user: {msg.From}", replyMarkup: new InlineKeyboardButton[]
-    { ("Ban him", $"BAN {msg.From.Id}"), ("Mute him", $"MUTE {msg.From.Id}") });
+    { ("Ban him", $"BAN {msg.From.Id}", KeyboardButtonStyle.Danger), ("Mute him", $"MUTE {msg.From.Id}") });
 await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: new string[] { "MENU", "INFO", "LANGUAGE" });
 </code></pre>
 <h3 id="constructing-dynamically"><a class="header" href="#constructing-dynamically">Constructing dynamically</a></h3>
 <p><code>ReplyKeyboardMarkup</code> &amp; <code>InlineKeyboardMarkup</code> have methods to help you construct keyboards dynamically:</p>
 <pre><code class="language-csharp">var replyMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddButton(new InlineKeyboardButton("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
     .AddNewRow().AddButton("callback").AddButton("caption", "data")
     .AddNewRow("with", "three", "buttons")
-    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
+    .AddNewRow().AddButtons("A", "B", new("switch", InlineButtonType.SwitchInlineQueryCurrentChat));
 </code></pre>
 <p>And you can use <code>new ReplyKeyboardMarkup(true)</code> to resize the reply keyboard.</p>
 <h2 id="mini-app-and-login-widget-validation"><a class="header" href="#mini-app-and-login-widget-validation">Mini-App and Login widget validation</a></h2>

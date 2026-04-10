@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d49b6162.js";
+            window.path_to_searchindex_js = "searchindex-e04cedb8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-50ccb01f.js"></script>
@@ -902,7 +902,7 @@ The new Supergroup will have a service message <code>MigrateFromChatId</code> wi
 <p>Bots can’t directly add members into a group/channel.<br>To invite users to join a group/channel, you can send to the users the public link <code>https://t.me/chatusername</code> (if chat has a username), or invite links:</p>
 <h3 id="invite-links"><a class="header" href="#invite-links">Invite links</a></h3>
 <p>Invite links are typically of the form <code>https://t.me/+AAS0mE-tH1nG</code> and allow users clicking on them to join the chat.</p>
-<p>You can send those links as a text message or as an <code>InlineKeyboardButton.WithUrl(...)</code>.</p>
+<p>You can send those links as a text message or as <code>InlineKeyboardButton</code> of type Url.</p>
 <p>If your bot is administrator on a private (or public) group/channel, it can:</p>
 <ul>
 <li>read the (fixed) primary link of the chat:</li>
@@ -979,19 +979,19 @@ var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new s
 <p>Some special keyboard button types can be used to request information from the user and send them to the bot.</p>
 <p>Below are some simple examples of what you can do. More options are available in associated class properties.</p>
 <ul>
-<li><code>KeyboardButton.WithRequestLocation("Share your location")</code><br>User’s position will be transmitted in a <code>message.Location</code></li>
-<li><code>KeyboardButton.WithRequestContact("Share your info")</code><br>User’s phone number will be transmitted in a <code>message.Contact</code></li>
-<li><code>KeyboardButton.WithRequestPoll("Create a poll", PollType.Regular)</code><br>User must create a poll which gets transmitted in a <code>message.Poll</code></li>
-<li><code>KeyboardButton.WithRequestChat("Select a chat", 1234, false)</code><br>User must pick a group (false) or channel (true) which gets transmitted in a <code>message.ChatShared</code></li>
-<li><code>KeyboardButton.WithRequestUsers("Select user(s)", 5678, 1)</code><br>User must pick 1-10 user(s) which get transmitted in a <code>message.UsersShared</code></li>
-<li><code>KeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game")</code><br>Launch a <a href="#telegram-mini-apps">Mini-App</a></li>
+<li><code>new KeyboardButton("Share your location", requestLocation: true)</code><br>User’s position will be transmitted in a <code>message.Location</code></li>
+<li><code>new KeyboardButton("Share your info", requestContact: true)</code><br>User’s phone number will be transmitted in a <code>message.Contact</code></li>
+<li><code>new KeyboardButton("Create a poll", PollType.Regular)</code><br>User must create a poll which gets transmitted in a <code>message.Poll</code></li>
+<li><code>new KeyboardButton("Select a chat", new KeyboardButtonRequestChat(1234, false))</code><br>User must pick a group (false) or channel (true) which gets transmitted in a <code>message.ChatShared</code></li>
+<li><code>new KeyboardButton("Select user(s)", new KeyboardButtonRequestUsers(5678))</code><br>User must pick 1-10 user(s) which get transmitted in a <code>message.UsersShared</code></li>
+<li><code>new KeyboardButton("Launch WebApp", "https://www.example.com/game")</code><br>Launch a <a href="#telegram-mini-apps">Mini-App</a></li>
 </ul>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: new KeyboardButton[]
 {
-    KeyboardButton.WithRequestLocation("Share Location"),
-    KeyboardButton.WithRequestContact("Share Contact")
+    new("Share Location", requestLocation: true),
+    new("Share Contact", requestContact: true)
 });
 </code></pre>
 <h3 id="remove-keyboard"><a class="header" href="#remove-keyboard">Remove keyboard</a></h3>
@@ -1020,7 +1020,7 @@ var sent = await bot.SendMessage(chatId, "A message with an inline keyboard mark
     });
 </code></pre>
 <blockquote>
-<p>Callback data string can be up to 64 bytes. You can construct them explicitly via <code>InlineKeyboardButton.WithCallbackData</code></p>
+<p>Callback data string can be up to 64 bytes. You can construct them explicitly via <code>new InlineKeyboardButton(..., "data")</code></p>
 </blockquote>
 <h3 id="url-buttons"><a class="header" href="#url-buttons">URL buttons</a></h3>
 <p>Buttons of this type have a small arrow icon to help the user understand that tapping on a <a href="https://core.telegram.org/bots/2-0-intro#url-buttons">URL button</a> will open an external link.
@@ -1031,28 +1031,28 @@ var sent = await bot.SendMessage(chatId, "A message with an inline keyboard mark
         replyMarkup: new InlineKeyboardButton("Repository Link", "https://github.com/TelegramBots/Telegram.Bot"));
 </code></pre>
 <blockquote>
-<p>You can also construct URL buttons via <code>InlineKeyboardButton.WithUrl</code></p>
+<p>You can also construct URL buttons via <code>new InlineKeyboardButton(.., "url")</code></p>
 </blockquote>
 <h3 id="switch-to-inline-buttons"><a class="header" href="#switch-to-inline-buttons">Switch to Inline buttons</a></h3>
-<p>Pressing a <a href="https://core.telegram.org/bots/2-0-intro#switch-to-inline-buttons">switch to inline button</a> prompts the user to select a chat, opens it and inserts the bot’s username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use <code>InlineKeyboardButton.WithSwitchInlineQuery</code> and <code>InlineKeyboardButton.WithSwitchInlineQueryCurrentChat</code> helper methods to create buttons which will insert the bot’s username in the chat’s input field.</p>
+<p>Pressing a <a href="https://core.telegram.org/bots/2-0-intro#switch-to-inline-buttons">switch to inline button</a> prompts the user to select a chat, opens it and inserts the bot’s username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use <code>InlineKeyboardButton</code> constructors with the types to create such buttons which will insert the bot’s username in the chat’s input field.</p>
 <pre><code class="language-c#">// using Telegram.Bot.Types.ReplyMarkups;
 
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
     replyMarkup: new InlineKeyboardButton[]
     {
-        InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
-        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat")
+        new("switch_inline_query", InlineButtonType.SwitchInlineQuery),
+        new("switch_inline_query_current_chat", InlineButtonType.SwitchInlineQueryCurrentChat)
     });
 </code></pre>
 <h3 id="other-inline-button-types"><a class="header" href="#other-inline-button-types">Other inline button types</a></h3>
 <p>Some more special inline button types can be used.</p>
 <p>Below are some simple examples of what you can do. More options are available in associated class properties.</p>
 <ul>
-<li><code>InlineKeyboardButton.WithCopyText("Copy info", "Text to copy"))</code><br>Store a text in the user clipboard</li>
-<li><code>InlineKeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game"))</code><br>Launch a <a href="#telegram-mini-apps">Mini-App</a></li>
-<li><code>InlineKeyboardButton.WithLoginUrl("Login", new() { Url = "https://www.example.com/telegramAuth" }))</code><br>Authenticate the Telegram user via a website <em>(Domain must be configured in <a href="https://t.me/botfather">@BotFather</a>)</em></li>
-<li><code>InlineKeyboardButton.WithCallbackGame("Launch game"))</code><br>Launch an HTML game <em>(Game must be configured in <a href="https://t.me/botfather">@BotFather</a>)</em></li>
-<li><code>InlineKeyboardButton.WithPay("Pay 200 XTR"))</code><br>Customize the Pay button caption <em>(only during a <a href="#bot-payments-api--telegram-stars">SendInvoice call</a>)</em></li>
+<li><code>new InlineKeyboardButton("Copy info", InlineButtonType.CopyText, "Text to copy")</code><br>Store a text in the user clipboard</li>
+<li><code>new InlineKeyboardButton("Launch WebApp", InlineButtonType.WebApp, "https://www.example.com/game")</code><br>Launch a <a href="#telegram-mini-apps">Mini-App</a></li>
+<li><code>new InlineKeyboardButton("Login", InlineButtonType.LoginUrl, "https://www.example.com/telegramAuth")</code><br>Authenticate the Telegram user via a website <em>(Domain must be configured in <a href="https://t.me/botfather">@BotFather</a>)</em></li>
+<li><code>new InlineKeyboardButton("Launch game", InlineButtonType.Game)</code><br>Launch an HTML game <em>(Game must be configured in <a href="https://t.me/botfather">@BotFather</a>)</em></li>
+<li><code>new InlineKeyboardButton("Pay 200 XTR", InlineButtonType.Pay)</code><br>Customize the Pay button caption <em>(only during a <a href="#bot-payments-api--telegram-stars">SendInvoice call</a>)</em></li>
 </ul>
 <h2 id="button-styles"><a class="header" href="#button-styles">Button styles</a></h2>
 <p>Since Bot API 9.4, you can set a color and a custom emoji icon for your buttons.<br>This applies to both custom reply keyboards and inline keyboards.</p>
@@ -1187,6 +1187,7 @@ So it is recommended to instead directly test the fields of Update you want if t
 <li><a href="#bot-payments-api--telegram-stars">payment</a>/<a href="4/passport">passport</a>/giveaway process update</li>
 <li>etc…</li>
 </ul>
+<p>You can use <code>message.IsServiceMessage</code> to determine if a message is content or service.</p>
 <h3 id="common-properties"><a class="header" href="#common-properties">Common properties</a></h3>
 <p>There are additional properties that gives you information about the context of the message.</p>
 <p>Here are a few important properties:</p>
@@ -1575,19 +1576,19 @@ await bot.SendPoll(chatId, "question", ["answer1", "answer2"]);
 </tbody>
 </table>
 </div>
-<p>Additionally, <code>InlineKeyboardButton</code> can be implicitly constructed from a tuple <code>(string text, string callbackOrUrl)</code> for Callback or Url buttons</p>
-<pre><code class="language-csharp">await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: InlineKeyboardButton.WithUrl("Click here", "https://telegrambots.github.io/book/"));
+<p>Additionally, <code>InlineKeyboardButton</code> can be implicitly constructed from a tuple <code>(string text, string callbackOrUrl)</code> for Callback or Url buttons, with optional button style &amp; icon</p>
+<pre><code class="language-csharp">await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: ("Click here", "https://telegrambots.github.io/book/", KeyboardButtonStyle.Success, "5447410659077661506"));
 await bot.SendMessage(botOwnerId, $"Annoying user: {msg.From}", replyMarkup: new InlineKeyboardButton[]
-    { ("Ban him", $"BAN {msg.From.Id}"), ("Mute him", $"MUTE {msg.From.Id}") });
+    { ("Ban him", $"BAN {msg.From.Id}", KeyboardButtonStyle.Danger), ("Mute him", $"MUTE {msg.From.Id}") });
 await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: new string[] { "MENU", "INFO", "LANGUAGE" });
 </code></pre>
 <h3 id="constructing-dynamically"><a class="header" href="#constructing-dynamically">Constructing dynamically</a></h3>
 <p><code>ReplyKeyboardMarkup</code> &amp; <code>InlineKeyboardMarkup</code> have methods to help you construct keyboards dynamically:</p>
 <pre><code class="language-csharp">var replyMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddButton(new InlineKeyboardButton("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
     .AddNewRow().AddButton("callback").AddButton("caption", "data")
     .AddNewRow("with", "three", "buttons")
-    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
+    .AddNewRow().AddButtons("A", "B", new("switch", InlineButtonType.SwitchInlineQueryCurrentChat));
 </code></pre>
 <p>And you can use <code>new ReplyKeyboardMarkup(true)</code> to resize the reply keyboard.</p>
 <h2 id="mini-app-and-login-widget-validation"><a class="header" href="#mini-app-and-login-widget-validation">Mini-App and Login widget validation</a></h2>
@@ -1873,8 +1874,8 @@ so you have more control with HTML/JS to display the interface you like.</p>
 <h2 id="starting-mini-apps"><a class="header" href="#starting-mini-apps">Starting Mini-Apps</a></h2>
 <p>Mini Apps can be launched from various ways:</p>
 <ul>
-<li><a href="#custom-reply-keyboards">Keyboard Buttons</a>: <code>KeyboardButton.WithWebApp</code></li>
-<li><a href="#inline-keyboards">Inline Buttons</a>: <code>InlineKeyboardButton.WithWebApp</code></li>
+<li><a href="#custom-reply-keyboards">Keyboard Buttons</a>: <code>new KeyboardButton(.., "https://..")</code></li>
+<li><a href="#inline-keyboards">Inline Buttons</a>: <code>new InlineKeyboardButton(.., InlineButtonType.WebApp, "https://..")</code></li>
 <li>Open App button: configured via @BotFather &gt; Bot Settings &gt; Configure Mini App</li>
 <li>Chat menu buton (left of user textbox): configured via <code>SetChatMenuButton</code></li>
 <li>Inline-mode results with a “Switch to Mini App” button: <code>AnswerInlineQuery</code> with parameter <code>InlineQueryResultsButton.WebApp</code></li>
