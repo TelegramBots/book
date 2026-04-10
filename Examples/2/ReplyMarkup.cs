@@ -41,8 +41,8 @@ var sent = await bot.SendMessage(chatId, "Choose a response", replyMarkup: new s
 // ANCHOR: request-info
 var sent = await bot.SendMessage(chatId, "Who or Where are you?", replyMarkup: new KeyboardButton[]
 {
-    KeyboardButton.WithRequestLocation("Share Location"),
-    KeyboardButton.WithRequestContact("Share Contact")
+    new("Share Location", requestLocation: true),
+    new("Share Contact", requestContact: true)
 });
 // ANCHOR_END: request-info
     }
@@ -80,8 +80,8 @@ var sent = await bot.SendMessage(chatId, "A message with an inline keyboard mark
 var sent = await bot.SendMessage(chatId, "A message with an inline keyboard markup",
     replyMarkup: new InlineKeyboardButton[]
     {
-        InlineKeyboardButton.WithSwitchInlineQuery("switch_inline_query"),
-        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch_inline_query_current_chat")
+        new("switch_inline_query", InlineButtonType.SwitchInlineQuery),
+        new("switch_inline_query_current_chat", InlineButtonType.SwitchInlineQueryCurrentChat)
     });
 // ANCHOR_END: switch-to-inline
     }

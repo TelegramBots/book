@@ -85,7 +85,7 @@ To invite users to join a group/channel, you can send to the users the public li
 
 Invite links are typically of the form `https://t.me/+AAS0mE-tH1nG` and allow users clicking on them to join the chat.
 
-You can send those links as a text message or as an `InlineKeyboardButton.WithUrl(...)`.
+You can send those links as a text message or as `InlineKeyboardButton` of type Url.
 
 If your bot is administrator on a private (or public) group/channel, it can:
 - read the (fixed) primary link of the chat:

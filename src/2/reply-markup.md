@@ -47,17 +47,17 @@ For a reply keyboard with two rows of buttons, we use an array of arrays:
 Some special keyboard button types can be used to request information from the user and send them to the bot.
 
 Below are some simple examples of what you can do. More options are available in associated class properties.
-- `KeyboardButton.WithRequestLocation("Share your location")`  
+- `new KeyboardButton("Share your location", requestLocation: true)`  
 	User's position will be transmitted in a `message.Location`
-- `KeyboardButton.WithRequestContact("Share your info")`  
+- `new KeyboardButton("Share your info", requestContact: true)`  
 	User's phone number will be transmitted in a `message.Contact`
-- `KeyboardButton.WithRequestPoll("Create a poll", PollType.Regular)`  
+- `new KeyboardButton("Create a poll", PollType.Regular)`  
 	User must create a poll which gets transmitted in a `message.Poll`
-- `KeyboardButton.WithRequestChat("Select a chat", 1234, false)`  
+- `new KeyboardButton("Select a chat", new KeyboardButtonRequestChat(1234, false))`  
 	User must pick a group (false) or channel (true) which gets transmitted in a `message.ChatShared`
-- `KeyboardButton.WithRequestUsers("Select user(s)", 5678, 1)`  
+- `new KeyboardButton("Select user(s)", new KeyboardButtonRequestUsers(5678))`  
 	User must pick 1-10 user(s) which get transmitted in a `message.UsersShared`  
-- `KeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game")`   
+- `new KeyboardButton("Launch WebApp", "https://www.example.com/game")`   
 	Launch a [Mini-App](../4/webapps.md)
 
 ```c#
@@ -99,7 +99,7 @@ In this example, the arrays of `InlineKeyboardButton` are constructed from tuple
 {{#include ../../Examples/2/ReplyMarkup.cs:callback-buttons}}
 ```
 
-> Callback data string can be up to 64 bytes. You can construct them explicitly via `InlineKeyboardButton.WithCallbackData`
+> Callback data string can be up to 64 bytes. You can construct them explicitly via `new InlineKeyboardButton(..., "data")`
 
 ### URL buttons
 
@@ -112,11 +112,11 @@ In this example we pass a single `InlineKeyboardButton`, and the constructor und
 {{#include ../../Examples/2/ReplyMarkup.cs:url-buttons}}
 ```
 
-> You can also construct URL buttons via `InlineKeyboardButton.WithUrl`
+> You can also construct URL buttons via `new InlineKeyboardButton(.., "url")`
 
 ### Switch to Inline buttons
 
-Pressing a [switch to inline button] prompts the user to select a chat, opens it and inserts the bot's username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use `InlineKeyboardButton.WithSwitchInlineQuery` and `InlineKeyboardButton.WithSwitchInlineQueryCurrentChat` helper methods to create buttons which will insert the bot's username in the chat's input field.
+Pressing a [switch to inline button] prompts the user to select a chat, opens it and inserts the bot's username into the input field. You can also pass a query that will be inserted along with the username – this way your users will immediately get some inline results they can share. In this example we use `InlineKeyboardButton` constructors with the types to create such buttons which will insert the bot's username in the chat's input field.
 
 ```c#
 {{#include ../../Examples/2/ReplyMarkup.cs:usings}}
@@ -129,15 +129,15 @@ Pressing a [switch to inline button] prompts the user to select a chat, opens it
 Some more special inline button types can be used.
 
 Below are some simple examples of what you can do. More options are available in associated class properties.
-- `InlineKeyboardButton.WithCopyText("Copy info", "Text to copy"))`   
+- `new InlineKeyboardButton("Copy info", InlineButtonType.CopyText, "Text to copy")`   
 	Store a text in the user clipboard
-- `InlineKeyboardButton.WithWebApp("Launch WebApp", "https://www.example.com/game"))`   
+- `new InlineKeyboardButton("Launch WebApp", InlineButtonType.WebApp, "https://www.example.com/game")`   
 	Launch a [Mini-App](../4/webapps.md)
-- `InlineKeyboardButton.WithLoginUrl("Login", new() { Url = "https://www.example.com/telegramAuth" }))`   
+- `new InlineKeyboardButton("Login", InlineButtonType.LoginUrl, "https://www.example.com/telegramAuth")`   
 	Authenticate the Telegram user via a website _(Domain must be configured in [@BotFather])_
-- `InlineKeyboardButton.WithCallbackGame("Launch game"))`   
+- `new InlineKeyboardButton("Launch game", InlineButtonType.Game)`   
 	Launch an HTML game _(Game must be configured in [@BotFather])_
-- `InlineKeyboardButton.WithPay("Pay 200 XTR"))`   
+- `new InlineKeyboardButton("Pay 200 XTR", InlineButtonType.Pay)`   
 	Customize the Pay button caption _(only during a [SendInvoice call](../4/payments.md))_
 
 ## Button styles

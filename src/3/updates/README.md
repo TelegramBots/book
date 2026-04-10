@@ -61,6 +61,8 @@ We are not listing all types here, but it could be for example:
 - [payment](../../4/payments.md)/[passport](../../4/passport)/giveaway process update
 - etc...
 
+You can use `message.IsServiceMessage` to determine if a message is content or service.
+
 ### Common properties
 
 There are additional properties that gives you information about the context of the message.

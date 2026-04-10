@@ -79,21 +79,21 @@ Keyboards can be easily constructed by passing directly the following type of ob
 | `InlineKeyboardButton[]` or<br/>`List<InlineKeyboardButton>` | inline buttons on 1 row |
 | `InlineKeyboardButton[][]` or<br/>`List<List<InlineKeyboardButton>>` or<br/> `IEnumerable<InlineKeyboardButton>[]` | multiple inline buttons |
 
-Additionally, `InlineKeyboardButton` can be implicitly constructed from a tuple `(string text, string callbackOrUrl)` for Callback or Url buttons
+Additionally, `InlineKeyboardButton` can be implicitly constructed from a tuple `(string text, string callbackOrUrl)` for Callback or Url buttons, with optional button style & icon
 ```csharp
-await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: InlineKeyboardButton.WithUrl("Click here", "https://telegrambots.github.io/book/"));
+await bot.SendMessage(msg.Chat, "Visit our website", replyMarkup: ("Click here", "https://telegrambots.github.io/book/", KeyboardButtonStyle.Success, "5447410659077661506"));
 await bot.SendMessage(botOwnerId, $"Annoying user: {msg.From}", replyMarkup: new InlineKeyboardButton[]
-    { ("Ban him", $"BAN {msg.From.Id}"), ("Mute him", $"MUTE {msg.From.Id}") });
+    { ("Ban him", $"BAN {msg.From.Id}", KeyboardButtonStyle.Danger), ("Mute him", $"MUTE {msg.From.Id}") });
 await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: new string[] { "MENU", "INFO", "LANGUAGE" });
 ```
 ### Constructing dynamically
 `ReplyKeyboardMarkup` & `InlineKeyboardMarkup` have methods to help you construct keyboards dynamically:
 ```csharp
 var replyMarkup = new InlineKeyboardMarkup()
-    .AddButton(InlineKeyboardButton.WithUrl("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
+    .AddButton(new InlineKeyboardButton("Link to Repository", "https://github.com/TelegramBots/Telegram.Bot"))
     .AddNewRow().AddButton("callback").AddButton("caption", "data")
     .AddNewRow("with", "three", "buttons")
-    .AddNewRow().AddButtons("A", "B", InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switch"));
+    .AddNewRow().AddButtons("A", "B", new("switch", InlineButtonType.SwitchInlineQueryCurrentChat));
 ```
 
 And you can use `new ReplyKeyboardMarkup(true)` to resize the reply keyboard.
