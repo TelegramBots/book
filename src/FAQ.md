@@ -153,4 +153,4 @@ For photos, use `msg.Photo[^1].FileId`
 
 ### This FAQ doesn't have my question on it
 
-Feel free to [join our Telegram group](https://t.me/joinchat/B35YY0QbLfd034CFnvCtCA) and ask your question there
+Feel free to [join our Telegram group](https://t.me/tgbot_chat) and ask your question there

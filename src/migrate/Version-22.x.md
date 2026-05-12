@@ -182,7 +182,23 @@ Builds & Releases:
 - `HtmlText.Truncate` helpers ignores invalid & sequences
 - Removed AsyncEnumerableReceivers classes
 
-## What's new in version 22.9
+## What's new in version 22.9.0
 - Support for [Bot API 9.4](https://core.telegram.org/bots/api-changelog#february-9-2026)
 - Implicit construction of `ChatId` from `User`
 - fix type (int -> long) for `Rating` & `Amount` fields
+
+## What's new in version 22.9.5.3
+- Support for [Bot API 9.5](https://core.telegram.org/bots/api-changelog#march-1-2026)
+- Support `MessageEntity.UnixTime` in `ToHtml`/`ToMarkdown`
+- `SendHtml`: support button's `style=` and `icon=`
+
+## What's new in version 22.9.6.2
+- Support for [Bot API 9.6](https://core.telegram.org/bots/api-changelog#april-3-2026)
+- To port existing `SendPoll` calls, replace optional parameter `correctOptionId: N` with `correctOptionIds: [N]`
+- Added `(Inline)KeyboardButton` constructors for all button types because the `With*` helpers don't allow to set additional properties like Style & `IconCustomEmojiId`
+- Also supporting style & emoji in tuples implicit conversion to `(Inline)KeyboardButton`
+- Implicit conversion `LoginUrl` <=> string
+- Support `InputFile` deserialization
+
+## What's new in version 22.10.0
+- Support for [Bot API 10.0](https://core.telegram.org/bots/api-changelog#may-8-2026)

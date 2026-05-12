@@ -50,12 +50,15 @@ We've added easier ways to construct various instances from other types, especia
 - `BotCommandScope` has several static methods to construct scopes
 - `InputFile` from a `string` (fileId or URL), or a `Stream`, or a received media file, or `null`
 - `InputPollOption` from a `string`
- 
+- `LoginUrl` from/to a `string`
+
+also, any class containing only one field (eg: `WebAppInfo`) has an implicit conversion from/to that field's type.
+
 Examples:
 ```csharp
 await bot.RestrictChatMember(chatId, userId, new ChatPermissions(true)); // unmute
 await bot.SetMessageReaction(msg.Chat, msg.Id, ["👍"]);
-await bot.SendMessage(msg.Chat, "Visit t.me/tgbots_dotnet", replyParameters: msg, linkPreviewOptions: true);
+await bot.SendMessage(msg.Chat, "Visit t.me/tgbot_net", replyParameters: msg, linkPreviewOptions: true);
 await bot.SendInvoice(chatId, "Product", "Description", "ProductID", "XTR", [("Price", 500)]);
 await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")], BotCommandScope.AllPrivateChats());
 await bot.SendPhoto(msg.Chat, "https://picsum.photos/310/200.jpg");
