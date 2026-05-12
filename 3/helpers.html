@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d1d8b756.js";
+            window.path_to_searchindex_js = "../searchindex-2f57ab8b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-50ccb01f.js"></script>
@@ -243,11 +243,13 @@
 <li><code>BotCommandScope</code> has several static methods to construct scopes</li>
 <li><code>InputFile</code> from a <code>string</code> (fileId or URL), or a <code>Stream</code>, or a received media file, or <code>null</code></li>
 <li><code>InputPollOption</code> from a <code>string</code></li>
+<li><code>LoginUrl</code> from/to a <code>string</code></li>
 </ul>
+<p>also, any class containing only one field (eg: <code>WebAppInfo</code>) has an implicit conversion from/to that field’s type.</p>
 <p>Examples:</p>
 <pre><code class="language-csharp">await bot.RestrictChatMember(chatId, userId, new ChatPermissions(true)); // unmute
 await bot.SetMessageReaction(msg.Chat, msg.Id, ["👍"]);
-await bot.SendMessage(msg.Chat, "Visit t.me/tgbots_dotnet", replyParameters: msg, linkPreviewOptions: true);
+await bot.SendMessage(msg.Chat, "Visit t.me/tgbot_net", replyParameters: msg, linkPreviewOptions: true);
 await bot.SendInvoice(chatId, "Product", "Description", "ProductID", "XTR", [("Price", 500)]);
 await Bot.SetMyCommands([("/start", "Start the bot"), ("/privacy", "Privacy policy")], BotCommandScope.AllPrivateChats());
 await bot.SendPhoto(msg.Chat, "https://picsum.photos/310/200.jpg");

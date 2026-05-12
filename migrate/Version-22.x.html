@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d1d8b756.js";
+            window.path_to_searchindex_js = "../searchindex-2f57ab8b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-50ccb01f.js"></script>
@@ -339,11 +339,30 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <li><code>HtmlText.Truncate</code> helpers ignores invalid &amp; sequences</li>
 <li>Removed AsyncEnumerableReceivers classes</li>
 </ul>
-<h2 id="whats-new-in-version-229"><a class="header" href="#whats-new-in-version-229">What’s new in version 22.9</a></h2>
+<h2 id="whats-new-in-version-2290"><a class="header" href="#whats-new-in-version-2290">What’s new in version 22.9.0</a></h2>
 <ul>
 <li>Support for <a href="https://core.telegram.org/bots/api-changelog#february-9-2026">Bot API 9.4</a></li>
 <li>Implicit construction of <code>ChatId</code> from <code>User</code></li>
 <li>fix type (int -&gt; long) for <code>Rating</code> &amp; <code>Amount</code> fields</li>
+</ul>
+<h2 id="whats-new-in-version-22953"><a class="header" href="#whats-new-in-version-22953">What’s new in version 22.9.5.3</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#march-1-2026">Bot API 9.5</a></li>
+<li>Support <code>MessageEntity.UnixTime</code> in <code>ToHtml</code>/<code>ToMarkdown</code></li>
+<li><code>SendHtml</code>: support button’s <code>style=</code> and <code>icon=</code></li>
+</ul>
+<h2 id="whats-new-in-version-22962"><a class="header" href="#whats-new-in-version-22962">What’s new in version 22.9.6.2</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#april-3-2026">Bot API 9.6</a></li>
+<li>To port existing <code>SendPoll</code> calls, replace optional parameter <code>correctOptionId: N</code> with <code>correctOptionIds: [N]</code></li>
+<li>Added <code>(Inline)KeyboardButton</code> constructors for all button types because the <code>With*</code> helpers don’t allow to set additional properties like Style &amp; <code>IconCustomEmojiId</code></li>
+<li>Also supporting style &amp; emoji in tuples implicit conversion to <code>(Inline)KeyboardButton</code></li>
+<li>Implicit conversion <code>LoginUrl</code> &lt;=&gt; string</li>
+<li>Support <code>InputFile</code> deserialization</li>
+</ul>
+<h2 id="whats-new-in-version-22100"><a class="header" href="#whats-new-in-version-22100">What’s new in version 22.10.0</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#may-8-2026">Bot API 10.0</a></li>
 </ul>
 
                     </main>
