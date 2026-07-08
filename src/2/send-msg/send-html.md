@@ -26,7 +26,7 @@ var msg = await bot.SendHtml(chatId, """
 ### Sending a photo with spoiler
 ```csharp
 var msg = await bot.SendHtml(chatId, """
-    <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler>
+    <img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" tg-spoiler>
     <b>Ara bird</b>. <i>Source</i>: <a href="https://pixabay.com">Pixabay</a>
     """);
 ```
@@ -51,7 +51,7 @@ var msg = await bot.SendHtml(chatId, """
 ### Sending a video with FileID instead of URL _(and spoiler)_
 ```csharp
 var msg = await bot.SendHtml(chatId, $"""
-    <video src="{previousMsg.Video.FileId}" spoiler>
+    <video src="{previousMsg.Video.FileId}" tg-spoiler>
     We use a FileID as the video src
     """);
 ```
