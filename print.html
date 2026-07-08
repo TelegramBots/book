@@ -27,8 +27,8 @@
 
         <link rel="shortcut icon" href="favicon-ec4bdd00.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -48,10 +48,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2f57ab8b.js";
+            window.path_to_searchindex_js = "searchindex-aa42d027.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-50ccb01f.js"></script>
+        <script src="toc-1774c27b.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -588,7 +588,7 @@ await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = 
 </code></pre>
 <h3 id="sending-a-photo-with-spoiler"><a class="header" href="#sending-a-photo-with-spoiler">Sending a photo with spoiler</a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, """
-    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" spoiler&gt;
+    &lt;img src="https://telegrambots.github.io/book/docs/photo-ara.jpg" tg-spoiler&gt;
     &lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href="https://pixabay.com"&gt;Pixabay&lt;/a&gt;
     """);
 </code></pre>
@@ -606,7 +606,7 @@ await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = 
 </code></pre>
 <h3 id="sending-a-video-with-fileid-instead-of-url-and-spoiler"><a class="header" href="#sending-a-video-with-fileid-instead-of-url-and-spoiler">Sending a video with FileID instead of URL <em>(and spoiler)</em></a></h3>
 <pre><code class="language-csharp">var msg = await bot.SendHtml(chatId, $"""
-    &lt;video src="{previousMsg.Video.FileId}" spoiler&gt;
+    &lt;video src="{previousMsg.Video.FileId}" tg-spoiler&gt;
     We use a FileID as the video src
     """);
 </code></pre>
@@ -3156,11 +3156,11 @@ var markup = new InlineKeyboardMarkup(buttonsArray)
 
         <script src="elasticlunr-ef4e11c1.min.js"></script>
         <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 
