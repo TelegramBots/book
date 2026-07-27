@@ -12,7 +12,8 @@ Setting those events will automatically start a background polling system which 
 - `OnUpdate` for all other type of updates (callback, inline-mode, chat members, polls, etc..)
 
 > [!NOTE]
-> If you don't set OnMessage, the OnUpdate event will be triggered for all updates, including messages.
+> - If you don't set OnMessage, the OnUpdate event will be triggered for all updates, including messages.
+> - If you want to ignore past/pending bot updates when restarting your bot, call `await bot.DropPendingUpdatesAsync()` before setting those events.
 
 ## By using the `StartReceiving` method (or `ReceiveAsync`)
 [![Advanced console application](https://img.shields.io/badge/Examples-Console.Advanced-green?style=flat-square)](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced)

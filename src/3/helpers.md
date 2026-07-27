@@ -9,8 +9,10 @@ However, to simplify your life, we also provide a set of additional helpers meth
 
 - `message.MessageLink()`: Returns the <a href="t.me">t.me/...</a> link to this message, or `null` if the message was not in a Supergroup or Channel
 - `message.IsServiceMessage`: Detect service messages vs content messages
-- `message.ToHtml()` to convert the message to HTML format _(Recommended)_
+- `message.ToHtml()` to convert the classic message to HTML format _(Recommended)_
 - `message.ToMarkdown()` to convert the message to Markdown format _(Not recommended)_
+- `message.ToInputRichMessage()` to convert a rich message to HTML format for storage/reuse
+- `rich.ToHtml()` to convert a rich message or a rich block to HTML format for storage/reuse
 - `HtmlText.Escape()` to escape reserved HTML characters in a string
 - `HtmlText.ToPlain()` to convert HTML string to plain text _(removing tags)_
 - `HtmlText.PlainLength()` to get the number of characters of plain text from HTML

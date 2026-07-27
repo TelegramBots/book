@@ -202,3 +202,31 @@ Builds & Releases:
 
 ## What's new in version 22.10.0
 - Support for [Bot API 10.0](https://core.telegram.org/bots/api-changelog#may-8-2026)
+
+## What's new in version 22.10.0.1
+Fix some inconsistencies:
+- `SetManagedBotAccessSettings`: Fix type for arg addedUserIds
+- `SendMessageDraft`: moved parseMode arg right after text
+- `SendPoll`: moved media arg after description* args
+- Dedicated enum for `PollMedia.Type` helper
+
+## What's new in version 22.10.0.2
+- `GetInfoAndDownloadFile` now accept File ID or directly a FileBase (video, audio, document, sticker, etc...)
+- Recognize `tg://` as url for `InlineKeyboardButton(string, string)` ctor
+
+## What's new in version 22.10.1
+- Support for [Bot API 10.1](https://core.telegram.org/bots/api-changelog#june-11-2026)
+
+## What's new in version 22.10.1.1
+- Rich Message To HTML converter: `msg.ToRichHtml()` or `rich.ToHtml()`
+(medias are converted using `?file_id=` urls which cannot yet be resent via Bot API 10.1)
+- Fixed `msg.IsServiceMessage` for rich message
+- Added `LinkPreviewOptions.Disabled`
+- `SendHtml`/`ToHtml` now use `tg-spoiler` for media spoiler (compatible with Rich Html)
+
+## What's new in version 22.10.2
+- Support for [Bot API 10.2](https://core.telegram.org/bots/api-changelog#july-14-2026)
+- `ToRichHtml` becomes `ToInputRichMessage` and supports resending medias
+
+## What's new in version 22.10.2.1
+- Fix: using `InputFileStream` in `InputRichMessage` _(failed previously)_
