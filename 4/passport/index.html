@@ -26,8 +26,8 @@
 
         <link rel="shortcut icon" href="../../favicon-ec4bdd00.png">
         <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -47,7 +47,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-aa42d027.js";
+            window.path_to_searchindex_js = "../../searchindex-15c7e9c1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-1774c27b.js"></script>
@@ -204,7 +204,7 @@ Code snippets on this page are in the context of that project.</p>
 <h2 id="encryption-keys"><a class="header" href="#encryption-keys">Encryption Keys</a></h2>
 <p>You don’t really need to generate any RSA key. Use our sample keys for this demo.
 Send the public key to <a href="https://t.me/BotFather">@BotFather</a> using <code>/setpublickey</code> command:</p>
-<p><img src="../docs/shot-passport_botfather.jpg" alt="Setting public key"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_botfather.jpg" alt="Setting public key"><span class="img-wrapper"><img src="../docs/shot-passport_botfather.jpg" alt="Setting public key"></span></label></p>
 <p>Copy this public key and send it to BotFather.</p>
 <pre><code class="language-text">-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0VElWoQA2SK1csG2/sY/
@@ -244,27 +244,27 @@ Then, we generate the query string and ask user to open the link.</p>
 <blockquote>
 <p>If a user is using an Android device, the URI will start with <code>tg:</code> instead of the default <code>tg://</code>.</p>
 </blockquote>
-<p><img src="../docs/shot-passport_link1.jpg" alt="Passport link 1">
-<img src="../docs/shot-passport_link2.jpg" alt="Passport link 2"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_link1.jpg" alt="Passport link 1"><span class="img-wrapper"><img src="../docs/shot-passport_link1.jpg" alt="Passport link 1"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_link2.jpg" alt="Passport link 2"><span class="img-wrapper"><img src="../docs/shot-passport_link2.jpg" alt="Passport link 2"></span></label></p>
 <h3 id="passport-data"><a class="header" href="#passport-data">Passport Data</a></h3>
 <p>You, the user, should now be redirected to the Telegram Passport screen in your Telegram client app.
 Enter your password and log in.</p>
 <blockquote>
 <p>Note that the app will ask you to register if this is the first time you are using Telegram Passport.</p>
 </blockquote>
-<p><img src="../docs/shot-passport_login.jpg" alt="Passport login"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_login.jpg" alt="Passport login"><span class="img-wrapper"><img src="../docs/shot-passport_login.jpg" alt="Passport login"></span></label></p>
 <p>Fill in the <em>address</em> and <em>phone number</em> data. Click on the <em>Authorize</em> button at the end.</p>
-<p><img src="../docs/shot-passport_adress_phone1.jpg" alt="Passport info 1">
-<img src="../docs/shot-passport_adress.jpg" alt="address info">
-<img src="../docs/shot-passport_phone.jpg" alt="phone info">
-<img src="../docs/shot-passport_adress_phone2.jpg" alt="Passport info 2"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_adress_phone1.jpg" alt="Passport info 1"><span class="img-wrapper"><img src="../docs/shot-passport_adress_phone1.jpg" alt="Passport info 1"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_adress.jpg" alt="address info"><span class="img-wrapper"><img src="../docs/shot-passport_adress.jpg" alt="address info"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_phone.jpg" alt="phone info"><span class="img-wrapper"><img src="../docs/shot-passport_phone.jpg" alt="phone info"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_adress_phone2.jpg" alt="Passport info 2"><span class="img-wrapper"><img src="../docs/shot-passport_adress_phone2.jpg" alt="Passport info 2"></span></label></p>
 <p>At this point, your Telegram client app encrypts the actual Telegram Passport data (e.g. address) using the
 AES algorithm, and then encrypts the info required for decryption using your bot’s public RSA key.
 Finally, it sends the result of both encryptions to Telegram servers.</p>
 <h3 id="data-decryption"><a class="header" href="#data-decryption">Data Decryption</a></h3>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type"></a></p>
 <p>Your bot now receives a new message update with the encrypted Passport data. The user is also notified in the chat:</p>
-<p><img src="../docs/shot-passport_update.jpg" alt="Passport update"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_update.jpg" alt="Passport update"><span class="img-wrapper"><img src="../docs/shot-passport_update.jpg" alt="Passport update"></span></label></p>
 <p>Let’s decrypt that gibberish to get the information. That’s what <code>DecryptPassportDataAsync</code> method does.</p>
 <h4 id="step-1-credentials"><a class="header" href="#step-1-credentials">Step 1: Credentials</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type"></a>
@@ -312,7 +312,7 @@ Telegram stores these values after being verified.</p>
 Just find the element with the type of <em>phone_number</em> in the <code>message.PassportData.Data</code> array.</p>
 <h3 id="information-demo"><a class="header" href="#information-demo">Information Demo</a></h3>
 <p>At the end, bot sends some of the information received to the user for demo purposes.</p>
-<p><img src="../docs/shot-passport_quickstart.jpg" alt="info demo"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-passport_quickstart.jpg" alt="info demo"><span class="img-wrapper"><img src="../docs/shot-passport_quickstart.jpg" alt="info demo"></span></label></p>
 
                     </main>
 
@@ -362,7 +362,7 @@ Just find the element with the type of <em>phone_number</em> in the <code>messag
 
         <script src="../../clipboard-1626706a.min.js"></script>
         <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-c22b7243.js"></script>
+        <script src="../../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

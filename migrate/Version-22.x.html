@@ -26,8 +26,8 @@
 
         <link rel="shortcut icon" href="../favicon-ec4bdd00.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -47,7 +47,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-aa42d027.js";
+            window.path_to_searchindex_js = "../searchindex-15c7e9c1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-1774c27b.js"></script>
@@ -364,6 +364,40 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <ul>
 <li>Support for <a href="https://core.telegram.org/bots/api-changelog#may-8-2026">Bot API 10.0</a></li>
 </ul>
+<h2 id="whats-new-in-version-221001"><a class="header" href="#whats-new-in-version-221001">What’s new in version 22.10.0.1</a></h2>
+<p>Fix some inconsistencies:</p>
+<ul>
+<li><code>SetManagedBotAccessSettings</code>: Fix type for arg addedUserIds</li>
+<li><code>SendMessageDraft</code>: moved parseMode arg right after text</li>
+<li><code>SendPoll</code>: moved media arg after description* args</li>
+<li>Dedicated enum for <code>PollMedia.Type</code> helper</li>
+</ul>
+<h2 id="whats-new-in-version-221002"><a class="header" href="#whats-new-in-version-221002">What’s new in version 22.10.0.2</a></h2>
+<ul>
+<li><code>GetInfoAndDownloadFile</code> now accept File ID or directly a FileBase (video, audio, document, sticker, etc…)</li>
+<li>Recognize <code>tg://</code> as url for <code>InlineKeyboardButton(string, string)</code> ctor</li>
+</ul>
+<h2 id="whats-new-in-version-22101"><a class="header" href="#whats-new-in-version-22101">What’s new in version 22.10.1</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#june-11-2026">Bot API 10.1</a></li>
+</ul>
+<h2 id="whats-new-in-version-221011"><a class="header" href="#whats-new-in-version-221011">What’s new in version 22.10.1.1</a></h2>
+<ul>
+<li>Rich Message To HTML converter: <code>msg.ToRichHtml()</code> or <code>rich.ToHtml()</code>
+(medias are converted using <code>?file_id=</code> urls which cannot yet be resent via Bot API 10.1)</li>
+<li>Fixed <code>msg.IsServiceMessage</code> for rich message</li>
+<li>Added <code>LinkPreviewOptions.Disabled</code></li>
+<li><code>SendHtml</code>/<code>ToHtml</code> now use <code>tg-spoiler</code> for media spoiler (compatible with Rich Html)</li>
+</ul>
+<h2 id="whats-new-in-version-22102"><a class="header" href="#whats-new-in-version-22102">What’s new in version 22.10.2</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#july-14-2026">Bot API 10.2</a></li>
+<li><code>ToRichHtml</code> becomes <code>ToInputRichMessage</code> and supports resending medias</li>
+</ul>
+<h2 id="whats-new-in-version-221021"><a class="header" href="#whats-new-in-version-221021">What’s new in version 22.10.2.1</a></h2>
+<ul>
+<li>Fix: using <code>InputFileStream</code> in <code>InputRichMessage</code> <em>(failed previously)</em></li>
+</ul>
 
                     </main>
 
@@ -413,7 +447,7 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-c22b7243.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

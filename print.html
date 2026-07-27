@@ -27,8 +27,8 @@
 
         <link rel="shortcut icon" href="favicon-ec4bdd00.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-0392ca55.css">
-        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -48,7 +48,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-aa42d027.js";
+            window.path_to_searchindex_js = "searchindex-15c7e9c1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-1774c27b.js"></script>
@@ -266,7 +266,7 @@ Hello, World! I am user 1234567 and my name is Awesome Bot.
 <h1 id="your-first-chat-bot"><a class="header" href="#your-first-chat-bot">Your First Chat Bot</a></h1>
 <p>On the <a href="#quickstart">previous page</a> we got a secret bot token and used the <a href="https://core.telegram.org/bots/api#getme"><code>getMe</code></a> method to check our setup.
 Now, it is time to make an <em>interactive</em> bot that gets users’ messages and replies to them like in this screenshot:</p>
-<p><img src="1/docs/shot-example_bot.jpg" alt="Example Image"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="1/docs/shot-example_bot.jpg" alt="Example Image"><span class="img-wrapper"><img src="1/docs/shot-example_bot.jpg" alt="Example Image"></span></label></p>
 <p>Copy the following code to <code>Program.cs</code>.</p>
 <blockquote>
 <p>⚠️ Replace <code>YOUR_BOT_TOKEN</code> with the bot token obtained from <a href="https://t.me/botfather">@BotFather</a>.</p>
@@ -389,7 +389,7 @@ and which user clicked on it <em>(which could be any user if the message was in 
 <h2 id="basic-text-message"><a class="header" href="#basic-text-message">Basic text message</a></h2>
 <pre><code class="language-csharp">await bot.SendMessage(chatId, "Hello, World!");
 </code></pre>
-<p><img src="2/docs/shot-text_msg.jpg" alt="text message screenshot"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-text_msg.jpg" alt="text message screenshot"><span class="img-wrapper"><img src="2/docs/shot-text_msg.jpg" alt="text message screenshot"></span></label></p>
 <p>The <code>chatId</code> parameter would typically be the ID of a chat or a user that you obtained on a <a href="3/updates">received message</a>,
 or it can be the @username of a public group/channel.</p>
 <h2 id="advanced-text-message"><a class="header" href="#advanced-text-message">Advanced text message</a></h2>
@@ -411,7 +411,7 @@ or it can be the @username of a public group/channel.</p>
     replyParameters: update.Message.Id,
     replyMarkup: new InlineKeyboardButton("Check sendMessage method", "https://core.telegram.org/bots/api#sendmessage"));
 </code></pre>
-<p><img src="2/docs/shot-text_msg2.jpg" alt="text message screenshot"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-text_msg2.jpg" alt="text message screenshot"><span class="img-wrapper"><img src="2/docs/shot-text_msg2.jpg" alt="text message screenshot"></span></label></p>
 <p>Here <code>text</code> is written in <a href="https://core.telegram.org/bots/api#html-style">HTML format</a> and <code>parseMode</code> indicates that.</p>
 <p>By passing <code>protectContent</code> we prevent the message (and eventual media) to be copiable/forwardable elsewhere.</p>
 <p>It’s a good idea to make it clear to a user the reason why the bot is sending this message and that’s why we pass the user’s
@@ -473,7 +473,7 @@ You will learn more about them later on when we discuss file <a href="3/files/up
 <pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
     "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
 </code></pre>
-<p><img src="2/docs/shot-photo_msg.jpg" alt="photo message"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-photo_msg.jpg" alt="photo message"><span class="img-wrapper"><img src="2/docs/shot-photo_msg.jpg" alt="photo message"></span></label></p>
 <p>Here we sent a caption in HTML format. The user can click on <u><a href="https://pixabay.com">Pixabay</a></u> in the caption to open its URL in the browser.</p>
 <p>The <code>Message</code> returned by the SendPhoto method represents a <em>photo message</em> because <code>message.Photo</code> has a value.
 Its value is an array with each  <a href="https://core.telegram.org/bots/api#photosize">PhotoSize</a> representing the same photo in different resolutions, with the largest dimensions last.</p>
@@ -486,7 +486,7 @@ and second by reusing <code>FileId</code> of the same sticker on Telegram server
 <pre><code class="language-csharp">var message1 = await bot.SendSticker(chatId, "https://telegrambots.github.io/book/docs/sticker-fred.webp");
 var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 </code></pre>
-<p><img src="2/docs/shot-sticker_msgs.jpg" alt="sticker messages"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-sticker_msgs.jpg" alt="sticker messages"><span class="img-wrapper"><img src="2/docs/shot-sticker_msgs.jpg" alt="sticker messages"></span></label></p>
 <h2 id="video"><a class="header" href="#video">Video</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideo"><img src="https://img.shields.io/badge/Bot_API_method-sendVideo-blue.svg?style=flat-square" alt="method sendVideo"></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests"></a></p>
@@ -496,7 +496,7 @@ To run this example, download the <a href="https://telegrambots.github.io/book/d
 <pre><code class="language-csharp">await using Stream stream = File.OpenRead("./video-hawk.mp4");
 await bot.SendVideo(chatId, stream);
 </code></pre>
-<p><img src="2/docs/shot-video.jpg" alt="video message screenshot"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-video.jpg" alt="video message screenshot"><span class="img-wrapper"><img src="2/docs/shot-video.jpg" alt="video message screenshot"></span></label></p>
 <p>Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
 You can optionally specify the duration and resolution of the video.</p>
 <p>In the example below, we send a video of a 10 minute countdown
@@ -505,7 +505,7 @@ We also set a thumbnail image for our video.</p>
 <pre><code class="language-csharp">await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
     thumbnail: "https://telegrambots.github.io/book/2/docs/thumb-clock.jpg", supportsStreaming: true);
 </code></pre>
-<p><img src="2/docs/shot-video_thumb1.jpg" alt="video screenshot 1"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-video_thumb1.jpg" alt="video screenshot 1"><span class="img-wrapper"><img src="2/docs/shot-video_thumb1.jpg" alt="video screenshot 1"></span></label></p>
 <p>User should be able to seek through the video without the video being downloaded completely.</p>
 <h2 id="audio"><a class="header" href="#audio">Audio</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method"></a>
@@ -517,7 +517,7 @@ We also set a thumbnail image for our video.</p>
 </code></pre>
 <p>You might be wondering why some parameters are commented out?
 That’s because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
-<p><img src="2/docs/shot-audio_msg.jpg" alt="audio message"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-audio_msg.jpg" alt="audio message"><span class="img-wrapper"><img src="2/docs/shot-audio_msg.jpg" alt="audio message"></span></label></p>
 <p>The method returns an audio Message with the metadata associated with the audio (ex: <code>msg.Audio.Performer</code>, <code>msg.Audio.Duration</code>…)</p>
 <h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square" alt="send voice method"></a></p>
@@ -525,7 +525,7 @@ That’s because this MP3 file has metadata on it and Telegram does a good job a
 <p>Here we pass a value for <code>duration</code> because Telegram can’t figure that out from a file’s metadata.</p>
 <pre><code class="language-csharp">var msg = await bot.SendVoice(chatId, "https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg", duration: 36);
 </code></pre>
-<p><img src="2/docs/shot-voice_msg.jpg" alt="voice message"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-voice_msg.jpg" alt="voice message"><span class="img-wrapper"><img src="2/docs/shot-voice_msg.jpg" alt="voice message"></span></label></p>
 <p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> properties to learn more.</p>
 <h2 id="video-note"><a class="header" href="#video-note">Video Note</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideonote"><img src="https://img.shields.io/badge/Bot_API_method-sendVideoNote-blue.svg?style=flat-square" alt="method sendVideoNote"></a></p>
@@ -535,7 +535,7 @@ That’s because this MP3 file has metadata on it and Telegram does a good job a
 <pre><code class="language-csharp">await using Stream stream = File.OpenRead("path/to/video-waves.mp4");
 await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = width = height
 </code></pre>
-<p><img src="2/docs/shot-video_note.jpg" alt="video note screenshot"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-video_note.jpg" alt="video note screenshot"><span class="img-wrapper"><img src="2/docs/shot-video_note.jpg" alt="video note screenshot"></span></label></p>
 <h2 id="document-files"><a class="header" href="#document-files">Document (files)</a></h2>
 <p><a href="https://core.telegram.org/bots/api#senddocument"><img src="https://img.shields.io/badge/Bot_API_method-sendDocument-blue.svg?style=flat-square" alt="sendDocument method"></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests"></a></p>
@@ -780,7 +780,7 @@ var msg2 = await bot.SendHtml(chatId, """
         "No, who`s that?"
     ]);
 </code></pre>
-<p><img src="2/docs/shot-native_poll_msg.jpeg" alt="native poll"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-native_poll_msg.jpeg" alt="native poll"><span class="img-wrapper"><img src="2/docs/shot-native_poll_msg.jpeg" alt="native poll"></span></label></p>
 <p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
 <p>You’ll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
 <h2 id="stop-a-poll"><a class="header" href="#stop-a-poll">Stop a poll</a></h2>
@@ -789,7 +789,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <p>Let’s close the poll that we sent in the previous example:</p>
 <pre><code class="language-c#">Poll poll = await bot.StopPoll(pollMessage.Chat, pollMessage.Id);
 </code></pre>
-<p><img src="2/docs/shot-native_poll_closed.jpeg" alt="closed native poll"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-native_poll_closed.jpeg" alt="closed native poll"><span class="img-wrapper"><img src="2/docs/shot-native_poll_closed.jpeg" alt="closed native poll"></span></label></p>
 <p>You can add an inline keyboard when you close a poll.</p>
 <p>As a result of the request you’ll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
 <p>If you’ll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you’ll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
@@ -803,7 +803,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <p>This is the code to send a contact. Mandatory are the parameters <code>chatId</code>, <code>phoneNumber</code> and <code>firstName</code>.</p>
 <pre><code class="language-c#">await bot.SendContact(chatId, "+1234567890", "Han", "Solo");
 </code></pre>
-<p><img src="2/docs/shot-contact.jpg" alt="send contact"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-contact.jpg" alt="send contact"><span class="img-wrapper"><img src="2/docs/shot-contact.jpg" alt="send contact"></span></label></p>
 <p>If you want to send a contact as vCard you can achieve  this by adding a valid vCard <code>string</code> as value for the optional parameter <code>vCard</code> as seen in the given example below.</p>
 <pre><code class="language-c#">await bot.SendContact(chatId, "+1234567890", "Han", vcard: """
     BEGIN:VCARD
@@ -815,7 +815,7 @@ var msg2 = await bot.SendHtml(chatId, """
     END:VCARD
     """);
 </code></pre>
-<p><img src="2/docs/shot-contact_vcard.jpg" alt="send vcard"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-contact_vcard.jpg" alt="send vcard"><span class="img-wrapper"><img src="2/docs/shot-contact_vcard.jpg" alt="send vcard"></span></label></p>
 <h2 id="venue"><a class="header" href="#venue">Venue</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvenue"><img src="https://img.shields.io/badge/Bot_API_method-sendVenue-blue.svg?style=flat-square" alt="send venue method"></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Venue-green.svg?style=flat-square" alt="send venue tests"></a></p>
@@ -823,7 +823,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <pre><code class="language-c#">await bot.SendVenue(chatId, latitude: 50.0840172f, longitude: 14.418288f,
     title: "Man Hanging out", address: "Husova, 110 00 Staré Město, Czechia");
 </code></pre>
-<p><img src="2/docs/shot-venue.jpg" alt="send contact"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-venue.jpg" alt="send contact"><span class="img-wrapper"><img src="2/docs/shot-venue.jpg" alt="send contact"></span></label></p>
 <h2 id="location"><a class="header" href="#location">Location</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendlocation"><img src="https://img.shields.io/badge/Bot_API_method-sendLocation-blue.svg?style=flat-square" alt="send location method"></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/SendingVenueMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Location-green.svg?style=flat-square" alt="send location tests"></a></p>
@@ -831,7 +831,7 @@ var msg2 = await bot.SendHtml(chatId, """
 <p>The following snippet shows how to send a location with the mandatory parameters:</p>
 <pre><code class="language-c#">await bot.SendLocation(chatId, latitude: 33.747252f, longitude: -112.633853f);
 </code></pre>
-<p><img src="2/docs/shot-location.jpg" alt="send contact"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="2/docs/shot-location.jpg" alt="send contact"><span class="img-wrapper"><img src="2/docs/shot-location.jpg" alt="send contact"></span></label></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="dealing-with-chats"><a class="header" href="#dealing-with-chats">Dealing with chats</a></h1>
 <p>All messages in Telegram are sent/received on a specific chat.<br>The <code>chat.Type</code> can be one of 4 types:</p>
@@ -1242,7 +1242,10 @@ you will usually receive updates in sequential order of increasing <code>update.
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>If you don’t set OnMessage, the OnUpdate event will be triggered for all updates, including messages.</p>
+<ul>
+<li>If you don’t set OnMessage, the OnUpdate event will be triggered for all updates, including messages.</li>
+<li>If you want to ignore past/pending bot updates when restarting your bot, call <code>await bot.DropPendingUpdatesAsync()</code> before setting those events.</li>
+</ul>
 </blockquote>
 <h2 id="by-using-the-startreceiving-method-or-receiveasync"><a class="header" href="#by-using-the-startreceiving-method-or-receiveasync">By using the <code>StartReceiving</code> method (or <code>ReceiveAsync</code>)</a></h2>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced"><img src="https://img.shields.io/badge/Examples-Console.Advanced-green?style=flat-square" alt="Advanced console application"></a></p>
@@ -1427,7 +1430,7 @@ var message = await bot.SendPhoto(chatId, fileId);
 <a href="https://github.com/TelegramBots/Telegram.Bot.Examples/blob/master/InlineQueries/Program.cs"><img src="https://img.shields.io/badge/Examples-Inline%20Queries-green?style=flat-square" alt="inline queries example"></a></p>
 <p>Telegram bots can be queried directly in the chat or via inline queries.</p>
 <p>To use inline queries in your bot, you need to set up inline mode by command:</p>
-<p><img src="3/docs/shot-setinline_command.png" alt="/setinline command in BotFather"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="3/docs/shot-setinline_command.png" alt="/setinline command in BotFather"><span class="img-wrapper"><img src="3/docs/shot-setinline_command.png" alt="/setinline command in BotFather"></span></label></p>
 <p>Import <code>Telegram.Bot.Types.InlineQueryResults</code> namespace for inline query types.</p>
 <p>There are two types that allow you to work with inline queries - <code>InlineQuery</code> and <code>ChosenInlineResult</code>:</p>
 <pre><code class="language-c#">switch (update.Type)
@@ -1487,9 +1490,9 @@ private readonly string[] siteDescriptions =
 }
 </code></pre>
 <p>To use the feature you need to enable “inline feedback” in BotFather by <code>/setinlinefeedback</code> command:</p>
-<p><img src="3/docs/shot-setinlinefeedback_command.png" alt="set inline feedback command"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="3/docs/shot-setinlinefeedback_command.png" alt="set inline feedback command"><span class="img-wrapper"><img src="3/docs/shot-setinlinefeedback_command.png" alt="set inline feedback command"></span></label></p>
 <p>Final result:</p>
-<p><img src="3/docs/shot-inline_bot_showcase.png" alt="result"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="3/docs/shot-inline_bot_showcase.png" alt="result"><span class="img-wrapper"><img src="3/docs/shot-inline_bot_showcase.png" alt="result"></span></label></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="list-of-helpers-in-the-library"><a class="header" href="#list-of-helpers-in-the-library">List of helpers in the library</a></h1>
 <p>Our library is mainly a bridge between your application and Telegram Bot API.<br>However, to simplify your life, we also provide a set of additional helpers methods and services, listed below.</p>
@@ -1500,8 +1503,10 @@ private readonly string[] siteDescriptions =
 <ul>
 <li><code>message.MessageLink()</code>: Returns the <a href="3/t.me">t.me/…</a> link to this message, or <code>null</code> if the message was not in a Supergroup or Channel</li>
 <li><code>message.IsServiceMessage</code>: Detect service messages vs content messages</li>
-<li><code>message.ToHtml()</code> to convert the message to HTML format <em>(Recommended)</em></li>
+<li><code>message.ToHtml()</code> to convert the classic message to HTML format <em>(Recommended)</em></li>
 <li><code>message.ToMarkdown()</code> to convert the message to Markdown format <em>(Not recommended)</em></li>
+<li><code>message.ToInputRichMessage()</code> to convert a rich message to HTML format for storage/reuse</li>
+<li><code>rich.ToHtml()</code> to convert a rich message or a rich block to HTML format for storage/reuse</li>
 <li><code>HtmlText.Escape()</code> to escape reserved HTML characters in a string</li>
 <li><code>HtmlText.ToPlain()</code> to convert HTML string to plain text <em>(removing tags)</em></li>
 <li><code>HtmlText.PlainLength()</code> to get the number of characters of plain text from HTML</li>
@@ -1632,7 +1637,7 @@ to validate the user credentials, or to generate a Javascript to show the login 
 <blockquote>
 <p>If you are in a country, such as Iran or Russia, where HTTP and SOCKS proxy connections to Telegram servers may be blocked, consider using a VPN, using Tor Network, or hosting your bot in other jurisdictions.</p>
 </blockquote>
-<p><img src="4/docs/tg-network.gif" alt="Telegram Network"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/tg-network.gif" alt="Telegram Network"><span class="img-wrapper"><img src="4/docs/tg-network.gif" alt="Telegram Network"></span></label></p>
 <h2 id="http-proxy"><a class="header" href="#http-proxy">HTTP Proxy</a></h2>
 <p>You can configure <code>HttpClient</code> with <code>WebProxy</code> and pass it to the Bot client.</p>
 <pre><code class="language-csharp">// using System.Net;
@@ -1915,7 +1920,7 @@ Code snippets on this page are in the context of that project.</p>
 <h2 id="encryption-keys"><a class="header" href="#encryption-keys">Encryption Keys</a></h2>
 <p>You don’t really need to generate any RSA key. Use our sample keys for this demo.
 Send the public key to <a href="https://t.me/BotFather">@BotFather</a> using <code>/setpublickey</code> command:</p>
-<p><img src="4/docs/shot-passport_botfather.jpg" alt="Setting public key"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_botfather.jpg" alt="Setting public key"><span class="img-wrapper"><img src="4/docs/shot-passport_botfather.jpg" alt="Setting public key"></span></label></p>
 <p>Copy this public key and send it to BotFather.</p>
 <pre><code class="language-text">-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0VElWoQA2SK1csG2/sY/
@@ -1955,27 +1960,27 @@ Then, we generate the query string and ask user to open the link.</p>
 <blockquote>
 <p>If a user is using an Android device, the URI will start with <code>tg:</code> instead of the default <code>tg://</code>.</p>
 </blockquote>
-<p><img src="4/docs/shot-passport_link1.jpg" alt="Passport link 1">
-<img src="4/docs/shot-passport_link2.jpg" alt="Passport link 2"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_link1.jpg" alt="Passport link 1"><span class="img-wrapper"><img src="4/docs/shot-passport_link1.jpg" alt="Passport link 1"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_link2.jpg" alt="Passport link 2"><span class="img-wrapper"><img src="4/docs/shot-passport_link2.jpg" alt="Passport link 2"></span></label></p>
 <h3 id="passport-data"><a class="header" href="#passport-data">Passport Data</a></h3>
 <p>You, the user, should now be redirected to the Telegram Passport screen in your Telegram client app.
 Enter your password and log in.</p>
 <blockquote>
 <p>Note that the app will ask you to register if this is the first time you are using Telegram Passport.</p>
 </blockquote>
-<p><img src="4/docs/shot-passport_login.jpg" alt="Passport login"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_login.jpg" alt="Passport login"><span class="img-wrapper"><img src="4/docs/shot-passport_login.jpg" alt="Passport login"></span></label></p>
 <p>Fill in the <em>address</em> and <em>phone number</em> data. Click on the <em>Authorize</em> button at the end.</p>
-<p><img src="4/docs/shot-passport_adress_phone1.jpg" alt="Passport info 1">
-<img src="4/docs/shot-passport_adress.jpg" alt="address info">
-<img src="4/docs/shot-passport_phone.jpg" alt="phone info">
-<img src="4/docs/shot-passport_adress_phone2.jpg" alt="Passport info 2"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_adress_phone1.jpg" alt="Passport info 1"><span class="img-wrapper"><img src="4/docs/shot-passport_adress_phone1.jpg" alt="Passport info 1"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_adress.jpg" alt="address info"><span class="img-wrapper"><img src="4/docs/shot-passport_adress.jpg" alt="address info"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_phone.jpg" alt="phone info"><span class="img-wrapper"><img src="4/docs/shot-passport_phone.jpg" alt="phone info"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_adress_phone2.jpg" alt="Passport info 2"><span class="img-wrapper"><img src="4/docs/shot-passport_adress_phone2.jpg" alt="Passport info 2"></span></label></p>
 <p>At this point, your Telegram client app encrypts the actual Telegram Passport data (e.g. address) using the
 AES algorithm, and then encrypts the info required for decryption using your bot’s public RSA key.
 Finally, it sends the result of both encryptions to Telegram servers.</p>
 <h3 id="data-decryption"><a class="header" href="#data-decryption">Data Decryption</a></h3>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type"></a></p>
 <p>Your bot now receives a new message update with the encrypted Passport data. The user is also notified in the chat:</p>
-<p><img src="4/docs/shot-passport_update.jpg" alt="Passport update"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_update.jpg" alt="Passport update"><span class="img-wrapper"><img src="4/docs/shot-passport_update.jpg" alt="Passport update"></span></label></p>
 <p>Let’s decrypt that gibberish to get the information. That’s what <code>DecryptPassportDataAsync</code> method does.</p>
 <h4 id="step-1-credentials"><a class="header" href="#step-1-credentials">Step 1: Credentials</a></h4>
 <p><a href="https://core.telegram.org/bots/api#encryptedcredentials"><img src="https://img.shields.io/badge/Bot_API_type-EncryptedCredentials-blue.svg?style=flat-square" alt="EncryptedCredentials type"></a>
@@ -2023,7 +2028,7 @@ Telegram stores these values after being verified.</p>
 Just find the element with the type of <em>phone_number</em> in the <code>message.PassportData.Data</code> array.</p>
 <h3 id="information-demo"><a class="header" href="#information-demo">Information Demo</a></h3>
 <p>At the end, bot sends some of the information received to the user for demo purposes.</p>
-<p><img src="4/docs/shot-passport_quickstart.jpg" alt="info demo"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_quickstart.jpg" alt="info demo"><span class="img-wrapper"><img src="4/docs/shot-passport_quickstart.jpg" alt="info demo"></span></label></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="passport-files-and-documents"><a class="header" href="#passport-files-and-documents">Passport Files and Documents</a></h1>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Extensions.Passport/blob/master/test/IntegrationTests/Single%20Scope%20Requests/Driver%20License%20Tests.cs"><img src="https://img.shields.io/badge/Examples-Driver_License_Scope-green.svg?style=flat-square" alt="driver’s license scope tests"></a></p>
@@ -2054,13 +2059,13 @@ Here are the steps:</p>
 <p>We start by generating an authorization URI.
 Since a driver’s license is considered as a proof of identity, we ask for optional data <em>selfie with document</em> and
 <em>translation document scan</em> as well.</p>
-<p><img src="4/docs/shot-passport_driver_license_link.jpg" alt="driver’s license passport link"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_driver_license_link.jpg" alt="driver’s license passport link"><span class="img-wrapper"><img src="4/docs/shot-passport_driver_license_link.jpg" alt="driver’s license passport link"></span></label></p>
 <h2 id="drivers-license-info"><a class="header" href="#drivers-license-info">Driver’s License Info</a></h2>
 <p>As a user, provide information for the required fields: front side, reverse side, and document number.
 Also, test methods here expect a selfie photo and a file for translation scan.</p>
-<p><img src="4/docs/shot-passport_driver_license1.jpg" alt="driver’s license passport 1">
-<img src="4/docs/shot-passport_driver_license2.jpg" alt="driver’s license passport 2">
-<img src="4/docs/shot-passport_driver_license3.jpg" alt="driver’s license passport 3"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_driver_license1.jpg" alt="driver’s license passport 1"><span class="img-wrapper"><img src="4/docs/shot-passport_driver_license1.jpg" alt="driver’s license passport 1"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_driver_license2.jpg" alt="driver’s license passport 2"><span class="img-wrapper"><img src="4/docs/shot-passport_driver_license2.jpg" alt="driver’s license passport 2"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="4/docs/shot-passport_driver_license3.jpg" alt="driver’s license passport 3"><span class="img-wrapper"><img src="4/docs/shot-passport_driver_license3.jpg" alt="driver’s license passport 3"></span></label></p>
 <p>Click the <em>Authorize</em> button at the end.</p>
 <h2 id="passport-message"><a class="header" href="#passport-message">Passport Message</a></h2>
 <p><a href="https://core.telegram.org/bots/api#passportdata"><img src="https://img.shields.io/badge/Bot_API_type-Passport_Data-blue.svg?style=flat-square" alt="Passport Data type"></a></p>
@@ -2579,6 +2584,40 @@ the plain text only from HTML text <em>(remove the &lt;tags&gt;)</em>, the numbe
 <h2 id="whats-new-in-version-22100"><a class="header" href="#whats-new-in-version-22100">What’s new in version 22.10.0</a></h2>
 <ul>
 <li>Support for <a href="https://core.telegram.org/bots/api-changelog#may-8-2026">Bot API 10.0</a></li>
+</ul>
+<h2 id="whats-new-in-version-221001"><a class="header" href="#whats-new-in-version-221001">What’s new in version 22.10.0.1</a></h2>
+<p>Fix some inconsistencies:</p>
+<ul>
+<li><code>SetManagedBotAccessSettings</code>: Fix type for arg addedUserIds</li>
+<li><code>SendMessageDraft</code>: moved parseMode arg right after text</li>
+<li><code>SendPoll</code>: moved media arg after description* args</li>
+<li>Dedicated enum for <code>PollMedia.Type</code> helper</li>
+</ul>
+<h2 id="whats-new-in-version-221002"><a class="header" href="#whats-new-in-version-221002">What’s new in version 22.10.0.2</a></h2>
+<ul>
+<li><code>GetInfoAndDownloadFile</code> now accept File ID or directly a FileBase (video, audio, document, sticker, etc…)</li>
+<li>Recognize <code>tg://</code> as url for <code>InlineKeyboardButton(string, string)</code> ctor</li>
+</ul>
+<h2 id="whats-new-in-version-22101"><a class="header" href="#whats-new-in-version-22101">What’s new in version 22.10.1</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#june-11-2026">Bot API 10.1</a></li>
+</ul>
+<h2 id="whats-new-in-version-221011"><a class="header" href="#whats-new-in-version-221011">What’s new in version 22.10.1.1</a></h2>
+<ul>
+<li>Rich Message To HTML converter: <code>msg.ToRichHtml()</code> or <code>rich.ToHtml()</code>
+(medias are converted using <code>?file_id=</code> urls which cannot yet be resent via Bot API 10.1)</li>
+<li>Fixed <code>msg.IsServiceMessage</code> for rich message</li>
+<li>Added <code>LinkPreviewOptions.Disabled</code></li>
+<li><code>SendHtml</code>/<code>ToHtml</code> now use <code>tg-spoiler</code> for media spoiler (compatible with Rich Html)</li>
+</ul>
+<h2 id="whats-new-in-version-22102"><a class="header" href="#whats-new-in-version-22102">What’s new in version 22.10.2</a></h2>
+<ul>
+<li>Support for <a href="https://core.telegram.org/bots/api-changelog#july-14-2026">Bot API 10.2</a></li>
+<li><code>ToRichHtml</code> becomes <code>ToInputRichMessage</code> and supports resending medias</li>
+</ul>
+<h2 id="whats-new-in-version-221021"><a class="header" href="#whats-new-in-version-221021">What’s new in version 22.10.2.1</a></h2>
+<ul>
+<li>Fix: using <code>InputFileStream</code> in <code>InputRichMessage</code> <em>(failed previously)</em></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="migration-guide-for-version-21x"><a class="header" href="#migration-guide-for-version-21x">Migration guide for version 21.x</a></h1>
@@ -3160,7 +3199,7 @@ var markup = new InlineKeyboardMarkup(buttonsArray)
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-c22b7243.js"></script>
+        <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

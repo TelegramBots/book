@@ -26,8 +26,8 @@
 
         <link rel="shortcut icon" href="../../favicon-ec4bdd00.png">
         <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -47,7 +47,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-aa42d027.js";
+            window.path_to_searchindex_js = "../../searchindex-15c7e9c1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-1774c27b.js"></script>
@@ -202,7 +202,7 @@
         "No, who`s that?"
     ]);
 </code></pre>
-<p><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll"><span class="img-wrapper"><img src="../docs/shot-native_poll_msg.jpeg" alt="native poll"></span></label></p>
 <p>You can optionally send a keyboard with a poll, both an inline or a regular one.</p>
 <p>You’ll get the message with <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/src/Telegram.Bot/Types/Poll.cs"><code>Poll</code></a> object inside it.</p>
 <h2 id="stop-a-poll"><a class="header" href="#stop-a-poll">Stop a poll</a></h2>
@@ -211,7 +211,7 @@
 <p>Let’s close the poll that we sent in the previous example:</p>
 <pre><code class="language-c#">Poll poll = await bot.StopPoll(pollMessage.Chat, pollMessage.Id);
 </code></pre>
-<p><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll"><span class="img-wrapper"><img src="../docs/shot-native_poll_closed.jpeg" alt="closed native poll"></span></label></p>
 <p>You can add an inline keyboard when you close a poll.</p>
 <p>As a result of the request you’ll get the the final poll state with property <code>Poll.IsClosed</code> set to true.</p>
 <p>If you’ll try to close a forwarded poll using message and chat ids from the received message even if your bot is the author of the poll you’ll get an <code>ApiRequestException</code> with message <code>Bad Request: poll can't be stopped</code>. Polls originated from channels is an exception since forwarded messages originated from channels contain original chat and message ids inside properties <code>Message.ForwardFromChat.Id</code> and <code>Message.ForwardFromMessageId</code>.</p>
@@ -265,7 +265,7 @@
 
         <script src="../../clipboard-1626706a.min.js"></script>
         <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-c22b7243.js"></script>
+        <script src="../../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

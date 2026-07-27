@@ -26,8 +26,8 @@
 
         <link rel="shortcut icon" href="../../favicon-ec4bdd00.png">
         <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -47,7 +47,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-aa42d027.js";
+            window.path_to_searchindex_js = "../../searchindex-15c7e9c1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-1774c27b.js"></script>
@@ -201,7 +201,10 @@
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>If you don’t set OnMessage, the OnUpdate event will be triggered for all updates, including messages.</p>
+<ul>
+<li>If you don’t set OnMessage, the OnUpdate event will be triggered for all updates, including messages.</li>
+<li>If you want to ignore past/pending bot updates when restarting your bot, call <code>await bot.DropPendingUpdatesAsync()</code> before setting those events.</li>
+</ul>
 </blockquote>
 <h2 id="by-using-the-startreceiving-method-or-receiveasync"><a class="header" href="#by-using-the-startreceiving-method-or-receiveasync">By using the <code>StartReceiving</code> method (or <code>ReceiveAsync</code>)</a></h2>
 <p><a href="https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Console.Advanced"><img src="https://img.shields.io/badge/Examples-Console.Advanced-green?style=flat-square" alt="Advanced console application"></a></p>
@@ -278,7 +281,7 @@ while (!cts.IsCancellationRequested)
 
         <script src="../../clipboard-1626706a.min.js"></script>
         <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-c22b7243.js"></script>
+        <script src="../../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

@@ -26,8 +26,8 @@
 
         <link rel="shortcut icon" href="../../favicon-ec4bdd00.png">
         <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -47,7 +47,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-aa42d027.js";
+            window.path_to_searchindex_js = "../../searchindex-15c7e9c1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-1774c27b.js"></script>
@@ -219,7 +219,7 @@ You will learn more about them later on when we discuss file <a href="../../3/fi
 <pre><code class="language-csharp">var message = await bot.SendPhoto(chatId, "https://telegrambots.github.io/book/docs/photo-ara.jpg",
     "&lt;b&gt;Ara bird&lt;/b&gt;. &lt;i&gt;Source&lt;/i&gt;: &lt;a href=\"https://pixabay.com\"&gt;Pixabay&lt;/a&gt;", ParseMode.Html);
 </code></pre>
-<p><img src="../docs/shot-photo_msg.jpg" alt="photo message"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-photo_msg.jpg" alt="photo message"><span class="img-wrapper"><img src="../docs/shot-photo_msg.jpg" alt="photo message"></span></label></p>
 <p>Here we sent a caption in HTML format. The user can click on <u><a href="https://pixabay.com">Pixabay</a></u> in the caption to open its URL in the browser.</p>
 <p>The <code>Message</code> returned by the SendPhoto method represents a <em>photo message</em> because <code>message.Photo</code> has a value.
 Its value is an array with each  <a href="https://core.telegram.org/bots/api#photosize">PhotoSize</a> representing the same photo in different resolutions, with the largest dimensions last.</p>
@@ -232,7 +232,7 @@ and second by reusing <code>FileId</code> of the same sticker on Telegram server
 <pre><code class="language-csharp">var message1 = await bot.SendSticker(chatId, "https://telegrambots.github.io/book/docs/sticker-fred.webp");
 var message2 = await bot.SendSticker(chatId, message1.Sticker!.FileId);
 </code></pre>
-<p><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages"><span class="img-wrapper"><img src="../docs/shot-sticker_msgs.jpg" alt="sticker messages"></span></label></p>
 <h2 id="video"><a class="header" href="#video">Video</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideo"><img src="https://img.shields.io/badge/Bot_API_method-sendVideo-blue.svg?style=flat-square" alt="method sendVideo"></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/VideoMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Video_Messages-green.svg?style=flat-square" alt="tests"></a></p>
@@ -242,7 +242,7 @@ To run this example, download the <a href="https://telegrambots.github.io/book/d
 <pre><code class="language-csharp">await using Stream stream = File.OpenRead("./video-hawk.mp4");
 await bot.SendVideo(chatId, stream);
 </code></pre>
-<p><img src="../docs/shot-video.jpg" alt="video message screenshot"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-video.jpg" alt="video message screenshot"><span class="img-wrapper"><img src="../docs/shot-video.jpg" alt="video message screenshot"></span></label></p>
 <p>Videos, like other multimedia messages, can have caption, reply, reply markup, and etc.
 You can optionally specify the duration and resolution of the video.</p>
 <p>In the example below, we send a video of a 10 minute countdown
@@ -251,7 +251,7 @@ We also set a thumbnail image for our video.</p>
 <pre><code class="language-csharp">await bot.SendVideo(chatId, "https://telegrambots.github.io/book/docs/video-countdown.mp4",
     thumbnail: "https://telegrambots.github.io/book/2/docs/thumb-clock.jpg", supportsStreaming: true);
 </code></pre>
-<p><img src="../docs/shot-video_thumb1.jpg" alt="video screenshot 1"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-video_thumb1.jpg" alt="video screenshot 1"><span class="img-wrapper"><img src="../docs/shot-video_thumb1.jpg" alt="video screenshot 1"></span></label></p>
 <p>User should be able to seek through the video without the video being downloaded completely.</p>
 <h2 id="audio"><a class="header" href="#audio">Audio</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendaudio"><img src="https://img.shields.io/badge/Bot_API_method-sendAudio-blue.svg?style=flat-square" alt="send audio method"></a>
@@ -263,7 +263,7 @@ We also set a thumbnail image for our video.</p>
 </code></pre>
 <p>You might be wondering why some parameters are commented out?
 That’s because this MP3 file has metadata on it and Telegram does a good job at reading it.</p>
-<p><img src="../docs/shot-audio_msg.jpg" alt="audio message"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-audio_msg.jpg" alt="audio message"><span class="img-wrapper"><img src="../docs/shot-audio_msg.jpg" alt="audio message"></span></label></p>
 <p>The method returns an audio Message with the metadata associated with the audio (ex: <code>msg.Audio.Performer</code>, <code>msg.Audio.Duration</code>…)</p>
 <h2 id="voice"><a class="header" href="#voice">Voice</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvoice"><img src="https://img.shields.io/badge/Bot_API_method-sendVoice-blue.svg?style=flat-square" alt="send voice method"></a></p>
@@ -271,7 +271,7 @@ That’s because this MP3 file has metadata on it and Telegram does a good job a
 <p>Here we pass a value for <code>duration</code> because Telegram can’t figure that out from a file’s metadata.</p>
 <pre><code class="language-csharp">var msg = await bot.SendVoice(chatId, "https://telegrambots.github.io/book/docs/voice-nfl_commentary.ogg", duration: 36);
 </code></pre>
-<p><img src="../docs/shot-voice_msg.jpg" alt="voice message"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-voice_msg.jpg" alt="voice message"><span class="img-wrapper"><img src="../docs/shot-voice_msg.jpg" alt="voice message"></span></label></p>
 <p>A voice message is returned from the method. Inspect the <code>msg.Voice</code> properties to learn more.</p>
 <h2 id="video-note"><a class="header" href="#video-note">Video Note</a></h2>
 <p><a href="https://core.telegram.org/bots/api#sendvideonote"><img src="https://img.shields.io/badge/Bot_API_method-sendVideoNote-blue.svg?style=flat-square" alt="method sendVideoNote"></a></p>
@@ -281,7 +281,7 @@ That’s because this MP3 file has metadata on it and Telegram does a good job a
 <pre><code class="language-csharp">await using Stream stream = File.OpenRead("path/to/video-waves.mp4");
 await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = width = height
 </code></pre>
-<p><img src="../docs/shot-video_note.jpg" alt="video note screenshot"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="../docs/shot-video_note.jpg" alt="video note screenshot"><span class="img-wrapper"><img src="../docs/shot-video_note.jpg" alt="video note screenshot"></span></label></p>
 <h2 id="document-files"><a class="header" href="#document-files">Document (files)</a></h2>
 <p><a href="https://core.telegram.org/bots/api#senddocument"><img src="https://img.shields.io/badge/Bot_API_method-sendDocument-blue.svg?style=flat-square" alt="sendDocument method"></a>
 <a href="https://github.com/TelegramBots/Telegram.Bot/blob/master/test/Telegram.Bot.Tests.Integ/Sending%20Messages/DocumentMessageTests.cs"><img src="https://img.shields.io/badge/Examples-Document_Message-green.svg?style=flat-square" alt="tests"></a></p>
@@ -364,7 +364,7 @@ await bot.SendVideoNote(chatId, stream, duration: 47, length: 360); // length = 
 
         <script src="../../clipboard-1626706a.min.js"></script>
         <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-c22b7243.js"></script>
+        <script src="../../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 
